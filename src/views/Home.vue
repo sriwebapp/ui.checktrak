@@ -1,13 +1,11 @@
 <template>
-  <HelloWorld />
-</template>
+  <v-container container--fluid>
+    <h1>hello</h1>
+  </v-container></template
+>
 
 <script>
-import HelloWorld from '../components/HelloWorld';
-
-export default {
-  components: {
-    HelloWorld,
-  },
-};
+export default {}
 </script>
+
+<style></style>
