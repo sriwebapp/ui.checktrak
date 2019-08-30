@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from './../store/store'
 
-axios.defaults.baseURL = process.env.VUE_APP_API
+axios.defaults.baseURL = process.env.VUE_APP_API + '/api'
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers.common['Authorization'] =
   'Bearer ' + store.getters['auth/token']

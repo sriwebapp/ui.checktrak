@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar v-model="show" :color="color" top :timeout="6000">
+  <v-snackbar v-model="show" :color="color" bottom :timeout="6000">
     {{ message }}
     <v-btn icon text small @click="show = false">
       <v-icon>mdi-window-close</v-icon>

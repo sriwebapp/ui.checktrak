@@ -9,19 +9,6 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      component: () => import('./views/Entry.vue'),
-      children: [
-        { path: '', name: 'home', component: () => import('./views/Home.vue') },
-        {
-          path: '*',
-          name: '404',
-          component: () => import('./components/404.vue')
-        }
-      ],
-      meta: { requiresAuth: true }
-    },
-    {
       path: '/login',
       component: () => import('./views/auth/Entry.vue'),
       children: [
@@ -42,6 +29,19 @@ const router = new Router({
         }
       ],
       meta: { requiresVisitor: true }
+    },
+    {
+      path: '/',
+      component: () => import('./views/Entry.vue'),
+      children: [
+        { path: '', name: 'home', component: () => import('./views/Home.vue') },
+        {
+          path: '*',
+          name: '404',
+          component: () => import('./views/404.vue')
+        }
+      ],
+      meta: { requiresAuth: true }
     }
   ]
 })

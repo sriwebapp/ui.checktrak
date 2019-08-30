@@ -1,11 +1,13 @@
 <template>
-  <v-container container--fluid>
-    <h1>hello</h1>
-  </v-container></template
->
+  <message>// Check Monitoring</message>
+</template>
 
 <script>
-export default {}
+export default {
+  components: {
+    message: () => import('./../components/Message.vue')
+  }
+}
 </script>
 
 <style></style>

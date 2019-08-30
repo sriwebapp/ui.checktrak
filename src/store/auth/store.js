@@ -23,7 +23,7 @@ export default {
     login(context, credential) {
       context.commit('loading', true)
       axios
-        .post('/api/login', credential)
+        .post('/login', credential)
         .then(res => {
           const token = res.data.access_token
           localStorage.setItem('access_token', token)
@@ -42,7 +42,7 @@ export default {
     sendResetPassword(context, credential) {
       context.commit('loading', true)
       axios
-        .post('/api/password/email', credential)
+        .post('/password/email', credential)
         .then(() => {
           router.push({ name: 'login' })
         })
@@ -53,7 +53,7 @@ export default {
     resetPassword(context, credential) {
       context.commit('loading', true)
       axios
-        .post('/api/password/reset', credential)
+        .post('/password/reset', credential)
         .then(() => {
           router.push({ name: 'login' })
         })
@@ -63,7 +63,7 @@ export default {
     },
     logout(context) {
       context.commit('logging', true)
-      axios.post('api/logout').then(() => {
+      axios.post('logout').then(() => {
         context.dispatch('clearToken')
         router.push({ name: 'login' })
         context.commit('logging', false)
