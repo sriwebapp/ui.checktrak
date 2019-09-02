@@ -36,6 +36,32 @@ const router = new Router({
       children: [
         { path: '', name: 'home', component: () => import('./views/Home.vue') },
         {
+          path: '/user',
+          component: () => import('./views/user/Entry.vue'),
+          children: [
+            {
+              path: '',
+              name: 'users',
+              component: () => import('./views/user/Index.vue')
+            },
+            {
+              path: 'create',
+              name: 'create-user',
+              component: () => import('./views/user/Create.vue')
+            },
+            {
+              path: ':id/edit',
+              name: 'edit-user',
+              component: () => import('./views/user/Edit.vue')
+            },
+            {
+              path: ':id/access',
+              name: 'user-access',
+              component: () => import('./views/user/Access.vue')
+            }
+          ]
+        },
+        {
           path: '*',
           name: '404',
           component: () => import('./views/404.vue')

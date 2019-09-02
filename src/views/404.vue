@@ -5,7 +5,7 @@
 <script>
 export default {
   components: {
-    message: () => import('./../components/Message.vue')
+    message: () => import('./../components/Blank.vue')
   }
 }
 </script>

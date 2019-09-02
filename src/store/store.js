@@ -3,18 +3,20 @@ import Vuex from 'vuex'
 import Error from './../helper/Error'
 
 import auth from './auth/store'
-import axios from 'axios'
+import user from './user/store'
+import group from './group/store'
+import branch from './branch/store'
+import tools from './tools/store'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: { auth },
+  modules: { auth, user, group, branch, tools },
   state: {
     alert: {},
     drawer: true,
     error: new Error(),
-    showAlert: false,
-    user: {}
+    showAlert: false
   },
   mutations: {
     alert(state, payload) {
@@ -26,22 +28,9 @@ export default new Vuex.Store({
     },
     showAlert(state, payload) {
       state.showAlert = payload
-    },
-    user(state, payload) {
-      state.user = payload
     }
   },
-  actions: {
-    getUser(state) {
-      state.commit('auth/logging', true)
-      axios
-        .get('/auth')
-        .then(res => {
-          state.commit('user', res.data)
-        })
-        .finally(() => state.commit('auth/logging', false))
-    }
-  },
+  actions: {},
   getters: {
     alert(state) {
       return state.alert
@@ -54,9 +43,6 @@ export default new Vuex.Store({
     },
     showAlert(state) {
       return state.showAlert
-    },
-    user(state) {
-      return state.user
     }
   }
 })

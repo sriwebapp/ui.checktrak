@@ -19,7 +19,7 @@ export default {
     navbar: () => import('./../components/Navbar.vue')
   },
   mounted() {
-    this.$store.dispatch('getUser')
+    this.$store.dispatch('auth/getUser')
   }
 }
 </script>

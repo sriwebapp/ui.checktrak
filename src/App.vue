@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import Axios from 'axios'
 
 export default {
   name: 'App',
@@ -14,7 +14,7 @@ export default {
   },
   watch: {
     token() {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token
+      Axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token
     }
   }
 }

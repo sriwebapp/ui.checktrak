@@ -1,4 +1,4 @@
-import axios from 'axios'
+import Axios from 'axios'
 import router from './../../router'
 
 export default {
@@ -6,6 +6,7 @@ export default {
   state: {
     loading: false,
     logging: false,
+    user: {},
     token: localStorage.getItem('access_token') || null
   },
   mutations: {
@@ -17,13 +18,15 @@ export default {
     },
     setToken(state, token) {
       state.token = token
+    },
+    user(state, payload) {
+      state.user = payload
     }
   },
   actions: {
     login(context, credential) {
       context.commit('loading', true)
-      axios
-        .post('/login', credential)
+      Axios.post('/login', credential)
         .then(res => {
           const token = res.data.access_token
           localStorage.setItem('access_token', token)
@@ -41,8 +44,7 @@ export default {
     },
     sendResetPassword(context, credential) {
       context.commit('loading', true)
-      axios
-        .post('/password/email', credential)
+      Axios.post('/password/email', credential)
         .then(() => {
           router.push({ name: 'login' })
         })
@@ -52,8 +54,7 @@ export default {
     },
     resetPassword(context, credential) {
       context.commit('loading', true)
-      axios
-        .post('/password/reset', credential)
+      Axios.post('/password/reset', credential)
         .then(() => {
           router.push({ name: 'login' })
         })
@@ -63,11 +64,19 @@ export default {
     },
     logout(context) {
       context.commit('logging', true)
-      axios.post('logout').then(() => {
+      Axios.post('logout').then(() => {
         context.dispatch('clearToken')
         router.push({ name: 'login' })
         context.commit('logging', false)
       })
+    },
+    getUser(state) {
+      state.commit('logging', true)
+      Axios.get('/auth')
+        .then(res => {
+          state.commit('user', res.data)
+        })
+        .finally(() => state.commit('logging', false))
     },
     clearToken(context) {
       localStorage.removeItem('access_token')
@@ -84,6 +93,9 @@ export default {
     },
     logging(state) {
       return state.logging
+    },
+    user(state) {
+      return state.user
     },
     token(state) {
       return state.token

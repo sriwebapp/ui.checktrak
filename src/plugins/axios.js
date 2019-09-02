@@ -1,13 +1,13 @@
-import axios from 'axios'
+import Axios from 'axios'
 import store from './../store/store'
 
-axios.defaults.baseURL = process.env.VUE_APP_API + '/api'
-axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
-axios.defaults.headers.common['Authorization'] =
+Axios.defaults.baseURL = process.env.VUE_APP_API + '/api'
+Axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+Axios.defaults.headers.common['Authorization'] =
   'Bearer ' + store.getters['auth/token']
 
 // global success and error handler
-axios.interceptors.response.use(
+Axios.interceptors.response.use(
   function(response) {
     if (response.data.message) {
       store.commit('alert', { message: response.data.message, color: 'blue' })
