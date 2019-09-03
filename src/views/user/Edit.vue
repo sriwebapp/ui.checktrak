@@ -75,10 +75,10 @@ export default {
     },
     user: {
       get() {
-        return this.$store.getters['user/selectedUser']
+        return this.$store.getters['user/user']
       },
       set(arg) {
-        this.$store.commit('user/selectedUser', arg)
+        this.$store.commit('user/user', arg)
       }
     }
   },
@@ -88,7 +88,6 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('branch/getBranches')
     this.$store.dispatch('user/getUser', this.$route.params.id)
   }
 }

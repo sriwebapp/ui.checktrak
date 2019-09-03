@@ -5,7 +5,7 @@ export default {
   namespaced: true,
   state: {
     loading: false,
-    logging: false,
+    logging: true,
     user: {},
     token: localStorage.getItem('access_token') || null
   },
@@ -24,59 +24,55 @@ export default {
     }
   },
   actions: {
-    login(context, credential) {
+    async login(context, credential) {
       context.commit('loading', true)
-      Axios.post('/login', credential)
-        .then(res => {
-          const token = res.data.access_token
-          localStorage.setItem('access_token', token)
-          context.commit('setToken', token)
-          router.push({ name: 'home' })
-          context.commit(
-            'alert',
-            { message: 'Successfully logged in.', color: 'blue' },
-            { root: true }
-          )
-        })
-        .finally(() => {
-          context.commit('loading', false)
-        })
+      try {
+        const res = await Axios.post('/login', credential)
+        const token = res.data.access_token
+        localStorage.setItem('access_token', token)
+        context.commit('setToken', token)
+        router.push({ name: 'home' })
+        context.commit(
+          'alert',
+          { message: 'Successfully logged in.', color: 'blue' },
+          { root: true }
+        )
+      } finally {
+        context.commit('loading', false)
+      }
     },
-    sendResetPassword(context, credential) {
+    async sendResetPassword(context, credential) {
       context.commit('loading', true)
-      Axios.post('/password/email', credential)
-        .then(() => {
-          router.push({ name: 'login' })
-        })
-        .finally(() => {
-          context.commit('loading', false)
-        })
-    },
-    resetPassword(context, credential) {
-      context.commit('loading', true)
-      Axios.post('/password/reset', credential)
-        .then(() => {
-          router.push({ name: 'login' })
-        })
-        .finally(() => {
-          context.commit('loading', false)
-        })
-    },
-    logout(context) {
-      context.commit('logging', true)
-      Axios.post('logout').then(() => {
-        context.dispatch('clearToken')
+      try {
+        await Axios.post('/password/email', credential)
         router.push({ name: 'login' })
-        context.commit('logging', false)
-      })
+      } finally {
+        context.commit('loading', false)
+      }
     },
-    getUser(state) {
-      state.commit('logging', true)
-      Axios.get('/auth')
-        .then(res => {
-          state.commit('user', res.data)
-        })
-        .finally(() => state.commit('logging', false))
+    async resetPassword(context, credential) {
+      context.commit('loading', true)
+      try {
+        await Axios.post('/password/reset', credential)
+        router.push({ name: 'login' })
+      } finally {
+        context.commit('loading', false)
+      }
+    },
+    async logout(context) {
+      context.commit('logging', true)
+      try {
+        await Axios.post('logout')
+        router.push({ name: 'login' })
+        context.dispatch('clearToken')
+      } finally {
+        context.commit('logging', false)
+      }
+    },
+    async getUser(state) {
+      const res = await Axios.get('/auth')
+      state.commit('user', res.data)
+      return res
     },
     clearToken(context) {
       localStorage.removeItem('access_token')

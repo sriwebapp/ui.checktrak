@@ -102,10 +102,6 @@ export default {
     create() {
       this.$store.dispatch('user/create', this.user)
     }
-  },
-  mounted() {
-    this.$store.dispatch('group/getGroups')
-    this.$store.dispatch('branch/getBranches')
   }
 }
 </script>

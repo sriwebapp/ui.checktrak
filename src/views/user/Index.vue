@@ -4,7 +4,12 @@
       <v-card-title>
         User Management
         <div class="flex-grow-1"></div>
-        <v-btn class="indigo white--text" router :to="{ name: 'create-user' }">
+        <v-btn
+          class="indigo white--text"
+          router
+          :to="{ name: 'create-user' }"
+          :disabled="loading"
+        >
           New User
         </v-btn>
       </v-card-title>
@@ -23,6 +28,7 @@
                     class="info mr-2"
                     router
                     :to="{ name: 'edit-user', params: { id: item.id } }"
+                    :disabled="loading"
                   >
                     Update
                   </v-btn>
@@ -31,6 +37,7 @@
                     class="warning"
                     router
                     :to="{ name: 'user-access', params: { id: item.id } }"
+                    :disabled="loading"
                   >
                     Access
                   </v-btn>
@@ -61,16 +68,10 @@ export default {
       { text: 'Branch', align: 'left', value: 'branch_id' },
       { text: 'Group', align: 'left', value: 'group_id' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
-    ],
-    selected: []
+    ]
   }),
-  methods: {
-    getUser() {
-      this.$store.dispatch('user/getUsers')
-    }
-  },
   mounted() {
-    this.getUser()
+    this.$store.dispatch('user/getUsers')
   }
 }
 </script>

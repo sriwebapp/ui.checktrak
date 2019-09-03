@@ -30,7 +30,15 @@ export default new Vuex.Store({
       state.showAlert = payload
     }
   },
-  actions: {},
+  actions: {
+    async loadData(context) {
+      context.commit('auth/logging', true)
+      await context.dispatch('auth/getUser')
+      await context.dispatch('group/getGroups')
+      await context.dispatch('branch/getBranches')
+      context.commit('auth/logging', false)
+    }
+  },
   getters: {
     alert(state) {
       return state.alert

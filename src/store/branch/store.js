@@ -11,8 +11,10 @@ export default {
     }
   },
   actions: {
-    getBranches(context) {
-      Axios.get('/branch').then(res => context.commit('branches', res.data))
+    async getBranches(context) {
+      const res = await Axios.get('/branch')
+      context.commit('branches', res.data)
+      return res
     }
   },
   getters: {

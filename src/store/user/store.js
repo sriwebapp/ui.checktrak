@@ -7,7 +7,7 @@ export default {
     group: null,
     loading: false,
     newUser: {},
-    selectedUser: {},
+    user: {},
     users: []
   },
   mutations: {
@@ -20,49 +20,53 @@ export default {
     newUser(state, payload) {
       state.newUser = payload
     },
-    selectedUser(state, payload) {
-      state.selectedUser = payload
+    user(state, payload) {
+      state.user = payload
     },
     users(state, payload) {
       state.users = payload
     }
   },
   actions: {
-    getUser(context, id) {
-      context.commit('selectedUser', {})
-      context.commit('group', {})
+    async getUser(context, id) {
+      context.commit('user', {})
       context.commit('loading', true)
-      Axios.get('/user/' + id)
-        .then(res => {
-          context.commit('selectedUser', res.data)
-          context.commit('group', res.data.group.id)
-        })
-        .finally(() => context.commit('loading', false))
+      try {
+        const res = await Axios.get('/user/' + id)
+        context.commit('user', res.data)
+        context.commit('group', res.data.group.id)
+      } finally {
+        context.commit('loading', false)
+      }
     },
-    getUsers(context) {
+    async getUsers(context) {
       context.commit('loading', true)
-      Axios.get('/user')
-        .then(res => context.commit('users', res.data))
-        .finally(() => context.commit('loading', false))
+      try {
+        const res = await Axios.get('/user')
+        context.commit('users', res.data)
+        return res
+      } finally {
+        context.commit('loading', false)
+      }
     },
-    create(context, user) {
+    async create(context, user) {
       context.commit('loading', true)
-      Axios.post('/user', user)
-        .then(() => {
-          context.commit('newUser', {})
-          router.push({ name: 'users' })
-          context.dispatch('getUsers')
-        })
-        .finally(() => context.commit('loading', false))
+      try {
+        await Axios.post('/user', user)
+        context.commit('newUser', {})
+        router.push({ name: 'users' })
+      } finally {
+        context.commit('loading', false)
+      }
     },
-    edit(context, user) {
+    async edit(context, user) {
       context.commit('loading', true)
-      Axios.patch('/user/' + user.id, user)
-        .then(() => {
-          router.push({ name: 'users' })
-          context.dispatch('getUsers')
-        })
-        .finally(() => context.commit('loading', false))
+      try {
+        await Axios.patch('/user/' + user.id, user)
+        router.push({ name: 'users' })
+      } finally {
+        context.commit('loading', false)
+      }
     }
   },
   getters: {
@@ -75,8 +79,8 @@ export default {
     newUser(state) {
       return state.newUser
     },
-    selectedUser(state) {
-      return state.selectedUser
+    user(state) {
+      return state.user
     },
     users(state) {
       return state.users

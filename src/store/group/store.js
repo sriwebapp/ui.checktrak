@@ -15,11 +15,10 @@ export default {
     }
   },
   actions: {
-    getGroups(context) {
-      context.commit('loading', true)
-      Axios.get('/group')
-        .then(res => context.commit('groups', res.data))
-        .finally(() => context.commit('loading', true))
+    async getGroups(context) {
+      const res = await Axios.get('/group')
+      context.commit('groups', res.data)
+      return res
     }
   },
   getters: {

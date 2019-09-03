@@ -9,12 +9,14 @@
         <v-container grid-list-md>
           <v-flex xs12>
             <v-text-field
+              type="email"
               name="email"
               label="Email"
               prepend-icon="mdi-account-card-details-outline"
               v-model="credential.email"
               :error-messages="error.get('email')"
               autofocus
+              required
             ></v-text-field>
           </v-flex>
 
@@ -26,6 +28,7 @@
               prepend-icon="mdi-lock-open-outline"
               v-model="credential.password"
               :error-messages="error.get('password')"
+              required
             ></v-text-field>
           </v-flex>
 
@@ -35,6 +38,7 @@
               label="Password"
               prepend-icon="mdi-lock-open-outline"
               v-model="credential.password_confirmation"
+              required
             ></v-text-field>
           </v-flex>
         </v-container>

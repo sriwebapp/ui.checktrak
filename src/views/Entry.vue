@@ -4,7 +4,7 @@
     <drawer />
     <navbar />
     <loader />
-    <v-content>
+    <v-content v-if="!logging">
       <router-view></router-view>
     </v-content>
   </v-app>
@@ -18,8 +18,13 @@ export default {
     loader: () => import('./../components/Loader.vue'),
     navbar: () => import('./../components/Navbar.vue')
   },
+  computed: {
+    logging() {
+      return this.$store.getters['auth/logging']
+    }
+  },
   mounted() {
-    this.$store.dispatch('auth/getUser')
+    this.$store.dispatch('loadData')
   }
 }
 </script>
