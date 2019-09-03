@@ -1,5 +1,6 @@
 import Axios from 'axios'
 import store from './../store/store'
+import router from './../router'
 
 Axios.defaults.baseURL = process.env.VUE_APP_API + '/api'
 Axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
@@ -21,8 +22,10 @@ Axios.interceptors.response.use(
         store.dispatch('auth/clearToken')
       } else if (error.response.status === 422) {
         store.state.error.record(error.response.data.errors)
+      } else if (error.response.status === 403) {
+        router.push({ name: 'home' })
       } else {
-        // store.commit('alert', { message: error.message, color: 'red' })
+        store.commit('alert', { message: error.message, color: 'red' })
       }
       console.log(error.response)
     } else if (error.request) {

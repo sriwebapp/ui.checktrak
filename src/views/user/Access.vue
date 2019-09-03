@@ -2,10 +2,7 @@
   <v-container>
     <v-card>
       <v-card-title>Update User Access</v-card-title>
-      <form
-        @submit.prevent="editAccess"
-        @keydown="error.clear($event.target.name)"
-      >
+      <form @submit.prevent="editAccess">
         <v-card-text>
           <v-container grid-list-md>
             <v-flex xs12>
@@ -24,7 +21,9 @@
             <v-divider class="mb-4"></v-divider>
 
             <v-flex xs12>
-              <p class="title">Select Actions:</p>
+              <p :class="{ title: true, 'grey--text': disable('action') }">
+                Select Actions:
+              </p>
             </v-flex>
 
             <v-row no-gutters>
@@ -36,15 +35,18 @@
                 md="2"
               >
                 <v-checkbox
+                  v-model="selectedActions"
                   :label="action.name"
-                  :value="action.id"
-                  :disabled="select('action')"
+                  :value="action.code"
+                  :disabled="disable('action')"
                 ></v-checkbox>
               </v-col>
             </v-row>
 
             <v-flex xs12>
-              <p class="title">Select Branches:</p>
+              <p :class="{ title: true, 'grey--text': disable('branch') }">
+                Select Branches:
+              </p>
             </v-flex>
 
             <v-row no-gutters>
@@ -56,15 +58,18 @@
                 md="2"
               >
                 <v-checkbox
+                  v-model="selectedBranches"
                   :label="branch.name"
-                  :value="branch.id"
-                  :disabled="select('branch')"
+                  :value="branch.code"
+                  :disabled="disable('branch')"
                 ></v-checkbox>
               </v-col>
             </v-row>
 
             <v-flex xs12>
-              <p class="title">Select Modules:</p>
+              <p :class="{ title: true, 'grey--text': disable('module') }">
+                Select Modules:
+              </p>
             </v-flex>
 
             <v-row no-gutters>
@@ -76,9 +81,10 @@
                 md="2"
               >
                 <v-checkbox
+                  v-model="selectedModules"
                   :label="module.name"
-                  :value="module.id"
-                  :disabled="select('module')"
+                  :value="module.code"
+                  :disabled="disable('module')"
                 ></v-checkbox>
               </v-col>
             </v-row>
@@ -112,10 +118,6 @@ export default {
     branches() {
       return this.$store.getters['branch/branches']
     },
-
-    error() {
-      return this.$store.getters.error
-    },
     groups() {
       return this.$store.getters['group/groups']
     },
@@ -135,22 +137,76 @@ export default {
     },
     selectedGroup() {
       return this.groups.find(grp => grp.id === this.group)
+    },
+    user() {
+      return this.$store.getters['user/user']
     }
   },
+  data: () => ({
+    selectedActions: [],
+    selectedBranches: [],
+    selectedModules: []
+  }),
   methods: {
     editAccess() {
-      //   this.$store.dispatch('user/edit', this.user)
+      this.$store.dispatch('user/editAccess', {
+        user_id: this.user.id,
+        group_id: this.group,
+        actions: this.selectedActions,
+        branches: this.selectedBranches,
+        modules: this.selectedModules
+      })
     },
-    select(obj) {
-      return this.selectedGroup[obj] !== 0
+    disable(obj) {
+      if (this.selectedGroup) {
+        return this.selectedGroup[obj] !== 0
+      }
+    },
+    setActions() {
+      if (this.selectedGroup.action === 2) {
+        this.selectedActions = this.actions.map(action => action.code)
+      } else if (this.selectedGroup.action === 1) {
+        this.selectedActions = this.selectedGroup.actions.map(
+          action => action.code
+        )
+      } else {
+        this.selectedActions = this.user.actions.map(action => action.code)
+      }
+    },
+    setBranches() {
+      if (this.selectedGroup.branch === 2) {
+        this.selectedBranches = this.branches.map(branch => branch.code)
+      } else if (this.selectedGroup.branch === 1) {
+        this.selectedBranches = this.selectedGroup.branches.map(
+          branch => branch.code
+        )
+      } else {
+        this.selectedBranches = this.user.branches.map(branch => branch.code)
+      }
+    },
+    setModules() {
+      if (this.selectedGroup.module === 2) {
+        this.selectedModules = this.modules.map(module => module.code)
+      } else if (this.selectedGroup.module === 1) {
+        this.selectedModules = this.selectedGroup.modules.map(
+          module => module.code
+        )
+      } else {
+        this.selectedModules = this.user.modules.map(module => module.code)
+      }
     }
   },
   mounted() {
-    this.$store.dispatch('tools/getActions')
-    this.$store.dispatch('tools/getModules')
-    this.$store.dispatch('branch/getBranches')
-    this.$store.dispatch('group/getGroups')
-    this.$store.dispatch('user/getUser', this.$route.params.id)
+    this.$store.dispatch('user/getGroup', this.$route.params.id)
+  },
+  watch: {
+    selectedGroup() {
+      if (this.selectedGroup) {
+        this.setActions()
+        this.setBranches()
+        this.setModules()
+      }
+    }
   }
 }
 </script>

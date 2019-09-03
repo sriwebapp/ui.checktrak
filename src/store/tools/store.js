@@ -15,15 +15,15 @@ export default {
     }
   },
   actions: {
-    getActions(context) {
-      Axios.get('/tools/actions').then(res => {
-        context.commit('actions', res.data)
-      })
+    async getActions(context) {
+      const res = await Axios.get('/tools/actions')
+      context.commit('actions', res.data)
+      return res
     },
-    getModules(context) {
-      Axios.get('/tools/modules').then(res => {
-        context.commit('modules', res.data)
-      })
+    async getModules(context) {
+      const res = await Axios.get('/tools/modules')
+      context.commit('modules', res.data)
+      return res
     }
   },
   getters: {

@@ -36,6 +36,8 @@ export default new Vuex.Store({
       await context.dispatch('auth/getUser')
       await context.dispatch('group/getGroups')
       await context.dispatch('branch/getBranches')
+      await context.dispatch('tools/getActions')
+      await context.dispatch('tools/getModules')
       context.commit('auth/logging', false)
     }
   },

@@ -28,13 +28,23 @@ export default {
     }
   },
   actions: {
+    async getGroup(context, id) {
+      context.commit('group', null)
+      context.commit('loading', true)
+      try {
+        const res = await Axios.get('/user/' + id)
+        context.commit('user', res.data)
+        context.commit('group', res.data.group.id)
+      } finally {
+        context.commit('loading', false)
+      }
+    },
     async getUser(context, id) {
       context.commit('user', {})
       context.commit('loading', true)
       try {
         const res = await Axios.get('/user/' + id)
         context.commit('user', res.data)
-        context.commit('group', res.data.group.id)
       } finally {
         context.commit('loading', false)
       }
@@ -52,9 +62,9 @@ export default {
     async create(context, user) {
       context.commit('loading', true)
       try {
-        await Axios.post('/user', user)
+        const res = await Axios.post('/user', user)
         context.commit('newUser', {})
-        router.push({ name: 'users' })
+        router.push({ name: 'user-access', params: { id: res.data.user.id } })
       } finally {
         context.commit('loading', false)
       }
@@ -63,6 +73,15 @@ export default {
       context.commit('loading', true)
       try {
         await Axios.patch('/user/' + user.id, user)
+        router.push({ name: 'users' })
+      } finally {
+        context.commit('loading', false)
+      }
+    },
+    async editAccess(context, access) {
+      context.commit('loading', true)
+      try {
+        await Axios.post('/user/' + access.user_id + '/access', access)
         router.push({ name: 'users' })
       } finally {
         context.commit('loading', false)
