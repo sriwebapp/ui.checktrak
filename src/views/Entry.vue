@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <alert />
+    <drawer />
     <navbar />
     <loader />
     <v-content v-if="!logging">
@@ -13,7 +14,7 @@
 export default {
   components: {
     alert: () => import('./../components/Alert.vue'),
-    // drawer: () => import('./../components/Drawer.vue'),
+    drawer: () => import('./../components/Drawer.vue'),
     loader: () => import('./../components/Loader.vue'),
     navbar: () => import('./../components/Navbar.vue')
   },

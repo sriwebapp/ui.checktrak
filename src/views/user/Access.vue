@@ -1,112 +1,110 @@
 <template>
-  <v-container>
-    <v-card>
-      <v-card-title>Update User Access</v-card-title>
-      <form @submit.prevent="editAccess">
-        <v-card-text>
-          <v-container grid-list-md>
-            <v-flex xs12>
-              <p class="title">Select User Group:</p>
-            </v-flex>
+  <v-card>
+    <v-card-title>Update User Access</v-card-title>
+    <form @submit.prevent="editAccess">
+      <v-card-text>
+        <v-container grid-list-md>
+          <v-flex xs12>
+            <p class="title">Select User Group:</p>
+          </v-flex>
 
-            <v-radio-group v-model="group">
-              <v-radio
-                v-for="group in groups"
-                :key="group.id"
-                :label="group.name"
-                :value="group.id"
-              ></v-radio>
-            </v-radio-group>
+          <v-radio-group v-model="group">
+            <v-radio
+              v-for="group in groups"
+              :key="group.id"
+              :label="group.name"
+              :value="group.id"
+            ></v-radio>
+          </v-radio-group>
 
-            <v-divider class="mb-4"></v-divider>
+          <v-divider class="mb-4"></v-divider>
 
-            <v-flex xs12>
-              <p :class="{ title: true, 'grey--text': disable('action') }">
-                Select Actions:
-              </p>
-            </v-flex>
+          <v-flex xs12>
+            <p :class="{ title: true, 'grey--text': disable('action') }">
+              Select Actions:
+            </p>
+          </v-flex>
 
-            <v-row no-gutters>
-              <v-col
-                v-for="action in actions"
-                :key="action.id"
-                cols="12"
-                sm="4"
-                md="2"
-              >
-                <v-checkbox
-                  v-model="selectedActions"
-                  :label="action.name"
-                  :value="action.code"
-                  :disabled="disable('action')"
-                ></v-checkbox>
-              </v-col>
-            </v-row>
+          <v-row no-gutters>
+            <v-col
+              v-for="action in actions"
+              :key="action.id"
+              cols="12"
+              sm="4"
+              md="2"
+            >
+              <v-checkbox
+                v-model="selectedActions"
+                :label="action.name"
+                :value="action.code"
+                :disabled="disable('action')"
+              ></v-checkbox>
+            </v-col>
+          </v-row>
 
-            <v-flex xs12>
-              <p :class="{ title: true, 'grey--text': disable('branch') }">
-                Select Branches:
-              </p>
-            </v-flex>
+          <v-flex xs12>
+            <p :class="{ title: true, 'grey--text': disable('branch') }">
+              Select Branches:
+            </p>
+          </v-flex>
 
-            <v-row no-gutters>
-              <v-col
-                v-for="branch in branches"
-                :key="branch.id"
-                cols="12"
-                sm="4"
-                md="2"
-              >
-                <v-checkbox
-                  v-model="selectedBranches"
-                  :label="branch.name"
-                  :value="branch.code"
-                  :disabled="disable('branch')"
-                ></v-checkbox>
-              </v-col>
-            </v-row>
+          <v-row no-gutters>
+            <v-col
+              v-for="branch in branches"
+              :key="branch.id"
+              cols="12"
+              sm="4"
+              md="2"
+            >
+              <v-checkbox
+                v-model="selectedBranches"
+                :label="branch.name"
+                :value="branch.code"
+                :disabled="disable('branch')"
+              ></v-checkbox>
+            </v-col>
+          </v-row>
 
-            <v-flex xs12>
-              <p :class="{ title: true, 'grey--text': disable('module') }">
-                Select Modules:
-              </p>
-            </v-flex>
+          <v-flex xs12>
+            <p :class="{ title: true, 'grey--text': disable('module') }">
+              Select Modules:
+            </p>
+          </v-flex>
 
-            <v-row no-gutters>
-              <v-col
-                v-for="module in modules"
-                :key="module.id"
-                cols="12"
-                sm="4"
-                md="2"
-              >
-                <v-checkbox
-                  v-model="selectedModules"
-                  :label="module.name"
-                  :value="module.code"
-                  :disabled="disable('module')"
-                ></v-checkbox>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
+          <v-row no-gutters>
+            <v-col
+              v-for="module in modules"
+              :key="module.id"
+              cols="12"
+              sm="4"
+              md="2"
+            >
+              <v-checkbox
+                v-model="selectedModules"
+                :label="module.name"
+                :value="module.code"
+                :disabled="disable('module')"
+              ></v-checkbox>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
 
-        <v-card-actions>
-          <v-btn type="submit" color="indigo" dark :loading="loading">
-            Update
-          </v-btn>
-          <v-btn
-            class="deep-orange white--text"
-            router
-            :to="{ name: 'users' }"
-            :disabled="loading"
-          >
-            Return
-          </v-btn>
-        </v-card-actions>
-      </form>
-    </v-card>
-  </v-container>
+      <v-card-actions>
+        <v-btn type="submit" color="indigo" dark :loading="loading">
+          Update
+        </v-btn>
+        <v-btn
+          class="deep-orange white--text"
+          router
+          :to="{ name: 'users' }"
+          :disabled="loading"
+        >
+          Return
+        </v-btn>
+      </v-card-actions>
+    </form>
+  </v-card>
 </template>
 
 <script>

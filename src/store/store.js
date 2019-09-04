@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import Error from './../helper/Error'
 
 import auth from './auth/store'
+import company from './company/store'
 import user from './user/store'
 import group from './group/store'
 import branch from './branch/store'
@@ -11,10 +12,10 @@ import tools from './tools/store'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: { auth, user, group, branch, tools },
+  modules: { auth, company, user, group, branch, tools },
   state: {
     alert: {},
-    drawer: true,
+    drawer: false,
     error: new Error(),
     showAlert: false
   },
