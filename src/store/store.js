@@ -35,8 +35,9 @@ export default new Vuex.Store({
     async loadData(context) {
       context.commit('auth/logging', true)
       await context.dispatch('auth/getUser')
-      await context.dispatch('group/getGroups')
-      await context.dispatch('branch/getBranches')
+      await context.dispatch('tools/getUsers')
+      await context.dispatch('tools/getGroups')
+      await context.dispatch('tools/getBranches')
       await context.dispatch('tools/getActions')
       await context.dispatch('tools/getModules')
       context.commit('auth/logging', false)

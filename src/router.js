@@ -5,6 +5,7 @@ import store from './store/store'
 import auth from './routes/auth'
 import user from './routes/user'
 import company from './routes/company'
+import branch from './routes/branch'
 
 Vue.use(Router)
 
@@ -20,6 +21,7 @@ const router = new Router({
         { path: '', name: 'home', component: () => import('./views/Home.vue') },
         company,
         user,
+        branch,
         {
           path: '*',
           name: '404',

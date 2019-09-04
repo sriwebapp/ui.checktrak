@@ -63,7 +63,7 @@
 export default {
   computed: {
     branches() {
-      return this.$store.getters['branch/branches']
+      return this.$store.getters['tools/branches']
     },
     error() {
       return this.$store.getters.error

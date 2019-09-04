@@ -32,7 +32,7 @@
             <v-select
               v-model="user.branch_id"
               :error-messages="error.get('branch_id')"
-              name="branch"
+              name="branch_id"
               label="Select Branch"
               prepend-icon="mdi-compass"
               :items="branches"
@@ -45,7 +45,7 @@
             <v-select
               v-model="user.group_id"
               :error-messages="error.get('group_id')"
-              name="group"
+              name="group_id"
               label="Select Group"
               prepend-icon="mdi-account-group"
               :items="groups"
@@ -76,13 +76,13 @@
 export default {
   computed: {
     branches() {
-      return this.$store.getters['branch/branches']
+      return this.$store.getters['tools/branches']
     },
     error() {
       return this.$store.getters.error
     },
     groups() {
-      return this.$store.getters['group/groups']
+      return this.$store.getters['tools/groups']
     },
     loading() {
       return this.$store.getters['user/loading']

@@ -4,14 +4,26 @@ export default {
   namespaced: true,
   state: {
     actions: [],
-    modules: []
+    branches: [],
+    groups: [],
+    modules: [],
+    users: []
   },
   mutations: {
     actions(state, payload) {
       state.actions = payload
     },
+    branches(state, payload) {
+      state.branches = payload
+    },
+    groups(state, payload) {
+      state.groups = payload
+    },
     modules(state, payload) {
       state.modules = payload
+    },
+    users(state, payload) {
+      state.users = payload
     }
   },
   actions: {
@@ -20,9 +32,24 @@ export default {
       context.commit('actions', res.data)
       return res
     },
+    async getBranches(context) {
+      const res = await Axios.get('/tools/branches')
+      context.commit('branches', res.data)
+      return res
+    },
+    async getGroups(context) {
+      const res = await Axios.get('/tools/groups')
+      context.commit('groups', res.data)
+      return res
+    },
     async getModules(context) {
       const res = await Axios.get('/tools/modules')
       context.commit('modules', res.data)
+      return res
+    },
+    async getUsers(context) {
+      const res = await Axios.get('/tools/users')
+      context.commit('users', res.data)
       return res
     }
   },
@@ -30,8 +57,17 @@ export default {
     actions(state) {
       return state.actions
     },
+    branches(state) {
+      return state.branches
+    },
+    groups(state) {
+      return state.groups
+    },
     modules(state) {
       return state.modules
+    },
+    users(state) {
+      return state.users
     }
   }
 }

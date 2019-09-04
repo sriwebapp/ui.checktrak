@@ -114,10 +114,10 @@ export default {
       return this.$store.getters['tools/actions']
     },
     branches() {
-      return this.$store.getters['branch/branches']
+      return this.$store.getters['tools/branches']
     },
     groups() {
-      return this.$store.getters['group/groups']
+      return this.$store.getters['tools/groups']
     },
     loading() {
       return this.$store.getters['user/loading']

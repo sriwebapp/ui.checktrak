@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>Edit Company</v-card-title>
-    <form @submit.prevent="edit">
+    <form @submit.prevent="edit" @keydown="error.clear($event.target.name)">
       <v-card-text>
         <v-container grid-list-md>
           <v-flex xs12>

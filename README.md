@@ -12,3 +12,5 @@
 ## Seeding Data
 
 - Company
+- Branch
+- Group access
