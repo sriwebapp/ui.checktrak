@@ -42,7 +42,7 @@ export default {
     headers: [
       { text: 'Code', align: 'left', value: 'code' },
       { text: 'Name', align: 'left', value: 'name' },
-      { text: 'In Charge', align: 'left', value: 'incharge_id' },
+      { text: 'InCharge', align: 'left', value: 'incharge_id' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ]
   }),

@@ -43,8 +43,8 @@
               </td>
             </tr>
           </tbody>
-        </template></v-data-table
-      >
+        </template>
+      </v-data-table>
     </v-card-text>
   </v-card>
 </template>
