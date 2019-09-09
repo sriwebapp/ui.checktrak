@@ -35,6 +35,10 @@ export default new Vuex.Store({
     async loadData(context) {
       context.commit('auth/logging', true)
       await context.dispatch('auth/getUser')
+      await context.dispatch(
+        'tools/getCompany',
+        localStorage.getItem('company_id')
+      )
       await context.dispatch('tools/getUsers')
       await context.dispatch('tools/getGroups')
       await context.dispatch('tools/getBranches')

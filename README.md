@@ -8,6 +8,10 @@
 - remove all in pagination options
 - disable changes if no changes happen
 - redirect to 404 once model not found
+- Username / instead of email
+- Send email after registered
+- Log activities in slack
+- Inactive Log In
 
 ## Seeding Data
 

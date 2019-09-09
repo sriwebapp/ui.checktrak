@@ -4,12 +4,16 @@ import router from './../../router'
 export default {
   namespaced: true,
   state: {
+    company: parseInt(localStorage.getItem('company_id')) || null,
     loading: false,
     logging: true,
     user: {},
     token: localStorage.getItem('access_token') || null
   },
   mutations: {
+    company(state, id) {
+      state.company = id
+    },
     loading(state, payload) {
       state.loading = payload
     },
@@ -28,9 +32,10 @@ export default {
       context.commit('loading', true)
       try {
         const res = await Axios.post('/login', credential)
-        const token = res.data.access_token
-        localStorage.setItem('access_token', token)
+        const token = res.data.token.access_token
         context.commit('setToken', token)
+        localStorage.setItem('access_token', token)
+        localStorage.setItem('company_id', res.data.company)
         router.push({ name: 'home' })
         context.commit(
           'alert',
@@ -64,7 +69,7 @@ export default {
       try {
         await Axios.post('logout')
         router.push({ name: 'login' })
-        context.dispatch('clearToken')
+        context.dispatch('clearStorage')
       } finally {
         context.commit('logging', false)
       }
@@ -74,13 +79,16 @@ export default {
       state.commit('user', res.data)
       return res
     },
-    clearToken(context) {
-      localStorage.removeItem('access_token')
+    clearStorage(context) {
       context.commit('setToken', null)
+      localStorage.removeItem('access_token')
       router.push({ name: 'login' })
     }
   },
   getters: {
+    company(state) {
+      return state.company
+    },
     loading(state) {
       return state.loading
     },

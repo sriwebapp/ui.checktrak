@@ -19,7 +19,7 @@ Axios.interceptors.response.use(
   function(error) {
     if (error.response) {
       if (error.response.status === 401) {
-        store.dispatch('auth/clearToken')
+        store.dispatch('auth/clearStorage')
       } else if (error.response.status === 422) {
         store.state.error.record(error.response.data.errors)
       } else if (error.response.status === 403) {

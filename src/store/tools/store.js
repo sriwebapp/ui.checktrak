@@ -5,6 +5,8 @@ export default {
   state: {
     actions: [],
     branches: [],
+    company: {},
+    companies: [],
     groups: [],
     modules: [],
     users: []
@@ -15,6 +17,12 @@ export default {
     },
     branches(state, payload) {
       state.branches = payload
+    },
+    company(state, payload) {
+      state.company = payload
+    },
+    companies(state, payload) {
+      state.companies = payload
     },
     groups(state, payload) {
       state.groups = payload
@@ -35,6 +43,16 @@ export default {
     async getBranches(context) {
       const res = await Axios.get('/tools/branches')
       context.commit('branches', res.data)
+      return res
+    },
+    async getCompany(context, id) {
+      const res = await Axios.get('/tools/company/' + id)
+      context.commit('company', res.data)
+      return res
+    },
+    async getCompanies(context) {
+      const res = await Axios.get('/tools/companies')
+      context.commit('companies', res.data)
       return res
     },
     async getGroups(context) {
@@ -59,6 +77,12 @@ export default {
     },
     branches(state) {
       return state.branches
+    },
+    company(state) {
+      return state.company
+    },
+    companies(state) {
+      return state.companies
     },
     groups(state) {
       return state.groups

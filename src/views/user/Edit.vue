@@ -6,7 +6,7 @@
         <v-container grid-list-md>
           <v-flex xs12>
             <v-text-field
-              v-model="user.name"
+              v-model="editedUser.name"
               :error-messages="error.get('name')"
               name="name"
               label="Name"
@@ -18,7 +18,7 @@
 
           <v-flex xs12>
             <v-text-field
-              v-model="user.email"
+              v-model="editedUser.email"
               :error-messages="error.get('email')"
               name="email"
               type="email"
@@ -30,7 +30,7 @@
 
           <v-flex xs12>
             <v-select
-              v-model="user.branch_id"
+              v-model="editedUser.branch_id"
               :error-messages="error.get('branch_id')"
               name="branch"
               label="Select Branch"
@@ -43,7 +43,12 @@
         </v-container>
       </v-card-text>
       <v-card-actions>
-        <v-btn type="submit" color="indigo" dark :loading="loading">
+        <v-btn
+          type="submit"
+          color="indigo white--text"
+          :loading="loading"
+          :disabled="noChanges"
+        >
           Update
         </v-btn>
         <v-btn
@@ -71,13 +76,19 @@ export default {
     loading() {
       return this.$store.getters['user/loading']
     },
-    user: {
+    editedUser: {
       get() {
-        return this.$store.getters['user/user']
+        return this.$store.getters['user/editedUser']
       },
       set(arg) {
-        this.$store.commit('user/user', arg)
+        this.$store.commit('user/editedUser', arg)
       }
+    },
+    user() {
+      return this.$store.getters['user/user']
+    },
+    noChanges() {
+      return this._.isEqual(this.user, this.editedUser)
     }
   },
   methods: {

@@ -54,9 +54,9 @@ export default {
   data: () => ({
     headers: [
       { text: 'Name', align: 'left', value: 'name' },
-      { text: 'Actions', align: 'center', value: 'action' },
-      { text: 'Branch', align: 'center', value: 'branch' },
-      { text: 'Module', align: 'center', value: 'module' },
+      { text: 'Actions', align: 'center', value: 'action', sortable: false },
+      { text: 'Branch', align: 'center', value: 'branch', sortable: false },
+      { text: 'Module', align: 'center', value: 'module', sortable: false },
       { text: 'Manage', align: 'center', value: 'manage', sortable: false }
     ]
   }),

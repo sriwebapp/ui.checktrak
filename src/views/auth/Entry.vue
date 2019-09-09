@@ -18,6 +18,9 @@
 export default {
   components: {
     alert: () => import('./../../components/Alert.vue')
+  },
+  mounted() {
+    this.$store.dispatch('tools/getCompanies')
   }
 }
 </script>

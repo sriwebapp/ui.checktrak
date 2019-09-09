@@ -22,6 +22,13 @@
               <td>{{ item.branch ? item.branch.name : '' }}</td>
               <td>{{ item.group.name }}</td>
               <td class="text-center">
+                <v-icon :class="item.active ? 'green--text' : 'red--text'">{{
+                  item.active
+                    ? 'mdi-check-circle-outline'
+                    : 'mdi-close-circle-outline'
+                }}</v-icon>
+              </td>
+              <td class="text-center">
                 <v-btn
                   small
                   class="info mr-2"
@@ -65,6 +72,7 @@ export default {
       { text: 'Email', align: 'left', value: 'email' },
       { text: 'Branch', align: 'left', value: 'branch_id' },
       { text: 'Group', align: 'left', value: 'group_id' },
+      { text: 'Active', align: 'center', value: 'active' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ]
   }),

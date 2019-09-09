@@ -14,7 +14,7 @@
               type="email"
               prepend-icon="mdi-account-card-details-outline"
               :error-messages="error.get('email')"
-              v-model="credential.email"
+              v-model="email"
               autofocus
               required
             ></v-text-field>
@@ -27,9 +27,23 @@
               label="Password"
               :error-messages="error.get('password')"
               prepend-icon="mdi-lock-open-outline"
-              v-model="credential.password"
+              v-model="password"
               required
             ></v-text-field>
+          </v-flex>
+
+          <v-flex xs12>
+            <v-select
+              v-model="company_id"
+              :error-messages="error.get('company_id')"
+              name="company_id"
+              label="Select Company"
+              prepend-icon="mdi-home-city-outline"
+              :items="companies"
+              item-text="name"
+              item-value="id"
+            >
+            </v-select>
           </v-flex>
         </v-container>
       </v-card-text>
@@ -55,6 +69,17 @@
 <script>
 export default {
   computed: {
+    company_id: {
+      get() {
+        return this.$store.getters['auth/company']
+      },
+      set(arg) {
+        this.$store.commit('auth/company', arg)
+      }
+    },
+    companies() {
+      return this.$store.getters['tools/companies']
+    },
     loading() {
       return this.$store.getters['auth/loading']
     },
@@ -63,11 +88,16 @@ export default {
     }
   },
   data: () => ({
-    credential: {}
+    email: null,
+    password: null
   }),
   methods: {
     login() {
-      this.$store.dispatch('auth/login', this.credential)
+      this.$store.dispatch('auth/login', {
+        email: this.email,
+        password: this.password,
+        company_id: this.company_id
+      })
     }
   }
 }

@@ -4,6 +4,7 @@ import router from './../../router.js'
 export default {
   namespaced: true,
   state: {
+    editedUser: {},
     group: null,
     loading: false,
     newUser: {},
@@ -22,6 +23,7 @@ export default {
     },
     user(state, payload) {
       state.user = payload
+      state.editedUser = Object.assign({}, payload)
     },
     users(state, payload) {
       state.users = payload
@@ -89,6 +91,9 @@ export default {
     }
   },
   getters: {
+    editedUser(state) {
+      return state.editedUser
+    },
     group(state) {
       return state.group
     },
