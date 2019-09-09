@@ -7,6 +7,7 @@ import user from './routes/user'
 import company from './routes/company'
 import branch from './routes/branch'
 import group from './routes/group'
+import account from './routes/account'
 
 Vue.use(Router)
 
@@ -24,6 +25,7 @@ const router = new Router({
         group,
         user,
         branch,
+        account,
         {
           path: '*',
           name: '404',

@@ -29,7 +29,7 @@
           <v-text-field
             :value="company.address"
             label="Address"
-            prepend-icon="mdi-city"
+            prepend-icon="mdi-map-marker"
             placeholder=" "
             readonly
           >

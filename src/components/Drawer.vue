@@ -40,7 +40,8 @@ export default {
         icon: 'mdi-account-group',
         route: '/group'
       },
-      { title: 'User Management', icon: 'mdi-account', route: '/user' }
+      { title: 'User Management', icon: 'mdi-account', route: '/user' },
+      { title: 'Account Management', icon: 'mdi-account', route: '/account' }
     ]
   })
 }

@@ -46,9 +46,13 @@ export default {
       return res
     },
     async getCompany(context, id) {
-      const res = await Axios.get('/tools/company/' + id)
-      context.commit('company', res.data)
-      return res
+      try {
+        const res = await Axios.get('/tools/company/' + id)
+        context.commit('company', res.data)
+        return res
+      } catch (error) {
+        context.dispatch('auth/clearStorage', {}, { root: true })
+      }
     },
     async getCompanies(context) {
       const res = await Axios.get('/tools/companies')

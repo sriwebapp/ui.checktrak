@@ -12,6 +12,7 @@
 - Send email after registered
 - Log activities in slack
 - Inactive Log In
+- clear store on logout
 
 ## Seeding Data
 

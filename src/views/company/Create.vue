@@ -34,7 +34,7 @@
               :error-messages="error.get('address')"
               name="address"
               label="Address"
-              prepend-icon="mdi-city"
+              prepend-icon="mdi-map-marker"
               required
             >
             </v-text-field>
