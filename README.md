@@ -13,6 +13,7 @@
 - Log activities in slack
 - Inactive Log In
 - clear store on logout
+- server side payee datatable/ update
 
 ## Seeding Data
 

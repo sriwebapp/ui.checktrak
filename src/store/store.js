@@ -9,11 +9,13 @@ import group from './group/store'
 import branch from './branch/store'
 import tools from './tools/store'
 import account from './account/store'
+import payee from './payee/store'
+import check from './check/store'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: { auth, company, user, group, branch, tools, account },
+  modules: { auth, company, user, group, branch, tools, account, payee, check },
   state: {
     alert: {},
     drawer: false,
@@ -45,6 +47,7 @@ export default new Vuex.Store({
       await context.dispatch('tools/getBranches')
       await context.dispatch('tools/getActions')
       await context.dispatch('tools/getModules')
+      await context.dispatch('tools/getPayeeGroup')
       context.commit('auth/logging', false)
     }
   },

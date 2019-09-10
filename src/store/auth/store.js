@@ -81,6 +81,12 @@ export default {
     },
     clearStorage(context) {
       context.commit('setToken', null)
+      context.commit('company/companies', [], { root: true })
+      context.commit('branch/branches', [], { root: true })
+      context.commit('group/groups', [], { root: true })
+      context.commit('user/users', [], { root: true })
+      context.commit('account/accounts', [], { root: true })
+      context.commit('payee/payees', [], { root: true })
       localStorage.removeItem('access_token')
       router.push({ name: 'login' })
     }

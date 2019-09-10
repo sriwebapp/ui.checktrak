@@ -1,40 +1,48 @@
 <template>
   <v-card>
-    <v-card-title>Create Branch</v-card-title>
+    <v-card-title>Create Payee</v-card-title>
     <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
       <v-card-text>
         <v-container grid-list-md>
           <v-flex xs12>
             <v-text-field
-              v-model="branch.code"
+              v-model="payee.code"
               :error-messages="error.get('code')"
               name="code"
-              label="Branch Code"
+              label="Code"
               prepend-icon="mdi-tag"
               autofocus
-              required
             ></v-text-field>
           </v-flex>
 
           <v-flex xs12>
             <v-text-field
-              v-model="branch.name"
+              v-model="payee.name"
               :error-messages="error.get('name')"
               name="name"
-              label="Branch Name"
+              label="Name"
               prepend-icon="mdi-tag-text-outline"
-              required
+            ></v-text-field>
+          </v-flex>
+
+          <v-flex xs12>
+            <v-text-field
+              v-model="payee.desc"
+              :error-messages="error.get('desc')"
+              name="desc"
+              label="Description"
+              prepend-icon="mdi-clipboard-list-outline"
             ></v-text-field>
           </v-flex>
 
           <v-flex xs12>
             <v-select
-              v-model="branch.incharge_id"
-              :error-messages="error.get('incharge_id')"
-              name="incharge_id"
-              label="Select Incharge"
-              prepend-icon="mdi-account"
-              :items="users"
+              v-model="payee.payee_group_id"
+              :error-messages="error.get('payee_group_id')"
+              name="payee_group_id"
+              label="Select Group"
+              prepend-icon="mdi-account-group"
+              :items="group"
               item-text="name"
               item-value="id"
             ></v-select>
@@ -49,7 +57,7 @@
         <v-btn
           class="deep-orange white--text"
           router
-          :to="{ name: 'branches' }"
+          :to="{ name: 'payees' }"
           :disabled="loading"
         >
           Return
@@ -62,27 +70,22 @@
 <script>
 export default {
   computed: {
-    branch: {
-      get() {
-        return this.$store.getters['branch/newBranch']
-      },
-      set(arg) {
-        this.$store.commit('branch/newBranch', arg)
-      }
-    },
     error() {
       return this.$store.getters.error
     },
     loading() {
-      return this.$store.getters['branch/loading']
+      return this.$store.getters['payee/loading']
     },
-    users() {
-      return this.$store.getters['tools/users']
+    group() {
+      return this.$store.getters['tools/payeeGroup']
     }
   },
+  data: () => ({
+    payee: {}
+  }),
   methods: {
     create() {
-      this.$store.dispatch('branch/create', this.branch)
+      this.$store.dispatch('payee/create', this.payee)
     }
   }
 }

@@ -9,6 +9,7 @@ export default {
     companies: [],
     groups: [],
     modules: [],
+    payeeGroup: [],
     users: []
   },
   mutations: {
@@ -29,6 +30,9 @@ export default {
     },
     modules(state, payload) {
       state.modules = payload
+    },
+    payeeGroup(state, payload) {
+      state.payeeGroup = payload
     },
     users(state, payload) {
       state.users = payload
@@ -69,6 +73,11 @@ export default {
       context.commit('modules', res.data)
       return res
     },
+    async getPayeeGroup(context) {
+      const res = await Axios.get('/tools/payee-group')
+      context.commit('payeeGroup', res.data)
+      return res
+    },
     async getUsers(context) {
       const res = await Axios.get('/tools/users')
       context.commit('users', res.data)
@@ -93,6 +102,9 @@ export default {
     },
     modules(state) {
       return state.modules
+    },
+    payeeGroup(state) {
+      return state.payeeGroup
     },
     users(state) {
       return state.users

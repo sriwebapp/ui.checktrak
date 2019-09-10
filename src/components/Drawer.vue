@@ -41,7 +41,8 @@ export default {
         route: '/group'
       },
       { title: 'User Management', icon: 'mdi-account', route: '/user' },
-      { title: 'Account Management', icon: 'mdi-account', route: '/account' }
+      { title: 'Account Management', icon: 'mdi-bank', route: '/account' },
+      { title: 'Payee Management', icon: 'mdi-receipt', route: '/payee' }
     ]
   })
 }

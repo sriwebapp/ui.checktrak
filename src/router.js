@@ -8,6 +8,8 @@ import company from './routes/company'
 import branch from './routes/branch'
 import group from './routes/group'
 import account from './routes/account'
+import payee from './routes/payee'
+import check from './routes/check'
 
 Vue.use(Router)
 
@@ -26,6 +28,8 @@ const router = new Router({
         user,
         branch,
         account,
+        payee,
+        check,
         {
           path: '*',
           name: '404',
