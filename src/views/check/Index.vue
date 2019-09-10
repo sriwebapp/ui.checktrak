@@ -1,20 +1,22 @@
 <template>
-  <div>
-    <v-data-table :headers="headers" :items="checks" :loading="loading">
-      <template v-slot:body="{ items }">
-        <tbody>
-          <tr v-for="item in items" :key="item.id">
-            <td>{{ item.account.code }}</td>
-            <td>{{ item.number }}</td>
-            <td>{{ item.date }}</td>
-            <td>{{ item.payee.name }}</td>
-            <td>{{ item.amount }}</td>
-            <td>{{ item.status.name }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-data-table>
-  </div>
+  <v-data-table
+    v-model="selected"
+    :headers="headers"
+    :items="checks"
+    :loading="loading"
+    class="elevation-1"
+    show-select
+  >
+    <template v-slot:item.account_id="{ item }"
+      >{{ item.account.code }}
+    </template>
+    <template v-slot:item.payee_id="{ item }"
+      >{{ item.payee.name }}
+    </template>
+    <template v-slot:item.status_id="{ item }"
+      >{{ item.status.name }}
+    </template>
+  </v-data-table>
 </template>
 
 <script>
@@ -35,7 +37,8 @@ export default {
       { text: 'Payee', align: 'left', value: 'payee_id' },
       { text: 'Amount', align: 'left', value: 'amount' },
       { text: 'Status', align: 'left', value: 'status_id' }
-    ]
+    ],
+    selected: []
   }),
   mounted() {
     this.$store.dispatch('check/getChecks')

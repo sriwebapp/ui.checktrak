@@ -7,6 +7,7 @@
     <v-content v-if="!logging">
       <router-view></router-view>
     </v-content>
+    <control />
   </v-app>
 </template>
 
@@ -16,7 +17,8 @@ export default {
     alert: () => import('./../components/Alert.vue'),
     drawer: () => import('./../components/Drawer.vue'),
     loader: () => import('./../components/Loader.vue'),
-    navbar: () => import('./../components/Navbar.vue')
+    navbar: () => import('./../components/Navbar.vue'),
+    control: () => import('./../components/Control.vue')
   },
   computed: {
     logging() {

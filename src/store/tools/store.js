@@ -3,16 +3,21 @@ import Axios from 'axios'
 export default {
   namespaced: true,
   state: {
+    accounts: [],
     actions: [],
     branches: [],
     company: {},
     companies: [],
     groups: [],
     modules: [],
+    payees: [],
     payeeGroup: [],
     users: []
   },
   mutations: {
+    accounts(state, payload) {
+      state.accounts = payload
+    },
     actions(state, payload) {
       state.actions = payload
     },
@@ -31,6 +36,9 @@ export default {
     modules(state, payload) {
       state.modules = payload
     },
+    payees(state, payload) {
+      state.payees = payload
+    },
     payeeGroup(state, payload) {
       state.payeeGroup = payload
     },
@@ -39,6 +47,13 @@ export default {
     }
   },
   actions: {
+    async getAccounts(context) {
+      const res = await Axios.get(
+        '/tools/accounts/' + context.rootGetters['tools/company'].code
+      )
+      context.commit('accounts', res.data)
+      return res
+    },
     async getActions(context) {
       const res = await Axios.get('/tools/actions')
       context.commit('actions', res.data)
@@ -73,6 +88,13 @@ export default {
       context.commit('modules', res.data)
       return res
     },
+    async getPayees(context) {
+      const res = await Axios.get(
+        '/tools/payees/' + context.rootGetters['tools/company'].code
+      )
+      context.commit('payees', res.data)
+      return res
+    },
     async getPayeeGroup(context) {
       const res = await Axios.get('/tools/payee-group')
       context.commit('payeeGroup', res.data)
@@ -85,6 +107,9 @@ export default {
     }
   },
   getters: {
+    accounts(state) {
+      return state.accounts
+    },
     actions(state) {
       return state.actions
     },
@@ -102,6 +127,9 @@ export default {
     },
     modules(state) {
       return state.modules
+    },
+    payees(state) {
+      return state.payees
     },
     payeeGroup(state) {
       return state.payeeGroup

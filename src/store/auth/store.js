@@ -87,6 +87,7 @@ export default {
       context.commit('user/users', [], { root: true })
       context.commit('account/accounts', [], { root: true })
       context.commit('payee/payees', [], { root: true })
+      context.commit('check/checks', [], { root: true })
       localStorage.removeItem('access_token')
       router.push({ name: 'login' })
     }

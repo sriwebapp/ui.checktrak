@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>Create Company</v-card-title>
     <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
-      <v-card-title>
+      <v-card-text>
         <v-container grid-list-md>
           <v-flex xs12>
             <v-text-field
@@ -96,7 +96,7 @@
             </v-text-field>
           </v-flex>
         </v-container>
-      </v-card-title>
+      </v-card-text>
       <v-card-actions>
         <v-btn type="submit" class="indigo white--text" :loading="loading">
           Save

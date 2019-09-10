@@ -20,6 +20,7 @@ export default new Vuex.Store({
     alert: {},
     drawer: false,
     error: new Error(),
+    footer: false,
     showAlert: false
   },
   mutations: {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     },
     drawer(state, payload) {
       state.drawer = payload
+    },
+    footer(state, payload) {
+      state.footer = payload
     },
     showAlert(state, payload) {
       state.showAlert = payload
@@ -49,6 +53,12 @@ export default new Vuex.Store({
       await context.dispatch('tools/getModules')
       await context.dispatch('tools/getPayeeGroup')
       context.commit('auth/logging', false)
+    },
+    async loadData2(context) {
+      context.commit('check/waiting', true)
+      await context.dispatch('tools/getPayees')
+      await context.dispatch('tools/getAccounts')
+      context.commit('check/waiting', false)
     }
   },
   getters: {
@@ -60,6 +70,9 @@ export default new Vuex.Store({
     },
     error(state) {
       return state.error
+    },
+    footer(state) {
+      return state.footer
     },
     showAlert(state) {
       return state.showAlert
