@@ -11,6 +11,7 @@
               name="code"
               label="Code"
               prepend-icon="mdi-tag"
+              required
               autofocus
             ></v-text-field>
           </v-flex>
@@ -22,6 +23,7 @@
               name="name"
               label="Name"
               prepend-icon="mdi-tag-text-outline"
+              required
             ></v-text-field>
           </v-flex>
 
@@ -32,6 +34,7 @@
               name="desc"
               label="Description"
               prepend-icon="mdi-clipboard-list-outline"
+              required
             ></v-text-field>
           </v-flex>
 

@@ -2,6 +2,8 @@
   <v-container v-if="!waiting">
     <router-view></router-view>
     <create-form />
+    <edit-form />
+    <show-check />
   </v-container>
 </template>
 
@@ -9,7 +11,9 @@
 import store from './../../store/store'
 export default {
   components: {
-    createForm: () => import('./Create.vue')
+    createForm: () => import('./Create.vue'),
+    editForm: () => import('./Edit.vue'),
+    showCheck: () => import('./Show.vue')
   },
   computed: {
     waiting() {

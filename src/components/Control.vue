@@ -2,36 +2,84 @@
   <v-footer app inset dark color="grey lighten-2" v-if="show">
     <v-row>
       <v-col>
-        <v-btn block rounded color="indigo" @click="showCreateForm">
+        <v-btn
+          light
+          block
+          rounded
+          color="indigo white--text"
+          @click="showCreateForm"
+          :disabled="!creatable"
+        >
           Create
+          <v-icon right>mdi-plus</v-icon>
         </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="orange">Edit</v-btn>
+        <v-btn
+          light
+          block
+          rounded
+          color="orange  white--text"
+          @click="showEditForm"
+          :disabled="!editable"
+        >
+          Edit
+          <v-icon right>mdi-update</v-icon>
+        </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="red">Delete</v-btn>
+        <v-btn
+          light
+          block
+          rounded
+          color="red white--text"
+          :disabled="!deletable"
+        >
+          Delete
+          <v-icon right>mdi-trash-can-outline</v-icon>
+        </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="blue">Transmit</v-btn>
+        <v-btn block rounded color="blue">
+          Transmit
+          <v-icon right>mdi-bank-transfer-out</v-icon>
+        </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="purple">Claim</v-btn>
+        <v-btn block rounded color="purple">
+          Claim
+          <v-icon right>mdi-download</v-icon>
+        </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="teal">Return</v-btn>
+        <v-btn block rounded color="teal">
+          Return
+          <v-icon right>mdi-keyboard-return</v-icon>
+        </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="green">Receive</v-btn>
+        <v-btn block rounded color="green">
+          Receive
+          <v-icon right>mdi-bank-transfer-in</v-icon>
+        </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="red">Cancel</v-btn>
+        <v-btn block rounded color="red">
+          Cancel
+          <v-icon right>mdi-cancel</v-icon>
+        </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="teal">Clear</v-btn>
+        <v-btn block rounded color="teal">
+          Clear
+          <v-icon right>mdi-check-bold</v-icon>
+        </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="primary">Preview</v-btn>
+        <v-btn block rounded color="primary">
+          Preview
+          <v-icon right>mdi-open-in-app</v-icon>
+        </v-btn>
       </v-col>
     </v-row>
   </v-footer>
@@ -40,13 +88,36 @@
 <script>
 export default {
   computed: {
+    creatable() {
+      return !this.selectedChecks.length && this.actions.includes('crt')
+    },
+    editable() {
+      return (
+        this.selectedChecks.length === 1 &&
+        this.selectedChecks[0].status_id !== 6 /* cleared */ &&
+        this.actions.includes('edt')
+      )
+    },
+    deletable() {
+      return this.selectedChecks.length === 1 && this.actions.includes('dlt')
+    },
     show() {
       return this.$store.getters.footer
+    },
+    selectedChecks() {
+      return this.$store.getters['check/selectedChecks']
+    },
+    actions() {
+      return this.$store.getters['auth/user'].actionAccess
     }
   },
   methods: {
     showCreateForm() {
       this.$store.commit('check/showCreate', true)
+    },
+    showEditForm() {
+      this.$store.commit('check/check', this.selectedChecks[0])
+      this.$store.commit('check/showEdit', true)
     }
   }
 }

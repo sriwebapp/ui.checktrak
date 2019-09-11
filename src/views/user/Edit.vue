@@ -52,6 +52,15 @@
           Update
         </v-btn>
         <v-btn
+          type="submit"
+          color="info"
+          :disabled="loading"
+          router
+          :to="{ name: 'user-access' }"
+        >
+          Access
+        </v-btn>
+        <v-btn
           class="deep-orange white--text"
           router
           :to="{ name: 'users' }"
@@ -93,7 +102,7 @@ export default {
   },
   methods: {
     edit() {
-      this.$store.dispatch('user/edit', this.user)
+      this.$store.dispatch('user/edit', this.editedUser)
     }
   },
   mounted() {

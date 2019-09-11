@@ -23,6 +23,10 @@ Axios.interceptors.response.use(
       } else if (error.response.status === 422) {
         store.state.error.record(error.response.data.errors)
       } else if (error.response.status === 403) {
+        store.commit('alert', {
+          message: error.response.data.message,
+          color: 'red'
+        })
         router.push({ name: 'home' })
       } else if (error.response.status === 404) {
         router.push('/page-not-found')

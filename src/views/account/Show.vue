@@ -5,10 +5,19 @@
       <v-container grid-list-md>
         <v-flex xs12>
           <v-text-field
+            :value="account.code"
+            label="Code"
+            :loading="loading"
+            prepend-icon="mdi-tag"
+            readonly
+          ></v-text-field>
+        </v-flex>
+
+        <v-flex xs12>
+          <v-text-field
             :value="account.bank"
             label="Bank"
             prepend-icon="mdi-bank"
-            :loading="loading"
             placeholder=" "
             readonly
           ></v-text-field>

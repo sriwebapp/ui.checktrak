@@ -3,19 +3,12 @@
     <v-dialog v-model="show" persistent max-width="600">
       <v-card>
         <v-card-title>Create Check</v-card-title>
-        <form @submit.prevent="create">
+        <form
+          @submit.prevent="create"
+          @keydown="error.clear($event.target.name)"
+        >
           <v-card-text>
             <v-container grid-list-md>
-              <v-flex xs12>
-                <v-text-field
-                  v-model="check.check_number"
-                  :error-messages="error.get('check_number')"
-                  name="check_number"
-                  label="Check Number"
-                  prepend-icon="mdi-tag-text-outline"
-                ></v-text-field>
-              </v-flex>
-
               <v-flex xs12>
                 <v-select
                   v-model="check.account_id"
@@ -27,6 +20,17 @@
                   item-text="number"
                   item-value="id"
                 ></v-select>
+              </v-flex>
+
+              <v-flex xs12>
+                <v-text-field
+                  v-model="check.check_number"
+                  :error-messages="error.get('check_number')"
+                  name="check_number"
+                  label="Check Number"
+                  prepend-icon="mdi-tag-text-outline"
+                  required
+                ></v-text-field>
               </v-flex>
 
               <v-flex xs12>
@@ -48,6 +52,7 @@
                   name="amount"
                   label="Amount"
                   prepend-icon="mdi-currency-php"
+                  required
                 ></v-text-field>
               </v-flex>
 
@@ -98,7 +103,7 @@
       </v-date-picker>
     </v-dialog>
 
-    <v-dialog v-model="showPayees" width="800px">
+    <v-dialog v-model="showPayees" persistent width="800px">
       <v-card>
         <v-card-title>
           <div class="flex-grow-1"></div>
@@ -150,12 +155,17 @@ export default {
       return this.$store.getters['tools/accounts'].map(account => {
         return {
           id: account.id,
-          number: account.bank + ' ' + account.number
+          number: account.code + ' ' + account.number
         }
       })
     },
-    check() {
-      return this.$store.getters['check/newCheck']
+    check: {
+      get() {
+        return this.$store.getters['check/newCheck']
+      },
+      set(arg) {
+        this.$store.commit('check/newCheck', arg)
+      }
     },
     creating() {
       return this.$store.getters['check/creating']
@@ -189,14 +199,25 @@ export default {
   }),
   methods: {
     create() {
-      this.$store.dispatch('check/create', this.check).then(() => {
-        this.payee = {}
-      })
+      this.$store.dispatch('check/create', this.check)
     },
     acceptPayee() {
       this.payee = this.selectedPayees[0]
       this.check.payee_id = this.selectedPayees[0].id
       this.showPayees = false
+    }
+  },
+  watch: {
+    show(arg) {
+      if (arg) {
+        this.check = { date: new Date().toISOString().substr(0, 10) }
+        this.payee = {}
+      }
+    },
+    showPayees(arg) {
+      if (arg) {
+        this.selectedPayees = []
+      }
     }
   }
 }

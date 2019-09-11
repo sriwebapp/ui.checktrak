@@ -38,15 +38,6 @@
                 >
                   Update
                 </v-btn>
-                <v-btn
-                  small
-                  class="warning"
-                  router
-                  :to="{ name: 'user-access', params: { id: item.id } }"
-                  :disabled="loading"
-                >
-                  Access
-                </v-btn>
               </td>
             </tr>
           </tbody>

@@ -6,6 +6,15 @@
         <v-container grid-list-md>
           <v-flex xs12>
             <v-text-field
+              :value="code"
+              label="Code"
+              prepend-icon="mdi-tag"
+              readonly
+            ></v-text-field>
+          </v-flex>
+
+          <v-flex xs12>
+            <v-text-field
               v-model="account.bank"
               :error-messages="error.get('bank')"
               name="bank"
@@ -117,6 +126,12 @@
 <script>
 export default {
   computed: {
+    code() {
+      const bank = this.account.bank ? this.account.bank.toUpperCase() : ''
+      const number = this.account.number ? this.account.number.slice(-2) : ''
+      const code = bank.length && number.length > 1 ? bank + '-' + number : ''
+      return code
+    },
     error() {
       return this.$store.getters.error
     },

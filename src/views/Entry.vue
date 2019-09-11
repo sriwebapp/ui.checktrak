@@ -7,7 +7,7 @@
     <v-content v-if="!logging">
       <router-view></router-view>
     </v-content>
-    <control />
+    <control v-if="!logging" />
   </v-app>
 </template>
 
