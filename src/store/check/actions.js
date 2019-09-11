@@ -40,6 +40,18 @@ export default {
       context.commit('creating', false)
     }
   },
+  async delete(context, data) {
+    context.commit('deleting', true)
+    try {
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/check/' + data.id
+      await Axios.delete(url, { data })
+      context.commit('showDelete', false)
+      context.dispatch('getChecks')
+    } finally {
+      context.commit('deleting', false)
+    }
+  },
   async edit(context, check) {
     context.commit('editing', true)
     try {

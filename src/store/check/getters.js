@@ -8,6 +8,9 @@ export default {
   creating(state) {
     return state.creating
   },
+  deleting(state) {
+    return state.deleting
+  },
   editing(state) {
     return state.editing
   },
@@ -22,6 +25,9 @@ export default {
   },
   showCreate(state) {
     return state.showCreate
+  },
+  showDelete(state) {
+    return state.showDelete
   },
   showEdit(state) {
     return state.showEdit

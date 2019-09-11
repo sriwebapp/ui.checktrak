@@ -2,6 +2,7 @@
   <v-container v-if="!waiting">
     <router-view></router-view>
     <create-form />
+    <delete-form />
     <edit-form />
     <show-check />
   </v-container>
@@ -12,6 +13,7 @@ import store from './../../store/store'
 export default {
   components: {
     createForm: () => import('./Create.vue'),
+    deleteForm: () => import('./Delete.vue'),
     editForm: () => import('./Edit.vue'),
     showCheck: () => import('./Show.vue')
   },

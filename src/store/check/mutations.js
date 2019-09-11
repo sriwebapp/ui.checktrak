@@ -8,6 +8,9 @@ export default {
   creating(state, payload) {
     state.creating = payload
   },
+  deleting(state, payload) {
+    state.deleting = payload
+  },
   editing(state, payload) {
     state.editing = payload
   },
@@ -22,6 +25,9 @@ export default {
   },
   showCreate(state, payload) {
     state.showCreate = payload
+  },
+  showDelete(state, payload) {
+    state.showDelete = payload
   },
   showEdit(state, payload) {
     state.showEdit = payload

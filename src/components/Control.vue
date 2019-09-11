@@ -33,6 +33,7 @@
           block
           rounded
           color="red white--text"
+          @click="showDeleteForm"
           :disabled="!deletable"
         >
           Delete
@@ -99,7 +100,11 @@ export default {
       )
     },
     deletable() {
-      return this.selectedChecks.length === 1 && this.actions.includes('dlt')
+      return (
+        this.selectedChecks.length === 1 &&
+        this.selectedChecks[0].status_id === 1 /* created */ &&
+        this.actions.includes('dlt')
+      )
     },
     show() {
       return this.$store.getters.footer
@@ -118,6 +123,10 @@ export default {
     showEditForm() {
       this.$store.commit('check/check', this.selectedChecks[0])
       this.$store.commit('check/showEdit', true)
+    },
+    showDeleteForm() {
+      this.$store.commit('check/check', this.selectedChecks[0])
+      this.$store.commit('check/showDelete', true)
     }
   }
 }
