@@ -100,6 +100,15 @@ export default {
       context.commit('payeeGroup', res.data)
       return res
     },
+    async getSeries(context, branch) {
+      const url =
+        '/tools/series/' +
+        context.rootGetters['tools/company'].code +
+        '/' +
+        branch
+      const res = Axios.get(url)
+      return res
+    },
     async getUsers(context) {
       const res = await Axios.get('/tools/users')
       context.commit('users', res.data)

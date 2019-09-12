@@ -65,6 +65,7 @@
                   prepend-icon="mdi-clipboard-list-outline"
                 ></v-text-field>
               </v-flex>
+
               <v-flex xs12>
                 <v-text-field
                   v-model="check.date"
@@ -79,8 +80,8 @@
             </v-container>
           </v-card-text>
           <v-card-actions>
-            <v-btn type="submit" outlined color="indigo" :loading="creating">
-              Save
+            <v-btn type="submit" color="indigo white--text" :loading="creating">
+              Create
             </v-btn>
             <v-btn
               color="deep-orange"

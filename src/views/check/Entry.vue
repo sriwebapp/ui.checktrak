@@ -4,6 +4,7 @@
     <create-form />
     <delete-form />
     <edit-form />
+    <transmit-form />
     <show-check />
   </v-container>
 </template>
@@ -15,6 +16,7 @@ export default {
     createForm: () => import('./Create.vue'),
     deleteForm: () => import('./Delete.vue'),
     editForm: () => import('./Edit.vue'),
+    transmitForm: () => import('./Transmit.vue'),
     showCheck: () => import('./Show.vue')
   },
   computed: {

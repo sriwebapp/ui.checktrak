@@ -63,5 +63,18 @@ export default {
     } finally {
       context.commit('editing', false)
     }
+  },
+  async transmit(context, data) {
+    context.commit('transmitting', true)
+    try {
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/check/transmit'
+      await Axios.post(url, data)
+      context.commit('showTransmit', false)
+      context.dispatch('getChecks')
+      return
+    } finally {
+      context.commit('transmitting', false)
+    }
   }
 }

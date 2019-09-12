@@ -69,6 +69,13 @@ export default {
         remarks: this.remarks
       })
     }
+  },
+  watch: {
+    show(arg) {
+      if (arg) {
+        this.remarks = ''
+      }
+    }
   }
 }
 </script>

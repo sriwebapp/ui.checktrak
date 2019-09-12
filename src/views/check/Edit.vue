@@ -74,8 +74,8 @@
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-btn type="submit" outlined color="indigo" :loading="editing">
-            Update
+          <v-btn type="submit" color="orange white--text" :loading="editing">
+            Edit
           </v-btn>
           <v-btn
             color="deep-orange"

@@ -41,7 +41,14 @@
         </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="blue">
+        <v-btn
+          light
+          block
+          rounded
+          color="blue white--text"
+          @click="showTransmitForm"
+          :disabled="!transmittable"
+        >
           Transmit
           <v-icon right>mdi-bank-transfer-out</v-icon>
         </v-btn>
@@ -106,6 +113,15 @@ export default {
         this.actions.includes('dlt')
       )
     },
+    transmittable() {
+      return (
+        this.selectedChecks.length > 0 &&
+        this.selectedChecks.every(
+          check => check.status_id === 1 || check.status_id === 4 // created || returned
+        ) &&
+        this.actions.includes('trm')
+      )
+    },
     show() {
       return this.$store.getters.footer
     },
@@ -127,6 +143,9 @@ export default {
     showDeleteForm() {
       this.$store.commit('check/check', this.selectedChecks[0])
       this.$store.commit('check/showDelete', true)
+    },
+    showTransmitForm() {
+      this.$store.commit('check/showTransmit', true)
     }
   }
 }

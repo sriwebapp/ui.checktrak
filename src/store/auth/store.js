@@ -68,7 +68,6 @@ export default {
       context.commit('logging', true)
       try {
         await Axios.post('logout')
-        router.push({ name: 'login' })
         context.dispatch('clearStorage')
       } finally {
         context.commit('logging', false)

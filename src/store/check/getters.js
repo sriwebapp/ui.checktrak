@@ -17,11 +17,17 @@ export default {
   loading(state) {
     return state.loading
   },
+  transmitting(state) {
+    return state.transmitting
+  },
   newCheck(state) {
     return state.newCheck
   },
   selectedChecks(state) {
     return state.selectedChecks
+  },
+  showCheck(state) {
+    return state.showCheck
   },
   showCreate(state) {
     return state.showCreate
@@ -32,8 +38,8 @@ export default {
   showEdit(state) {
     return state.showEdit
   },
-  showCheck(state) {
-    return state.showCheck
+  showTransmit(state) {
+    return state.showTransmit
   },
   waiting(state) {
     return state.waiting
