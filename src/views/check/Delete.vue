@@ -1,11 +1,11 @@
 <template>
   <v-dialog v-model="show" persistent max-width="600">
     <v-card>
-      <v-card-title>Delete Check</v-card-title>
       <form
         @submit.prevent="deleteCheck"
         @keydown="error.clear($event.target.name)"
       >
+        <v-card-title>Delete Check</v-card-title>
         <v-card-text>
           <v-container grid-list-md>
             <v-flex xs12>

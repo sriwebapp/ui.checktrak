@@ -40,6 +40,18 @@ export default {
       context.commit('creating', false)
     }
   },
+  async claim(context, data) {
+    context.commit('claiming', true)
+    try {
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/check/claim'
+      await Axios.post(url, data)
+      context.commit('showClaim', false)
+      context.dispatch('getChecks')
+    } finally {
+      context.commit('claiming', false)
+    }
+  },
   async delete(context, data) {
     context.commit('deleting', true)
     try {

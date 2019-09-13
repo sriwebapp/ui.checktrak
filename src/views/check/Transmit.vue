@@ -18,6 +18,7 @@
                     label="Transmittal Reference"
                     prepend-icon="mdi-barcode-scan"
                     :loading="loading"
+                    placeholder=" "
                     readonly
                   ></v-text-field>
                 </v-flex>
@@ -125,20 +126,6 @@ export default {
     error() {
       return this.$store.getters.error
     },
-    ref() {
-      const company = this.$store.getters['tools/company'].code
-      const branch = this.branches.find(branch => branch.id == this.branch_id)
-      const branch_code = branch ? branch.code : ''
-      const year = new Date().toISOString().substr(0, 4)
-      const series = this.series
-
-      const ref =
-        branch && series
-          ? company + '-' + branch_code + '-' + year + '-' + this.series
-          : ''
-
-      return ref
-    },
     show: {
       get() {
         return this.$store.getters['check/showTransmit']
@@ -159,20 +146,19 @@ export default {
   },
   data: () => ({
     branch_id: 0,
+    date: new Date().toISOString().substr(0, 10),
     incharge: 0,
     loading: false,
-    series: '',
-    date: new Date().toISOString().substr(0, 10),
+    ref: '',
     showCalendar: false
   }),
   methods: {
     transmit() {
       this.$store.dispatch('check/transmit', {
         branch_id: this.branch_id,
-        incharge: this.incharge,
         date: this.date,
         ref: this.ref,
-        series: this.series,
+        incharge: this.incharge,
         checks: this.checks.map(check => check.id)
       })
     }
@@ -184,7 +170,8 @@ export default {
         this.$store
           .dispatch('tools/getSeries', this.branch_id)
           .then(res => {
-            this.series = res.data
+            this.ref = res.data.ref
+            this.incharge = res.data.incharge
           })
           .finally(() => {
             this.loading = false
@@ -194,9 +181,9 @@ export default {
     show(arg) {
       if (arg) {
         this.branch_id = 0
-        this.incharge = 0
-        this.series = 0
         this.date = new Date().toISOString().substr(0, 10)
+        this.incharge = 0
+        this.ref = ''
       }
     }
   }

@@ -2,11 +2,11 @@
   <div>
     <v-dialog v-model="show" persistent max-width="600">
       <v-card>
-        <v-card-title>Create Check</v-card-title>
         <form
           @submit.prevent="create"
           @keydown="error.clear($event.target.name)"
         >
+          <v-card-title>Create Check</v-card-title>
           <v-card-text>
             <v-container grid-list-md>
               <v-flex xs12>

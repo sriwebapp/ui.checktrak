@@ -54,7 +54,14 @@
         </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="purple">
+        <v-btn
+          light
+          block
+          rounded
+          color="purple white--text"
+          @click="showClaimForm"
+          :disabled="!claimable"
+        >
           Claim
           <v-icon right>mdi-download</v-icon>
         </v-btn>
@@ -99,6 +106,19 @@ export default {
     creatable() {
       return !this.selectedChecks.length && this.actions.includes('crt')
     },
+    claimable() {
+      return (
+        this.selectedChecks.length > 0 &&
+        this.selectedChecks.every(check => {
+          return (
+            [1, 2, 4].includes(check.status_id) &&
+            check.received &&
+            check.branch_id === this.user.branch_id
+          )
+        }) &&
+        this.actions.includes('clm')
+      )
+    },
     editable() {
       return (
         this.selectedChecks.length === 1 &&
@@ -116,9 +136,9 @@ export default {
     transmittable() {
       return (
         this.selectedChecks.length > 0 &&
-        this.selectedChecks.every(
-          check => check.status_id === 1 || check.status_id === 4 // created || returned
-        ) &&
+        this.selectedChecks.every(check => {
+          return [1, 4].includes(check.status_id) // created || returned
+        }) &&
         this.actions.includes('trm')
       )
     },
@@ -128,13 +148,19 @@ export default {
     selectedChecks() {
       return this.$store.getters['check/selectedChecks']
     },
+    user() {
+      return this.$store.getters['auth/user']
+    },
     actions() {
-      return this.$store.getters['auth/user'].actionAccess
+      return this.user.actionAccess
     }
   },
   methods: {
     showCreateForm() {
       this.$store.commit('check/showCreate', true)
+    },
+    showClaimForm() {
+      this.$store.commit('check/showClaim', true)
     },
     showEditForm() {
       this.$store.commit('check/check', this.selectedChecks[0])

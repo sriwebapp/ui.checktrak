@@ -14,7 +14,14 @@
       {{ item.payee.name }}
     </template>
     <template v-slot:item.status_id="{ item }">
-      {{ item.status.name }}
+      <v-chip
+        small
+        :text-color="item.received ? 'white' : 'black'"
+        :outlined="!item.received"
+        :class="item.status.color"
+      >
+        {{ item.status.name }}
+      </v-chip>
     </template>
     <template v-slot:item.detail="{ item }">
       <v-btn icon color="indigo" :disabled="loading" @click="show(item.id)">
@@ -49,7 +56,7 @@ export default {
       { text: 'Created', align: 'left', value: 'date' },
       { text: 'Payee', align: 'left', value: 'payee_id' },
       { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Status', align: 'left', value: 'status_id' },
+      { text: 'Status', align: 'center', value: 'status_id' },
       { text: 'Details', align: 'center', value: 'detail', sortable: false }
     ]
   }),
