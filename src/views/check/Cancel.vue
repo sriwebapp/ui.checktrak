@@ -13,6 +13,7 @@
                   name="remarks"
                   label="Remarks"
                   prepend-icon="mdi-clipboard-list-outline"
+                  required
                 ></v-text-field>
               </v-flex>
 

@@ -37,6 +37,30 @@ export default {
       context.commit('cancelling', false)
     }
   },
+  async claim(context, data) {
+    context.commit('claiming', true)
+    try {
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/check/claim'
+      await Axios.post(url, data)
+      context.commit('showClaim', false)
+      context.dispatch('getChecks')
+    } finally {
+      context.commit('claiming', false)
+    }
+  },
+  async clear(context, data) {
+    context.commit('clearing', true)
+    try {
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/check/clear'
+      await Axios.post(url, data)
+      context.commit('showClear', false)
+      context.dispatch('getChecks')
+    } finally {
+      context.commit('clearing', false)
+    }
+  },
   async create(context, check) {
     context.commit('creating', true)
     try {
@@ -50,18 +74,6 @@ export default {
       context.dispatch('getChecks')
     } finally {
       context.commit('creating', false)
-    }
-  },
-  async claim(context, data) {
-    context.commit('claiming', true)
-    try {
-      const url =
-        '/' + context.rootGetters['tools/company'].code + '/check/claim'
-      await Axios.post(url, data)
-      context.commit('showClaim', false)
-      context.dispatch('getChecks')
-    } finally {
-      context.commit('claiming', false)
     }
   },
   async delete(context, data) {

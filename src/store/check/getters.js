@@ -8,11 +8,14 @@ export default {
   cancelling(state) {
     return state.cancelling
   },
-  creating(state) {
-    return state.creating
-  },
   claiming(state) {
     return state.claiming
+  },
+  clearing(state) {
+    return state.clearing
+  },
+  creating(state) {
+    return state.creating
   },
   deleting(state) {
     return state.deleting
@@ -38,11 +41,14 @@ export default {
   showCheck(state) {
     return state.showCheck
   },
-  showCreate(state) {
-    return state.showCreate
-  },
   showClaim(state) {
     return state.showClaim
+  },
+  showClear(state) {
+    return state.showClear
+  },
+  showCreate(state) {
+    return state.showCreate
   },
   showDelete(state) {
     return state.showDelete

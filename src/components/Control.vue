@@ -54,6 +54,12 @@
         </v-btn>
       </v-col>
       <v-col>
+        <v-btn block rounded color="green">
+          Receive
+          <v-icon right>mdi-bank-transfer-in</v-icon>
+        </v-btn>
+      </v-col>
+      <v-col>
         <v-btn
           light
           block
@@ -72,18 +78,13 @@
           <v-icon right>mdi-keyboard-return</v-icon>
         </v-btn>
       </v-col>
-      <v-col>
-        <v-btn block rounded color="green">
-          Receive
-          <v-icon right>mdi-bank-transfer-in</v-icon>
-        </v-btn>
-      </v-col>
+
       <v-col>
         <v-btn
           light
           block
           rounded
-          color="red"
+          color="red white--text"
           @click="showCancelForm"
           :disabled="!cancelable"
         >
@@ -92,7 +93,14 @@
         </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="teal">
+        <v-btn
+          light
+          block
+          rounded
+          color="teal white--text"
+          @click="showClearForm"
+          :disabled="!clearable"
+        >
           Clear
           <v-icon right>mdi-check-bold</v-icon>
         </v-btn>
@@ -123,9 +131,6 @@ export default {
         this.actions.includes('cnl')
       )
     },
-    creatable() {
-      return !this.selectedChecks.length && this.actions.includes('crt')
-    },
     claimable() {
       return (
         this.selectedChecks.length > 0 &&
@@ -138,6 +143,22 @@ export default {
         }) &&
         this.actions.includes('clm')
       )
+    },
+    clearable() {
+      return (
+        this.selectedChecks.length > 0 &&
+        this.selectedChecks.every(check => {
+          return (
+            check.status_id === 3 /* claimed */ &&
+            check.received &&
+            this.branches.includes(check.branch.code)
+          )
+        }) &&
+        this.actions.includes('clr')
+      )
+    },
+    creatable() {
+      return !this.selectedChecks.length && this.actions.includes('crt')
     },
     editable() {
       return (
@@ -182,11 +203,14 @@ export default {
     showCancelForm() {
       this.$store.commit('check/showCancel', true)
     },
-    showCreateForm() {
-      this.$store.commit('check/showCreate', true)
-    },
     showClaimForm() {
       this.$store.commit('check/showClaim', true)
+    },
+    showClearForm() {
+      this.$store.commit('check/showClear', true)
+    },
+    showCreateForm() {
+      this.$store.commit('check/showCreate', true)
     },
     showEditForm() {
       this.$store.commit('check/check', this.selectedChecks[0])

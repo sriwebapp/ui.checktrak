@@ -8,11 +8,14 @@ export default {
   cancelling(state, payload) {
     state.cancelling = payload
   },
-  creating(state, payload) {
-    state.creating = payload
-  },
   claiming(state, payload) {
     state.claiming = payload
+  },
+  clearing(state, payload) {
+    state.clearing = payload
+  },
+  creating(state, payload) {
+    state.creating = payload
   },
   deleting(state, payload) {
     state.deleting = payload
@@ -38,11 +41,14 @@ export default {
   showCheck(state, payload) {
     state.showCheck = payload
   },
-  showCreate(state, payload) {
-    state.showCreate = payload
-  },
   showClaim(state, payload) {
     state.showClaim = payload
+  },
+  showClear(state, payload) {
+    state.showClear = payload
+  },
+  showCreate(state, payload) {
+    state.showCreate = payload
   },
   showDelete(state, payload) {
     state.showDelete = payload

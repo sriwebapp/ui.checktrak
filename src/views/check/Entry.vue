@@ -2,8 +2,9 @@
   <v-container v-if="!waiting">
     <router-view></router-view>
     <cancel-form />
-    <create-form />
     <claim-form />
+    <clear-form />
+    <create-form />
     <delete-form />
     <edit-form />
     <transmit-form />
@@ -17,6 +18,7 @@ export default {
   components: {
     cancelForm: () => import('./Cancel.vue'),
     claimForm: () => import('./Claim.vue'),
+    clearForm: () => import('./Clear.vue'),
     createForm: () => import('./Create.vue'),
     deleteForm: () => import('./Delete.vue'),
     editForm: () => import('./Edit.vue'),
