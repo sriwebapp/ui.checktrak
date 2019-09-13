@@ -5,6 +5,9 @@ export default {
   checks(state, payload) {
     state.checks = payload
   },
+  cancelling(state, payload) {
+    state.cancelling = payload
+  },
   creating(state, payload) {
     state.creating = payload
   },
@@ -28,6 +31,9 @@ export default {
   },
   selectedChecks(state, payload) {
     state.selectedChecks = payload
+  },
+  showCancel(state, payload) {
+    state.showCancel = payload
   },
   showCheck(state, payload) {
     state.showCheck = payload

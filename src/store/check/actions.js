@@ -25,6 +25,18 @@ export default {
       context.commit('loading', false)
     }
   },
+  async cancel(context, data) {
+    context.commit('cancelling', true)
+    try {
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/check/cancel'
+      await Axios.post(url, data)
+      context.commit('showCancel', false)
+      context.dispatch('getChecks')
+    } finally {
+      context.commit('cancelling', false)
+    }
+  },
   async create(context, check) {
     context.commit('creating', true)
     try {

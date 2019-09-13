@@ -1,6 +1,7 @@
 <template>
   <v-container v-if="!waiting">
     <router-view></router-view>
+    <cancel-form />
     <create-form />
     <claim-form />
     <delete-form />
@@ -14,6 +15,7 @@
 import store from './../../store/store'
 export default {
   components: {
+    cancelForm: () => import('./Cancel.vue'),
     claimForm: () => import('./Claim.vue'),
     createForm: () => import('./Create.vue'),
     deleteForm: () => import('./Delete.vue'),

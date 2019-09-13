@@ -79,7 +79,14 @@
         </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="red">
+        <v-btn
+          light
+          block
+          rounded
+          color="red"
+          @click="showCancelForm"
+          :disabled="!cancelable"
+        >
           Cancel
           <v-icon right>mdi-cancel</v-icon>
         </v-btn>
@@ -103,6 +110,19 @@
 <script>
 export default {
   computed: {
+    cancelable() {
+      return (
+        this.selectedChecks.length &&
+        this.selectedChecks.every(check => {
+          return (
+            ![5, 6, 7].includes(check.status_id) &&
+            check.received &&
+            this.branches.includes(check.branch.code)
+          )
+        }) &&
+        this.actions.includes('cnl')
+      )
+    },
     creatable() {
       return !this.selectedChecks.length && this.actions.includes('crt')
     },
@@ -153,9 +173,15 @@ export default {
     },
     actions() {
       return this.user.actionAccess
+    },
+    branches() {
+      return this.user.branchAccess
     }
   },
   methods: {
+    showCancelForm() {
+      this.$store.commit('check/showCancel', true)
+    },
     showCreateForm() {
       this.$store.commit('check/showCreate', true)
     },

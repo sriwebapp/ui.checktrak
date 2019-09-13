@@ -5,6 +5,9 @@ export default {
   checks(state) {
     return state.checks
   },
+  cancelling(state) {
+    return state.cancelling
+  },
   creating(state) {
     return state.creating
   },
@@ -28,6 +31,9 @@ export default {
   },
   selectedChecks(state) {
     return state.selectedChecks
+  },
+  showCancel(state) {
+    return state.showCancel
   },
   showCheck(state) {
     return state.showCheck
