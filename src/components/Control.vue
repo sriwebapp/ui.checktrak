@@ -84,7 +84,7 @@
           light
           block
           rounded
-          color="teal white--text"
+          color="blue-grey white--text"
           @click="showReturnForm"
           :disabled="!returnable"
         >
@@ -120,7 +120,14 @@
         </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="primary">
+        <v-btn
+          light
+          block
+          rounded
+          color="primary  white--text"
+          @click="showCheck"
+          :disabled="!viewable"
+        >
           Preview
           <v-icon right>mdi-open-in-app</v-icon>
         </v-btn>
@@ -200,6 +207,9 @@ export default {
     returnable() {
       return this.actions.includes('rtn')
     },
+    viewable() {
+      return this.selectedChecks.length === 1
+    },
     transmittable() {
       return (
         this.selectedChecks.length > 0 &&
@@ -226,6 +236,9 @@ export default {
     }
   },
   methods: {
+    showCheck() {
+      this.$store.dispatch('check/getCheck', this.selectedChecks[0].id)
+    },
     showCancelForm() {
       this.$store.commit('check/showCancel', true)
     },

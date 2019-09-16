@@ -13,6 +13,14 @@
     <template v-slot:item.payee_id="{ item }">
       {{ item.payee.name }}
     </template>
+    <template v-slot:item.amount="{ item }">
+      {{
+        Number(item.amount).toLocaleString('en', {
+          style: 'currency',
+          currency: 'Php'
+        })
+      }}
+    </template>
     <template v-slot:item.status_id="{ item }">
       <v-chip
         small
@@ -23,10 +31,18 @@
         {{ item.status.name }}
       </v-chip>
     </template>
-    <template v-slot:item.detail="{ item }">
-      <v-btn icon color="indigo" :disabled="loading" @click="show(item.id)">
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+    <template v-slot:item.action_date="{ item }">
+      {{ getLastUpdate(item.history) }}
+    </template>
+    <template v-slot:item.details="{ item }">
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <span v-on="on">
+            {{ item.details ? truncate(item.details, 20) : '' }}
+          </span>
+        </template>
+        <span>{{ item.details }}</span>
+      </v-tooltip>
     </template>
   </v-data-table>
 </template>
@@ -53,16 +69,34 @@ export default {
     headers: [
       { text: 'Account', align: 'left', value: 'account_id' },
       { text: 'Number', align: 'left', value: 'number' },
-      { text: 'Created', align: 'left', value: 'date' },
       { text: 'Payee', align: 'left', value: 'payee_id' },
       { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Status', align: 'center', value: 'status_id' },
-      { text: 'Details', align: 'center', value: 'detail', sortable: false }
+      { text: 'Details', align: 'left', value: 'details' },
+      {
+        text: 'Last Update',
+        align: 'left',
+        value: 'action_date',
+        sortable: false
+      },
+      { text: 'Status', align: 'center', value: 'status_id' }
     ]
   }),
   methods: {
     show(id) {
       this.$store.dispatch('check/getCheck', id)
+    },
+    truncate(str, num) {
+      if (str.length <= num) {
+        return str
+      }
+
+      return str.slice(0, num) + '...'
+    },
+    getLastUpdate(history) {
+      if (!history.length) {
+        return
+      }
+      return history[history.length - 1].date
     }
   },
   mounted() {

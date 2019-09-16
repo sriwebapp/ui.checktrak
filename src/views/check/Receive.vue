@@ -61,11 +61,14 @@
 export default {
   computed: {
     amount() {
-      return this.checks
-        .reduce((total, check) => {
-          return total + parseFloat(check.amount)
-        }, 0)
-        .toFixed(2)
+      const total = this.checks.reduce((total, check) => {
+        return total + parseFloat(check.amount)
+      }, 0)
+
+      return Number(total).toLocaleString('en', {
+        style: 'currency',
+        currency: 'Php'
+      })
     },
     receiving() {
       return this.$store.getters['check/receiving']

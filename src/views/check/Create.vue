@@ -25,6 +25,18 @@
 
                 <v-flex xs12>
                   <v-text-field
+                    v-model="check.date"
+                    :error-messages="error.get('date')"
+                    name="date"
+                    label="Date"
+                    prepend-icon="mdi-calendar"
+                    @click="showCalendar = true"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12>
+                  <v-text-field
                     v-model="check.check_number"
                     :error-messages="error.get('check_number')"
                     name="check_number"
@@ -64,18 +76,6 @@
                     name="details"
                     label="Details"
                     prepend-icon="mdi-clipboard-list-outline"
-                  ></v-text-field>
-                </v-flex>
-
-                <v-flex xs12>
-                  <v-text-field
-                    v-model="check.date"
-                    :error-messages="error.get('date')"
-                    name="date"
-                    label="Date"
-                    prepend-icon="mdi-calendar"
-                    @click="showCalendar = true"
-                    readonly
                   ></v-text-field>
                 </v-flex>
               </v-layout>

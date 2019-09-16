@@ -78,9 +78,14 @@ export default {
       }
     },
     async getCompanies(context) {
-      const res = await Axios.get('/tools/companies')
-      context.commit('companies', res.data)
-      return res
+      context.commit('auth/loading', true, { root: true })
+      try {
+        const res = await Axios.get('/tools/companies')
+        context.commit('companies', res.data)
+        return res
+      } finally {
+        context.commit('auth/loading', false, { root: true })
+      }
     },
     async getGroups(context) {
       const res = await Axios.get('/tools/groups')

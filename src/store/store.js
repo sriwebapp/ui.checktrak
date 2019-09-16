@@ -18,7 +18,7 @@ export default new Vuex.Store({
   modules: { auth, company, user, group, branch, tools, account, payee, check },
   state: {
     alert: {},
-    drawer: false,
+    drawer: true,
     error: new Error(),
     footer: false,
     showAlert: false
@@ -59,6 +59,7 @@ export default new Vuex.Store({
       await context.dispatch('tools/getPayees')
       await context.dispatch('tools/getAccounts')
       context.commit('check/waiting', false)
+      context.commit('drawer', false)
     }
   },
   getters: {
