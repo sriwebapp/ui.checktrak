@@ -10,6 +10,7 @@ export default {
   editing: false,
   loading: false,
   receiving: false,
+  returning: false,
   transmitting: false,
   newCheck: { date: new Date().toISOString().substr(0, 10) },
   selectedChecks: [],
@@ -21,6 +22,7 @@ export default {
   showDelete: false,
   showEdit: false,
   showReceive: false,
+  showReturn: false,
   showTransmit: false,
   waiting: false
 }

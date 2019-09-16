@@ -32,6 +32,9 @@ export default {
   receiving(state, payload) {
     state.receiving = payload
   },
+  returning(state, payload) {
+    state.returning = payload
+  },
   transmitting(state, payload) {
     state.transmitting = payload
   },
@@ -64,6 +67,9 @@ export default {
   },
   showReceive(state, payload) {
     state.showReceive = payload
+  },
+  showReturn(state, payload) {
+    state.showReturn = payload
   },
   showTransmit(state, payload) {
     state.showTransmit = payload

@@ -25,6 +25,19 @@ export default {
       context.commit('loading', false)
     }
   },
+  async getReceivedTransmittals(context) {
+    context.commit('loading', true)
+    try {
+      const url =
+        '/tools/transmittals/received/' +
+        context.rootGetters['tools/company'].code
+      const res = await Axios.get(url)
+      context.commit('transmittals', res.data)
+      context.commit('showReturn', true)
+    } finally {
+      context.commit('loading', false)
+    }
+  },
   async cancel(context, data) {
     context.commit('cancelling', true)
     try {
@@ -110,6 +123,18 @@ export default {
       context.dispatch('getChecks')
     } finally {
       context.commit('receiving', false)
+    }
+  },
+  async returnChecks(context, data) {
+    context.commit('returning', true)
+    try {
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/check/return'
+      await Axios.post(url, data)
+      context.commit('showReturn', false)
+      context.dispatch('getChecks')
+    } finally {
+      context.commit('returning', false)
     }
   },
   async transmit(context, data) {

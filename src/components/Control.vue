@@ -80,7 +80,14 @@
         </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="teal">
+        <v-btn
+          light
+          block
+          rounded
+          color="teal white--text"
+          @click="showReturnForm"
+          :disabled="!returnable"
+        >
           Return
           <v-icon right>mdi-keyboard-return</v-icon>
         </v-btn>
@@ -190,6 +197,9 @@ export default {
         this.actions.includes('rcv')
       )
     },
+    returnable() {
+      return this.actions.includes('rtn')
+    },
     transmittable() {
       return (
         this.selectedChecks.length > 0 &&
@@ -238,6 +248,9 @@ export default {
     },
     showReceiveForm() {
       this.$store.commit('check/showReceive', true)
+    },
+    showReturnForm() {
+      this.$store.dispatch('check/getReceivedTransmittals')
     },
     showTransmitForm() {
       this.$store.commit('check/showTransmit', true)

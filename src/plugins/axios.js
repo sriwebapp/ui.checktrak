@@ -20,6 +20,11 @@ Axios.interceptors.response.use(
     if (error.response) {
       if (error.response.status === 401) {
         store.dispatch('auth/clearStorage')
+      } else if (error.response.status === 400) {
+        store.commit('alert', {
+          message: error.response.data.message,
+          color: 'red'
+        })
       } else if (error.response.status === 422) {
         store.state.error.record(error.response.data.errors)
       } else if (error.response.status === 403) {
