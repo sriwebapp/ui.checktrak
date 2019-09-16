@@ -7,17 +7,19 @@
       >
         <v-card-title>Delete Check</v-card-title>
         <v-card-text>
-          <v-container grid-list-md>
-            <v-flex xs12>
-              <v-text-field
-                v-model="remarks"
-                :error-messages="error.get('remarks')"
-                name="remarks"
-                label="Remarks"
-                prepend-icon="mdi-clipboard-list-outline"
-                required
-              ></v-text-field>
-            </v-flex>
+          <v-container>
+            <v-layout row wrap>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="remarks"
+                  :error-messages="error.get('remarks')"
+                  name="remarks"
+                  label="Remarks"
+                  prepend-icon="mdi-clipboard-list-outline"
+                  required
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
           </v-container>
         </v-card-text>
         <v-card-actions>

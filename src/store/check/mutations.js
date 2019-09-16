@@ -5,6 +5,9 @@ export default {
   checks(state, payload) {
     state.checks = payload
   },
+  transmittals(state, payload) {
+    state.transmittals = payload
+  },
   cancelling(state, payload) {
     state.cancelling = payload
   },
@@ -25,6 +28,9 @@ export default {
   },
   loading(state, payload) {
     state.loading = payload
+  },
+  receiving(state, payload) {
+    state.receiving = payload
   },
   transmitting(state, payload) {
     state.transmitting = payload
@@ -55,6 +61,9 @@ export default {
   },
   showEdit(state, payload) {
     state.showEdit = payload
+  },
+  showReceive(state, payload) {
+    state.showReceive = payload
   },
   showTransmit(state, payload) {
     state.showTransmit = payload

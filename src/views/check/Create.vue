@@ -8,75 +8,77 @@
         >
           <v-card-title>Create Check</v-card-title>
           <v-card-text>
-            <v-container grid-list-md>
-              <v-flex xs12>
-                <v-select
-                  v-model="check.account_id"
-                  :error-messages="error.get('account_id')"
-                  name="account_id"
-                  label="Account"
-                  prepend-icon="mdi-bank"
-                  :items="accounts"
-                  item-text="number"
-                  item-value="id"
-                ></v-select>
-              </v-flex>
+            <v-container>
+              <v-layout row wrap>
+                <v-flex xs12>
+                  <v-select
+                    v-model="check.account_id"
+                    :error-messages="error.get('account_id')"
+                    name="account_id"
+                    label="Account"
+                    prepend-icon="mdi-bank"
+                    :items="accounts"
+                    item-text="number"
+                    item-value="id"
+                  ></v-select>
+                </v-flex>
 
-              <v-flex xs12>
-                <v-text-field
-                  v-model="check.check_number"
-                  :error-messages="error.get('check_number')"
-                  name="check_number"
-                  label="Check Number"
-                  prepend-icon="mdi-tag-text-outline"
-                  required
-                ></v-text-field>
-              </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    v-model="check.check_number"
+                    :error-messages="error.get('check_number')"
+                    name="check_number"
+                    label="Check Number"
+                    prepend-icon="mdi-tag-text-outline"
+                    required
+                  ></v-text-field>
+                </v-flex>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="payee.name"
-                  :error-messages="error.get('payee_id')"
-                  name="payee_id"
-                  label="Payee"
-                  prepend-icon="mdi-account-cash-outline"
-                  @click="showPayees = true"
-                  readonly
-                ></v-text-field>
-              </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    :value="payee.name"
+                    :error-messages="error.get('payee_id')"
+                    name="payee_id"
+                    label="Payee"
+                    prepend-icon="mdi-account-cash-outline"
+                    @click="showPayees = true"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
 
-              <v-flex xs12>
-                <v-text-field
-                  v-model="check.amount"
-                  :error-messages="error.get('amount')"
-                  name="amount"
-                  label="Amount"
-                  prepend-icon="mdi-currency-php"
-                  required
-                ></v-text-field>
-              </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    v-model="check.amount"
+                    :error-messages="error.get('amount')"
+                    name="amount"
+                    label="Amount"
+                    prepend-icon="mdi-currency-php"
+                    required
+                  ></v-text-field>
+                </v-flex>
 
-              <v-flex xs12>
-                <v-text-field
-                  v-model="check.details"
-                  :error-messages="error.get('details')"
-                  name="details"
-                  label="Details"
-                  prepend-icon="mdi-clipboard-list-outline"
-                ></v-text-field>
-              </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    v-model="check.details"
+                    :error-messages="error.get('details')"
+                    name="details"
+                    label="Details"
+                    prepend-icon="mdi-clipboard-list-outline"
+                  ></v-text-field>
+                </v-flex>
 
-              <v-flex xs12>
-                <v-text-field
-                  v-model="check.date"
-                  :error-messages="error.get('date')"
-                  name="date"
-                  label="Date"
-                  prepend-icon="mdi-calendar"
-                  @click="showCalendar = true"
-                  readonly
-                ></v-text-field>
-              </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    v-model="check.date"
+                    :error-messages="error.get('date')"
+                    name="date"
+                    label="Date"
+                    prepend-icon="mdi-calendar"
+                    @click="showCalendar = true"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
             </v-container>
           </v-card-text>
           <v-card-actions>

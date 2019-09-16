@@ -1,6 +1,7 @@
 export default {
   check: {},
   checks: [],
+  transmittals: [],
   cancelling: false,
   claiming: false,
   clearing: false,
@@ -8,6 +9,7 @@ export default {
   deleting: false,
   editing: false,
   loading: false,
+  receiving: false,
   transmitting: false,
   newCheck: { date: new Date().toISOString().substr(0, 10) },
   selectedChecks: [],
@@ -18,6 +20,7 @@ export default {
   showCreate: false,
   showDelete: false,
   showEdit: false,
+  showReceive: false,
   showTransmit: false,
   waiting: false
 }

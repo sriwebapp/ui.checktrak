@@ -64,6 +64,10 @@ export default {
       context.commit('branches', res.data)
       return res
     },
+    async getChecks(context, transmittal_id) {
+      const res = await Axios.get('/tools/checks/' + transmittal_id)
+      return res
+    },
     async getCompany(context, id) {
       try {
         const res = await Axios.get('/tools/company/' + id)

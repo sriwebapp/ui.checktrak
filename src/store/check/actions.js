@@ -100,6 +100,18 @@ export default {
       context.commit('editing', false)
     }
   },
+  async receive(context, data) {
+    context.commit('receiving', true)
+    try {
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/check/receive'
+      await Axios.post(url, data)
+      context.commit('showReceive', false)
+      context.dispatch('getChecks')
+    } finally {
+      context.commit('receiving', false)
+    }
+  },
   async transmit(context, data) {
     context.commit('transmitting', true)
     try {

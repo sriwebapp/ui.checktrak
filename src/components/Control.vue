@@ -54,7 +54,14 @@
         </v-btn>
       </v-col>
       <v-col>
-        <v-btn block rounded color="green">
+        <v-btn
+          light
+          block
+          rounded
+          color="green white--text"
+          @click="showReceiveForm"
+          :disabled="!receivable"
+        >
           Receive
           <v-icon right>mdi-bank-transfer-in</v-icon>
         </v-btn>
@@ -158,7 +165,7 @@ export default {
       )
     },
     creatable() {
-      return !this.selectedChecks.length && this.actions.includes('crt')
+      return this.actions.includes('crt')
     },
     editable() {
       return (
@@ -172,6 +179,15 @@ export default {
         this.selectedChecks.length === 1 &&
         this.selectedChecks[0].status_id === 1 /* created */ &&
         this.actions.includes('dlt')
+      )
+    },
+    receivable() {
+      return (
+        this.selectedChecks.length > 0 &&
+        this.selectedChecks.every(check => {
+          return !check.received && check.branch_id === this.user.branch_id
+        }) &&
+        this.actions.includes('rcv')
       )
     },
     transmittable() {
@@ -219,6 +235,9 @@ export default {
     showDeleteForm() {
       this.$store.commit('check/check', this.selectedChecks[0])
       this.$store.commit('check/showDelete', true)
+    },
+    showReceiveForm() {
+      this.$store.commit('check/showReceive', true)
     },
     showTransmitForm() {
       this.$store.commit('check/showTransmit', true)

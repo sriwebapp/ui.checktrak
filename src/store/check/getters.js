@@ -5,6 +5,9 @@ export default {
   checks(state) {
     return state.checks
   },
+  transmittals(state) {
+    return state.transmittals
+  },
   cancelling(state) {
     return state.cancelling
   },
@@ -25,6 +28,9 @@ export default {
   },
   loading(state) {
     return state.loading
+  },
+  receiving(state) {
+    return state.receiving
   },
   transmitting(state) {
     return state.transmitting
@@ -55,6 +61,9 @@ export default {
   },
   showEdit(state) {
     return state.showEdit
+  },
+  showReceive(state) {
+    return state.showReceive
   },
   showTransmit(state) {
     return state.showTransmit

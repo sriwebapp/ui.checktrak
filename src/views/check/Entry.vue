@@ -7,6 +7,7 @@
     <create-form />
     <delete-form />
     <edit-form />
+    <receive-form />
     <transmit-form />
     <show-check />
   </v-container>
@@ -22,6 +23,7 @@ export default {
     createForm: () => import('./Create.vue'),
     deleteForm: () => import('./Delete.vue'),
     editForm: () => import('./Edit.vue'),
+    receiveForm: () => import('./Receive.vue'),
     transmitForm: () => import('./Transmit.vue'),
     showCheck: () => import('./Show.vue')
   },
