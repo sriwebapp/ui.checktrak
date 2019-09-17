@@ -41,6 +41,9 @@ export default {
   newCheck(state, payload) {
     state.newCheck = payload
   },
+  pagination(state, payload) {
+    state.pagination = payload
+  },
   selectedChecks(state, payload) {
     state.selectedChecks = payload
   },
@@ -65,11 +68,17 @@ export default {
   showEdit(state, payload) {
     state.showEdit = payload
   },
+  showHistory(state, payload) {
+    state.showHistory = payload
+  },
   showReceive(state, payload) {
     state.showReceive = payload
   },
   showReturn(state, payload) {
     state.showReturn = payload
+  },
+  showSelected(state, payload) {
+    state.showSelected = payload
   },
   showTransmit(state, payload) {
     state.showTransmit = payload

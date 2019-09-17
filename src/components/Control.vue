@@ -132,6 +132,12 @@
           <v-icon right>mdi-open-in-app</v-icon>
         </v-btn>
       </v-col>
+      <v-col>
+        <v-btn light block rounded color="green white--text" @click="refresh">
+          Refresh
+          <v-icon right>mdi-refresh</v-icon>
+        </v-btn>
+      </v-col>
     </v-row>
   </v-footer>
 </template>
@@ -208,13 +214,13 @@ export default {
       return this.actions.includes('rtn')
     },
     viewable() {
-      return this.selectedChecks.length === 1
+      return this.selectedChecks.length
     },
     transmittable() {
       return (
         this.selectedChecks.length > 0 &&
         this.selectedChecks.every(check => {
-          return [1, 4].includes(check.status_id) // created || returned
+          return check.received && [1, 4].includes(check.status_id) // created || returned
         }) &&
         this.actions.includes('trm')
       )
@@ -236,8 +242,15 @@ export default {
     }
   },
   methods: {
+    refresh() {
+      this.$store.dispatch('check/getChecks', {})
+    },
     showCheck() {
-      this.$store.dispatch('check/getCheck', this.selectedChecks[0].id)
+      if (this.selectedChecks.length === 1) {
+        this.$store.dispatch('check/getCheck', this.selectedChecks[0].id)
+      } else if (this.selectedChecks.length > 1) {
+        this.$store.commit('check/showSelected', true)
+      }
     },
     showCancelForm() {
       this.$store.commit('check/showCancel', true)

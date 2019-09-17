@@ -60,7 +60,6 @@ export default new Vuex.Store({
       await context.dispatch('tools/getAccounts')
       context.commit('check/waiting', false)
       context.commit('footer', true)
-      context.commit('drawer', false)
     }
   },
   getters: {

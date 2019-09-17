@@ -11,6 +11,8 @@
     <return-form />
     <transmit-form />
     <show-check />
+    <show-history />
+    <show-selected />
   </v-container>
 </template>
 
@@ -27,7 +29,9 @@ export default {
     receiveForm: () => import('./Receive.vue'),
     returnForm: () => import('./Return.vue'),
     transmitForm: () => import('./Transmit.vue'),
-    showCheck: () => import('./Show.vue')
+    showCheck: () => import('./Show.vue'),
+    showHistory: () => import('./History.vue'),
+    showSelected: () => import('./Selected.vue')
   },
   computed: {
     waiting() {

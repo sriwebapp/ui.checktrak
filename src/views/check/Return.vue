@@ -39,6 +39,7 @@
                 :headers="headers"
                 :items="checks"
                 :loading="loading"
+                :footer-props="{ itemsPerPageOptions: [10] }"
                 dense
               >
                 <template v-slot:body="{ items }">

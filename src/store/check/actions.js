@@ -8,6 +8,8 @@ export default {
       const res = await Axios.post(url, options)
       context.commit('checks', res.data)
       context.commit('selectedChecks', [])
+    } catch (e) {
+      return
     } finally {
       context.commit('loading', false)
     }
@@ -20,6 +22,8 @@ export default {
       const res = await Axios.get(url)
       context.commit('check', res.data)
       context.commit('showCheck', true)
+    } catch (e) {
+      return
     } finally {
       context.commit('loading', false)
     }
@@ -33,6 +37,8 @@ export default {
       const res = await Axios.get(url)
       context.commit('transmittals', res.data)
       context.commit('showReturn', true)
+    } catch (e) {
+      return
     } finally {
       context.commit('loading', false)
     }
@@ -44,7 +50,9 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/cancel'
       await Axios.post(url, data)
       context.commit('showCancel', false)
-      context.dispatch('getChecks')
+      context.dispatch('getChecks', context.getters.pagination)
+    } catch (e) {
+      return
     } finally {
       context.commit('cancelling', false)
     }
@@ -56,7 +64,9 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/claim'
       await Axios.post(url, data)
       context.commit('showClaim', false)
-      context.dispatch('getChecks')
+      context.dispatch('getChecks', context.getters.pagination)
+    } catch (e) {
+      return
     } finally {
       context.commit('claiming', false)
     }
@@ -68,7 +78,9 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/clear'
       await Axios.post(url, data)
       context.commit('showClear', false)
-      context.dispatch('getChecks')
+      context.dispatch('getChecks', context.getters.pagination)
+    } catch (e) {
+      return
     } finally {
       context.commit('clearing', false)
     }
@@ -83,7 +95,9 @@ export default {
       context.commit('newCheck', {
         date: new Date().toISOString().substr(0, 10)
       })
-      context.dispatch('getChecks')
+      context.dispatch('getChecks', context.getters.pagination)
+    } catch (e) {
+      return
     } finally {
       context.commit('creating', false)
     }
@@ -95,7 +109,9 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/' + data.id
       await Axios.delete(url, { data })
       context.commit('showDelete', false)
-      context.dispatch('getChecks')
+      context.dispatch('getChecks', context.getters.pagination)
+    } catch (e) {
+      return
     } finally {
       context.commit('deleting', false)
     }
@@ -107,7 +123,9 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/' + check.id
       await Axios.patch(url, check)
       context.commit('showEdit', false)
-      context.dispatch('getChecks')
+      context.dispatch('getChecks', context.getters.pagination)
+    } catch (e) {
+      return
     } finally {
       context.commit('editing', false)
     }
@@ -119,7 +137,9 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/receive'
       await Axios.post(url, data)
       context.commit('showReceive', false)
-      context.dispatch('getChecks')
+      context.dispatch('getChecks', context.getters.pagination)
+    } catch (e) {
+      return
     } finally {
       context.commit('receiving', false)
     }
@@ -131,7 +151,9 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/return'
       await Axios.post(url, data)
       context.commit('showReturn', false)
-      context.dispatch('getChecks')
+      context.dispatch('getChecks', context.getters.pagination)
+    } catch (e) {
+      return
     } finally {
       context.commit('returning', false)
     }
@@ -143,7 +165,8 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/transmit'
       await Axios.post(url, data)
       context.commit('showTransmit', false)
-      context.dispatch('getChecks')
+      context.dispatch('getChecks', context.getters.pagination)
+    } catch (e) {
       return
     } finally {
       context.commit('transmitting', false)

@@ -41,6 +41,9 @@ export default {
   newCheck(state) {
     return state.newCheck
   },
+  pagination(state) {
+    return state.pagination
+  },
   selectedChecks(state) {
     return state.selectedChecks
   },
@@ -65,11 +68,17 @@ export default {
   showEdit(state) {
     return state.showEdit
   },
+  showHistory(state) {
+    return state.showHistory
+  },
   showReceive(state) {
     return state.showReceive
   },
   showReturn(state) {
     return state.showReturn
+  },
+  showSelected(state) {
+    return state.showSelected
   },
   showTransmit(state) {
     return state.showTransmit

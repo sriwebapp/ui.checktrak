@@ -13,6 +13,7 @@ export default {
   returning: false,
   transmitting: false,
   newCheck: { date: new Date().toISOString().substr(0, 10) },
+  pagination: {},
   selectedChecks: [],
   showCancel: false,
   showCheck: false,
@@ -21,8 +22,10 @@ export default {
   showCreate: false,
   showDelete: false,
   showEdit: false,
+  showHistory: false,
   showReceive: false,
   showReturn: false,
+  showSelected: false,
   showTransmit: false,
   waiting: false
 }

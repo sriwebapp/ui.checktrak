@@ -99,7 +99,7 @@
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-btn outlined color="indigo">
+          <v-btn outlined color="indigo" @click="showHistory">
             History
           </v-btn>
           <v-btn color="deep-orange" outlined @click="show = false">
@@ -126,7 +126,11 @@ export default {
       }
     }
   },
-  methods: {}
+  methods: {
+    showHistory() {
+      this.$store.commit('check/showHistory', true)
+    }
+  }
 }
 </script>
 

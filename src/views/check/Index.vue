@@ -6,7 +6,7 @@
     :loading="loading"
     class="elevation-1"
     :options.sync="pagination"
-    :footer-props="{ itemsPerPageOptions: [10, 50, 100] }"
+    :footer-props="{ itemsPerPageOptions: [15, 50, 100] }"
     :server-items-length="totalItems"
     show-select
   >
@@ -67,6 +67,14 @@ export default {
         this.$store.commit('check/selectedChecks', arg)
       }
     },
+    pagination: {
+      get() {
+        return this.$store.getters['check/pagination']
+      },
+      set(arg) {
+        this.$store.commit('check/pagination', arg)
+      }
+    },
     totalItems() {
       return this.$store.getters['check/checks'].total
     }
@@ -85,16 +93,14 @@ export default {
         sortable: false
       },
       { text: 'Status', align: 'center', value: 'status_id' }
-    ],
-    pagination: {}
+    ]
   }),
   methods: {
     truncate(str, num) {
       if (str.length <= num) {
         return str
       }
-
-      return str.slice(0, num) + '...'
+      return str.slice(0, num - 3) + '...'
     },
     getLastUpdate(history) {
       if (!history.length) {
@@ -103,7 +109,9 @@ export default {
       return history[history.length - 1].date
     }
   },
-  mounted() {},
+  mounted() {
+    this.pagination = {}
+  },
   watch: {
     pagination: {
       deep: true,
