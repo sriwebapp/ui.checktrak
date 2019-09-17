@@ -252,7 +252,10 @@ export default {
       this.$store.commit('check/showCreate', true)
     },
     showEditForm() {
-      this.$store.commit('check/check', this.selectedChecks[0])
+      this.$store.commit(
+        'check/check',
+        Object.assign({}, this.selectedChecks[0])
+      )
       this.$store.commit('check/showEdit', true)
     },
     showDeleteForm() {

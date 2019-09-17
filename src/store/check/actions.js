@@ -1,11 +1,11 @@
 import Axios from 'axios'
 
 export default {
-  async getChecks(context) {
+  async getChecks(context, options) {
     context.commit('loading', true)
     try {
       const url = '/' + context.rootGetters['tools/company'].code + '/check'
-      const res = await Axios.get(url)
+      const res = await Axios.post(url, options)
       context.commit('checks', res.data)
       context.commit('selectedChecks', [])
     } finally {
@@ -20,7 +20,6 @@ export default {
       const res = await Axios.get(url)
       context.commit('check', res.data)
       context.commit('showCheck', true)
-      context.commit('selectedChecks', [])
     } finally {
       context.commit('loading', false)
     }

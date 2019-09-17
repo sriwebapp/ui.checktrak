@@ -39,6 +39,7 @@
                 :headers="headers"
                 :items="checks"
                 :loading="loading"
+                dense
               >
                 <template v-slot:body="{ items }">
                   <tbody>

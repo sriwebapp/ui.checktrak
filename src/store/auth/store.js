@@ -42,6 +42,8 @@ export default {
           { message: 'Successfully logged in.', color: 'blue' },
           { root: true }
         )
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -51,6 +53,8 @@ export default {
       try {
         await Axios.post('/password/email', credential)
         router.push({ name: 'login' })
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -60,6 +64,8 @@ export default {
       try {
         await Axios.post('/password/reset', credential)
         router.push({ name: 'login' })
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -69,6 +75,8 @@ export default {
       try {
         await Axios.post('logout')
         context.dispatch('clearStorage')
+      } catch (e) {
+        return
       } finally {
         context.commit('logging', false)
       }

@@ -34,12 +34,8 @@ export default {
       return this.$store.getters['check/waiting']
     }
   },
-  mounted() {
+  created() {
     store.dispatch('loadData2')
-  },
-  beforeRouteEnter(to, from, next) {
-    store.commit('footer', true)
-    next()
   },
   beforeRouteLeave(to, from, next) {
     store.commit('footer', false)

@@ -5,6 +5,9 @@
     :items="checks"
     :loading="loading"
     class="elevation-1"
+    :options.sync="pagination"
+    :footer-props="{ itemsPerPageOptions: [10, 50, 100] }"
+    :server-items-length="totalItems"
     show-select
   >
     <template v-slot:item.account_id="{ item }">
@@ -51,7 +54,7 @@
 export default {
   computed: {
     checks() {
-      return this.$store.getters['check/checks']
+      return this.$store.getters['check/checks'].data
     },
     loading() {
       return this.$store.getters['check/loading']
@@ -63,6 +66,9 @@ export default {
       set(arg) {
         this.$store.commit('check/selectedChecks', arg)
       }
+    },
+    totalItems() {
+      return this.$store.getters['check/checks'].total
     }
   },
   data: () => ({
@@ -79,12 +85,10 @@ export default {
         sortable: false
       },
       { text: 'Status', align: 'center', value: 'status_id' }
-    ]
+    ],
+    pagination: {}
   }),
   methods: {
-    show(id) {
-      this.$store.dispatch('check/getCheck', id)
-    },
     truncate(str, num) {
       if (str.length <= num) {
         return str
@@ -99,8 +103,14 @@ export default {
       return history[history.length - 1].date
     }
   },
-  mounted() {
-    this.$store.dispatch('check/getChecks')
+  mounted() {},
+  watch: {
+    pagination: {
+      deep: true,
+      handler(arg) {
+        this.$store.dispatch('check/getChecks', arg)
+      }
+    }
   }
 }
 </script>
