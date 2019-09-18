@@ -118,14 +118,6 @@
 <script>
 export default {
   computed: {
-    company: {
-      get() {
-        return this.$store.getters['company/newCompany']
-      },
-      set(arg) {
-        this.$store.commit('company/newCompany', arg)
-      }
-    },
     error() {
       return this.$store.getters.error
     },
@@ -133,6 +125,9 @@ export default {
       return this.$store.getters['company/loading']
     }
   },
+  data: () => ({
+    company: {}
+  }),
   methods: {
     create() {
       this.$store.dispatch('company/create', this.company)

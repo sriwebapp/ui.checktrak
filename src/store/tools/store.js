@@ -48,31 +48,43 @@ export default {
   },
   actions: {
     async getAccounts(context) {
-      const res = await Axios.get(
-        '/tools/accounts/' + context.rootGetters['tools/company'].code
-      )
-      context.commit('accounts', res.data)
-      return res
+      try {
+        const res = await Axios.get(
+          '/tools/accounts/' + context.rootGetters['tools/company'].code
+        )
+        context.commit('accounts', res.data)
+      } catch (error) {
+        return
+      }
     },
     async getActions(context) {
-      const res = await Axios.get('/tools/actions')
-      context.commit('actions', res.data)
-      return res
+      try {
+        const res = await Axios.get('/tools/actions')
+        context.commit('actions', res.data)
+      } catch (error) {
+        return
+      }
     },
     async getBranches(context) {
-      const res = await Axios.get('/tools/branches')
-      context.commit('branches', res.data)
-      return res
+      try {
+        const res = await Axios.get('/tools/branches')
+        context.commit('branches', res.data)
+      } catch (error) {
+        return
+      }
     },
     async getChecks(context, transmittal_id) {
-      const res = await Axios.get('/tools/checks/' + transmittal_id)
-      return res
+      try {
+        const res = await Axios.get('/tools/checks/' + transmittal_id)
+        return res
+      } catch (error) {
+        return
+      }
     },
     async getCompany(context, id) {
       try {
         const res = await Axios.get('/tools/company/' + id)
         context.commit('company', res.data)
-        return res
       } catch (error) {
         context.dispatch('auth/clearStorage', {}, { root: true })
       }
@@ -82,46 +94,66 @@ export default {
       try {
         const res = await Axios.get('/tools/companies')
         context.commit('companies', res.data)
-        return res
+      } catch (e) {
+        return
       } finally {
         context.commit('auth/loading', false, { root: true })
       }
     },
     async getGroups(context) {
-      const res = await Axios.get('/tools/groups')
-      context.commit('groups', res.data)
-      return res
+      try {
+        const res = await Axios.get('/tools/groups')
+        context.commit('groups', res.data)
+      } catch (error) {
+        return
+      }
     },
     async getModules(context) {
-      const res = await Axios.get('/tools/modules')
-      context.commit('modules', res.data)
-      return res
+      try {
+        const res = await Axios.get('/tools/modules')
+        context.commit('modules', res.data)
+      } catch (error) {
+        return
+      }
     },
     async getPayees(context) {
-      const res = await Axios.get(
-        '/tools/payees/' + context.rootGetters['tools/company'].code
-      )
-      context.commit('payees', res.data)
-      return res
+      try {
+        const res = await Axios.get(
+          '/tools/payees/' + context.rootGetters['tools/company'].code
+        )
+        context.commit('payees', res.data)
+      } catch (error) {
+        return
+      }
     },
     async getPayeeGroup(context) {
-      const res = await Axios.get('/tools/payee-group')
-      context.commit('payeeGroup', res.data)
-      return res
+      try {
+        const res = await Axios.get('/tools/payee-group')
+        context.commit('payeeGroup', res.data)
+      } catch (error) {
+        return
+      }
     },
     async getSeries(context, branch) {
-      const url =
-        '/tools/series/' +
-        context.rootGetters['tools/company'].code +
-        '/' +
-        branch
-      const res = Axios.get(url)
-      return res
+      try {
+        const url =
+          '/tools/series/' +
+          context.rootGetters['tools/company'].code +
+          '/' +
+          branch
+        const res = Axios.get(url)
+        return res
+      } catch (error) {
+        return
+      }
     },
     async getUsers(context) {
-      const res = await Axios.get('/tools/users')
-      context.commit('users', res.data)
-      return res
+      try {
+        const res = await Axios.get('/tools/users')
+        context.commit('users', res.data)
+      } catch (error) {
+        return
+      }
     }
   },
   getters: {

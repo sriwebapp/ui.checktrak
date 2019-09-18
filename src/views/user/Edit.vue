@@ -3,43 +3,56 @@
     <v-card-title>Update User </v-card-title>
     <form @submit.prevent="edit" @keydown="error.clear($event.target.name)">
       <v-card-text>
-        <v-container grid-list-md>
-          <v-flex xs12>
-            <v-text-field
-              v-model="editedUser.name"
-              :error-messages="error.get('name')"
-              name="name"
-              label="Name"
-              prepend-icon="mdi-account"
-              autofocus
-              required
-            ></v-text-field>
-          </v-flex>
+        <v-container>
+          <v-layout row wrap>
+            <v-flex xs12>
+              <v-text-field
+                v-model="editedUser.name"
+                :error-messages="error.get('name')"
+                name="name"
+                label="Name"
+                prepend-icon="mdi-account"
+                autofocus
+                required
+              ></v-text-field>
+            </v-flex>
 
-          <v-flex xs12>
-            <v-text-field
-              v-model="editedUser.email"
-              :error-messages="error.get('email')"
-              name="email"
-              type="email"
-              label="Email"
-              prepend-icon="mdi-email"
-              required
-            ></v-text-field>
-          </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                v-model="editedUser.username"
+                :error-messages="error.get('username')"
+                name="username"
+                label="Username"
+                prepend-icon="mdi-tag-text-outline"
+                required
+              ></v-text-field>
+            </v-flex>
 
-          <v-flex xs12>
-            <v-select
-              v-model="editedUser.branch_id"
-              :error-messages="error.get('branch_id')"
-              name="branch"
-              label="Select Branch"
-              prepend-icon="mdi-compass"
-              :items="branches"
-              item-text="name"
-              item-value="id"
-            ></v-select>
-          </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                v-model="editedUser.email"
+                :error-messages="error.get('email')"
+                name="email"
+                type="email"
+                label="Email"
+                prepend-icon="mdi-email"
+                required
+              ></v-text-field>
+            </v-flex>
+
+            <v-flex xs12>
+              <v-select
+                v-model="editedUser.branch_id"
+                :error-messages="error.get('branch_id')"
+                name="branch"
+                label="Select Branch"
+                prepend-icon="mdi-compass"
+                :items="branches"
+                item-text="name"
+                item-value="id"
+              ></v-select>
+            </v-flex>
+          </v-layout>
         </v-container>
       </v-card-text>
       <v-card-actions>

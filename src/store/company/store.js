@@ -7,8 +7,7 @@ export default {
     company: {},
     companies: [],
     editedCompany: {},
-    loading: false,
-    newCompany: {}
+    loading: false
   },
   mutations: {
     company(state, payload) {
@@ -23,9 +22,6 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
-    },
-    newCompany(state, payload) {
-      state.newCompany = payload
     }
   },
   actions: {
@@ -35,6 +31,8 @@ export default {
       try {
         const res = await Axios.get('/company/' + code)
         context.commit('company', res.data)
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -44,6 +42,8 @@ export default {
       try {
         const res = await Axios.get('/company')
         context.commit('companies', res.data)
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -52,8 +52,9 @@ export default {
       context.commit('loading', true)
       try {
         await Axios.post('/company', company)
-        context.commit('newCompany', {})
         router.push({ name: 'companies' })
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -69,6 +70,8 @@ export default {
           name: 'show-company',
           params: { code: res.data.company.code }
         })
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -86,9 +89,6 @@ export default {
     },
     loading(state) {
       return state.loading
-    },
-    newCompany(state) {
-      return state.newCompany
     }
   }
 }

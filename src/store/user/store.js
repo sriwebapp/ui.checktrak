@@ -7,7 +7,6 @@ export default {
     editedUser: {},
     group: null,
     loading: false,
-    newUser: {},
     user: {},
     users: []
   },
@@ -17,9 +16,6 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
-    },
-    newUser(state, payload) {
-      state.newUser = payload
     },
     user(state, payload) {
       state.user = payload
@@ -37,6 +33,8 @@ export default {
         const res = await Axios.get('/user/' + id)
         context.commit('user', res.data)
         context.commit('group', res.data.group.id)
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -47,6 +45,8 @@ export default {
       try {
         const res = await Axios.get('/user/' + id)
         context.commit('user', res.data)
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -56,7 +56,8 @@ export default {
       try {
         const res = await Axios.get('/user')
         context.commit('users', res.data)
-        return res
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -65,8 +66,9 @@ export default {
       context.commit('loading', true)
       try {
         const res = await Axios.post('/user', user)
-        context.commit('newUser', {})
         router.push({ name: 'user-access', params: { id: res.data.user.id } })
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -76,6 +78,8 @@ export default {
       try {
         await Axios.patch('/user/' + user.id, user)
         router.push({ name: 'users' })
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -85,6 +89,8 @@ export default {
       try {
         await Axios.post('/user/' + access.user_id + '/access', access)
         router.push({ name: 'users' })
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -99,9 +105,6 @@ export default {
     },
     loading(state) {
       return state.loading
-    },
-    newUser(state) {
-      return state.newUser
     },
     user(state) {
       return state.user

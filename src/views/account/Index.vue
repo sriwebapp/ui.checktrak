@@ -8,11 +8,23 @@
       </v-btn></v-card-title
     >
     <v-card-text>
+      <v-layout class="mb-5">
+        <div class="flex-grow-1"></div>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-account-search-outline"
+          label="Search"
+          single-line
+          hide-details
+          autofocus
+        ></v-text-field>
+      </v-layout>
       <v-data-table
         :headers="headers"
         :items="accounts"
         :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
+        :search="search"
       >
         <template v-slot:item.action="{ item }">
           <v-btn
@@ -46,7 +58,8 @@ export default {
       { text: 'Number', align: 'left', value: 'number' },
       { text: 'Contact', align: 'left', value: 'contact_person' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
-    ]
+    ],
+    search: ''
   }),
   mounted() {
     this.$store.dispatch('account/getAccounts')

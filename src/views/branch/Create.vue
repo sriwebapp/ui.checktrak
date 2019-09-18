@@ -62,14 +62,6 @@
 <script>
 export default {
   computed: {
-    branch: {
-      get() {
-        return this.$store.getters['branch/newBranch']
-      },
-      set(arg) {
-        this.$store.commit('branch/newBranch', arg)
-      }
-    },
     error() {
       return this.$store.getters.error
     },
@@ -80,6 +72,9 @@ export default {
       return this.$store.getters['tools/users']
     }
   },
+  data: () => ({
+    branch: {}
+  }),
   methods: {
     create() {
       this.$store.dispatch('branch/create', this.branch)

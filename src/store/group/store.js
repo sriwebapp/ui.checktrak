@@ -26,6 +26,8 @@ export default {
         context.commit('group', {})
         const res = await Axios.get('/group/' + id)
         context.commit('group', res.data)
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -35,6 +37,8 @@ export default {
       try {
         const res = await Axios.get('/group')
         context.commit('groups', res.data)
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -44,6 +48,8 @@ export default {
       try {
         await Axios.patch('/group/' + access.group_id, access)
         router.push({ name: 'groups' })
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }

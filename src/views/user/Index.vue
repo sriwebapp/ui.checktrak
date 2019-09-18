@@ -23,6 +23,7 @@
           <tbody>
             <tr v-for="item in items" :key="item.id">
               <td>{{ item.name }}</td>
+              <td>{{ item.username }}</td>
               <td>{{ item.email }}</td>
               <td>{{ item.branch ? item.branch.name : '' }}</td>
               <td>{{ item.group.name }}</td>
@@ -65,6 +66,7 @@ export default {
   data: () => ({
     headers: [
       { text: 'Name', align: 'left', value: 'name' },
+      { text: 'Username', align: 'left', value: 'name' },
       { text: 'Email', align: 'left', value: 'email' },
       { text: 'Branch', align: 'left', value: 'branch_id' },
       { text: 'Group', align: 'left', value: 'group_id' },

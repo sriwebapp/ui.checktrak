@@ -33,6 +33,8 @@ export default {
           '/' + context.rootGetters['tools/company'].code + '/account/' + id
         const res = await Axios.get(url)
         context.commit('account', res.data)
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -43,6 +45,8 @@ export default {
         const url = '/' + context.rootGetters['tools/company'].code + '/account'
         const res = await Axios.get(url)
         context.commit('accounts', res.data)
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -53,6 +57,8 @@ export default {
         const url = '/' + context.rootGetters['tools/company'].code + '/account'
         await Axios.post(url, account)
         router.push({ name: 'accounts' })
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -67,6 +73,8 @@ export default {
           account.id
         await Axios.patch(url, account)
         router.push({ name: 'show-account', params: { id: account.id } })
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }

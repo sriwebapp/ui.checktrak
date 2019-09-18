@@ -82,11 +82,15 @@ export default {
       }
     },
     async getUser(state) {
-      const res = await Axios.get('/auth')
-      state.commit('user', res.data)
-      return res
+      try {
+        const res = await Axios.get('/auth')
+        state.commit('user', res.data)
+      } catch (error) {
+        return
+      }
     },
     clearStorage(context) {
+      router.push({ name: 'login' })
       context.commit('setToken', null)
       context.commit('company/companies', [], { root: true })
       context.commit('branch/branches', [], { root: true })
@@ -97,7 +101,6 @@ export default {
       context.commit('check/checks', [], { root: true })
       context.commit('footer', false, { root: true })
       localStorage.removeItem('access_token')
-      router.push({ name: 'login' })
     }
   },
   getters: {

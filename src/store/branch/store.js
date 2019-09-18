@@ -7,8 +7,7 @@ export default {
     branch: {},
     branches: [],
     editedBranch: {},
-    loading: false,
-    newBranch: {}
+    loading: false
   },
   mutations: {
     branch(state, payload) {
@@ -23,9 +22,6 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
-    },
-    newBranch(state, payload) {
-      state.newBranch = payload
     }
   },
   actions: {
@@ -35,6 +31,8 @@ export default {
       try {
         const res = await Axios.get('/branch/' + id)
         context.commit('branch', res.data)
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -44,6 +42,8 @@ export default {
       try {
         const res = await Axios.get('/branch')
         context.commit('branches', res.data)
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -52,8 +52,9 @@ export default {
       context.commit('loading', true)
       try {
         await Axios.post('/branch', branch)
-        context.commit('newBranch', {})
         router.push({ name: 'branches' })
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -63,6 +64,8 @@ export default {
       try {
         await Axios.patch('/branch/' + branch.id, branch)
         router.push({ name: 'branches' })
+      } catch (e) {
+        return
       } finally {
         context.commit('loading', false)
       }
@@ -80,9 +83,6 @@ export default {
     },
     loading(state) {
       return state.loading
-    },
-    newBranch(state) {
-      return state.newBranch
     }
   }
 }

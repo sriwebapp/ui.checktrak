@@ -107,7 +107,6 @@
 </template>
 
 <script>
-import Axios from 'axios'
 export default {
   computed: {
     amount() {
@@ -172,7 +171,8 @@ export default {
     transmittal_id(arg) {
       if (arg) {
         this.loading = true
-        Axios.get('/tools/checks/' + arg)
+        this.$store
+          .dispatch('tools/getChecks', arg)
           .then(res => {
             this.checks = res.data
           })
