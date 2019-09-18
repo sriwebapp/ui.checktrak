@@ -132,10 +132,14 @@ export default {
     ],
     check: [
       {
-        title: 'Check Management',
+        title: 'Check Masterlist',
         icon: 'mdi-checkbook',
-        route: '/check',
-        code: 'chk'
+        route: '/check'
+      },
+      {
+        title: 'Check Transmittal',
+        icon: 'mdi-bank-transfer-out',
+        route: '/transmittal'
       }
     ]
   }),

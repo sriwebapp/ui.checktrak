@@ -52,6 +52,14 @@
                 item-value="id"
               ></v-select>
             </v-flex>
+
+            <v-flex xs12>
+              <v-switch
+                v-model="active"
+                color="indigo"
+                label="Active"
+              ></v-switch>
+            </v-flex>
           </v-layout>
         </v-container>
       </v-card-text>
@@ -89,6 +97,14 @@
 <script>
 export default {
   computed: {
+    active: {
+      get() {
+        return this.editedUser.active
+      },
+      set(arg) {
+        this.editedUser.active = arg ? 1 : 0
+      }
+    },
     branches() {
       return this.$store.getters['tools/branches']
     },

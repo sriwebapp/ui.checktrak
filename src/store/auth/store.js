@@ -90,8 +90,8 @@ export default {
       }
     },
     clearStorage(context) {
-      router.push({ name: 'login' })
       context.commit('setToken', null)
+      router.push({ name: 'login' })
       context.commit('company/companies', [], { root: true })
       context.commit('branch/branches', [], { root: true })
       context.commit('group/groups', [], { root: true })

@@ -11,14 +11,26 @@ import tools from './tools/store'
 import account from './account/store'
 import payee from './payee/store'
 import check from './check/store'
+import transmittal from './transmittal/store'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: { auth, company, user, group, branch, tools, account, payee, check },
+  modules: {
+    auth,
+    company,
+    user,
+    group,
+    branch,
+    tools,
+    account,
+    payee,
+    check,
+    transmittal
+  },
   state: {
     alert: {},
-    drawer: false,
+    drawer: true,
     error: new Error(),
     footer: false,
     showAlert: false

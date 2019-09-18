@@ -9,12 +9,11 @@
         <v-container grid-list-md>
           <v-flex xs12>
             <v-text-field
-              name="email"
-              label="Email"
-              type="email"
+              name="username"
+              label="User Name | Email"
               prepend-icon="mdi-account-card-details-outline"
-              :error-messages="error.get('email')"
-              v-model="email"
+              :error-messages="error.get('username')"
+              v-model="username"
               autofocus
               required
             ></v-text-field>
@@ -88,13 +87,13 @@ export default {
     }
   },
   data: () => ({
-    email: null,
+    username: null,
     password: null
   }),
   methods: {
     login() {
       this.$store.dispatch('auth/login', {
-        email: this.email,
+        username: this.username,
         password: this.password,
         company_id: this.company_id
       })

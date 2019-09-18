@@ -40,9 +40,9 @@ Axios.interceptors.response.use(
       }
       // console.log(error.response)
     } else if (error.request) {
-      // console.log(error.request)
+      console.log(error.request)
     } else {
-      // console.log('Error', error.message)
+      console.log('Error', error.message)
     }
     // console.log(error.config)
     return Promise.reject(error)
