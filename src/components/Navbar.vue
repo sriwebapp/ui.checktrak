@@ -5,11 +5,6 @@
       <span>CheckTrak </span>
       <span class="grey--text">{{ company.code }}</span>
     </v-toolbar-title>
-    <v-spacer></v-spacer>
-    <v-btn color="deep-orange" text @click="logout">
-      Logout
-      <v-icon right>mdi-exit-to-app</v-icon>
-    </v-btn>
   </v-app-bar>
 </template>
 

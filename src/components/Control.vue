@@ -1,141 +1,17 @@
 <template>
   <v-footer app inset dark color="grey lighten-2" v-if="show">
     <v-row>
-      <v-col>
+      <v-col class="my-n2" v-for="(control, index) in controls" :key="index">
         <v-btn
           light
           block
           rounded
-          color="indigo white--text"
-          @click="showCreateForm"
-          :disabled="!creatable"
+          :color="control.color + ' white--text'"
+          @click="control.action"
+          :disabled="control.access"
         >
-          Create
-          <v-icon right>mdi-plus</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-          light
-          block
-          rounded
-          color="orange  white--text"
-          @click="showEditForm"
-          :disabled="!editable"
-        >
-          Edit
-          <v-icon right>mdi-update</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-          light
-          block
-          rounded
-          color="red white--text"
-          @click="showDeleteForm"
-          :disabled="!deletable"
-        >
-          Delete
-          <v-icon right>mdi-trash-can-outline</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-          light
-          block
-          rounded
-          color="blue white--text"
-          @click="showTransmitForm"
-          :disabled="!transmittable"
-        >
-          Transmit
-          <v-icon right>mdi-bank-transfer-out</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-          light
-          block
-          rounded
-          color="green white--text"
-          @click="showReceiveForm"
-          :disabled="!receivable"
-        >
-          Receive
-          <v-icon right>mdi-bank-transfer-in</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-          light
-          block
-          rounded
-          color="purple white--text"
-          @click="showClaimForm"
-          :disabled="!claimable"
-        >
-          Claim
-          <v-icon right>mdi-download</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-          light
-          block
-          rounded
-          color="blue-grey white--text"
-          @click="showReturnForm"
-          :disabled="!returnable"
-        >
-          Return
-          <v-icon right>mdi-keyboard-return</v-icon>
-        </v-btn>
-      </v-col>
-
-      <v-col>
-        <v-btn
-          light
-          block
-          rounded
-          color="red white--text"
-          @click="showCancelForm"
-          :disabled="!cancelable"
-        >
-          Cancel
-          <v-icon right>mdi-cancel</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-          light
-          block
-          rounded
-          color="teal white--text"
-          @click="showClearForm"
-          :disabled="!clearable"
-        >
-          Clear
-          <v-icon right>mdi-check-bold</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-          light
-          block
-          rounded
-          color="primary  white--text"
-          @click="showCheck"
-          :disabled="!viewable"
-        >
-          Preview
-          <v-icon right>mdi-open-in-app</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn light block rounded color="green white--text" @click="refresh">
-          Refresh
-          <v-icon right>mdi-refresh</v-icon>
+          {{ control.label }}
+          <v-icon right>{{ control.icon }}</v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -145,6 +21,87 @@
 <script>
 export default {
   computed: {
+    controls() {
+      return [
+        {
+          label: 'Create',
+          color: 'indigo',
+          icon: 'mdi-plus',
+          action: this.showCreateForm,
+          access: !this.creatable
+        },
+        {
+          label: 'Edit',
+          color: 'orange',
+          icon: 'mdi-update',
+          action: this.showEditForm,
+          access: !this.editable
+        },
+        {
+          label: 'Delete',
+          color: 'red',
+          icon: 'mdi-trash-can-outline',
+          action: this.showDeleteForm,
+          access: !this.deletable
+        },
+        {
+          label: 'Transmit',
+          color: 'blue',
+          icon: 'mdi-bank-transfer-out',
+          action: this.showTransmitForm,
+          access: !this.transmittable
+        },
+        {
+          label: 'Receive',
+          color: 'green',
+          icon: 'mdi-bank-transfer-in',
+          action: this.showReceiveForm,
+          access: !this.receivable
+        },
+        {
+          label: 'Claim',
+          color: 'purple',
+          icon: 'mdi-download',
+          action: this.showClaimForm,
+          access: !this.claimable
+        },
+        {
+          label: 'Return',
+          color: 'blue-grey',
+          icon: 'mdi-keyboard-return',
+          action: this.showReturnForm,
+          access: !this.returnable
+        },
+        {
+          label: 'Cancel',
+          color: 'red',
+          icon: 'mdi-cancel',
+          action: this.showCancelForm,
+          access: !this.cancelable
+        },
+        {
+          label: 'Clear',
+          color: 'teal',
+          icon: 'mdi-check-bold',
+          action: this.showClearForm,
+          access: !this.clearable
+        },
+        {
+          label: 'Preview',
+          color: 'primary',
+          icon: 'mdi-open-in-app',
+          action: this.showCheck,
+          access: !this.viewable
+        },
+        {
+          label: 'Refresh',
+          color: 'green',
+          icon: 'mdi-refresh',
+          action: this.refresh,
+          access: false
+        }
+      ]
+    },
     cancelable() {
       return (
         this.selectedChecks.length &&

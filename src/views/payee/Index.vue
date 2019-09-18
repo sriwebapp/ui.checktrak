@@ -12,6 +12,11 @@
         <template v-slot:item.payee_group_id="{ item }">
           {{ item.group ? item.group.name : '' }}
         </template>
+        <template v-slot:item.action="{ item }">
+          <v-btn small class="info" router to="/" :disabled="loading">
+            Update
+          </v-btn>
+        </template>
       </v-data-table>
     </v-card-text>
   </v-card>
@@ -32,7 +37,8 @@ export default {
       { text: 'Code', align: 'left', value: 'code' },
       { text: 'Name', align: 'left', value: 'name' },
       { text: 'Group', align: 'left', value: 'payee_group_id' },
-      { text: 'Description', align: 'left', value: 'desc' }
+      { text: 'Description', align: 'left', value: 'desc' },
+      { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ]
   }),
   mounted() {
