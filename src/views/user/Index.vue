@@ -13,7 +13,12 @@
       </v-btn>
     </v-card-title>
     <v-card-text>
-      <v-data-table :headers="headers" :items="users" :loading="loading">
+      <v-data-table
+        :headers="headers"
+        :items="users"
+        :loading="loading"
+        :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
+      >
         <template v-slot:body="{ items }">
           <tbody>
             <tr v-for="item in items" :key="item.id">

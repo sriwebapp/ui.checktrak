@@ -6,7 +6,7 @@
     :loading="loading"
     class="elevation-1"
     :options.sync="pagination"
-    :footer-props="{ itemsPerPageOptions: [15, 50, 100] }"
+    :footer-props="{ itemsPerPageOptions: [10, 50, 100] }"
     :server-items-length="totalItems"
     show-select
   >
@@ -110,7 +110,16 @@ export default {
     }
   },
   mounted() {
-    this.pagination = {}
+    this.pagination = {
+      groupBy: [],
+      groupDesc: [],
+      itemsPerPage: 10,
+      multiSort: false,
+      mustSort: false,
+      page: 1,
+      sortBy: [],
+      sortDesc: []
+    }
   },
   watch: {
     pagination: {

@@ -8,7 +8,12 @@
       </v-btn>
     </v-card-title>
     <v-card-text>
-      <v-data-table :headers="headers" :items="branches" :loading="loading">
+      <v-data-table
+        :headers="headers"
+        :items="branches"
+        :loading="loading"
+        :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
+      >
         <template v-slot:item.incharge_id="{ item }">
           {{ item.incharge ? item.incharge.name : '' }}
         </template>

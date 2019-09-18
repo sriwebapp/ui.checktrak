@@ -18,7 +18,7 @@ export default new Vuex.Store({
   modules: { auth, company, user, group, branch, tools, account, payee, check },
   state: {
     alert: {},
-    drawer: true,
+    drawer: false,
     error: new Error(),
     footer: false,
     showAlert: false

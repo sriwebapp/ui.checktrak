@@ -8,7 +8,12 @@
       </v-btn></v-card-title
     >
     <v-card-text>
-      <v-data-table :headers="headers" :items="accounts" :loading="loading">
+      <v-data-table
+        :headers="headers"
+        :items="accounts"
+        :loading="loading"
+        :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
+      >
         <template v-slot:item.action="{ item }">
           <v-btn
             small

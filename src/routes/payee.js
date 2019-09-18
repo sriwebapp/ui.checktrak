@@ -13,7 +13,7 @@ export default {
       component: () => import('./../views/payee/Create.vue')
     },
     {
-      path: ':id/create',
+      path: ':id/edit',
       name: 'edit-payee',
       component: () => import('./../views/payee/Edit.vue')
     }

@@ -14,6 +14,7 @@
 - Inactive Log In
 - clear store on logout
 - server side payee datatable/ update
+- add catch in all request
 
 ## Seeding Data
 

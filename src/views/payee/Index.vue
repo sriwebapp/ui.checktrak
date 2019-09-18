@@ -8,12 +8,23 @@
       </v-btn>
     </v-card-title>
     <v-card-text>
-      <v-data-table :headers="headers" :items="payees" :loading="loading">
+      <v-data-table
+        :headers="headers"
+        :items="payees"
+        :loading="loading"
+        :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
+      >
         <template v-slot:item.payee_group_id="{ item }">
           {{ item.group ? item.group.name : '' }}
         </template>
         <template v-slot:item.action="{ item }">
-          <v-btn small class="info" router to="/" :disabled="loading">
+          <v-btn
+            small
+            class="info"
+            router
+            :to="{ name: 'edit-payee', params: { id: item.id } }"
+            :disabled="loading"
+          >
             Update
           </v-btn>
         </template>

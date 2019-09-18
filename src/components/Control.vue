@@ -200,7 +200,16 @@ export default {
   },
   methods: {
     refresh() {
-      this.$store.dispatch('check/getChecks', {})
+      this.$store.dispatch('check/getChecks', {
+        groupBy: [],
+        groupDesc: [],
+        itemsPerPage: 10,
+        multiSort: false,
+        mustSort: false,
+        page: 1,
+        sortBy: [],
+        sortDesc: []
+      })
     },
     showCheck() {
       if (this.selectedChecks.length === 1) {

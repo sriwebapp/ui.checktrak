@@ -3,53 +3,55 @@
     <v-card-title>Create Payee</v-card-title>
     <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
       <v-card-text>
-        <v-container grid-list-md>
-          <v-flex xs12>
-            <v-text-field
-              v-model="payee.code"
-              :error-messages="error.get('code')"
-              name="code"
-              label="Code"
-              prepend-icon="mdi-tag"
-              required
-              autofocus
-            ></v-text-field>
-          </v-flex>
+        <v-container>
+          <v-layout row wrap>
+            <v-flex xs12>
+              <v-text-field
+                v-model="payee.code"
+                :error-messages="error.get('code')"
+                name="code"
+                label="Code"
+                prepend-icon="mdi-tag"
+                required
+                autofocus
+              ></v-text-field>
+            </v-flex>
 
-          <v-flex xs12>
-            <v-text-field
-              v-model="payee.name"
-              :error-messages="error.get('name')"
-              name="name"
-              label="Name"
-              prepend-icon="mdi-tag-text-outline"
-              required
-            ></v-text-field>
-          </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                v-model="payee.name"
+                :error-messages="error.get('name')"
+                name="name"
+                label="Name"
+                prepend-icon="mdi-tag-text-outline"
+                required
+              ></v-text-field>
+            </v-flex>
 
-          <v-flex xs12>
-            <v-text-field
-              v-model="payee.desc"
-              :error-messages="error.get('desc')"
-              name="desc"
-              label="Description"
-              prepend-icon="mdi-clipboard-list-outline"
-              required
-            ></v-text-field>
-          </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                v-model="payee.desc"
+                :error-messages="error.get('desc')"
+                name="desc"
+                label="Description"
+                prepend-icon="mdi-clipboard-list-outline"
+                required
+              ></v-text-field>
+            </v-flex>
 
-          <v-flex xs12>
-            <v-select
-              v-model="payee.payee_group_id"
-              :error-messages="error.get('payee_group_id')"
-              name="payee_group_id"
-              label="Select Group"
-              prepend-icon="mdi-account-group"
-              :items="group"
-              item-text="name"
-              item-value="id"
-            ></v-select>
-          </v-flex>
+            <v-flex xs12>
+              <v-select
+                v-model="payee.payee_group_id"
+                :error-messages="error.get('payee_group_id')"
+                name="payee_group_id"
+                label="Select Group"
+                prepend-icon="mdi-account-group"
+                :items="group"
+                item-text="name"
+                item-value="id"
+              ></v-select>
+            </v-flex>
+          </v-layout>
         </v-container>
       </v-card-text>
       <v-card-actions>
