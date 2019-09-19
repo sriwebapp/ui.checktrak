@@ -77,8 +77,6 @@ export default {
         context.dispatch('clearStorage')
       } catch (e) {
         return
-      } finally {
-        context.commit('logging', false)
       }
     },
     async getUser(state) {
@@ -86,7 +84,7 @@ export default {
         const res = await Axios.get('/auth')
         state.commit('user', res.data)
       } catch (error) {
-        return
+        throw error
       }
     },
     clearStorage(context) {

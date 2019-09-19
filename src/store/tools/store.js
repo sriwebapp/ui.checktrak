@@ -54,7 +54,7 @@ export default {
         )
         context.commit('accounts', res.data)
       } catch (error) {
-        return
+        throw error
       }
     },
     async getActions(context) {
@@ -62,7 +62,7 @@ export default {
         const res = await Axios.get('/tools/actions')
         context.commit('actions', res.data)
       } catch (error) {
-        return
+        throw error
       }
     },
     async getBranches(context) {
@@ -70,7 +70,7 @@ export default {
         const res = await Axios.get('/tools/branches')
         context.commit('branches', res.data)
       } catch (error) {
-        return
+        throw error
       }
     },
     async getChecks(context, transmittal_id) {
@@ -87,6 +87,7 @@ export default {
         context.commit('company', res.data)
       } catch (error) {
         context.dispatch('auth/clearStorage', {}, { root: true })
+        throw error
       }
     },
     async getCompanies(context) {
@@ -105,7 +106,7 @@ export default {
         const res = await Axios.get('/tools/groups')
         context.commit('groups', res.data)
       } catch (error) {
-        return
+        throw error
       }
     },
     async getModules(context) {
@@ -113,7 +114,7 @@ export default {
         const res = await Axios.get('/tools/modules')
         context.commit('modules', res.data)
       } catch (error) {
-        return
+        throw error
       }
     },
     async getPayees(context) {
@@ -123,7 +124,7 @@ export default {
         )
         context.commit('payees', res.data)
       } catch (error) {
-        return
+        throw error
       }
     },
     async getPayeeGroup(context) {
@@ -131,7 +132,7 @@ export default {
         const res = await Axios.get('/tools/payee-group')
         context.commit('payeeGroup', res.data)
       } catch (error) {
-        return
+        throw error
       }
     },
     async getSeries(context, branch) {
@@ -152,7 +153,7 @@ export default {
         const res = await Axios.get('/tools/users')
         context.commit('users', res.data)
       } catch (error) {
-        return
+        throw error
       }
     }
   },

@@ -11,7 +11,6 @@
           :disabled="control.access"
         >
           {{ control.label }}
-          <v-icon right>{{ control.icon }}</v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -200,7 +199,7 @@ export default {
   },
   methods: {
     refresh() {
-      this.$store.dispatch('check/getChecks', {
+      this.$store.commit('check/pagination', {
         groupBy: [],
         groupDesc: [],
         itemsPerPage: 10,

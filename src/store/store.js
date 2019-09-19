@@ -32,6 +32,7 @@ export default new Vuex.Store({
     alert: {},
     drawer: true,
     error: new Error(),
+    filter: false,
     footer: false,
     showAlert: false
   },
@@ -43,6 +44,9 @@ export default new Vuex.Store({
     drawer(state, payload) {
       state.drawer = payload
     },
+    filter(state, payload) {
+      state.filter = payload
+    },
     footer(state, payload) {
       state.footer = payload
     },
@@ -52,26 +56,34 @@ export default new Vuex.Store({
   },
   actions: {
     async loadData(context) {
-      context.commit('auth/logging', true)
-      await context.dispatch('auth/getUser')
-      await context.dispatch(
-        'tools/getCompany',
-        localStorage.getItem('company_id')
-      )
-      await context.dispatch('tools/getUsers')
-      await context.dispatch('tools/getGroups')
-      await context.dispatch('tools/getBranches')
-      await context.dispatch('tools/getActions')
-      await context.dispatch('tools/getModules')
-      await context.dispatch('tools/getPayeeGroup')
-      context.commit('auth/logging', false)
+      try {
+        context.commit('auth/logging', true)
+        await context.dispatch('auth/getUser')
+        await context.dispatch(
+          'tools/getCompany',
+          localStorage.getItem('company_id')
+        )
+        await context.dispatch('tools/getUsers')
+        await context.dispatch('tools/getGroups')
+        await context.dispatch('tools/getBranches')
+        await context.dispatch('tools/getActions')
+        await context.dispatch('tools/getModules')
+        await context.dispatch('tools/getPayeeGroup')
+        context.commit('auth/logging', false)
+      } catch (error) {
+        return
+      }
     },
     async loadData2(context) {
-      context.commit('check/waiting', true)
-      await context.dispatch('tools/getPayees')
-      await context.dispatch('tools/getAccounts')
-      context.commit('check/waiting', false)
-      context.commit('footer', true)
+      try {
+        context.commit('check/waiting', true)
+        await context.dispatch('tools/getPayees')
+        await context.dispatch('tools/getAccounts')
+        context.commit('check/waiting', false)
+        context.commit('footer', true)
+      } catch (error) {
+        return
+      }
     }
   },
   getters: {
@@ -83,6 +95,9 @@ export default new Vuex.Store({
     },
     error(state) {
       return state.error
+    },
+    filter(state) {
+      return state.filter
     },
     footer(state) {
       return state.footer

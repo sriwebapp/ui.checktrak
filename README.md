@@ -15,6 +15,7 @@
 - clear store on logout ---
 - server side payee datatable/ update
 - add catch in all request
+- remove error in form show (dialogs)
 
 ## Seeding Data
 

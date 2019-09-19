@@ -1,19 +1,19 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="transmittals"
-    :loading="loading"
-    class="elevation-1"
-  >
-    <template v-slot:item.branch_id="{ item }">
-      {{ item.branch.name }}
-    </template>
-    <template v-slot:item.view="{ item }">
-      <v-btn icon color="indigo" :disabled="loading">
-        <v-icon>mdi-eye</v-icon>
-      </v-btn>
-    </template>
-  </v-data-table>
+  <v-card>
+    <v-card-title>Check Transmittal</v-card-title>
+    <v-card-text>
+      <v-data-table :headers="headers" :items="transmittals" :loading="loading">
+        <template v-slot:item.branch_id="{ item }">
+          {{ item.branch.name }}
+        </template>
+        <template v-slot:item.view="{ item }">
+          <v-btn icon color="indigo" :disabled="loading">
+            <v-icon>mdi-eye</v-icon>
+          </v-btn>
+        </template>
+      </v-data-table>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>

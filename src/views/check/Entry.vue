@@ -13,6 +13,7 @@
     <show-check />
     <show-history />
     <show-selected />
+    <filter-menu />
   </v-container>
 </template>
 
@@ -31,7 +32,8 @@ export default {
     transmitForm: () => import('./Transmit.vue'),
     showCheck: () => import('./Show.vue'),
     showHistory: () => import('./History.vue'),
-    showSelected: () => import('./Selected.vue')
+    showSelected: () => import('./Selected.vue'),
+    filterMenu: () => import('./Filter.vue')
   },
   computed: {
     waiting() {
