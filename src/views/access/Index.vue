@@ -1,10 +1,10 @@
 <template>
   <v-card>
-    <v-card-title>User Group Management</v-card-title>
+    <v-card-title>Accessibility Management</v-card-title>
     <v-card-text>
       <v-data-table
         :headers="headers"
-        :items="groups"
+        :items="access"
         :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
@@ -33,7 +33,7 @@
                   class="info"
                   :disabled="loading"
                   router
-                  :to="{ name: 'group-access', params: { id: item.id } }"
+                  :to="{ name: 'edit-access', params: { id: item.id } }"
                 >
                   Manage
                 </v-btn>
@@ -49,11 +49,11 @@
 <script>
 export default {
   computed: {
-    groups() {
-      return this.$store.getters['group/groups']
+    access() {
+      return this.$store.getters['access/accesses']
     },
     loading() {
-      return this.$store.getters['group/loading']
+      return this.$store.getters['access/loading']
     }
   },
   data: () => ({
@@ -77,7 +77,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('group/getGroups')
+    this.$store.dispatch('access/getAccesses')
   }
 }
 </script>

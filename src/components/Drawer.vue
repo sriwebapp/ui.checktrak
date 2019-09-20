@@ -94,38 +94,38 @@ export default {
   data: () => ({
     admin: [
       {
-        title: 'Company',
+        title: 'Companies',
         icon: 'mdi-home-city',
         route: '/company',
         code: 'cmp'
       },
       {
-        title: 'Branch',
-        icon: 'mdi-compass',
+        title: 'Branches',
+        icon: 'mdi-source-branch',
         route: '/branch',
         code: 'bra'
       },
       {
-        title: 'Access',
-        icon: 'mdi-account-group',
-        route: '/group',
-        code: 'grp'
+        title: 'Accessibility',
+        icon: 'mdi-door-closed-lock',
+        route: '/access',
+        code: 'acs'
       },
       {
-        title: 'User',
+        title: 'Users',
         icon: 'mdi-account',
         route: '/user',
         code: 'usr'
       },
       {
-        title: 'Bank',
+        title: 'Bank Accounts',
         icon: 'mdi-bank',
         route: '/account',
         code: 'acc'
       },
       {
-        title: 'Payee',
-        icon: 'mdi-receipt',
+        title: 'Payees',
+        icon: 'mdi-bank-transfer-in',
         route: '/payee',
         code: 'pye'
       }

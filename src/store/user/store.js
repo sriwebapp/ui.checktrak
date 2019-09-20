@@ -4,15 +4,15 @@ import router from './../../router.js'
 export default {
   namespaced: true,
   state: {
+    access: null,
     editedUser: {},
-    group: null,
     loading: false,
     user: {},
     users: []
   },
   mutations: {
-    group(state, payload) {
-      state.group = payload
+    access(state, payload) {
+      state.access = payload
     },
     loading(state, payload) {
       state.loading = payload
@@ -26,13 +26,13 @@ export default {
     }
   },
   actions: {
-    async getGroup(context, id) {
-      context.commit('group', null)
+    async getAccess(context, id) {
+      context.commit('access', null)
       context.commit('loading', true)
       try {
         const res = await Axios.get('/user/' + id)
         context.commit('user', res.data)
-        context.commit('group', res.data.group.id)
+        context.commit('access', res.data.access.id)
       } catch (e) {
         return
       } finally {
@@ -97,11 +97,11 @@ export default {
     }
   },
   getters: {
+    access(state) {
+      return state.access
+    },
     editedUser(state) {
       return state.editedUser
-    },
-    group(state) {
-      return state.group
     },
     loading(state) {
       return state.loading

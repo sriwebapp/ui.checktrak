@@ -5,15 +5,15 @@
       <v-card-text>
         <v-container grid-list-md>
           <v-flex xs12>
-            <p class="title">Select User Group:</p>
+            <p class="title">Select Accessibility:</p>
           </v-flex>
 
-          <v-radio-group v-model="group">
+          <v-radio-group v-model="access">
             <v-radio
-              v-for="group in groups"
-              :key="group.id"
-              :label="group.name"
-              :value="group.id"
+              v-for="access in accesses"
+              :key="access.id"
+              :label="access.name"
+              :value="access.id"
             ></v-radio>
           </v-radio-group>
 
@@ -119,8 +119,8 @@ export default {
     branches() {
       return this.$store.getters['tools/branches']
     },
-    groups() {
-      return this.$store.getters['tools/groups']
+    accesses() {
+      return this.$store.getters['tools/access']
     },
     loading() {
       return this.$store.getters['user/loading']
@@ -128,16 +128,16 @@ export default {
     modules() {
       return this.$store.getters['tools/modules']
     },
-    group: {
+    access: {
       get() {
-        return this.$store.getters['user/group']
+        return this.$store.getters['user/access']
       },
       set(arg) {
-        this.$store.commit('user/group', arg)
+        this.$store.commit('user/access', arg)
       }
     },
-    selectedGroup() {
-      return this.groups.find(grp => grp.id === this.group)
+    selectedAccess() {
+      return this.accesses.find(acs => acs.id === this.access)
     },
     user() {
       return this.$store.getters['user/user']
@@ -152,22 +152,22 @@ export default {
     editAccess() {
       this.$store.dispatch('user/editAccess', {
         user_id: this.user.id,
-        group_id: this.group,
+        access_id: this.access,
         actions: this.selectedActions,
         branches: this.selectedBranches,
         modules: this.selectedModules
       })
     },
     disable(obj) {
-      if (this.selectedGroup) {
-        return this.selectedGroup[obj] !== 0
+      if (this.selectedAccess) {
+        return this.selectedAccess[obj] !== 0
       }
     },
     setActions() {
-      if (this.selectedGroup.action === 2) {
+      if (this.selectedAccess.action === 2) {
         this.selectedActions = this.actions.map(action => action.code)
-      } else if (this.selectedGroup.action === 1) {
-        this.selectedActions = this.selectedGroup.actions.map(
+      } else if (this.selectedAccess.action === 1) {
+        this.selectedActions = this.selectedAccess.actions.map(
           action => action.code
         )
       } else {
@@ -175,10 +175,10 @@ export default {
       }
     },
     setBranches() {
-      if (this.selectedGroup.branch === 2) {
+      if (this.selectedAccess.branch === 2) {
         this.selectedBranches = this.branches.map(branch => branch.code)
-      } else if (this.selectedGroup.branch === 1) {
-        this.selectedBranches = this.selectedGroup.branches.map(
+      } else if (this.selectedAccess.branch === 1) {
+        this.selectedBranches = this.selectedAccess.branches.map(
           branch => branch.code
         )
       } else {
@@ -186,10 +186,10 @@ export default {
       }
     },
     setModules() {
-      if (this.selectedGroup.module === 2) {
+      if (this.selectedAccess.module === 2) {
         this.selectedModules = this.modules.map(module => module.code)
-      } else if (this.selectedGroup.module === 1) {
-        this.selectedModules = this.selectedGroup.modules.map(
+      } else if (this.selectedAccess.module === 1) {
+        this.selectedModules = this.selectedAccess.modules.map(
           module => module.code
         )
       } else {
@@ -198,11 +198,11 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('user/getGroup', this.$route.params.id)
+    this.$store.dispatch('user/getAccess', this.$route.params.id)
   },
   watch: {
-    selectedGroup() {
-      if (this.selectedGroup) {
+    selectedAccess() {
+      if (this.selectedAccess) {
         this.setActions()
         this.setBranches()
         this.setModules()

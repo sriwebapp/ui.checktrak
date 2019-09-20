@@ -46,7 +46,7 @@
                 :error-messages="error.get('branch_id')"
                 name="branch_id"
                 label="Select Branch"
-                prepend-icon="mdi-compass"
+                prepend-icon="mdi-source-branch"
                 :items="branches"
                 item-text="name"
                 item-value="id"
@@ -55,12 +55,12 @@
 
             <v-flex xs12>
               <v-select
-                v-model="user.group_id"
-                :error-messages="error.get('group_id')"
-                name="group_id"
-                label="Select Group"
-                prepend-icon="mdi-account-group"
-                :items="groups"
+                v-model="user.access_id"
+                :error-messages="error.get('access_id')"
+                name="access_id"
+                label="Select Accessibility"
+                prepend-icon="mdi-door-closed-lock"
+                :items="access"
                 item-text="name"
                 item-value="id"
               ></v-select>
@@ -94,8 +94,8 @@ export default {
     error() {
       return this.$store.getters.error
     },
-    groups() {
-      return this.$store.getters['tools/groups']
+    access() {
+      return this.$store.getters['tools/access']
     },
     loading() {
       return this.$store.getters['user/loading']

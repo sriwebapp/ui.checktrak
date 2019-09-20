@@ -92,7 +92,7 @@ export default {
       router.push({ name: 'login' })
       context.commit('company/companies', [], { root: true })
       context.commit('branch/branches', [], { root: true })
-      context.commit('group/groups', [], { root: true })
+      context.commit('access/accesses', [], { root: true })
       context.commit('user/users', [], { root: true })
       context.commit('account/accounts', [], { root: true })
       context.commit('payee/payees', [], { root: true })

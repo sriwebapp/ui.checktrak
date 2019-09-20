@@ -1,14 +1,14 @@
 <template>
   <v-card>
-    <v-card-title>Update Group Access</v-card-title>
+    <v-card-title>Update Accessibility</v-card-title>
     <form @submit.prevent="edit">
       <v-card-text>
         <v-container grid-list-md>
           <v-flex>
             <v-text-field
-              :value="group.name"
-              label="Group Name"
-              prepend-icon="mdi-account-group"
+              :value="access.name"
+              label="Access Name"
+              prepend-icon="mdi-tag-text-outline"
               readonly
               :loading="loading"
             ></v-text-field>
@@ -19,7 +19,7 @@
           </v-flex>
 
           <v-flex>
-            <v-radio-group v-model="group.action" row>
+            <v-radio-group v-model="access.action" row>
               <v-radio
                 v-for="(option, index) in options"
                 :key="index"
@@ -52,7 +52,7 @@
           </v-flex>
 
           <v-flex>
-            <v-radio-group v-model="group.branch" row>
+            <v-radio-group v-model="access.branch" row>
               <v-radio
                 v-for="(option, index) in options"
                 :key="index"
@@ -85,7 +85,7 @@
           </v-flex>
 
           <v-flex>
-            <v-radio-group v-model="group.module" row>
+            <v-radio-group v-model="access.module" row>
               <v-radio
                 v-for="(option, index) in options"
                 :key="index"
@@ -122,7 +122,7 @@
         <v-btn
           class="deep-orange white--text"
           router
-          :to="{ name: 'groups' }"
+          :to="{ name: 'access' }"
           :disabled="loading"
         >
           Return
@@ -141,11 +141,11 @@ export default {
     branches() {
       return this.$store.getters['tools/branches']
     },
-    group() {
-      return this.$store.getters['group/group']
+    access() {
+      return this.$store.getters['access/access']
     },
     loading() {
-      return this.$store.getters['group/loading']
+      return this.$store.getters['access/loading']
     },
     modules() {
       return this.$store.getters['tools/modules']
@@ -159,57 +159,57 @@ export default {
   }),
   methods: {
     disable(obj) {
-      if (this.group) {
-        return this.group[obj] !== 1
+      if (this.access) {
+        return this.access[obj] !== 1
       }
     },
     edit() {
-      this.$store.dispatch('group/editAccess', {
-        group_id: this.group.id,
-        action: this.group.action,
-        branch: this.group.branch,
-        module: this.group.module,
+      this.$store.dispatch('access/edit', {
+        access_id: this.access.id,
+        action: this.access.action,
+        branch: this.access.branch,
+        module: this.access.module,
         actions: this.selectedActions,
         branches: this.selectedBranches,
         modules: this.selectedModules
       })
     },
     setActions() {
-      if (this.group.action === 2) {
+      if (this.access.action === 2) {
         this.selectedActions = this.actions.map(action => action.code)
-      } else if (this.group.action === 1) {
-        this.selectedActions = this.group.actions.map(action => action.code)
+      } else if (this.access.action === 1) {
+        this.selectedActions = this.access.actions.map(action => action.code)
       } else {
         this.selectedActions = []
       }
     },
     setBranches() {
-      if (this.group.branch === 2) {
+      if (this.access.branch === 2) {
         this.selectedBranches = this.branches.map(branch => branch.code)
-      } else if (this.group.branch === 1) {
-        this.selectedBranches = this.group.branches.map(branch => branch.code)
+      } else if (this.access.branch === 1) {
+        this.selectedBranches = this.access.branches.map(branch => branch.code)
       } else {
         this.selectedBranches = []
       }
     },
     setModules() {
-      if (this.group.module === 2) {
+      if (this.access.module === 2) {
         this.selectedModules = this.modules.map(module => module.code)
-      } else if (this.group.module === 1) {
-        this.selectedModules = this.group.modules.map(module => module.code)
+      } else if (this.access.module === 1) {
+        this.selectedModules = this.access.modules.map(module => module.code)
       } else {
         this.selectedModules = []
       }
     }
   },
   mounted() {
-    this.$store.dispatch('group/getGroup', this.$route.params.id)
+    this.$store.dispatch('access/getAccess', this.$route.params.id)
   },
   watch: {
-    group: {
+    access: {
       deep: true,
       handler() {
-        if (this.group.id) {
+        if (this.access.id) {
           this.setActions()
           this.setBranches()
           this.setModules()

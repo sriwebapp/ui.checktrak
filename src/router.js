@@ -6,7 +6,7 @@ import auth from './routes/auth'
 import user from './routes/user'
 import company from './routes/company'
 import branch from './routes/branch'
-import group from './routes/group'
+import access from './routes/access'
 import account from './routes/account'
 import payee from './routes/payee'
 import check from './routes/check'
@@ -25,7 +25,7 @@ const router = new Router({
       children: [
         { path: '', name: 'home', component: () => import('./views/Home.vue') },
         company,
-        group,
+        access,
         user,
         branch,
         account,

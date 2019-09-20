@@ -3,18 +3,21 @@ import Axios from 'axios'
 export default {
   namespaced: true,
   state: {
+    access: [],
     accounts: [],
     actions: [],
     branches: [],
     company: {},
     companies: [],
-    groups: [],
     modules: [],
     payees: [],
     payeeGroup: [],
     users: []
   },
   mutations: {
+    access(state, payload) {
+      state.access = payload
+    },
     accounts(state, payload) {
       state.accounts = payload
     },
@@ -30,9 +33,6 @@ export default {
     companies(state, payload) {
       state.companies = payload
     },
-    groups(state, payload) {
-      state.groups = payload
-    },
     modules(state, payload) {
       state.modules = payload
     },
@@ -47,6 +47,14 @@ export default {
     }
   },
   actions: {
+    async getAccess(context) {
+      try {
+        const res = await Axios.get('/tools/access')
+        context.commit('access', res.data)
+      } catch (error) {
+        throw error
+      }
+    },
     async getAccounts(context) {
       try {
         const res = await Axios.get(
@@ -101,14 +109,7 @@ export default {
         context.commit('auth/loading', false, { root: true })
       }
     },
-    async getGroups(context) {
-      try {
-        const res = await Axios.get('/tools/groups')
-        context.commit('groups', res.data)
-      } catch (error) {
-        throw error
-      }
-    },
+
     async getModules(context) {
       try {
         const res = await Axios.get('/tools/modules')
@@ -158,6 +159,9 @@ export default {
     }
   },
   getters: {
+    access(state) {
+      return state.access
+    },
     accounts(state) {
       return state.accounts
     },
@@ -172,9 +176,6 @@ export default {
     },
     companies(state) {
       return state.companies
-    },
-    groups(state) {
-      return state.groups
     },
     modules(state) {
       return state.modules

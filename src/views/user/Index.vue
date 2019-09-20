@@ -26,7 +26,7 @@
               <td>{{ item.username }}</td>
               <td>{{ item.email }}</td>
               <td>{{ item.branch ? item.branch.name : '' }}</td>
-              <td>{{ item.group.name }}</td>
+              <td>{{ item.access.name }}</td>
               <td class="text-center">
                 <v-icon :class="item.active ? 'green--text' : 'red--text'">{{
                   item.active
@@ -69,7 +69,7 @@ export default {
       { text: 'Username', align: 'left', value: 'name' },
       { text: 'Email', align: 'left', value: 'email' },
       { text: 'Branch', align: 'left', value: 'branch_id' },
-      { text: 'Group', align: 'left', value: 'group_id' },
+      { text: 'Access', align: 'left', value: 'access_id' },
       { text: 'Active', align: 'center', value: 'active' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ]

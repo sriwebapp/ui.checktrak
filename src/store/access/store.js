@@ -4,50 +4,50 @@ import router from './../../router'
 export default {
   namespaced: true,
   state: {
-    group: {},
-    groups: [],
+    access: {},
+    accesses: [],
     loading: false
   },
   mutations: {
-    group(state, payload) {
-      state.group = payload
+    access(state, payload) {
+      state.access = payload
     },
-    groups(state, payload) {
-      state.groups = payload
+    accesses(state, payload) {
+      state.accesses = payload
     },
     loading(state, payload) {
       state.loading = payload
     }
   },
   actions: {
-    async getGroup(context, id) {
+    async getAccess(context, id) {
       context.commit('loading', true)
       try {
-        context.commit('group', {})
-        const res = await Axios.get('/group/' + id)
-        context.commit('group', res.data)
+        context.commit('access', {})
+        const res = await Axios.get('/access/' + id)
+        context.commit('access', res.data)
       } catch (e) {
         return
       } finally {
         context.commit('loading', false)
       }
     },
-    async getGroups(context) {
+    async getAccesses(context) {
       context.commit('loading', true)
       try {
-        const res = await Axios.get('/group')
-        context.commit('groups', res.data)
+        const res = await Axios.get('/access')
+        context.commit('accesses', res.data)
       } catch (e) {
         return
       } finally {
         context.commit('loading', false)
       }
     },
-    async editAccess(context, access) {
+    async edit(context, access) {
       context.commit('loading', true)
       try {
-        await Axios.patch('/group/' + access.group_id, access)
-        router.push({ name: 'groups' })
+        await Axios.patch('/access/' + access.access_id, access)
+        router.push({ name: 'access' })
       } catch (e) {
         return
       } finally {
@@ -56,11 +56,11 @@ export default {
     }
   },
   getters: {
-    group(state) {
-      return state.group
+    access(state) {
+      return state.access
     },
-    groups(state) {
-      return state.groups
+    accesses(state) {
+      return state.accesses
     },
     loading(state) {
       return state.loading

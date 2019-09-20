@@ -46,7 +46,7 @@
                 :error-messages="error.get('branch_id')"
                 name="branch"
                 label="Select Branch"
-                prepend-icon="mdi-compass"
+                prepend-icon="mdi-source-branch"
                 :items="branches"
                 item-text="name"
                 item-value="id"
