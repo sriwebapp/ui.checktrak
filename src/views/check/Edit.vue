@@ -19,6 +19,17 @@
 
               <v-flex xs12>
                 <v-text-field
+                  :value="check.date"
+                  label="Created"
+                  prepend-icon="mdi-calendar"
+                  hide-details
+                  class="mb-3"
+                  disabled
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs12>
+                <v-text-field
                   :value="check.number"
                   label="Check Number"
                   prepend-icon="mdi-tag-text-outline"
@@ -45,17 +56,6 @@
                   :value="check.amount"
                   label="Amount"
                   prepend-icon="mdi-currency-php"
-                  hide-details
-                  class="mb-3"
-                  disabled
-                ></v-text-field>
-              </v-flex>
-
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.date"
-                  label="Created"
-                  prepend-icon="mdi-calendar"
                   hide-details
                   class="mb-3"
                   disabled

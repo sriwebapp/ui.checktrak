@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      Account Management
+      Bank Management
       <v-spacer></v-spacer>
       <v-btn class="indigo white--text" router :to="{ name: 'create-account' }">
         New Account

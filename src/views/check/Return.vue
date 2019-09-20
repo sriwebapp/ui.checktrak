@@ -166,6 +166,7 @@ export default {
       if (arg) {
         this.transmittal_id = null
         this.checks = []
+        this.date = new Date().toISOString().substr(0, 10)
       }
     },
     transmittal_id(arg) {

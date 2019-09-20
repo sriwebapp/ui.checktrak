@@ -35,6 +35,16 @@
 
         <v-flex xs12>
           <v-text-field
+            :value="account.purpose"
+            label="Purpose"
+            prepend-icon="mdi-clipboard-list"
+            placeholder=" "
+            readonly
+          ></v-text-field>
+        </v-flex>
+
+        <v-flex xs12>
+          <v-text-field
             :value="account.address"
             label="Address"
             prepend-icon="mdi-account-badge-horizontal"
@@ -88,16 +98,6 @@
             :value="account.fax"
             label="Fax"
             prepend-icon="mdi-fax"
-            placeholder=" "
-            readonly
-          ></v-text-field>
-        </v-flex>
-
-        <v-flex xs12>
-          <v-text-field
-            :value="account.purpose"
-            label="Purpose"
-            prepend-icon="mdi-clipboard-list"
             placeholder=" "
             readonly
           ></v-text-field>

@@ -36,6 +36,16 @@
 
           <v-flex xs12>
             <v-text-field
+              v-model="editedAccount.purpose"
+              :error-messages="error.get('purpose')"
+              name="purpose"
+              label="Purpose"
+              prepend-icon="mdi-clipboard-list"
+            ></v-text-field>
+          </v-flex>
+
+          <v-flex xs12>
+            <v-text-field
               v-model="editedAccount.address"
               :error-messages="error.get('address')"
               name="address"
@@ -91,16 +101,6 @@
               name="fax"
               label="Fax"
               prepend-icon="mdi-fax"
-            ></v-text-field>
-          </v-flex>
-
-          <v-flex xs12>
-            <v-text-field
-              v-model="editedAccount.purpose"
-              :error-messages="error.get('purpose')"
-              name="purpose"
-              label="Purpose"
-              prepend-icon="mdi-clipboard-list"
             ></v-text-field>
           </v-flex>
         </v-container>

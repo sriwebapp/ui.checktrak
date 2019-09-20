@@ -106,7 +106,7 @@ export default {
         this.selectedChecks.length &&
         this.selectedChecks.every(check => {
           return (
-            ![5, 6, 7].includes(check.status_id) &&
+            [1, 4].includes(check.status_id) &&
             check.received &&
             this.branches.includes(check.branch.code)
           )
@@ -129,14 +129,8 @@ export default {
     },
     clearable() {
       return (
-        this.selectedChecks.length > 0 &&
-        this.selectedChecks.every(check => {
-          return (
-            check.status_id === 3 /* claimed */ &&
-            check.received &&
-            this.branches.includes(check.branch.code)
-          )
-        }) &&
+        this.selectedChecks.length === 1 &&
+        this.selectedChecks[0].status_id === 3 /* claimed */ &&
         this.actions.includes('clr')
       )
     },
@@ -224,6 +218,7 @@ export default {
       this.$store.commit('check/showClaim', true)
     },
     showClearForm() {
+      this.$store.commit('check/check', this.selectedChecks[0])
       this.$store.commit('check/showClear', true)
     },
     showCreateForm() {

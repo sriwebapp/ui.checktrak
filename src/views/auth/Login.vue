@@ -1,7 +1,7 @@
 <template>
   <v-card class="elevation-25">
     <v-toolbar color="primary" dark flat>
-      <v-toolbar-title>Login form</v-toolbar-title>
+      <v-toolbar-title>Login</v-toolbar-title>
     </v-toolbar>
     <form @submit.prevent="login" @keydown="error.clear($event.target.name)">
       <v-divider></v-divider>

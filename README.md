@@ -16,6 +16,19 @@
 - server side payee datatable/ update
 - add catch in all request
 - remove error in form show (dialogs)
+- month end/ year end inventory
+- notification
+- clarify cancellation
+
+---
+
+- cancel ---
+- clear
+- receive
+
+---
+
+- multiple incharge user group
 
 ## Seeding Data
 

@@ -60,22 +60,22 @@
 
                 <v-flex xs12>
                   <v-text-field
+                    v-model="check.details"
+                    :error-messages="error.get('details')"
+                    name="details"
+                    label="Details"
+                    prepend-icon="mdi-clipboard-list-outline"
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12>
+                  <v-text-field
                     v-model="check.amount"
                     :error-messages="error.get('amount')"
                     name="amount"
                     label="Amount"
                     prepend-icon="mdi-currency-php"
                     required
-                  ></v-text-field>
-                </v-flex>
-
-                <v-flex xs12>
-                  <v-text-field
-                    v-model="check.details"
-                    :error-messages="error.get('details')"
-                    name="details"
-                    label="Details"
-                    prepend-icon="mdi-clipboard-list-outline"
                   ></v-text-field>
                 </v-flex>
               </v-layout>

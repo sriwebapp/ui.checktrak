@@ -11,18 +11,18 @@
             <v-container>
               <v-layout row wrap>
                 <v-flex xs12>
-                  <v-flex xs12>
-                    <v-text-field
-                      v-model="date"
-                      :error-messages="error.get('date')"
-                      name="date"
-                      label="Date"
-                      prepend-icon="mdi-calendar"
-                      @click="showCalendar = true"
-                      readonly
-                    ></v-text-field>
-                  </v-flex>
+                  <v-text-field
+                    v-model="date"
+                    :error-messages="error.get('date')"
+                    name="date"
+                    label="Date"
+                    prepend-icon="mdi-calendar"
+                    @click="showCalendar = true"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
 
+                <v-flex xs12>
                   <v-text-field
                     v-model="remarks"
                     :error-messages="error.get('remarks')"
