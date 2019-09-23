@@ -18,8 +18,8 @@
                 </v-chip>
               </td>
               <td class="text-center">
-                <v-chip small outlined :class="decrypt(item.branch).color">
-                  {{ decrypt(item.branch).text }}
+                <v-chip small outlined :class="decrypt(item.group).color">
+                  {{ decrypt(item.group).text }}
                 </v-chip>
               </td>
               <td class="text-center">
@@ -60,7 +60,7 @@ export default {
     headers: [
       { text: 'Name', align: 'left', value: 'name' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false },
-      { text: 'Branch', align: 'center', value: 'branch', sortable: false },
+      { text: 'Group', align: 'center', value: 'group', sortable: false },
       { text: 'Module', align: 'center', value: 'module', sortable: false },
       { text: 'Manage', align: 'center', value: 'manage', sortable: false }
     ]

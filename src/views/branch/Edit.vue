@@ -26,19 +26,6 @@
               required
             ></v-text-field>
           </v-flex>
-
-          <v-flex xs12>
-            <v-select
-              v-model="editedBranch.incharge_id"
-              :error-messages="error.get('incharge_id')"
-              name="incharge_id"
-              label="Select Incharge"
-              prepend-icon="mdi-account"
-              :items="users"
-              item-text="name"
-              item-value="id"
-            ></v-select>
-          </v-flex>
         </v-container>
       </v-card-text>
       <v-card-actions>
@@ -86,9 +73,6 @@ export default {
     },
     noChanges() {
       return this._.isEqual(this.branch, this.editedBranch)
-    },
-    users() {
-      return this.$store.getters['tools/users']
     }
   },
   methods: {

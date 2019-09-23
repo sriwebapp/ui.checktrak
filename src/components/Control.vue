@@ -105,11 +105,7 @@ export default {
       return (
         this.selectedChecks.length &&
         this.selectedChecks.every(check => {
-          return (
-            [1, 4].includes(check.status_id) &&
-            check.received &&
-            this.branches.includes(check.branch.code)
-          )
+          return [1, 4].includes(check.status_id) && check.received
         }) &&
         this.actions.includes('cnl')
       )
@@ -186,9 +182,6 @@ export default {
     },
     actions() {
       return this.user.actionAccess
-    },
-    branches() {
-      return this.user.branchAccess
     }
   },
   methods: {

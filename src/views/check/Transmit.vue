@@ -29,8 +29,21 @@
                     :error-messages="error.get('branch_id')"
                     name="branch_id"
                     label="Branch"
-                    prepend-icon="mdi-map-marker"
+                    prepend-icon="mdi-source-branch"
                     :items="branches"
+                    item-text="name"
+                    item-value="id"
+                  ></v-select>
+                </v-flex>
+
+                <v-flex xs12>
+                  <v-select
+                    v-model="group_id"
+                    :error-messages="error.get('group_id')"
+                    name="group_id"
+                    label="Group"
+                    prepend-icon="mdi-account-group"
+                    :items="groups"
                     item-text="name"
                     item-value="id"
                   ></v-select>
@@ -150,17 +163,21 @@ export default {
   data: () => ({
     branch_id: 0,
     date: new Date().toISOString().substr(0, 10),
+    group_id: 0,
+    groups: [],
     incharge: 0,
     loading: false,
     ref: '',
+    series: '',
     showCalendar: false
   }),
   methods: {
     transmit() {
       this.$store.dispatch('check/transmit', {
-        branch_id: this.branch_id,
+        group_id: this.group_id,
         date: this.date,
         ref: this.ref,
+        series: this.series,
         incharge: this.incharge,
         checks: this.checks.map(check => check.id)
       })
@@ -171,10 +188,12 @@ export default {
       if (arg) {
         this.loading = true
         this.$store
-          .dispatch('tools/getSeries', this.branch_id)
+          .dispatch('tools/getTransmittalRef', this.branch_id)
           .then(res => {
+            this.group_id = 0
+            this.series = res.data.series
             this.ref = res.data.ref
-            this.incharge = res.data.incharge
+            this.groups = res.data.groups
           })
           .finally(() => {
             this.loading = false

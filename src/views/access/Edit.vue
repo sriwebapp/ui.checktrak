@@ -48,11 +48,11 @@
           </v-row>
 
           <v-flex xs12>
-            <p class="title">Select Branches:</p>
+            <p class="title">Select Groups:</p>
           </v-flex>
 
           <v-flex>
-            <v-radio-group v-model="access.branch" row>
+            <v-radio-group v-model="access.group" row>
               <v-radio
                 v-for="(option, index) in options"
                 :key="index"
@@ -64,17 +64,17 @@
 
           <v-row no-gutters class="mt-n5 mb-5">
             <v-col
-              v-for="branch in branches"
-              :key="branch.id"
+              v-for="group in groups"
+              :key="group.id"
               cols="12"
               sm="4"
               md="2"
             >
               <v-checkbox
-                v-model="selectedBranches"
-                :label="branch.name"
-                :value="branch.code"
-                :disabled="disable('branch')"
+                v-model="selectedGroups"
+                :label="group.name"
+                :value="group.id"
+                :disabled="disable('group')"
                 hide-details
               ></v-checkbox>
             </v-col>
@@ -138,8 +138,8 @@ export default {
     actions() {
       return this.$store.getters['tools/actions']
     },
-    branches() {
-      return this.$store.getters['tools/branches']
+    groups() {
+      return this.$store.getters['tools/groups']
     },
     access() {
       return this.$store.getters['access/access']
@@ -154,7 +154,7 @@ export default {
   data: () => ({
     options: ['Custom', 'Selection', 'All'],
     selectedActions: [],
-    selectedBranches: [],
+    selectedGroups: [],
     selectedModules: []
   }),
   methods: {
@@ -167,10 +167,10 @@ export default {
       this.$store.dispatch('access/edit', {
         access_id: this.access.id,
         action: this.access.action,
-        branch: this.access.branch,
+        group: this.access.group,
         module: this.access.module,
         actions: this.selectedActions,
-        branches: this.selectedBranches,
+        groups: this.selectedGroups,
         modules: this.selectedModules
       })
     },
@@ -183,13 +183,13 @@ export default {
         this.selectedActions = []
       }
     },
-    setBranches() {
-      if (this.access.branch === 2) {
-        this.selectedBranches = this.branches.map(branch => branch.code)
-      } else if (this.access.branch === 1) {
-        this.selectedBranches = this.access.branches.map(branch => branch.code)
+    setGroups() {
+      if (this.access.group === 2) {
+        this.selectedGroup = this.groups.map(group => group.id)
+      } else if (this.access.group === 1) {
+        this.selectedGroups = this.access.groups.map(group => group.id)
       } else {
-        this.selectedBranches = []
+        this.selectedGroups = []
       }
     },
     setModules() {
@@ -211,7 +211,7 @@ export default {
       handler() {
         if (this.access.id) {
           this.setActions()
-          this.setBranches()
+          this.setGroups()
           this.setModules()
         }
       }

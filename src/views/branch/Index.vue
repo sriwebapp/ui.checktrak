@@ -14,9 +14,6 @@
         :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
-        <template v-slot:item.incharge_id="{ item }">
-          {{ item.incharge ? item.incharge.name : '' }}
-        </template>
         <template v-slot:item.action="{ item }">
           <v-btn
             small
@@ -47,7 +44,6 @@ export default {
     headers: [
       { text: 'Code', align: 'left', value: 'code' },
       { text: 'Name', align: 'left', value: 'name' },
-      { text: 'InCharge', align: 'left', value: 'incharge_id' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ]
   }),

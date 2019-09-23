@@ -6,6 +6,9 @@
         <template v-slot:item.branch_id="{ item }">
           {{ item.branch.name }}
         </template>
+        <template v-slot:item.group_id="{ item }">
+          {{ item.group.name }}
+        </template>
         <template v-slot:item.view="{ item }">
           <v-btn icon color="indigo" :disabled="loading">
             <v-icon>mdi-eye</v-icon>
@@ -30,6 +33,7 @@ export default {
     headers: [
       { text: 'Reference No.', align: 'left', value: 'ref' },
       { text: 'Branch', align: 'left', value: 'branch_id' },
+      { text: 'Group', align: 'left', value: 'group_id' },
       { text: 'Date', align: 'left', value: 'date' },
       { text: 'Due', align: 'left', value: 'due' },
       { text: 'Returned', align: 'left', value: 'returned' },

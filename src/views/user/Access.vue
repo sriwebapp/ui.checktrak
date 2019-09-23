@@ -44,24 +44,24 @@
           </v-row>
 
           <v-flex xs12>
-            <p :class="{ title: true, 'grey--text': disable('branch') }">
-              Select Branches:
+            <p :class="{ title: true, 'grey--text': disable('group') }">
+              Select Groups:
             </p>
           </v-flex>
 
           <v-row no-gutters class="mt-n5 mb-5">
             <v-col
-              v-for="branch in branches"
-              :key="branch.id"
+              v-for="group in groups"
+              :key="group.id"
               cols="12"
               sm="4"
               md="2"
             >
               <v-checkbox
-                v-model="selectedBranches"
-                :label="branch.name"
-                :value="branch.code"
-                :disabled="disable('branch')"
+                v-model="selectedGroups"
+                :label="group.name"
+                :value="group.id"
+                :disabled="disable('group')"
                 hide-details
               ></v-checkbox>
             </v-col>
@@ -116,8 +116,8 @@ export default {
     actions() {
       return this.$store.getters['tools/actions']
     },
-    branches() {
-      return this.$store.getters['tools/branches']
+    groups() {
+      return this.$store.getters['tools/groups']
     },
     accesses() {
       return this.$store.getters['tools/access']
@@ -145,7 +145,7 @@ export default {
   },
   data: () => ({
     selectedActions: [],
-    selectedBranches: [],
+    selectedGroups: [],
     selectedModules: []
   }),
   methods: {
@@ -154,7 +154,7 @@ export default {
         user_id: this.user.id,
         access_id: this.access,
         actions: this.selectedActions,
-        branches: this.selectedBranches,
+        groups: this.selectedGroups,
         modules: this.selectedModules
       })
     },
@@ -174,15 +174,13 @@ export default {
         this.selectedActions = this.user.actions.map(action => action.code)
       }
     },
-    setBranches() {
-      if (this.selectedAccess.branch === 2) {
-        this.selectedBranches = this.branches.map(branch => branch.code)
-      } else if (this.selectedAccess.branch === 1) {
-        this.selectedBranches = this.selectedAccess.branches.map(
-          branch => branch.code
-        )
+    setGroups() {
+      if (this.selectedAccess.group === 2) {
+        this.selectedGroups = this.groups.map(group => group.id)
+      } else if (this.selectedAccess.group === 1) {
+        this.selectedGroups = this.selectedAccess.groups.map(group => group.id)
       } else {
-        this.selectedBranches = this.user.branches.map(branch => branch.code)
+        this.selectedGroups = this.user.groups.map(group => group.id)
       }
     },
     setModules() {
@@ -204,7 +202,7 @@ export default {
     selectedAccess() {
       if (this.selectedAccess) {
         this.setActions()
-        this.setBranches()
+        this.setGroups()
         this.setModules()
       }
     }

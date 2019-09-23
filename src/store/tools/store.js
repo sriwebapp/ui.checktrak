@@ -9,6 +9,7 @@ export default {
     branches: [],
     company: {},
     companies: [],
+    groups: [],
     modules: [],
     payees: [],
     payeeGroup: [],
@@ -32,6 +33,9 @@ export default {
     },
     companies(state, payload) {
       state.companies = payload
+    },
+    groups(state, payload) {
+      state.groups = payload
     },
     modules(state, payload) {
       state.modules = payload
@@ -109,7 +113,14 @@ export default {
         context.commit('auth/loading', false, { root: true })
       }
     },
-
+    async getGroups(context) {
+      try {
+        const res = await Axios.get('/tools/groups')
+        context.commit('groups', res.data)
+      } catch (error) {
+        throw error
+      }
+    },
     async getModules(context) {
       try {
         const res = await Axios.get('/tools/modules')
@@ -136,10 +147,10 @@ export default {
         throw error
       }
     },
-    async getSeries(context, branch) {
+    async getTransmittalRef(context, branch) {
       try {
         const url =
-          '/tools/series/' +
+          '/tools/transmittalRef/' +
           context.rootGetters['tools/company'].code +
           '/' +
           branch
@@ -176,6 +187,9 @@ export default {
     },
     companies(state) {
       return state.companies
+    },
+    groups(state) {
+      return state.groups
     },
     modules(state) {
       return state.modules

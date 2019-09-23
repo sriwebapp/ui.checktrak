@@ -68,6 +68,7 @@ export default new Vuex.Store({
         await context.dispatch('tools/getBranches')
         await context.dispatch('tools/getActions')
         await context.dispatch('tools/getModules')
+        await context.dispatch('tools/getGroups')
         await context.dispatch('tools/getPayeeGroup')
         context.commit('auth/logging', false)
       } catch (error) {
