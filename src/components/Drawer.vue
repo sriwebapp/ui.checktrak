@@ -94,6 +94,12 @@ export default {
   data: () => ({
     admin: [
       {
+        title: 'Accessibility',
+        icon: 'mdi-door-closed-lock',
+        route: '/access',
+        code: 'acs'
+      },
+      {
         title: 'Companies',
         icon: 'mdi-home-city',
         route: '/company',
@@ -106,15 +112,15 @@ export default {
         code: 'bra'
       },
       {
-        title: 'Accessibility',
-        icon: 'mdi-door-closed-lock',
-        route: '/access',
-        code: 'acs'
-      },
-      {
         title: 'Users',
         icon: 'mdi-account',
         route: '/user',
+        code: 'usr'
+      },
+      {
+        title: 'Groups',
+        icon: 'mdi-account-group',
+        route: '/group',
         code: 'usr'
       },
       {

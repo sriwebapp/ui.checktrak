@@ -7,6 +7,7 @@ import company from './company/store'
 import user from './user/store'
 import access from './access/store'
 import branch from './branch/store'
+import group from './group/store'
 import tools from './tools/store'
 import account from './account/store'
 import payee from './payee/store'
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     user,
     access,
     branch,
+    group,
     tools,
     account,
     payee,

@@ -1,0 +1,63 @@
+<template>
+  <v-card>
+    <v-card-title>
+      Group Management
+      <v-spacer></v-spacer>
+      <v-btn class="indigo white--text" router :to="{ name: 'create-group' }">
+        New Group
+      </v-btn>
+    </v-card-title>
+    <v-card-text>
+      <v-data-table
+        :headers="headers"
+        :items="groups"
+        :loading="loading"
+        :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
+      >
+        <template v-slot:item.incharge="{ item }">
+          {{ item.incharge.map(i => i.username).join(', ') }}
+        </template>
+        <template v-slot:item.branch_id="{ item }">
+          {{ item.branch.name }}
+        </template>
+        <template v-slot:item.action="{ item }">
+          <v-btn
+            small
+            class="info"
+            :disabled="loading"
+            router
+            :to="{ name: 'edit-group', params: { id: item.id } }"
+          >
+            Update
+          </v-btn>
+        </template>
+      </v-data-table>
+    </v-card-text>
+  </v-card>
+</template>
+
+<script>
+export default {
+  computed: {
+    groups() {
+      return this.$store.getters['group/groups']
+    },
+    loading() {
+      return this.$store.getters['group/loading']
+    }
+  },
+  data: () => ({
+    headers: [
+      { text: 'Branch', align: 'left', value: 'branch_id' },
+      { text: 'Name', align: 'left', value: 'name' },
+      { text: 'Incharge', align: 'left', value: 'incharge', sortable: false },
+      { text: 'Actions', align: 'center', value: 'action', sortable: false }
+    ]
+  }),
+  mounted() {
+    this.$store.dispatch('group/getGroups')
+  }
+}
+</script>
+
+<style></style>

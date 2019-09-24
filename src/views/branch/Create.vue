@@ -3,29 +3,31 @@
     <v-card-title>Create Branch</v-card-title>
     <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
       <v-card-text>
-        <v-container grid-list-md>
-          <v-flex xs12>
-            <v-text-field
-              v-model="branch.code"
-              :error-messages="error.get('code')"
-              name="code"
-              label="Branch Code"
-              prepend-icon="mdi-tag"
-              autofocus
-              required
-            ></v-text-field>
-          </v-flex>
+        <v-container>
+          <v-layout row wrap>
+            <v-flex xs12>
+              <v-text-field
+                v-model="branch.code"
+                :error-messages="error.get('code')"
+                name="code"
+                label="Branch Code"
+                prepend-icon="mdi-tag"
+                autofocus
+                required
+              ></v-text-field>
+            </v-flex>
 
-          <v-flex xs12>
-            <v-text-field
-              v-model="branch.name"
-              :error-messages="error.get('name')"
-              name="name"
-              label="Branch Name"
-              prepend-icon="mdi-tag-text-outline"
-              required
-            ></v-text-field>
-          </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                v-model="branch.name"
+                :error-messages="error.get('name')"
+                name="name"
+                label="Branch Name"
+                prepend-icon="mdi-tag-text-outline"
+                required
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
         </v-container>
       </v-card-text>
       <v-card-actions>
