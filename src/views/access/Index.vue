@@ -29,7 +29,7 @@
               </td>
               <td class="text-center">
                 <v-btn
-                  small
+                  x-small
                   class="info"
                   :disabled="loading"
                   router

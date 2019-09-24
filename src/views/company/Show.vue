@@ -2,94 +2,96 @@
   <v-card>
     <v-card-title>Manage Company</v-card-title>
     <v-card-text>
-      <v-container grid-list-md>
-        <v-flex xs12>
-          <v-text-field
-            :value="company.code"
-            label="Company Code"
-            prepend-icon="mdi-tag"
-            :loading="loading"
-            placeholder=" "
-            readonly
-          ></v-text-field>
-        </v-flex>
+      <v-container>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-tag</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ company.code }}</v-list-item-title>
+            <v-list-item-subtitle>Company Code</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="company.name"
-            label="Company Name"
-            prepend-icon="mdi-home-city"
-            placeholder=" "
-            readonly
-          >
-          </v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-home-city</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ company.name }}</v-list-item-title>
+            <v-list-item-subtitle>Company Name</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="company.address"
-            label="Address"
-            prepend-icon="mdi-map-marker"
-            placeholder=" "
-            readonly
-          >
-          </v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-map-marker</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ company.address }}</v-list-item-title>
+            <v-list-item-subtitle>Address</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="company.tel"
-            label="Telephone No."
-            prepend-icon="mdi-deskphone"
-            placeholder=" "
-            readonly
-          >
-          </v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-deskphone</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ company.tel }}</v-list-item-title>
+            <v-list-item-subtitle>Telephone No.</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="company.tin"
-            label="TIN No."
-            prepend-icon="mdi-tag-text-outline"
-            placeholder=" "
-            readonly
-          >
-          </v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-tag-text-outline</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ company.tin }}</v-list-item-title>
+            <v-list-item-subtitle>TIN No.</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="company.sss"
-            label="SSS No."
-            prepend-icon="mdi-tag-text-outline"
-            placeholder=" "
-            readonly
-          >
-          </v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-tag-text-outline</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ company.sss }}</v-list-item-title>
+            <v-list-item-subtitle>SSS No.</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="company.hdmf"
-            label="PagIBIG No."
-            prepend-icon="mdi-tag-text-outline"
-            placeholder=" "
-            readonly
-          >
-          </v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-tag-text-outline</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ company.hdmf }}</v-list-item-title>
+            <v-list-item-subtitle>PagIBIG No.</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="company.phic"
-            label="Philhealth No."
-            prepend-icon="mdi-tag-text-outline"
-            placeholder=" "
-            readonly
-          >
-          </v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-tag-text-outline</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ company.phic }}</v-list-item-title>
+            <v-list-item-subtitle>Philhealth No.</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-divider></v-divider>
       </v-container>
     </v-card-text>
     <v-card-actions>

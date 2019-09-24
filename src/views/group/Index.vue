@@ -14,15 +14,37 @@
         :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
-        <template v-slot:item.incharge="{ item }">
-          {{ item.incharge.map(i => i.username).join(', ') }}
-        </template>
         <template v-slot:item.branch_id="{ item }">
           {{ item.branch.name }}
         </template>
+        <template v-slot:item.active="{ item }">
+          <v-icon :class="item.active ? 'green--text' : 'red--text'">{{
+            item.active
+              ? 'mdi-check-circle-outline'
+              : 'mdi-close-circle-outline'
+          }}</v-icon>
+        </template>
+
+        <template v-slot:item.incharge="{ item }">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <v-chip
+                :class="item.incharge.length ? 'primary' : ''"
+                v-on="on"
+                small
+                outlined
+              >
+                {{ item.incharge.length }}
+              </v-chip>
+            </template>
+            <span>
+              {{ '[ ' + item.incharge.map(i => i.username).join(', ') + ' ]' }}
+            </span>
+          </v-tooltip>
+        </template>
         <template v-slot:item.action="{ item }">
           <v-btn
-            small
+            x-small
             class="info"
             :disabled="loading"
             router
@@ -50,7 +72,8 @@ export default {
     headers: [
       { text: 'Branch', align: 'left', value: 'branch_id' },
       { text: 'Name', align: 'left', value: 'name' },
-      { text: 'Incharge', align: 'left', value: 'incharge', sortable: false },
+      { text: 'Active', align: 'center', value: 'active' },
+      { text: 'Incharge', align: 'center', value: 'incharge', sortable: false },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ]
   }),

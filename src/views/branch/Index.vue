@@ -14,9 +14,47 @@
         :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
+        <template v-slot:item.users="{ item }">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <v-chip
+                :class="item.users.length ? 'primary' : ''"
+                v-on="on"
+                small
+                outlined
+              >
+                {{ item.users.length }}
+              </v-chip>
+            </template>
+            <span>
+              {{
+                '[ ' + item.users.map(user => user.username).join(', ') + ' ]'
+              }}
+            </span>
+          </v-tooltip>
+        </template>
+        <template v-slot:item.groups="{ item }">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <v-chip
+                :class="item.groups.length ? 'primary' : ''"
+                v-on="on"
+                small
+                outlined
+              >
+                {{ item.groups.length }}
+              </v-chip>
+            </template>
+            <span>
+              {{
+                '[ ' + item.groups.map(group => group.name).join(', ') + ' ]'
+              }}
+            </span>
+          </v-tooltip>
+        </template>
         <template v-slot:item.action="{ item }">
           <v-btn
-            small
+            x-small
             class="info"
             :disabled="loading"
             router
@@ -44,6 +82,8 @@ export default {
     headers: [
       { text: 'Code', align: 'left', value: 'code' },
       { text: 'Name', align: 'left', value: 'name' },
+      { text: 'Users', align: 'center', value: 'users', sortable: false },
+      { text: 'Groups', align: 'center', value: 'groups', sortable: false },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ]
   }),

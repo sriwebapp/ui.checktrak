@@ -16,7 +16,7 @@
       >
         <template v-slot:item.action="{ item }">
           <v-btn
-            small
+            x-small
             class="info"
             router
             :to="{ name: 'show-company', params: { code: item.code } }"

@@ -7,7 +7,8 @@ export default {
     group: {},
     editedGroup: {},
     groups: [],
-    loading: false
+    loading: false,
+    showDelete: false
   },
   mutations: {
     group(state, payload) {
@@ -22,6 +23,9 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
+    },
+    showDelete(state, payload) {
+      state.showDelete = payload
     }
   },
   actions: {
@@ -69,6 +73,18 @@ export default {
       } finally {
         context.commit('loading', false)
       }
+    },
+    async delete(context, id) {
+      context.commit('loading', true)
+      try {
+        await Axios.delete('/group/' + id)
+        router.push({ name: 'groups' })
+      } catch (error) {
+        return
+      } finally {
+        context.commit('showDelete', false)
+        context.commit('loading', false)
+      }
     }
   },
   getters: {
@@ -83,6 +99,9 @@ export default {
     },
     loading(state) {
       return state.loading
+    },
+    showDelete(state) {
+      return state.showDelete
     }
   }
 }

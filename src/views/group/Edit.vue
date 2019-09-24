@@ -45,6 +45,14 @@
                 deletable-chips
               ></v-select>
             </v-flex>
+
+            <v-flex xs12>
+              <v-switch
+                v-model="active"
+                color="indigo"
+                label="Active"
+              ></v-switch>
+            </v-flex>
           </v-layout>
         </v-container>
       </v-card-text>
@@ -66,6 +74,10 @@
         >
           Return
         </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn icon large @click="showDelete">
+          <v-icon color="red">mdi-trash-can-outline</v-icon>
+        </v-btn>
       </v-card-actions>
     </form>
   </v-card>
@@ -74,6 +86,14 @@
 <script>
 export default {
   computed: {
+    active: {
+      get() {
+        return this.editedGroup.active
+      },
+      set(arg) {
+        this.editedGroup.active = arg ? 1 : 0
+      }
+    },
     group() {
       return this.$store.getters['group/group']
     },
@@ -107,6 +127,9 @@ export default {
     edit() {
       this.editedGroup.incharge = this.editedIncharge
       this.$store.dispatch('group/edit', this.editedGroup)
+    },
+    showDelete() {
+      this.$store.commit('group/showDelete', true)
     }
   },
   mounted() {

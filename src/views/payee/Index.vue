@@ -31,7 +31,7 @@
         </template>
         <template v-slot:item.action="{ item }">
           <v-btn
-            small
+            x-small
             class="info"
             router
             :to="{ name: 'edit-payee', params: { id: item.id } }"

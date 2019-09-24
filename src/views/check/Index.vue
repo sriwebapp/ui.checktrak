@@ -46,7 +46,7 @@
           {{ getLastUpdate(item.history) }}
         </template>
         <template v-slot:item.details="{ item }">
-          <v-tooltip bottom>
+          <v-tooltip top>
             <template v-slot:activator="{ on }">
               <span v-on="on">
                 {{ item.details ? truncate(item.details, 20) : '' }}
