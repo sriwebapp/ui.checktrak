@@ -32,7 +32,7 @@ Axios.interceptors.response.use(
           message: error.response.data.message,
           color: 'red'
         })
-        router.push({ name: 'home' })
+        // router.push({ name: 'home' })
       } else if (error.response.status === 404) {
         router.push('/page-not-found')
       } else {

@@ -100,7 +100,7 @@
         <v-btn
           class="deep-orange white--text"
           router
-          :to="{ name: 'users' }"
+          :to="{ name: 'edit-user' }"
           :disabled="loading"
         >
           Return

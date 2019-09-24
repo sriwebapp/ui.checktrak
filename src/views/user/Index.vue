@@ -36,7 +36,7 @@
               </td>
               <td class="text-center">
                 <v-btn
-                  small
+                  x-small
                   class="info mr-2"
                   router
                   :to="{ name: 'edit-user', params: { id: item.id } }"

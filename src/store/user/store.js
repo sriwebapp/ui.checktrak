@@ -7,6 +7,7 @@ export default {
     access: null,
     editedUser: {},
     loading: false,
+    showDelete: false,
     user: {},
     users: []
   },
@@ -16,6 +17,9 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
+    },
+    showDelete(state, payload) {
+      state.showDelete = payload
     },
     user(state, payload) {
       state.user = payload
@@ -66,6 +70,8 @@ export default {
       context.commit('loading', true)
       try {
         const res = await Axios.post('/user', user)
+        await context.dispatch('auth/getUser', {}, { root: true })
+        await context.dispatch('tools/getUsers', {}, { root: true })
         router.push({ name: 'user-access', params: { id: res.data.user.id } })
       } catch (e) {
         return
@@ -77,7 +83,9 @@ export default {
       context.commit('loading', true)
       try {
         await Axios.patch('/user/' + user.id, user)
-        router.push({ name: 'users' })
+        await context.dispatch('auth/getUser', {}, { root: true })
+        await context.dispatch('tools/getUsers', {}, { root: true })
+        router.push({ name: user.active ? 'user-access' : 'users' })
       } catch (e) {
         return
       } finally {
@@ -94,6 +102,20 @@ export default {
       } finally {
         context.commit('loading', false)
       }
+    },
+    async delete(context, id) {
+      context.commit('loading', true)
+      try {
+        await Axios.delete('/user/' + id)
+        await context.dispatch('auth/getUser', {}, { root: true })
+        await context.dispatch('tools/getUsers', {}, { root: true })
+        router.push({ name: 'users' })
+      } catch (error) {
+        throw error
+      } finally {
+        context.commit('showDelete', false)
+        context.commit('loading', false)
+      }
     }
   },
   getters: {
@@ -105,6 +127,9 @@ export default {
     },
     loading(state) {
       return state.loading
+    },
+    showDelete(state) {
+      return state.showDelete
     },
     user(state) {
       return state.user
