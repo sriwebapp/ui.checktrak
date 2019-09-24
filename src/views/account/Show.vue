@@ -1,107 +1,134 @@
 <template>
   <v-card>
-    <v-card-title>Manage Account</v-card-title>
+    <v-card-title>
+      Manage Account
+    </v-card-title>
     <v-card-text>
-      <v-container grid-list-md>
-        <v-flex xs12>
-          <v-text-field
-            :value="account.code"
-            label="Code"
-            :loading="loading"
-            prepend-icon="mdi-tag"
-            readonly
-          ></v-text-field>
-        </v-flex>
+      <v-container>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-tag</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ account.code }}</v-list-item-title>
+            <v-list-item-subtitle>Code</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="account.bank"
-            label="Bank"
-            prepend-icon="mdi-bank"
-            placeholder=" "
-            readonly
-          ></v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-bank</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ account.bank }}</v-list-item-title>
+            <v-list-item-subtitle>Bank</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="account.number"
-            label="Account Number"
-            prepend-icon="mdi-barcode-scan"
-            placeholder=" "
-            readonly
-          ></v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-barcode-scan</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ account.number }}</v-list-item-title>
+            <v-list-item-subtitle>Account Number</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="account.purpose"
-            label="Purpose"
-            prepend-icon="mdi-clipboard-list"
-            placeholder=" "
-            readonly
-          ></v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-clipboard-list</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ account.purpose }}</v-list-item-title>
+            <v-list-item-subtitle>Purpose</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="account.address"
-            label="Address"
-            prepend-icon="mdi-account-badge-horizontal"
-            placeholder=" "
-            readonly
-          ></v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-account-badge-horizontal</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ account.address }}</v-list-item-title>
+            <v-list-item-subtitle>Address</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="account.tel"
-            label="Telephone"
-            prepend-icon="mdi-phone"
-            placeholder=" "
-            readonly
-          ></v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-phone</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ account.tel }}</v-list-item-title>
+            <v-list-item-subtitle>Telephone</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="account.email"
-            label="Email"
-            prepend-icon="mdi-email"
-            placeholder=" "
-            readonly
-          ></v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-email</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ account.email }}</v-list-item-title>
+            <v-list-item-subtitle>Email</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="account.contact_person"
-            label="Contact Person"
-            prepend-icon="mdi-account"
-            placeholder=" "
-            readonly
-          ></v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-account</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ account.contact_person }}</v-list-item-title>
+            <v-list-item-subtitle>Contact Person</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="account.designation"
-            label="Designation"
-            prepend-icon="mdi-account-badge-horizontal"
-            placeholder=" "
-            readonly
-          ></v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-account-badge-horizontal</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ account.designation }}</v-list-item-title>
+            <v-list-item-subtitle>Designation</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-flex xs12>
-          <v-text-field
-            :value="account.fax"
-            label="Fax"
-            prepend-icon="mdi-fax"
-            placeholder=" "
-            readonly
-          ></v-text-field>
-        </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-fax</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ account.fax }}</v-list-item-title>
+            <v-list-item-subtitle>Fax</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-toggle-switch-outline</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>
+              {{ account.active ? 'Active' : 'Inactive' }}
+            </v-list-item-title>
+            <v-list-item-subtitle>Status</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-divider></v-divider>
       </v-container>
     </v-card-text>
     <v-card-actions>
@@ -122,6 +149,10 @@
       >
         Return
       </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn icon large @click="showDelete">
+        <v-icon color="red">mdi-trash-can-outline</v-icon>
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -134,6 +165,11 @@ export default {
     },
     loading() {
       return this.$store.getters['account/loading']
+    }
+  },
+  methods: {
+    showDelete() {
+      this.$store.commit('account/showDelete', true)
     }
   },
   mounted() {

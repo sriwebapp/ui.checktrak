@@ -71,7 +71,6 @@ export default {
       try {
         const res = await Axios.post('/user', user)
         await context.dispatch('auth/getUser', {}, { root: true })
-        await context.dispatch('tools/getUsers', {}, { root: true })
         router.push({ name: 'user-access', params: { id: res.data.user.id } })
       } catch (e) {
         return
@@ -84,7 +83,6 @@ export default {
       try {
         await Axios.patch('/user/' + user.id, user)
         await context.dispatch('auth/getUser', {}, { root: true })
-        await context.dispatch('tools/getUsers', {}, { root: true })
         router.push({ name: user.active ? 'user-access' : 'users' })
       } catch (e) {
         return
@@ -107,11 +105,9 @@ export default {
       context.commit('loading', true)
       try {
         await Axios.delete('/user/' + id)
-        await context.dispatch('auth/getUser', {}, { root: true })
-        await context.dispatch('tools/getUsers', {}, { root: true })
         router.push({ name: 'users' })
       } catch (error) {
-        throw error
+        return
       } finally {
         context.commit('showDelete', false)
         context.commit('loading', false)

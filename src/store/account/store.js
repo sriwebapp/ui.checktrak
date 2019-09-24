@@ -7,7 +7,8 @@ export default {
     account: {},
     accounts: [],
     editedAccount: {},
-    loading: false
+    loading: false,
+    showDelete: false
   },
   mutations: {
     account(state, payload) {
@@ -22,6 +23,9 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
+    },
+    showDelete(state, payload) {
+      state.showDelete = payload
     }
   },
   actions: {
@@ -72,11 +76,25 @@ export default {
           '/account/' +
           account.id
         await Axios.patch(url, account)
-        router.push({ name: 'show-account', params: { id: account.id } })
+        router.push({ name: 'show-account' })
       } catch (e) {
         return
       } finally {
         context.commit('loading', false)
+      }
+    },
+    async delete(context, id) {
+      context.commit('loading', true)
+      try {
+        const url =
+          '/' + context.rootGetters['tools/company'].code + '/account/' + id
+        await Axios.delete(url)
+        router.push({ name: 'accounts' })
+      } catch (error) {
+        return
+      } finally {
+        context.commit('loading', false)
+        context.commit('showDelete', false)
       }
     }
   },
@@ -92,6 +110,9 @@ export default {
     },
     loading(state) {
       return state.loading
+    },
+    showDelete(state) {
+      return state.showDelete
     }
   }
 }

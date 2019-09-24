@@ -26,9 +26,16 @@
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
         :search="search"
       >
+        <template v-slot:item.active="{ item }">
+          <v-icon :class="item.active ? 'green--text' : 'red--text'">{{
+            item.active
+              ? 'mdi-check-circle-outline'
+              : 'mdi-close-circle-outline'
+          }}</v-icon>
+        </template>
         <template v-slot:item.action="{ item }">
           <v-btn
-            small
+            x-small
             class="info"
             :disabled="loading"
             router
@@ -57,6 +64,7 @@ export default {
       { text: 'Code', align: 'left', value: 'code' },
       { text: 'Number', align: 'left', value: 'number' },
       { text: 'Contact', align: 'left', value: 'contact_person' },
+      { text: 'Active', align: 'Center', value: 'active' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ],
     search: ''
