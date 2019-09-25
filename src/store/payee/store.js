@@ -7,7 +7,8 @@ export default {
     editedPayee: {},
     loading: false,
     payee: {},
-    payees: []
+    payees: [],
+    showDelete: false
   },
   mutations: {
     editedPayee(state, payload) {
@@ -22,6 +23,9 @@ export default {
     },
     payees(state, payload) {
       state.payees = payload
+    },
+    showDelete(state, payload) {
+      state.showDelete = payload
     }
   },
   actions: {
@@ -75,6 +79,20 @@ export default {
       } finally {
         context.commit('loading', false)
       }
+    },
+    async delete(context, id) {
+      context.commit('loading', true)
+      try {
+        const url =
+          '/' + context.rootGetters['tools/company'].code + '/payee/' + id
+        await Axios.delete(url)
+        router.push({ name: 'payees' })
+      } catch (error) {
+        return
+      } finally {
+        context.commit('loading', false)
+        context.commit('showDelete', false)
+      }
     }
   },
   getters: {
@@ -89,6 +107,9 @@ export default {
     },
     payees(state) {
       return state.payees
+    },
+    showDelete(state) {
+      return state.showDelete
     }
   }
 }

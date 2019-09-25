@@ -29,17 +29,6 @@
             </v-flex>
 
             <v-flex xs12>
-              <v-text-field
-                v-model="editedPayee.desc"
-                :error-messages="error.get('desc')"
-                name="desc"
-                label="Description"
-                prepend-icon="mdi-clipboard-list-outline"
-                required
-              ></v-text-field>
-            </v-flex>
-
-            <v-flex xs12>
               <v-select
                 v-model="editedPayee.payee_group_id"
                 :error-messages="error.get('payee_group_id')"
@@ -50,6 +39,14 @@
                 item-text="name"
                 item-value="id"
               ></v-select>
+            </v-flex>
+
+            <v-flex xs12>
+              <v-switch
+                v-model="active"
+                color="indigo"
+                label="Active"
+              ></v-switch>
             </v-flex>
           </v-layout>
         </v-container>
@@ -72,6 +69,10 @@
         >
           Return
         </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn icon large @click="showDelete">
+          <v-icon color="red">mdi-trash-can-outline</v-icon>
+        </v-btn>
       </v-card-actions>
     </form>
   </v-card>
@@ -80,6 +81,14 @@
 <script>
 export default {
   computed: {
+    active: {
+      get() {
+        return this.editedPayee.active
+      },
+      set(arg) {
+        this.editedPayee.active = arg ? 1 : 0
+      }
+    },
     editedPayee() {
       return this.$store.getters['payee/editedPayee']
     },
@@ -102,6 +111,9 @@ export default {
   methods: {
     edit() {
       this.$store.dispatch('payee/edit', this.editedPayee)
+    },
+    showDelete() {
+      this.$store.commit('payee/showDelete', true)
     }
   },
   mounted() {

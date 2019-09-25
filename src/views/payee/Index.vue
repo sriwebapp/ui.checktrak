@@ -29,6 +29,13 @@
         <template v-slot:item.payee_group_id="{ item }">
           {{ item.group ? item.group.name : '' }}
         </template>
+        <template v-slot:item.active="{ item }">
+          <v-icon :class="item.active ? 'green--text' : 'red--text'">{{
+            item.active
+              ? 'mdi-check-circle-outline'
+              : 'mdi-close-circle-outline'
+          }}</v-icon>
+        </template>
         <template v-slot:item.action="{ item }">
           <v-btn
             x-small
@@ -60,7 +67,7 @@ export default {
       { text: 'Code', align: 'left', value: 'code' },
       { text: 'Name', align: 'left', value: 'name' },
       { text: 'Group', align: 'left', value: 'payee_group_id' },
-      { text: 'Description', align: 'left', value: 'desc' },
+      { text: 'Active', align: 'center', value: 'active' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ],
     search: ''

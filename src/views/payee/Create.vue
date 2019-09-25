@@ -29,17 +29,6 @@
             </v-flex>
 
             <v-flex xs12>
-              <v-text-field
-                v-model="payee.desc"
-                :error-messages="error.get('desc')"
-                name="desc"
-                label="Description"
-                prepend-icon="mdi-clipboard-list-outline"
-                required
-              ></v-text-field>
-            </v-flex>
-
-            <v-flex xs12>
               <v-select
                 v-model="payee.payee_group_id"
                 :error-messages="error.get('payee_group_id')"
