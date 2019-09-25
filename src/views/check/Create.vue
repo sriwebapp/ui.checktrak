@@ -217,9 +217,9 @@ export default {
       this.check.amount = Helper.formatCurrency(this.check.amount)
     },
     formatDate(date) {
-      this.date = Helper.formatDate(date, 'y-m-d')
-      this.date2 = Helper.formatDate(date, 'm/d/y')
-      this.check.date = Helper.formatDate(date, 'y-m-d')
+      this.date = Helper.formatDate(date, 'Y-MM-DD')
+      this.check.date = Helper.formatDate(date, 'Y-MM-DD')
+      this.date2 = Helper.formatDate(date, 'MM/DD/Y')
     }
   },
   watch: {

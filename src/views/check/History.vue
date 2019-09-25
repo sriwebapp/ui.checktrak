@@ -12,6 +12,9 @@
           <template v-slot:item.user_id="{ item }">
             {{ item.user.name }}
           </template>
+          <template v-slot:item.date="{ item }">
+            {{ formatDate(item.date) }}
+          </template>
           <template v-slot:item.action_id="{ item }">
             <v-chip
               small
@@ -29,6 +32,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   computed: {
     history() {
@@ -51,7 +55,14 @@ export default {
       { text: 'Remarks', align: 'left', value: 'remarks' },
       { text: 'Transaction Date', align: 'center', value: 'date' }
     ]
-  })
+  }),
+  methods: {
+    formatDate(arg) {
+      if (Date.parse(arg)) {
+        return moment(new Date(arg)).format('MM/DD/Y')
+      }
+    }
+  }
 }
 </script>
 

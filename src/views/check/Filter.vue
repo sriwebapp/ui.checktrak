@@ -1,7 +1,7 @@
 <template>
   <v-bottom-sheet v-model="show">
     <v-sheet class="text-center" height="200px">
-      hello
+      Filter Goes Here...
     </v-sheet>
   </v-bottom-sheet>
 </template>

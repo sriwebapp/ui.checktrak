@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import Helper from './../../helper/Helper'
+import moment from 'moment'
 
 export default {
   computed: {
@@ -102,7 +102,7 @@ export default {
       return this.$store.getters['check/check']
     },
     date() {
-      return Helper.formatDate(this.check.date, 'm/d/y')
+      return moment(new Date(this.check.date)).format('MM/DD/Y')
     },
     editing() {
       return this.$store.getters['check/editing']

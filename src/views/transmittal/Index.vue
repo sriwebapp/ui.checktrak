@@ -9,6 +9,15 @@
         <template v-slot:item.group_id="{ item }">
           {{ item.group.name }}
         </template>
+        <template v-slot:item.date="{ item }">
+          {{ formatDate(item.date) }}
+        </template>
+        <template v-slot:item.due="{ item }">
+          {{ formatDate(item.due) }}
+        </template>
+        <template v-slot:item.returned="{ item }">
+          {{ formatDate(item.returned) }}
+        </template>
         <template v-slot:item.view="{ item }">
           <v-btn icon color="indigo" :disabled="loading">
             <v-icon>mdi-eye</v-icon>
@@ -20,6 +29,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   computed: {
     loading() {
@@ -40,6 +50,13 @@ export default {
       { text: 'View', align: 'center', value: 'view', sortable: false }
     ]
   }),
+  methods: {
+    formatDate(arg) {
+      if (Date.parse(arg)) {
+        return moment(new Date(arg)).format('MM/DD/Y')
+      }
+    }
+  },
   mounted() {
     this.$store.dispatch('transmittal/getTransmittals')
   }

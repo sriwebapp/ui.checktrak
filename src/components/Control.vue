@@ -4,6 +4,7 @@
       <v-col class="my-n2" v-for="(control, index) in controls" :key="index">
         <v-btn
           light
+          small
           block
           rounded
           :color="control.color + ' white--text'"

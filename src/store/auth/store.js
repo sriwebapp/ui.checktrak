@@ -97,6 +97,7 @@ export default {
       context.commit('account/accounts', [], { root: true })
       context.commit('payee/payees', [], { root: true })
       context.commit('check/checks', [], { root: true })
+      context.commit('transmittal/transmittals', [], { root: true })
       context.commit('footer', false, { root: true })
       localStorage.removeItem('access_token')
     }

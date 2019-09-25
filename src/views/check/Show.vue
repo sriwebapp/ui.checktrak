@@ -3,101 +3,103 @@
     <v-card>
       <div>
         <v-card-title>Show Check</v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-layout row wrap>
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.account ? check.account.code : ''"
-                  label="Account"
-                  prepend-icon="mdi-bank"
-                  hide-details
-                  class="mb-3"
-                  readonly
-                ></v-text-field>
-              </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-bank</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{
+              check.account ? check.account.code : ''
+            }}</v-list-item-title>
+            <v-list-item-subtitle>Account</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.number"
-                  label="Check Number"
-                  prepend-icon="mdi-tag-text-outline"
-                  hide-details
-                  class="mb-3"
-                  placeholder=" "
-                  readonly
-                ></v-text-field>
-              </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-tag-text-outline</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ check.number }}</v-list-item-title>
+            <v-list-item-subtitle>Check Number</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.payee ? check.payee.name : ''"
-                  label="Payee"
-                  prepend-icon="mdi-account-cash-outline"
-                  hide-details
-                  class="mb-3"
-                  readonly
-                ></v-text-field>
-              </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-account-cash-outline</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{
+              check.payee ? check.payee.name : ''
+            }}</v-list-item-title>
+            <v-list-item-subtitle>Payee</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.amount"
-                  label="Amount"
-                  prepend-icon="mdi-currency-php"
-                  hide-details
-                  class="mb-3"
-                  readonly
-                ></v-text-field>
-              </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-currency-php</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ check.amount }}</v-list-item-title>
+            <v-list-item-subtitle>Amount</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.details"
-                  label="Details"
-                  prepend-icon="mdi-clipboard-list-outline"
-                  hide-details
-                  class="mb-3"
-                  placeholder=" "
-                  readonly
-                ></v-text-field>
-              </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-clipboard-list-outline</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ check.details }}</v-list-item-title>
+            <v-list-item-subtitle>Details</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.date"
-                  label="Created"
-                  prepend-icon="mdi-calendar"
-                  hide-details
-                  class="mb-3"
-                  readonly
-                ></v-text-field>
-              </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-calendar</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ date }}</v-list-item-title>
+            <v-list-item-subtitle>Created</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.status ? check.status.name : ''"
-                  label="Status"
-                  prepend-icon="mdi-tag-text-outline"
-                  hide-details
-                  class="mb-3"
-                  readonly
-                ></v-text-field>
-              </v-flex>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-tag-text-outline</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{
+              check.status ? check.status.name : ''
+            }}</v-list-item-title>
+            <v-list-item-subtitle>Status</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.branch ? check.branch.name : ''"
-                  label="Branch"
-                  prepend-icon="mdi-map-marker"
-                  hide-details
-                  class="mb-3"
-                  readonly
-                ></v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card-text>
+        <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-map-marker</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{
+              check.branch ? check.branch.name : ''
+            }}</v-list-item-title>
+            <v-list-item-subtitle>Branch</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-divider></v-divider>
         <v-card-actions>
           <v-btn outlined color="indigo" @click="showHistory">
             History
@@ -112,10 +114,14 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   computed: {
     check() {
       return this.$store.getters['check/check']
+    },
+    date() {
+      return moment(new Date(this.check.date)).format('MM/DD/Y')
     },
     show: {
       get() {

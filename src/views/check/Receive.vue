@@ -125,8 +125,8 @@ export default {
       })
     },
     formatDate(date) {
-      this.date = Helper.formatDate(date, 'y-m-d')
-      this.date2 = Helper.formatDate(date, 'm/d/y')
+      this.date = Helper.formatDate(date, 'Y-MM-DD')
+      this.date2 = Helper.formatDate(date, 'MM/DD/Y')
     }
   },
   watch: {

@@ -42,8 +42,8 @@
             {{ item.status.name }}
           </v-chip>
         </template>
-        <template v-slot:item.action_date="{ item }">
-          {{ getLastUpdate(item.history) }}
+        <template v-slot:item.updated_at="{ item }">
+          {{ formatDate(item.updated_at) }}
         </template>
         <template v-slot:item.details="{ item }">
           <v-tooltip top>
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   computed: {
     checks() {
@@ -99,18 +100,22 @@ export default {
       {
         text: 'Last Update',
         align: 'left',
-        value: 'action_date',
-        sortable: false
+        value: 'updated_at'
       },
       { text: 'Status', align: 'center', value: 'status_id' }
     ]
   }),
   methods: {
-    getLastUpdate(history) {
-      if (!history.length) {
-        return
+    formatDate(arg) {
+      if (Date.parse(arg)) {
+        const date = moment(new Date(arg))
+
+        if (moment().diff(date, 'hours') > 6) {
+          return date.calendar()
+        } else {
+          return date.fromNow()
+        }
       }
-      return history[history.length - 1].date
     },
     showFilter() {
       this.$store.commit('filter', true)
