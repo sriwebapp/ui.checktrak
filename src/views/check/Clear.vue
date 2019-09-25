@@ -12,13 +12,14 @@
               <v-layout row wrap>
                 <v-flex xs12>
                   <v-text-field
-                    v-model="date"
+                    v-model="date2"
                     :error-messages="error.get('date')"
                     name="date"
                     label="Date"
                     prepend-icon="mdi-calendar"
-                    @click="showCalendar = true"
-                    readonly
+                    @blur="formatDate(date2)"
+                    @dblclick="showCalendar = true"
+                    required
                   ></v-text-field>
                 </v-flex>
 
@@ -97,6 +98,8 @@
 </template>
 
 <script>
+import Helper from './../../helper/Helper'
+
 export default {
   computed: {
     check() {
@@ -119,7 +122,8 @@ export default {
   },
   data: () => ({
     amount: '',
-    date: new Date().toISOString().substr(0, 10),
+    date: null,
+    date2: null,
     showCalendar: false,
     showConfirm: false
   }),
@@ -133,19 +137,28 @@ export default {
     },
     clear() {
       this.showConfirm = false
+      this.formatDate(this.date2)
       this.$store.dispatch('check/clear', {
         check: this.check.id,
         date: this.date,
         amount: this.amount
       })
+    },
+    formatDate(date) {
+      this.date = Helper.formatDate(date, 'y-m-d')
+      this.date2 = Helper.formatDate(date, 'm/d/y')
     }
   },
   watch: {
     show(arg) {
       if (arg) {
+        this.formatDate(Date())
+        this.error.reset()
         this.amount = ''
-        this.date = new Date().toISOString().substr(0, 10)
       }
+    },
+    date(arg) {
+      this.formatDate(arg)
     }
   }
 }

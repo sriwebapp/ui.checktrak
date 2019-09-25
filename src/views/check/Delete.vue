@@ -75,6 +75,7 @@ export default {
   watch: {
     show(arg) {
       if (arg) {
+        this.error.reset()
         this.remarks = ''
       }
     }

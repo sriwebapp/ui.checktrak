@@ -131,7 +131,7 @@ export default {
       },
       {
         title: 'Payees',
-        icon: 'mdi-bank-transfer-in',
+        icon: 'mdi-account-cash-outline',
         route: '/payee',
         code: 'pye'
       }

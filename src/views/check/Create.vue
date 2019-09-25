@@ -25,13 +25,14 @@
 
                 <v-flex xs12>
                   <v-text-field
-                    v-model="check.date"
+                    v-model="date2"
                     :error-messages="error.get('date')"
                     name="date"
                     label="Date"
                     prepend-icon="mdi-calendar"
-                    @click="showCalendar = true"
-                    readonly
+                    @blur="formatDate(date2)"
+                    @dblclick="showCalendar = true"
+                    required
                   ></v-text-field>
                 </v-flex>
 
@@ -75,6 +76,7 @@
                     name="amount"
                     label="Amount"
                     prepend-icon="mdi-currency-php"
+                    @blur="formatAmount"
                     required
                   ></v-text-field>
                 </v-flex>
@@ -98,11 +100,7 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="showCalendar" width="290px">
-      <v-date-picker
-        no-title
-        v-model="check.date"
-        @change="showCalendar = false"
-      >
+      <v-date-picker no-title v-model="date" @change="showCalendar = false">
       </v-date-picker>
     </v-dialog>
 
@@ -152,6 +150,8 @@
 </template>
 
 <script>
+import Helper from './../../helper/Helper'
+
 export default {
   computed: {
     accounts() {
@@ -189,6 +189,8 @@ export default {
     }
   },
   data: () => ({
+    date: null,
+    date2: null,
     payeeHeaders: [
       { text: 'Code', align: 'left', value: 'code', sortable: false },
       { text: 'Name', align: 'left', value: 'name', sortable: false },
@@ -202,25 +204,40 @@ export default {
   }),
   methods: {
     create() {
+      this.formatAmount()
+      this.formatDate(this.date2)
       this.$store.dispatch('check/create', this.check)
     },
     acceptPayee() {
       this.payee = this.selectedPayees[0]
       this.check.payee_id = this.selectedPayees[0].id
       this.showPayees = false
+    },
+    formatAmount() {
+      this.check.amount = Helper.formatCurrency(this.check.amount)
+    },
+    formatDate(date) {
+      this.date = Helper.formatDate(date, 'y-m-d')
+      this.date2 = Helper.formatDate(date, 'm/d/y')
+      this.check.date = Helper.formatDate(date, 'y-m-d')
     }
   },
   watch: {
     show(arg) {
       if (arg) {
-        this.check = { date: new Date().toISOString().substr(0, 10) }
+        this.check = {}
         this.payee = {}
+        this.error.reset()
+        this.formatDate(Date())
       }
     },
     showPayees(arg) {
       if (arg) {
         this.selectedPayees = []
       }
+    },
+    date(arg) {
+      this.formatDate(arg)
     }
   }
 }

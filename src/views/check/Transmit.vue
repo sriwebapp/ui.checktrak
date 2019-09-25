@@ -64,13 +64,14 @@
 
                 <v-flex xs12>
                   <v-text-field
-                    v-model="date"
+                    v-model="date2"
                     :error-messages="error.get('date')"
                     name="date"
                     label="Date"
                     prepend-icon="mdi-calendar"
-                    @click="showCalendar = true"
-                    readonly
+                    @blur="formatDate(date2)"
+                    @dblclick="showCalendar = true"
+                    required
                   ></v-text-field>
                 </v-flex>
 
@@ -124,6 +125,8 @@
 </template>
 
 <script>
+import Helper from './../../helper/Helper'
+
 export default {
   computed: {
     amount() {
@@ -162,7 +165,8 @@ export default {
   },
   data: () => ({
     branch_id: 0,
-    date: new Date().toISOString().substr(0, 10),
+    date: null,
+    date2: null,
     group_id: 0,
     groups: [],
     incharge: 0,
@@ -173,6 +177,7 @@ export default {
   }),
   methods: {
     transmit() {
+      this.formatDate(this.date2)
       this.$store.dispatch('check/transmit', {
         group_id: this.group_id,
         date: this.date,
@@ -181,6 +186,10 @@ export default {
         incharge: this.incharge,
         checks: this.checks.map(check => check.id)
       })
+    },
+    formatDate(date) {
+      this.date = Helper.formatDate(date, 'y-m-d')
+      this.date2 = Helper.formatDate(date, 'm/d/y')
     }
   },
   watch: {
@@ -202,11 +211,15 @@ export default {
     },
     show(arg) {
       if (arg) {
+        this.formatDate(Date())
+        this.error.reset()
         this.branch_id = 0
-        this.date = new Date().toISOString().substr(0, 10)
         this.incharge = 0
         this.ref = ''
       }
+    },
+    date(arg) {
+      this.formatDate(arg)
     }
   }
 }

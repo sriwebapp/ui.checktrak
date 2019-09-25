@@ -19,7 +19,7 @@
 
               <v-flex xs12>
                 <v-text-field
-                  :value="check.date"
+                  :value="date"
                   label="Created"
                   prepend-icon="mdi-calendar"
                   hide-details
@@ -94,10 +94,15 @@
 </template>
 
 <script>
+import Helper from './../../helper/Helper'
+
 export default {
   computed: {
     check() {
       return this.$store.getters['check/check']
+    },
+    date() {
+      return Helper.formatDate(this.check.date, 'm/d/y')
     },
     editing() {
       return this.$store.getters['check/editing']
