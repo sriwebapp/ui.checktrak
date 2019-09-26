@@ -4,7 +4,7 @@
     <drawer />
     <navbar />
     <loader />
-    <v-content v-if="!logging">
+    <v-content v-if="!logging" class="brown lighten-4">
       <router-view></router-view>
     </v-content>
     <control v-if="!logging" />

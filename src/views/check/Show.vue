@@ -69,7 +69,7 @@
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title>{{ date }}</v-list-item-title>
-            <v-list-item-subtitle>Created</v-list-item-subtitle>
+            <v-list-item-subtitle>Date Posted</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 

@@ -63,7 +63,7 @@ export default {
     headers: [
       { text: 'Code', align: 'left', value: 'code' },
       { text: 'Number', align: 'left', value: 'number' },
-      { text: 'Contact', align: 'left', value: 'contact_person' },
+      { text: 'Purpose', align: 'left', value: 'purpose' },
       { text: 'Active', align: 'Center', value: 'active' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ],

@@ -23,7 +23,8 @@ export default {}
   right: 0;
   bottom: 0;
   text-align: center;
-  color: grey;
+  text-shadow: 2px 2px 12px #000000;
+  color: #eeeeee;
 }
 
 .big {

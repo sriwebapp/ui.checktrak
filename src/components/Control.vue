@@ -1,13 +1,12 @@
 <template>
-  <v-footer app inset dark color="grey lighten-2" v-if="show">
+  <v-footer app inset dark color="brown darken-3" v-if="show">
     <v-row>
       <v-col class="my-n2" v-for="(control, index) in controls" :key="index">
         <v-btn
-          light
           small
           block
           rounded
-          :color="control.color + ' white--text'"
+          :color="control.color"
           @click="control.action"
           :disabled="control.access"
         >

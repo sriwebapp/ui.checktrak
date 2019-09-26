@@ -1,5 +1,5 @@
 <template>
-  <v-overlay :value="logging || waiting" color="black">
+  <v-overlay :value="logging || waiting" color="brown">
     <v-progress-circular indeterminate size="64"></v-progress-circular>
   </v-overlay>
 </template>

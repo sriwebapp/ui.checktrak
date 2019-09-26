@@ -1,5 +1,12 @@
 <template>
-  <v-navigation-drawer fixed dark clipped app v-model="visible">
+  <v-navigation-drawer
+    fixed
+    dark
+    clipped
+    app
+    v-model="visible"
+    color="brown darken-3"
+  >
     <template v-slot:prepend v-if="!logging">
       <v-list-item class="my-3">
         <v-list-item-content>
@@ -16,7 +23,7 @@
       <v-divider></v-divider>
     </template>
 
-    <v-list v-if="!logging" dense rounded>
+    <v-list v-if="!logging" dense rounded color="transparent">
       <v-list-item
         active-class="indigo darken-2"
         v-for="item in adminModules"

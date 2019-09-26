@@ -42,8 +42,11 @@
             {{ item.status.name }}
           </v-chip>
         </template>
+        <template v-slot:item.date="{ item }">
+          {{ formatDate(item.date) }}
+        </template>
         <template v-slot:item.updated_at="{ item }">
-          {{ formatDate(item.updated_at) }}
+          {{ formatUpdate(item.updated_at) }}
         </template>
         <template v-slot:item.details="{ item }">
           <v-tooltip top>
@@ -97,6 +100,7 @@ export default {
       { text: 'Payee', align: 'left', value: 'payee_id' },
       { text: 'Amount', align: 'left', value: 'amount' },
       { text: 'Details', align: 'left', value: 'details' },
+      { text: 'Posted', align: 'left', value: 'date' },
       {
         text: 'Last Update',
         align: 'left',
@@ -106,7 +110,7 @@ export default {
     ]
   }),
   methods: {
-    formatDate(arg) {
+    formatUpdate(arg) {
       if (Date.parse(arg)) {
         const date = moment(new Date(arg))
 
@@ -115,6 +119,11 @@ export default {
         } else {
           return date.fromNow()
         }
+      }
+    },
+    formatDate(arg) {
+      if (Date.parse(arg)) {
+        return moment(new Date(arg)).format('MM/DD/Y')
       }
     },
     showFilter() {

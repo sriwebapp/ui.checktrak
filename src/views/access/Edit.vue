@@ -185,7 +185,7 @@ export default {
     },
     setGroups() {
       if (this.access.group === 2) {
-        this.selectedGroup = this.groups.map(group => group.id)
+        this.selectedGroups = this.groups.map(group => group.id)
       } else if (this.access.group === 1) {
         this.selectedGroups = this.access.groups.map(group => group.id)
       } else {

@@ -21,6 +21,7 @@
                 name="bank"
                 label="Bank"
                 prepend-icon="mdi-bank"
+                required
                 autofocus
               ></v-text-field>
             </v-flex>
@@ -32,6 +33,7 @@
                 name="number"
                 label="Account Number"
                 prepend-icon="mdi-barcode-scan"
+                required
               ></v-text-field>
             </v-flex>
 
@@ -42,6 +44,7 @@
                 name="purpose"
                 label="Purpose"
                 prepend-icon="mdi-clipboard-list"
+                required
               ></v-text-field>
             </v-flex>
 
@@ -130,7 +133,9 @@ export default {
   computed: {
     code() {
       const bank = this.account.bank ? this.account.bank.toUpperCase() : ''
-      const number = this.account.number ? this.account.number.slice(-2) : ''
+      const number = this.account.number
+        ? this.account.number.replace(/-/g, '').slice(-2)
+        : ''
       const code = bank.length && number.length > 1 ? bank + '-' + number : ''
       return code
     },

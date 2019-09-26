@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <alert />
-    <v-overlay color="blue" z-index="0"> </v-overlay>
+    <v-overlay color="brown lighten-4" z-index="0"> </v-overlay>
     <v-content class="background">
       <v-container fill-height>
         <v-layout align-center justify-center>
