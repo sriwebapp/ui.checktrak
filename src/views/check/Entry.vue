@@ -7,6 +7,7 @@
     <create-form />
     <delete-form />
     <edit-form />
+    <import-form />
     <receive-form />
     <return-form />
     <transmit-form />
@@ -27,6 +28,7 @@ export default {
     createForm: () => import('./Create.vue'),
     deleteForm: () => import('./Delete.vue'),
     editForm: () => import('./Edit.vue'),
+    importForm: () => import('./Import.vue'),
     receiveForm: () => import('./Receive.vue'),
     returnForm: () => import('./Return.vue'),
     transmitForm: () => import('./Transmit.vue'),

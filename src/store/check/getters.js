@@ -26,6 +26,9 @@ export default {
   editing(state) {
     return state.editing
   },
+  importing(state) {
+    return state.importing
+  },
   loading(state) {
     return state.loading
   },
@@ -67,6 +70,9 @@ export default {
   },
   showEdit(state) {
     return state.showEdit
+  },
+  showImport(state) {
+    return state.showImport
   },
   showHistory(state) {
     return state.showHistory

@@ -20,7 +20,7 @@
               <v-flex xs12>
                 <v-text-field
                   :value="date"
-                  label="Created"
+                  label="Date Posted"
                   prepend-icon="mdi-calendar"
                   hide-details
                   class="mb-3"

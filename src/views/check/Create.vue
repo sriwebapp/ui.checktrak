@@ -28,7 +28,7 @@
                     v-model="date2"
                     :error-messages="error.get('date')"
                     name="date"
-                    label="Date"
+                    label="Date Posted"
                     prepend-icon="mdi-calendar"
                     @blur="formatDate(date2)"
                     @dblclick="showCalendar = true"
@@ -94,6 +94,10 @@
               :disabled="creating"
             >
               Return
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn icon large @click="showImport">
+              <v-icon color="indigo">mdi-file-upload-outline</v-icon>
             </v-btn>
           </v-card-actions>
         </form>
@@ -220,6 +224,10 @@ export default {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.check.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
+    },
+    showImport() {
+      this.show = false
+      this.$store.commit('check/showImport', true)
     }
   },
   watch: {

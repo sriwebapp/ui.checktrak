@@ -26,6 +26,9 @@ export default {
   editing(state, payload) {
     state.editing = payload
   },
+  importing(state, payload) {
+    state.importing = payload
+  },
   loading(state, payload) {
     state.loading = payload
   },
@@ -67,6 +70,9 @@ export default {
   },
   showEdit(state, payload) {
     state.showEdit = payload
+  },
+  showImport(state, payload) {
+    state.showImport = payload
   },
   showHistory(state, payload) {
     state.showHistory = payload

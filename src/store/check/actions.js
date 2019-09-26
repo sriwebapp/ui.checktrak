@@ -130,6 +130,22 @@ export default {
       context.commit('editing', false)
     }
   },
+  async importChecks(context, file) {
+    context.commit('importing', true)
+    try {
+      let data = new FormData()
+      data.append('checks_file', file)
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/import/check'
+      await Axios.post(url, data)
+      context.commit('showImport', false)
+      context.dispatch('getChecks', context.getters.pagination)
+    } catch (error) {
+      return
+    } finally {
+      context.commit('importing', false)
+    }
+  },
   async receive(context, data) {
     context.commit('receiving', true)
     try {
