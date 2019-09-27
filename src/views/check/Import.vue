@@ -11,10 +11,11 @@
                   ref="fileinput"
                   v-model="file"
                   label="Select File to be Imported"
-                  :disabled="importing"
                   show-size
-                  @change="error.reset()"
                   :error-messages="error.get('checks_file')"
+                  :disabled="importing"
+                  :loading="importing"
+                  @change="error.reset()"
                   prepend-icon="mdi-file-upload-outline"
                   accept=".csv"
                 ></v-file-input>
@@ -27,9 +28,12 @@
             type="submit"
             color="indigo white--text"
             :loading="importing"
-            :disabled="!file"
+            :disabled="!file || importing"
           >
-            Create
+            Start Importing
+            <template v-slot:loader>
+              <span>Importing...</span>
+            </template>
           </v-btn>
           <v-btn
             color="deep-orange"
@@ -74,7 +78,7 @@ export default {
   watch: {
     show(arg) {
       if (arg) {
-        this.$refs.fileinput.reset()
+        // this.$refs.fileinput.reset()
       }
     }
   }

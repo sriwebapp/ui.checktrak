@@ -1,5 +1,6 @@
 <template>
   <v-container v-if="!waiting">
+    <message />
     <router-view></router-view>
     <cancel-form />
     <claim-form />
@@ -22,6 +23,7 @@
 import store from './../../store/store'
 export default {
   components: {
+    message: () => import('./Message.vue'),
     cancelForm: () => import('./Cancel.vue'),
     claimForm: () => import('./Claim.vue'),
     clearForm: () => import('./Clear.vue'),

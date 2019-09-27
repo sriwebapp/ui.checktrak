@@ -91,5 +91,22 @@ export default {
   },
   waiting(state, payload) {
     state.waiting = payload
+  },
+  successMessage(state, payload) {
+    state.successMessage = payload
+    state.showSuccessMessage = true
+  },
+  failedMessage(state, payload) {
+    state.failedMessage = payload
+    state.showFailedMessage = true
+  },
+  showSuccessMessage(state, payload) {
+    state.showSuccessMessage = payload
+  },
+  showFailedMessage(state, payload) {
+    state.showFailedMessage = payload
+  },
+  import(state, payload) {
+    state.import = payload
   }
 }

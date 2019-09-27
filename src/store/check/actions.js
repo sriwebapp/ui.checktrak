@@ -137,9 +137,17 @@ export default {
       data.append('checks_file', file)
       const url =
         '/' + context.rootGetters['tools/company'].code + '/import/check'
-      await Axios.post(url, data)
+      const res = await Axios.post(url, data)
       context.commit('showImport', false)
-      context.dispatch('getChecks', context.getters.pagination)
+      await context.dispatch('getChecks', context.getters.pagination)
+
+      if (res.data.successMessage) {
+        context.commit('successMessage', res.data.successMessage)
+      }
+      if (res.data.failedMessage) {
+        context.commit('failedMessage', res.data.failedMessage)
+      }
+      context.commit('import', res.data.import)
     } catch (error) {
       return
     } finally {

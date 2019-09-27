@@ -29,5 +29,10 @@ export default {
   showReturn: false,
   showSelected: false,
   showTransmit: false,
-  waiting: false
+  waiting: false,
+  successMessage: null,
+  failedMessage: null,
+  showSuccessMessage: false,
+  showFailedMessage: false,
+  import: null
 }

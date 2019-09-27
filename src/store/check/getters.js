@@ -91,5 +91,20 @@ export default {
   },
   waiting(state) {
     return state.waiting
+  },
+  successMessage(state) {
+    return state.successMessage
+  },
+  failedMessage(state) {
+    return state.failedMessage
+  },
+  showSuccessMessage(state) {
+    return state.showSuccessMessage
+  },
+  showFailedMessage(state) {
+    return state.showFailedMessage
+  },
+  import(state) {
+    return state.import
   }
 }
