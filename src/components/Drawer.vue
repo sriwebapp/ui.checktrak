@@ -42,6 +42,26 @@
 
       <v-list-item
         active-class="indigo darken-2"
+        v-for="item in misc"
+        :key="item.title"
+        link
+        :to="item.route"
+      >
+        <v-list-item-icon>
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+
+    <v-divider></v-divider>
+
+    <v-list v-if="!logging" dense rounded color="transparent">
+      <v-list-item
+        active-class="indigo darken-2"
         v-for="item in check"
         :key="item.title"
         link
@@ -96,6 +116,16 @@ export default {
       set(arg) {
         this.$store.commit('drawer', arg)
       }
+    },
+    misc() {
+      return [
+        {
+          title: 'Data Imports',
+          icon: 'mdi-file-upload-outline',
+          route: '/import',
+          condition: this.user.actionAccess.includes('imt')
+        }
+      ].filter(item => item.condition)
     }
   },
   data: () => ({

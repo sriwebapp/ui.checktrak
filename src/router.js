@@ -12,6 +12,7 @@ import account from './routes/account'
 import payee from './routes/payee'
 import check from './routes/check'
 import transmittal from './routes/transmittal'
+import importing from './routes/importing'
 
 Vue.use(Router)
 
@@ -34,6 +35,7 @@ const router = new Router({
         payee,
         check,
         transmittal,
+        importing,
         {
           path: '*',
           name: '404',

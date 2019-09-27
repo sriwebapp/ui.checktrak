@@ -4,9 +4,9 @@
       <v-layout>
         {{ successMessage }}
         <v-spacer></v-spacer>
-        <v-btn small outlined :disabled="loading" @click="showImportedChecks"
-          >View</v-btn
-        >
+        <v-btn small outlined :disabled="loading" @click="showImportedChecks">
+          View
+        </v-btn>
       </v-layout>
     </v-alert>
 
@@ -14,7 +14,9 @@
       <v-layout>
         {{ failedMessage }}
         <v-spacer></v-spacer>
-        <v-btn small outlined :disabled="loading">View</v-btn>
+        <v-btn small outlined :disabled="loading" @click="showFailedChecks">
+          View
+        </v-btn>
       </v-layout>
     </v-alert>
   </div>
@@ -57,6 +59,11 @@ export default {
       this.$store.commit('check/selectedChecks', this.import.checks)
       this.$store.commit('check/showSelected', true)
       this.showSuccess = false
+    },
+    showFailedChecks() {
+      this.$router.push({ name: 'show-import', params: { id: this.import.id } })
+      this.showSuccess = false
+      this.showFailed = false
     }
   }
 }

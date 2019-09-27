@@ -96,7 +96,7 @@
               Return
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn icon large @click="showImport">
+            <v-btn icon large @click="showImport" :disabled="!importable">
               <v-icon color="indigo">mdi-file-upload-outline</v-icon>
             </v-btn>
           </v-card-actions>
@@ -190,6 +190,9 @@ export default {
       set(arg) {
         this.$store.commit('check/showCreate', arg)
       }
+    },
+    importable() {
+      return this.$store.getters['auth/user'].actionAccess.includes('imt')
     }
   },
   data: () => ({
