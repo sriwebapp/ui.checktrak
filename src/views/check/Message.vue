@@ -61,8 +61,8 @@ export default {
       this.showSuccess = false
     },
     showFailedChecks() {
-      this.$router.push({ name: 'show-import', params: { id: this.import.id } })
-      this.showSuccess = false
+      this.$store.commit('check/failedChecks', this.import.failedChecks)
+      this.$store.commit('check/showFailed', true)
       this.showFailed = false
     }
   }

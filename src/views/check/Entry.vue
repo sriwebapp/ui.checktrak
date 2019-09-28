@@ -8,11 +8,12 @@
     <create-form />
     <delete-form />
     <edit-form />
-    <import-form />
+    <import-create />
     <receive-form />
     <return-form />
     <transmit-form />
     <show-check />
+    <show-failed />
     <show-history />
     <show-selected />
     <filter-menu />
@@ -24,17 +25,18 @@ import store from './../../store/store'
 export default {
   components: {
     message: () => import('./Message.vue'),
+    importCreate: () => import('./ImportCreate.vue'),
     cancelForm: () => import('./Cancel.vue'),
     claimForm: () => import('./Claim.vue'),
     clearForm: () => import('./Clear.vue'),
     createForm: () => import('./Create.vue'),
     deleteForm: () => import('./Delete.vue'),
     editForm: () => import('./Edit.vue'),
-    importForm: () => import('./Import.vue'),
     receiveForm: () => import('./Receive.vue'),
     returnForm: () => import('./Return.vue'),
     transmitForm: () => import('./Transmit.vue'),
     showCheck: () => import('./Show.vue'),
+    showFailed: () => import('./Failed.vue'),
     showHistory: () => import('./History.vue'),
     showSelected: () => import('./Selected.vue'),
     filterMenu: () => import('./Filter.vue')

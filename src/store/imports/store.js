@@ -33,6 +33,7 @@ export default {
     },
     async getItem(context, id) {
       context.commit('loading', true)
+      context.commit('item', {})
       try {
         const url =
           '/' + context.rootGetters['tools/company'].code + '/import/' + id

@@ -230,7 +230,7 @@ export default {
     },
     showImport() {
       this.show = false
-      this.$store.commit('check/showImport', true)
+      this.$store.commit('check/showImportCreate', true)
     }
   },
   watch: {

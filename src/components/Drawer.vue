@@ -39,22 +39,6 @@
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-
-      <v-list-item
-        active-class="indigo darken-2"
-        v-for="item in misc"
-        :key="item.title"
-        link
-        :to="item.route"
-      >
-        <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
     </v-list>
 
     <v-divider></v-divider>

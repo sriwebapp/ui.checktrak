@@ -60,10 +60,10 @@ export default {
     },
     show: {
       get() {
-        return this.$store.getters['check/showImport']
+        return this.$store.getters['check/showImportCreate']
       },
       set(arg) {
-        this.$store.commit('check/showImport', arg)
+        this.$store.commit('check/showImportCreate', arg)
       }
     }
   },

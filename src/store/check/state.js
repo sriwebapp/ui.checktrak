@@ -1,6 +1,7 @@
 export default {
   check: {},
   checks: [],
+  failedChecks: [],
   transmittals: [],
   cancelling: false,
   claiming: false,
@@ -23,7 +24,8 @@ export default {
   showCreate: false,
   showDelete: false,
   showEdit: false,
-  showImport: false,
+  showFailed: false,
+  showImportCreate: false,
   showHistory: false,
   showReceive: false,
   showReturn: false,

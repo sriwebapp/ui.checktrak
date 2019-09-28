@@ -5,6 +5,9 @@ export default {
   checks(state, payload) {
     state.checks = payload
   },
+  failedChecks(state, payload) {
+    state.failedChecks = payload
+  },
   transmittals(state, payload) {
     state.transmittals = payload
   },
@@ -71,8 +74,11 @@ export default {
   showEdit(state, payload) {
     state.showEdit = payload
   },
-  showImport(state, payload) {
-    state.showImport = payload
+  showFailed(state, payload) {
+    state.showFailed = payload
+  },
+  showImportCreate(state, payload) {
+    state.showImportCreate = payload
   },
   showHistory(state, payload) {
     state.showHistory = payload

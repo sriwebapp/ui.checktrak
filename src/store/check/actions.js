@@ -138,7 +138,7 @@ export default {
       const url =
         '/' + context.rootGetters['tools/company'].code + '/import/check'
       const res = await Axios.post(url, data)
-      context.commit('showImport', false)
+      context.commit('showImportCreate', false)
       await context.dispatch('getChecks', context.getters.pagination)
 
       if (res.data.successMessage) {
