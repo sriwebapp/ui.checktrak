@@ -2,7 +2,17 @@
   <v-dialog v-model="show" persistent max-width="600">
     <v-card>
       <form @submit.prevent="importChecks">
-        <v-card-title>Import Checks</v-card-title>
+        <v-card-title>
+          Import Checks
+          <v-spacer></v-spacer>
+          <v-btn
+            icon
+            href="https://msforbes09.github.io/ui.checktrak/"
+            target="_blank"
+          >
+            <v-icon color="green">mdi-help-circle-outline</v-icon>
+          </v-btn>
+        </v-card-title>
         <v-card-text>
           <v-container>
             <v-layout row wrap>
