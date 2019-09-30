@@ -21,7 +21,6 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/' + id
       const res = await Axios.get(url)
       context.commit('check', res.data)
-      context.commit('showCheck', true)
     } catch (e) {
       return
     } finally {
@@ -130,7 +129,7 @@ export default {
       context.commit('editing', false)
     }
   },
-  async importChecks(context, file) {
+  async importCreateChecks(context, file) {
     context.commit('importing', true)
     try {
       let data = new FormData()
@@ -139,6 +138,33 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/import/check'
       const res = await Axios.post(url, data)
       context.commit('showImportCreate', false)
+      await context.dispatch('getChecks', context.getters.pagination)
+
+      if (res.data.successMessage) {
+        context.commit('successMessage', res.data.successMessage)
+      }
+      if (res.data.failedMessage) {
+        context.commit('failedMessage', res.data.failedMessage)
+      }
+      context.commit('import', res.data.import)
+    } catch (error) {
+      return
+    } finally {
+      context.commit('importing', false)
+    }
+  },
+  async importClearChecks(context, arg) {
+    context.commit('importing', true)
+    try {
+      let data = new FormData()
+      data.append('clear_checks_file', arg.file)
+      data.append('account_id', arg.account)
+
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/import/clear-check'
+      const res = await Axios.post(url, data)
+
+      context.commit('showImportClear', false)
       await context.dispatch('getChecks', context.getters.pagination)
 
       if (res.data.successMessage) {

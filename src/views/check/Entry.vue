@@ -2,18 +2,22 @@
   <v-container v-if="!waiting">
     <message />
     <router-view></router-view>
+    <import-create />
+    <import-clear />
     <cancel-form />
     <claim-form />
     <clear-form />
     <create-form />
     <delete-form />
     <edit-form />
-    <import-create />
     <receive-form />
     <return-form />
     <transmit-form />
     <show-check />
-    <show-failed />
+    <failed-create />
+    <success-create />
+    <failed-clear />
+    <success-clear />
     <show-history />
     <show-selected />
     <filter-menu />
@@ -26,6 +30,7 @@ export default {
   components: {
     message: () => import('./Message.vue'),
     importCreate: () => import('./ImportCreate.vue'),
+    importClear: () => import('./ImportClear.vue'),
     cancelForm: () => import('./Cancel.vue'),
     claimForm: () => import('./Claim.vue'),
     clearForm: () => import('./Clear.vue'),
@@ -36,7 +41,10 @@ export default {
     returnForm: () => import('./Return.vue'),
     transmitForm: () => import('./Transmit.vue'),
     showCheck: () => import('./Show.vue'),
-    showFailed: () => import('./Failed.vue'),
+    failedCreate: () => import('./FailedCreate.vue'),
+    successCreate: () => import('./SuccessCreate.vue'),
+    failedClear: () => import('./FailedClear.vue'),
+    successClear: () => import('./SuccessClear.vue'),
     showHistory: () => import('./History.vue'),
     showSelected: () => import('./Selected.vue'),
     filterMenu: () => import('./Filter.vue')

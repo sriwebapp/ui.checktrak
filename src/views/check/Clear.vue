@@ -70,6 +70,10 @@
             >
               Close
             </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn icon large @click="showImport" :disabled="!importable">
+              <v-icon color="indigo">mdi-file-upload-outline</v-icon>
+            </v-btn>
           </v-card-actions>
         </form>
       </v-card>
@@ -118,6 +122,9 @@ export default {
       set(arg) {
         this.$store.commit('check/showClear', arg)
       }
+    },
+    importable() {
+      return this.$store.getters['auth/user'].actionAccess.includes('imt')
     }
   },
   data: () => ({
@@ -147,6 +154,10 @@ export default {
     formatDate(date) {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
+    },
+    showImport() {
+      this.show = false
+      this.$store.commit('check/showImportClear', true)
     }
   },
   watch: {

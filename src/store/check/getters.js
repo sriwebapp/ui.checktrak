@@ -2,14 +2,20 @@ export default {
   check(state) {
     return state.check
   },
+  newCheck(state) {
+    return state.newCheck
+  },
+  pagination(state) {
+    return state.pagination
+  },
   checks(state) {
     return state.checks
   },
-  failedChecks(state) {
-    return state.failedChecks
-  },
   transmittals(state) {
     return state.transmittals
+  },
+  selectedChecks(state) {
+    return state.selectedChecks
   },
   cancelling(state) {
     return state.cancelling
@@ -44,14 +50,8 @@ export default {
   transmitting(state) {
     return state.transmitting
   },
-  newCheck(state) {
-    return state.newCheck
-  },
-  pagination(state) {
-    return state.pagination
-  },
-  selectedChecks(state) {
-    return state.selectedChecks
+  waiting(state) {
+    return state.waiting
   },
   showCancel(state) {
     return state.showCancel
@@ -74,12 +74,6 @@ export default {
   showEdit(state) {
     return state.showEdit
   },
-  showFailed(state) {
-    return state.showFailed
-  },
-  showImportCreate(state) {
-    return state.showImportCreate
-  },
   showHistory(state) {
     return state.showHistory
   },
@@ -95,14 +89,14 @@ export default {
   showTransmit(state) {
     return state.showTransmit
   },
-  waiting(state) {
-    return state.waiting
+  import(state) {
+    return state.import
   },
-  successMessage(state) {
-    return state.successMessage
+  showImportCreate(state) {
+    return state.showImportCreate
   },
-  failedMessage(state) {
-    return state.failedMessage
+  showImportClear(state) {
+    return state.showImportClear
   },
   showSuccessMessage(state) {
     return state.showSuccessMessage
@@ -110,7 +104,28 @@ export default {
   showFailedMessage(state) {
     return state.showFailedMessage
   },
-  import(state) {
-    return state.import
+  successMessage(state) {
+    return state.successMessage
+  },
+  failedMessage(state) {
+    return state.failedMessage
+  },
+  failedChecks(state) {
+    return state.failedChecks
+  },
+  successChecks(state) {
+    return state.successChecks
+  },
+  showFailedClear(state) {
+    return state.showFailedClear
+  },
+  showSuccessClear(state) {
+    return state.showSuccessClear
+  },
+  showFailedCreate(state) {
+    return state.showFailedCreate
+  },
+  showSuccessCreate(state) {
+    return state.showSuccessCreate
   }
 }

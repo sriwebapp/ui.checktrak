@@ -1,12 +1,12 @@
 <template>
-  <v-dialog v-model="show" persistent max-width="1600">
+  <v-dialog v-model="show" persistent max-width="800">
     <v-card>
       <div>
         <v-card-title>
           Failed Checks
           <v-spacer></v-spacer>
           <v-btn icon @click="show = false">
-            <v-icon>mdi-close-box</v-icon>
+            <v-icon color="error">mdi-close-box</v-icon>
           </v-btn>
         </v-card-title>
         <v-data-table
@@ -33,22 +33,18 @@ export default {
     },
     show: {
       get() {
-        return this.$store.getters['check/showFailed']
+        return this.$store.getters['check/showFailedClear']
       },
       set(arg) {
-        this.$store.commit('check/showFailed', arg)
+        this.$store.commit('check/showFailedClear', arg)
       }
     }
   },
   data: () => ({
     headers: [
-      { text: 'Bank', align: 'left', value: 'bank' },
-      { text: 'Account', align: 'left', value: 'account' },
-      { text: 'Number', align: 'left', value: 'number' },
-      { text: 'Payee Code', align: 'left', value: 'payee_code' },
-      { text: 'Payee Name', align: 'left', value: 'payee_name' },
-      { text: 'Amount', align: 'left', value: 'amount' },
       { text: 'Date', align: 'left', value: 'date' },
+      { text: 'Number', align: 'left', value: 'number' },
+      { text: 'Amount', align: 'left', value: 'cleared' },
       { text: 'Reason', align: 'left', value: 'reason' }
     ],
     pagination: {}

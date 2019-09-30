@@ -56,13 +56,13 @@ export default {
   },
   methods: {
     showImportedChecks() {
-      this.$store.commit('check/selectedChecks', this.import.checks)
-      this.$store.commit('check/showSelected', true)
+      this.$store.commit('check/successChecks', this.import.checks)
+      this.$store.commit('check/showSuccess' + this.import.subject, true)
       this.showSuccess = false
     },
     showFailedChecks() {
       this.$store.commit('check/failedChecks', this.import.failedChecks)
-      this.$store.commit('check/showFailed', true)
+      this.$store.commit('check/showFailed' + this.import.subject, true)
       this.showFailed = false
     }
   }

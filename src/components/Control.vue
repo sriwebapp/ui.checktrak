@@ -125,9 +125,10 @@ export default {
     },
     clearable() {
       return (
-        this.selectedChecks.length === 1 &&
+        (this.selectedChecks.length === 1 &&
         this.selectedChecks[0].status_id === 3 /* claimed */ &&
-        this.actions.includes('clr')
+          this.actions.includes('clr')) ||
+        this.actions.includes('imt')
       )
     },
     creatable() {
@@ -199,7 +200,9 @@ export default {
     },
     showCheck() {
       if (this.selectedChecks.length === 1) {
-        this.$store.dispatch('check/getCheck', this.selectedChecks[0].id)
+        this.$store
+          .dispatch('check/getCheck', this.selectedChecks[0].id)
+          .then(() => this.$store.commit('check/showCheck', true))
       } else if (this.selectedChecks.length > 1) {
         this.$store.commit('check/showSelected', true)
       }
@@ -211,22 +214,30 @@ export default {
       this.$store.commit('check/showClaim', true)
     },
     showClearForm() {
-      this.$store.commit('check/check', this.selectedChecks[0])
-      this.$store.commit('check/showClear', true)
+      if (
+        this.selectedChecks.length === 1 &&
+        this.selectedChecks[0].status_id === 3 &&
+        this.actions.includes('clr')
+      ) {
+        this.$store
+          .dispatch('check/getCheck', this.selectedChecks[0].id)
+          .then(() => this.$store.commit('check/showClear', true))
+      } else if (this.actions.includes('trm')) {
+        this.$store.commit('check/showImportClear', true)
+      }
     },
     showCreateForm() {
       this.$store.commit('check/showCreate', true)
     },
     showEditForm() {
-      this.$store.commit(
-        'check/check',
-        Object.assign({}, this.selectedChecks[0])
-      )
-      this.$store.commit('check/showEdit', true)
+      this.$store
+        .dispatch('check/getCheck', this.selectedChecks[0].id)
+        .then(() => this.$store.commit('check/showEdit', true))
     },
     showDeleteForm() {
-      this.$store.commit('check/check', this.selectedChecks[0])
-      this.$store.commit('check/showDelete', true)
+      this.$store
+        .dispatch('check/getCheck', this.selectedChecks[0].id)
+        .then(() => this.$store.commit('check/showDelete', true))
     },
     showReceiveForm() {
       this.$store.commit('check/showReceive', true)

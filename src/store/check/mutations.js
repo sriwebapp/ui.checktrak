@@ -2,14 +2,20 @@ export default {
   check(state, payload) {
     state.check = payload
   },
+  newCheck(state, payload) {
+    state.newCheck = payload
+  },
+  pagination(state, payload) {
+    state.pagination = payload
+  },
   checks(state, payload) {
     state.checks = payload
   },
-  failedChecks(state, payload) {
-    state.failedChecks = payload
-  },
   transmittals(state, payload) {
     state.transmittals = payload
+  },
+  selectedChecks(state, payload) {
+    state.selectedChecks = payload
   },
   cancelling(state, payload) {
     state.cancelling = payload
@@ -44,14 +50,8 @@ export default {
   transmitting(state, payload) {
     state.transmitting = payload
   },
-  newCheck(state, payload) {
-    state.newCheck = payload
-  },
-  pagination(state, payload) {
-    state.pagination = payload
-  },
-  selectedChecks(state, payload) {
-    state.selectedChecks = payload
+  waiting(state, payload) {
+    state.waiting = payload
   },
   showCancel(state, payload) {
     state.showCancel = payload
@@ -74,12 +74,6 @@ export default {
   showEdit(state, payload) {
     state.showEdit = payload
   },
-  showFailed(state, payload) {
-    state.showFailed = payload
-  },
-  showImportCreate(state, payload) {
-    state.showImportCreate = payload
-  },
   showHistory(state, payload) {
     state.showHistory = payload
   },
@@ -95,8 +89,20 @@ export default {
   showTransmit(state, payload) {
     state.showTransmit = payload
   },
-  waiting(state, payload) {
-    state.waiting = payload
+  import(state, payload) {
+    state.import = payload
+  },
+  showImportCreate(state, payload) {
+    state.showImportCreate = payload
+  },
+  showImportClear(state, payload) {
+    state.showImportClear = payload
+  },
+  showSuccessMessage(state, payload) {
+    state.showSuccessMessage = payload
+  },
+  showFailedMessage(state, payload) {
+    state.showFailedMessage = payload
   },
   successMessage(state, payload) {
     state.successMessage = payload
@@ -106,13 +112,22 @@ export default {
     state.failedMessage = payload
     state.showFailedMessage = true
   },
-  showSuccessMessage(state, payload) {
-    state.showSuccessMessage = payload
+  failedChecks(state, payload) {
+    state.failedChecks = payload
   },
-  showFailedMessage(state, payload) {
-    state.showFailedMessage = payload
+  successChecks(state, payload) {
+    state.successChecks = payload
   },
-  import(state, payload) {
-    state.import = payload
+  showFailedClear(state, payload) {
+    state.showFailedClear = payload
+  },
+  showSuccessClear(state, payload) {
+    state.showSuccessClear = payload
+  },
+  showFailedCreate(state, payload) {
+    state.showFailedCreate = payload
+  },
+  showSuccessCreate(state, payload) {
+    state.showSuccessCreate = payload
   }
 }
