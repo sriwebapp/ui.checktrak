@@ -1,5 +1,3 @@
-# CheckTrak
-
 ## Importing Checks
 
 - Imported Files must be in **.CSV** format and in **UTF-8** encoding type.
