@@ -4,6 +4,8 @@
 
 - Open file ( extracted from SAP or from Bank ) using Microsoft Excel.
 
+---
+
 ### Removing Unnecessary Fields
 
 - Remove unnecesary Rows and Columns ( Ex: headers ) from file leaving necessary columns.
@@ -20,6 +22,8 @@
 
 ![removing_unneccessary_fields](https://media.giphy.com/media/hqrkqhDjQDccCob1xU/source.gif)
 
+---
+
 ### Modify Some Rows
 
 - In some cases we have to modify rows value such as ( Account for created Checks ) to be used in indexing which account does a check belong.
@@ -28,11 +32,15 @@
 
 ![modifying_rows_using_data_filter](https://media.giphy.com/media/KzibcJECqyuSdKMsW4/source.gif)
 
+---
+
 ### Format Columns
 
 - Using Microsoft Excel, format columns with date `MM/DD/YYYY` and numbers `#######.##`.
 
 ![formatting_columns](https://media.giphy.com/media/JSYut2FYht567NrFHY/source.gif)
+
+---
 
 ### Save as CSV
 
@@ -41,6 +49,8 @@
 - Close file after saving.
 
 ![saving_as_CSV](https://media.giphy.com/media/WOCPsteRMN71wdpiJR/source.gif)
+
+---
 
 ### Change Encoding Type
 
@@ -51,6 +61,8 @@
 - Close file after saving.
 
 ![change_encoding_type](https://media.giphy.com/media/XfsHYEpT7s7K8ee5Oy/source.gif)
+
+---
 
 ### Import File
 
