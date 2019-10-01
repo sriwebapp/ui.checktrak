@@ -66,10 +66,10 @@
 
 ### Import File
 
-- Our file now is CSV type and utf-8 encoding.
+- Our file now is CSV type and utf-8 encoded.
 
 - We can now import these checks in our Monitoring.
 
 ![importing](https://media.giphy.com/media/chKLliGS9dkqBghR1y/source.gif)
 
-- Please be patient in importing checks, it will time to finish, **Dont Refresh Page**.
+- Please be patient in importing checks, it will take much time to finish, **Dont Refresh Page**.
