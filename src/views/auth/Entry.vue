@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <alert />
-    <v-overlay color="brown lighten-4" z-index="0"> </v-overlay>
+    <v-overlay color="brown darken-1" opacity="0.6" z-index="0"> </v-overlay>
     <v-content class="background">
       <v-container fill-height>
         <v-layout align-center justify-center>
@@ -19,15 +19,22 @@ export default {
   components: {
     alert: () => import('./../../components/Alert.vue')
   },
-  mounted() {
-    this.$store.dispatch('tools/getCompanies')
+  async mounted() {
+    this.$store.commit('auth/loading', true)
+    try {
+      await this.$store.dispatch('tools/getCompanies', {}, { root: true })
+    } catch (error) {
+      return
+    } finally {
+      this.$store.commit('auth/loading', false)
+    }
   }
 }
 </script>
 
 <style>
-/* .background {
-  background: url('./../../assets/brz.jpg') no-repeat center;
+.background {
+  background: url('./../../assets/Fingerprint.jpg') no-repeat center;
   background-size: cover;
-} */
+}
 </style>

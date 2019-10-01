@@ -31,28 +31,20 @@ export default {
   },
   actions: {
     async getAccess(context, id) {
-      context.commit('access', null)
-      context.commit('loading', true)
       try {
         const res = await Axios.get('/user/' + id)
         context.commit('user', res.data)
         context.commit('access', res.data.access.id)
-      } catch (e) {
-        return
-      } finally {
-        context.commit('loading', false)
+      } catch (error) {
+        throw error
       }
     },
     async getUser(context, id) {
-      context.commit('user', {})
-      context.commit('loading', true)
       try {
         const res = await Axios.get('/user/' + id)
         context.commit('user', res.data)
-      } catch (e) {
-        return
-      } finally {
-        context.commit('loading', false)
+      } catch (error) {
+        throw error
       }
     },
     async getUsers(context) {

@@ -103,14 +103,11 @@ export default {
       }
     },
     async getCompanies(context) {
-      context.commit('auth/loading', true, { root: true })
       try {
         const res = await Axios.get('/tools/companies')
         context.commit('companies', res.data)
-      } catch (e) {
-        return
-      } finally {
-        context.commit('auth/loading', false, { root: true })
+      } catch (error) {
+        throw error
       }
     },
     async getGroups(context) {

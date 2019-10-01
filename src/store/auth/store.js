@@ -71,7 +71,7 @@ export default {
       }
     },
     async logout(context) {
-      context.commit('logging', true)
+      context.commit('loader', true, { root: true })
       try {
         await Axios.post('logout')
         context.dispatch('clearStorage')
