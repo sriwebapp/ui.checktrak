@@ -14,6 +14,7 @@ export default {
   async created() {
     this.$store.commit('loader', true)
     this.$store.commit('branch/waiting', true)
+    this.$store.commit('branch/branches', [])
     setTimeout(() => {
       this.$store.commit('loader', false)
       this.$store.commit('branch/waiting', false)

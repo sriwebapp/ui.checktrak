@@ -38,8 +38,8 @@ export default new Vuex.Store({
     error: new Error(),
     filter: false,
     footer: false,
-    loader: false,
-    loading: false,
+    loader: true,
+    loading: true,
     showAlert: false
   },
   mutations: {

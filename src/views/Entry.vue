@@ -25,7 +25,7 @@ export default {
       return this.$store.getters.loading
     }
   },
-  mounted() {
+  created() {
     this.$store.dispatch('loadData')
   }
 }

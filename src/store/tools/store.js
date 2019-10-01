@@ -164,6 +164,14 @@ export default {
       } catch (error) {
         throw error
       }
+    },
+    async getBranchUsers(context, id) {
+      try {
+        const res = Axios.get('/tools/users/' + id)
+        return res
+      } catch (error) {
+        return
+      }
     }
   },
   getters: {

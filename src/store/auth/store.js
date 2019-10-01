@@ -6,7 +6,6 @@ export default {
   state: {
     company: parseInt(localStorage.getItem('company_id')) || null,
     loading: false,
-    logging: true,
     user: {},
     token: localStorage.getItem('access_token') || null
   },
@@ -16,9 +15,6 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
-    },
-    logging(state, payload) {
-      state.logging = payload
     },
     setToken(state, token) {
       state.token = token
@@ -103,9 +99,6 @@ export default {
     },
     loggedIn(state) {
       return state.token !== null
-    },
-    logging(state) {
-      return state.logging
     },
     user(state) {
       return state.user
