@@ -19,7 +19,7 @@
           </v-flex>
 
           <v-flex>
-            <v-radio-group v-model="access.action" row>
+            <v-radio-group v-model="action" row>
               <v-radio
                 v-for="(option, index) in options"
                 :key="index"
@@ -52,7 +52,7 @@
           </v-flex>
 
           <v-flex>
-            <v-radio-group v-model="access.group" row>
+            <v-radio-group v-model="group" row>
               <v-radio
                 v-for="(option, index) in options"
                 :key="index"
@@ -85,7 +85,7 @@
           </v-flex>
 
           <v-flex>
-            <v-radio-group v-model="access.module" row>
+            <v-radio-group v-model="module" row>
               <v-radio
                 v-for="(option, index) in options"
                 :key="index"
@@ -152,6 +152,9 @@ export default {
     }
   },
   data: () => ({
+    action: null,
+    group: null,
+    module: null,
     options: ['Custom', 'Selection', 'All'],
     selectedActions: [],
     selectedGroups: [],
@@ -174,28 +177,28 @@ export default {
         modules: this.selectedModules
       })
     },
-    setActions() {
-      if (this.access.action === 2) {
+    setActions(arg) {
+      if (arg === 2) {
         this.selectedActions = this.actions.map(action => action.code)
-      } else if (this.access.action === 1) {
+      } else if (arg === 1) {
         this.selectedActions = this.access.actions.map(action => action.code)
       } else {
         this.selectedActions = []
       }
     },
-    setGroups() {
-      if (this.access.group === 2) {
+    setGroups(arg) {
+      if (arg === 2) {
         this.selectedGroups = this.groups.map(group => group.id)
-      } else if (this.access.group === 1) {
+      } else if (arg === 1) {
         this.selectedGroups = this.access.groups.map(group => group.id)
       } else {
         this.selectedGroups = []
       }
     },
-    setModules() {
-      if (this.access.module === 2) {
+    setModules(arg) {
+      if (arg === 2) {
         this.selectedModules = this.modules.map(module => module.code)
-      } else if (this.access.module === 1) {
+      } else if (arg === 1) {
         this.selectedModules = this.access.modules.map(module => module.code)
       } else {
         this.selectedModules = []
@@ -203,18 +206,26 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('access/getAccess', this.$route.params.id)
+    this.$store
+      .dispatch('access/getAccess', this.$route.params.id)
+      .then(res => {
+        this.action = res.data.action
+        this.group = res.data.group
+        this.module = res.data.module
+      })
   },
   watch: {
-    access: {
-      deep: true,
-      handler() {
-        if (this.access.id) {
-          this.setActions()
-          this.setGroups()
-          this.setModules()
-        }
-      }
+    action(arg) {
+      this.access.action = arg
+      this.setActions(arg)
+    },
+    group(arg) {
+      this.access.group = arg
+      this.setGroups(arg)
+    },
+    module(arg) {
+      this.access.module = arg
+      this.setModules(arg)
     }
   }
 }

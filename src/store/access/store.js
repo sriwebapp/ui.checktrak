@@ -30,6 +30,7 @@ export default {
       try {
         const res = await Axios.get('/access/' + id)
         context.commit('access', res.data)
+        return res
       } catch (error) {
         return
       } finally {
