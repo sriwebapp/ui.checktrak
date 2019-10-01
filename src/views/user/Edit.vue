@@ -141,17 +141,8 @@ export default {
       this.$store.commit('user/showDelete', true)
     }
   },
-  async mounted() {
-    this.$store.commit('user/user', {})
-    this.$store.commit('user/loading', true)
-    try {
-      await this.$store.dispatch('tools/getBranches')
-      await this.$store.dispatch('user/getUser', this.$route.params.id)
-    } catch (e) {
-      return
-    } finally {
-      this.$store.commit('user/loading', false)
-    }
+  mounted() {
+    this.$store.dispatch('user/getUser', this.$route.params.id)
   }
 }
 </script>

@@ -195,20 +195,8 @@ export default {
       }
     }
   },
-  async mounted() {
-    this.$store.commit('user/access', null)
-    this.$store.commit('user/loading', true)
-    try {
-      await this.$store.dispatch('tools/getAccess')
-      await this.$store.dispatch('tools/getActions')
-      await this.$store.dispatch('tools/getGroups')
-      await this.$store.dispatch('tools/getModules')
-      await this.$store.dispatch('user/getAccess', this.$route.params.id)
-    } catch (e) {
-      return
-    } finally {
-      this.$store.commit('user/loading', false)
-    }
+  mounted() {
+    this.$store.dispatch('user/getAccess', this.$route.params.id)
   },
   watch: {
     selectedAccess() {

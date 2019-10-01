@@ -108,17 +108,6 @@ export default {
     create() {
       this.$store.dispatch('user/create', this.user)
     }
-  },
-  async mounted() {
-    this.$store.commit('user/loading', true)
-    try {
-      await this.$store.dispatch('tools/getBranches')
-      await this.$store.dispatch('tools/getAccess')
-    } catch (error) {
-      return
-    } finally {
-      this.$store.commit('user/loading', false)
-    }
   }
 }
 </script>

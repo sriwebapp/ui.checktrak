@@ -14,11 +14,13 @@ export default {
   async created() {
     this.$store.commit('loader', true)
     this.$store.commit('access/waiting', true)
+    this.$store.commit('access/accesses', [])
     try {
       await this.$store.dispatch('tools/getActions')
       await this.$store.dispatch('tools/getGroups')
       await this.$store.dispatch('tools/getModules')
     } catch (error) {
+      console.log(error)
       return
     } finally {
       this.$store.commit('loader', false)
