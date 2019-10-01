@@ -50,8 +50,13 @@ export default {
     checks() {
       return this.$store.getters['check/selectedChecks']
     },
-    loading() {
-      return this.$store.getters['check/loading']
+    loading: {
+      get() {
+        return this.$store.getters['check/loading']
+      },
+      set(arg) {
+        this.$store.commit('check/loading', arg)
+      }
     },
     show: {
       get() {
@@ -73,8 +78,16 @@ export default {
     pagination: {}
   }),
   methods: {
-    showCheck(id) {
-      this.$store.dispatch('check/getCheck', id)
+    async showCheck(id) {
+      this.loading = true
+      try {
+        await this.$store.dispatch('check/getCheck', id)
+        this.$store.commit('check/showCheck', true)
+      } catch (error) {
+        return
+      } finally {
+        this.loading = false
+      }
     }
   },
   watch: {

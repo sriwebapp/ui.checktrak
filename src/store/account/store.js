@@ -8,6 +8,7 @@ export default {
     accounts: [],
     editedAccount: {},
     loading: false,
+    waiting: false,
     showDelete: false
   },
   mutations: {
@@ -23,6 +24,9 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
+    },
+    waiting(state, payload) {
+      state.waiting = payload
     },
     showDelete(state, payload) {
       state.showDelete = payload
@@ -110,6 +114,9 @@ export default {
     },
     loading(state) {
       return state.loading
+    },
+    waiting(state) {
+      return state.waiting
     },
     showDelete(state) {
       return state.showDelete

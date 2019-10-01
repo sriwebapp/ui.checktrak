@@ -76,30 +76,10 @@ export default new Vuex.Store({
           'tools/getCompany',
           localStorage.getItem('company_id')
         )
-        // await context.dispatch('tools/getUsers')
-        // await context.dispatch('tools/getAccess')
-        // await context.dispatch('tools/getBranches')
-        // await context.dispatch('tools/getActions')
-        // await context.dispatch('tools/getModules')
-        // await context.dispatch('tools/getGroups')
-        // await context.dispatch('tools/getPayeeGroup')
       } catch (error) {
         return
       } finally {
         context.commit('loading', false)
-      }
-    },
-    async loadData2(context) {
-      context.commit('check/waiting', true)
-      try {
-        await context.dispatch('tools/getPayees')
-        await context.dispatch('tools/getAccounts')
-        context.commit('check/waiting', false)
-        context.commit('footer', true)
-      } catch (error) {
-        return
-      } finally {
-        context.commit('check/waiting', false)
       }
     }
   },

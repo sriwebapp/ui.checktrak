@@ -12,6 +12,7 @@
                 name="branch_id"
                 label="Select Branch"
                 prepend-icon="mdi-source-branch"
+                :loading="gettingUsers"
                 :items="branches"
                 item-text="name"
                 item-value="id"
@@ -43,7 +44,6 @@
                 multiple
                 chips
                 deletable-chips
-                :loading="gettingUsers"
                 :disabled="gettingUsers"
               ></v-select>
             </v-flex>

@@ -4,7 +4,8 @@ export default {
   namespaced: true,
   state: {
     loading: false,
-    transmittals: []
+    transmittals: [],
+    waiting: false
   },
   mutations: {
     loading(state, payload) {
@@ -12,6 +13,9 @@ export default {
     },
     transmittals(state, payload) {
       state.transmittals = payload
+    },
+    waiting(state, payload) {
+      state.waiting = payload
     }
   },
   actions: {
@@ -35,6 +39,9 @@ export default {
     },
     transmittals(state) {
       return state.transmittals
+    },
+    waiting(state) {
+      return state.waiting
     }
   }
 }

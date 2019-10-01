@@ -172,6 +172,14 @@ export default {
       } catch (error) {
         return
       }
+    },
+    async getGroupIncharge(context, id) {
+      try {
+        const res = Axios.get('/tools/incharge/' + id)
+        return res
+      } catch (error) {
+        return
+      }
     }
   },
   getters: {

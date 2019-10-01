@@ -6,6 +6,7 @@ export default {
   state: {
     editedPayee: {},
     loading: false,
+    waiting: false,
     payee: {},
     payees: [],
     showDelete: false
@@ -16,6 +17,9 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
+    },
+    waiting(state, payload) {
+      state.waiting = payload
     },
     payee(state, payload) {
       state.payee = payload
@@ -101,6 +105,9 @@ export default {
     },
     loading(state) {
       return state.loading
+    },
+    waiting(state) {
+      return state.waiting
     },
     payee(state) {
       return state.payee

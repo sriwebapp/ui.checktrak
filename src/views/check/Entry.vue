@@ -54,8 +54,15 @@ export default {
       return this.$store.getters['check/waiting']
     }
   },
-  created() {
-    store.dispatch('loadData2')
+  async created() {
+    this.$store.commit('loader', true)
+    this.$store.commit('check/waiting', true)
+    this.$store.commit('check/checks', [])
+    setTimeout(() => {
+      this.$store.commit('loader', false)
+      this.$store.commit('check/waiting', false)
+      this.$store.commit('footer', true)
+    }, 500)
   },
   beforeRouteLeave(to, from, next) {
     store.commit('footer', false)
