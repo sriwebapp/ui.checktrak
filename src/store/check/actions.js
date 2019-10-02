@@ -24,6 +24,17 @@ export default {
       return
     }
   },
+  async showCheck(context, id) {
+    context.commit('loading', true)
+    try {
+      await context.dispatch('getCheck', id)
+      context.commit('showCheck', true)
+    } catch (error) {
+      return
+    } finally {
+      context.commit('loading', false)
+    }
+  },
   async getReceivedTransmittals(context) {
     try {
       const url =

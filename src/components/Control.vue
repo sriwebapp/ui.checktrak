@@ -206,21 +206,11 @@ export default {
         sortDesc: []
       })
     },
-    async showCheck() {
-      this.loading = true
+    showCheck() {
       if (this.selectedChecks.length === 1) {
-        try {
-          await this.$store.dispatch(
-            'check/getCheck',
-            this.selectedChecks[0].id
-          )
-          this.$store.commit('check/showCheck', true)
-        } catch (error) {
-          return
-        } finally {
-          this.loading = false
-        }
+        this.$store.dispatch('check/showCheck', this.selectedChecks[0].id)
       } else if (this.selectedChecks.length > 1) {
+        this.loading = true
         setTimeout(() => {
           this.loading = false
           this.$store.commit('check/showSelected', true)
