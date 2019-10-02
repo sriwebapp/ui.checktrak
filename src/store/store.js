@@ -76,10 +76,9 @@ export default new Vuex.Store({
           'tools/getCompany',
           localStorage.getItem('company_id')
         )
+        context.commit('loading', false)
       } catch (error) {
         return
-      } finally {
-        context.commit('loading', false)
       }
     }
   },

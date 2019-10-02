@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-alert v-model="showSuccess" border="left" type="success" dismissible>
+    <v-alert
+      v-model="showSuccess"
+      border="left"
+      type="success"
+      icon="mdi-check-circle"
+      dismissible
+    >
       <v-layout>
         {{ successMessage }}
         <v-spacer></v-spacer>
