@@ -7,11 +7,12 @@
           <v-layout row wrap>
             <v-flex xs12>
               <v-select
-                v-model="group.branch_id"
+                v-model="branch_id"
                 :error-messages="error.get('branch_id')"
                 name="branch_id"
                 label="Select Branch"
                 prepend-icon="mdi-source-branch"
+                :loading="gettingUsers"
                 :items="branches"
                 item-text="name"
                 item-value="id"
@@ -21,7 +22,7 @@
 
             <v-flex xs12>
               <v-text-field
-                v-model="group.name"
+                v-model="name"
                 :error-messages="error.get('name')"
                 name="name"
                 label="Group Name"
@@ -32,7 +33,7 @@
 
             <v-flex xs12>
               <v-select
-                v-model="group.incharge"
+                v-model="incharge"
                 :error-messages="error.get('incharge')"
                 name="incharge"
                 label="Select Incharge"
@@ -43,13 +44,19 @@
                 multiple
                 chips
                 deletable-chips
+                :disabled="gettingUsers"
               ></v-select>
             </v-flex>
           </v-layout>
         </v-container>
       </v-card-text>
       <v-card-actions>
-        <v-btn type="submit" class="indigo white--text" :loading="loading">
+        <v-btn
+          type="submit"
+          class="indigo white--text"
+          :disabled="gettingUsers"
+          :loading="loading"
+        >
           Save
         </v-btn>
 
@@ -57,7 +64,7 @@
           class="deep-orange white--text"
           router
           :to="{ name: 'groups' }"
-          :disabled="loading"
+          :disabled="loading || gettingUsers"
         >
           Return
         </v-btn>
@@ -77,21 +84,35 @@ export default {
     },
     loading() {
       return this.$store.getters['group/loading']
-    },
-    users() {
-      return this.$store.getters['tools/users']
     }
   },
   data: () => ({
-    group: {
-      branch_id: 0,
-      name: '',
-      incharge: []
-    }
+    branch_id: 0,
+    name: '',
+    incharge: [],
+    gettingUsers: false,
+    users: []
   }),
   methods: {
     create() {
-      this.$store.dispatch('group/create', this.group)
+      this.$store.dispatch('group/create', {
+        branch_id: this.branch_id,
+        name: this.name,
+        incharge: this.incharge
+      })
+    }
+  },
+  watch: {
+    branch_id(arg) {
+      if (arg) {
+        this.users = []
+        this.incharge = []
+        this.gettingUsers = true
+        this.$store
+          .dispatch('tools/getBranchUsers', arg)
+          .then(res => (this.users = res.data))
+          .finally(() => (this.gettingUsers = false))
+      }
     }
   }
 }

@@ -4,10 +4,10 @@
     <drawer />
     <navbar />
     <loader />
-    <v-content v-if="!logging" class="brown lighten-4">
+    <v-content v-if="!loading" class="brown lighten-4">
       <router-view></router-view>
     </v-content>
-    <control v-if="!logging" />
+    <control v-if="!loading" />
   </v-app>
 </template>
 
@@ -21,11 +21,11 @@ export default {
     control: () => import('./../components/Control.vue')
   },
   computed: {
-    logging() {
-      return this.$store.getters['auth/logging']
+    loading() {
+      return this.$store.getters.loading
     }
   },
-  mounted() {
+  created() {
     this.$store.dispatch('loadData')
   }
 }

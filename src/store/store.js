@@ -38,6 +38,8 @@ export default new Vuex.Store({
     error: new Error(),
     filter: false,
     footer: false,
+    loader: true,
+    loading: true,
     showAlert: false
   },
   mutations: {
@@ -54,38 +56,27 @@ export default new Vuex.Store({
     footer(state, payload) {
       state.footer = payload
     },
+    loader(state, payload) {
+      state.loader = payload
+    },
+    loading(state, payload) {
+      state.loader = payload
+      state.loading = payload
+    },
     showAlert(state, payload) {
       state.showAlert = payload
     }
   },
   actions: {
     async loadData(context) {
+      context.commit('loading', true)
       try {
-        context.commit('auth/logging', true)
         await context.dispatch('auth/getUser')
         await context.dispatch(
           'tools/getCompany',
           localStorage.getItem('company_id')
         )
-        await context.dispatch('tools/getUsers')
-        await context.dispatch('tools/getAccess')
-        await context.dispatch('tools/getBranches')
-        await context.dispatch('tools/getActions')
-        await context.dispatch('tools/getModules')
-        await context.dispatch('tools/getGroups')
-        await context.dispatch('tools/getPayeeGroup')
-        context.commit('auth/logging', false)
-      } catch (error) {
-        return
-      }
-    },
-    async loadData2(context) {
-      try {
-        context.commit('check/waiting', true)
-        await context.dispatch('tools/getPayees')
-        await context.dispatch('tools/getAccounts')
-        context.commit('check/waiting', false)
-        context.commit('footer', true)
+        context.commit('loading', false)
       } catch (error) {
         return
       }
@@ -106,6 +97,12 @@ export default new Vuex.Store({
     },
     footer(state) {
       return state.footer
+    },
+    loader(state) {
+      return state.loader
+    },
+    loading(state) {
+      return state.loading
     },
     showAlert(state) {
       return state.showAlert

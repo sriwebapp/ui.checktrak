@@ -8,11 +8,23 @@
       </v-btn>
     </v-card-title>
     <v-card-text>
+      <v-layout class="mb-5">
+        <div class="flex-grow-1"></div>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-account-search-outline"
+          label="Search"
+          single-line
+          hide-details
+          autofocus
+        ></v-text-field>
+      </v-layout>
       <v-data-table
         :headers="headers"
         :items="groups"
         :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
+        :search="search"
       >
         <template v-slot:item.branch_id="{ item }">
           {{ item.branch.name }}
@@ -75,7 +87,8 @@ export default {
       { text: 'Active', align: 'center', value: 'active' },
       { text: 'Incharge', align: 'center', value: 'incharge', sortable: false },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
-    ]
+    ],
+    search: ''
   }),
   mounted() {
     this.$store.dispatch('group/getGroups')

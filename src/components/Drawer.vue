@@ -6,8 +6,9 @@
     app
     v-model="visible"
     color="brown darken-3"
+    v-if="!loading"
   >
-    <template v-slot:prepend v-if="!logging">
+    <template v-slot:prepend>
       <v-list-item class="my-3">
         <v-list-item-content>
           <v-list-item-title class="title">
@@ -23,7 +24,7 @@
       <v-divider></v-divider>
     </template>
 
-    <v-list v-if="!logging" dense rounded color="transparent">
+    <v-list dense rounded color="transparent">
       <v-list-item
         active-class="indigo darken-2"
         v-for="item in adminModules"
@@ -43,7 +44,7 @@
 
     <v-divider></v-divider>
 
-    <v-list v-if="!logging" dense rounded color="transparent">
+    <v-list dense rounded color="transparent">
       <v-list-item
         active-class="indigo darken-2"
         v-for="item in check"
@@ -76,7 +77,7 @@
 export default {
   computed: {
     adminModules() {
-      if (!this.logging) {
+      if (!this.loading) {
         return this.admin.filter(item => {
           return this.modules.includes(item.code)
         })
@@ -84,8 +85,8 @@ export default {
         return []
       }
     },
-    logging() {
-      return this.$store.getters['auth/logging']
+    loading() {
+      return this.$store.getters.loading
     },
     modules() {
       return this.user.moduleAccess

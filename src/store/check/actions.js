@@ -15,7 +15,6 @@ export default {
     }
   },
   async getCheck(context, id) {
-    context.commit('loading', true)
     try {
       const url =
         '/' + context.rootGetters['tools/company'].code + '/check/' + id
@@ -23,23 +22,28 @@ export default {
       context.commit('check', res.data)
     } catch (e) {
       return
+    }
+  },
+  async showCheck(context, id) {
+    context.commit('loading', true)
+    try {
+      await context.dispatch('getCheck', id)
+      context.commit('showCheck', true)
+    } catch (error) {
+      return
     } finally {
       context.commit('loading', false)
     }
   },
   async getReceivedTransmittals(context) {
-    context.commit('loading', true)
     try {
       const url =
         '/tools/transmittals/received/' +
         context.rootGetters['tools/company'].code
       const res = await Axios.get(url)
       context.commit('transmittals', res.data)
-      context.commit('showReturn', true)
     } catch (e) {
       return
-    } finally {
-      context.commit('loading', false)
     }
   },
   async cancel(context, data) {

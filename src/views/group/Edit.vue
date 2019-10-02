@@ -7,11 +7,12 @@
           <v-layout row wrap>
             <v-flex xs12>
               <v-select
-                v-model="editedGroup.branch_id"
+                v-model="branch_id"
                 :error-messages="error.get('branch_id')"
                 name="branch_id"
                 label="Select Branch"
                 prepend-icon="mdi-source-branch"
+                :loading="gettingUsers"
                 :items="branches"
                 item-text="name"
                 item-value="id"
@@ -43,6 +44,7 @@
                 multiple
                 chips
                 deletable-chips
+                :disabled="gettingUsers"
               ></v-select>
             </v-flex>
 
@@ -61,7 +63,7 @@
           type="submit"
           class="indigo white--text"
           :loading="loading"
-          :disabled="noChanges"
+          :disabled="noChanges || gettingUsers"
         >
           Save
         </v-btn>
@@ -70,7 +72,7 @@
           class="deep-orange white--text"
           router
           :to="{ name: 'groups' }"
-          :disabled="loading"
+          :disabled="loading || gettingUsers"
         >
           Return
         </v-btn>
@@ -109,9 +111,6 @@ export default {
     loading() {
       return this.$store.getters['group/loading']
     },
-    users() {
-      return this.$store.getters['tools/users']
-    },
     noChanges() {
       return (
         this._.isEqual(this.group, this.editedGroup) &&
@@ -120,8 +119,11 @@ export default {
     }
   },
   data: () => ({
+    branch_id: 0,
     editedIncharge: [],
-    incharge: []
+    gettingUsers: false,
+    incharge: [],
+    users: []
   }),
   methods: {
     edit() {
@@ -136,7 +138,25 @@ export default {
     this.$store.dispatch('group/getGroup', this.$route.params.id).then(res => {
       this.incharge = res.data.incharge.map(i => i.id)
       this.editedIncharge = res.data.incharge.map(i => i.id)
+      this.branch_id = res.data.branch_id
     })
+  },
+  watch: {
+    branch_id(arg) {
+      if (arg) {
+        this.users = []
+        this.editedGroup.branch_id = arg
+        this.gettingUsers = true
+        this.$store
+          .dispatch('tools/getBranchUsers', arg)
+          .then(res => {
+            this.users = res.data
+            this.editedIncharge =
+              arg === this.group.branch_id ? this.incharge : []
+          })
+          .finally(() => (this.gettingUsers = false))
+      }
+    }
   }
 }
 </script>

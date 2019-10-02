@@ -7,7 +7,8 @@ export default {
     branch: {},
     branches: [],
     editedBranch: {},
-    loading: false
+    loading: false,
+    waiting: false
   },
   mutations: {
     branch(state, payload) {
@@ -22,6 +23,9 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
+    },
+    waiting(state, payload) {
+      state.waiting = payload
     }
   },
   actions: {
@@ -83,6 +87,9 @@ export default {
     },
     loading(state) {
       return state.loading
+    },
+    waiting(state) {
+      return state.waiting
     }
   }
 }

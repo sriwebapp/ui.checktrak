@@ -6,7 +6,6 @@ export default {
   state: {
     company: parseInt(localStorage.getItem('company_id')) || null,
     loading: false,
-    logging: true,
     user: {},
     token: localStorage.getItem('access_token') || null
   },
@@ -16,9 +15,6 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
-    },
-    logging(state, payload) {
-      state.logging = payload
     },
     setToken(state, token) {
       state.token = token
@@ -71,7 +67,7 @@ export default {
       }
     },
     async logout(context) {
-      context.commit('logging', true)
+      context.commit('loader', true, { root: true })
       try {
         await Axios.post('logout')
         context.dispatch('clearStorage')
@@ -90,14 +86,6 @@ export default {
     clearStorage(context) {
       context.commit('setToken', null)
       router.push({ name: 'login' })
-      context.commit('company/companies', [], { root: true })
-      context.commit('branch/branches', [], { root: true })
-      context.commit('access/accesses', [], { root: true })
-      context.commit('user/users', [], { root: true })
-      context.commit('account/accounts', [], { root: true })
-      context.commit('payee/payees', [], { root: true })
-      context.commit('check/checks', [], { root: true })
-      context.commit('transmittal/transmittals', [], { root: true })
       context.commit('footer', false, { root: true })
       localStorage.removeItem('access_token')
     }
@@ -111,9 +99,6 @@ export default {
     },
     loggedIn(state) {
       return state.token !== null
-    },
-    logging(state) {
-      return state.logging
     },
     user(state) {
       return state.user

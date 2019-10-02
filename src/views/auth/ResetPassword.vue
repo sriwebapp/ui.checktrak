@@ -1,6 +1,6 @@
 <template>
   <v-card class="elevation-25">
-    <v-toolbar color="primary" dark flat>
+    <v-toolbar color="brown darken-4" dark flat>
       <v-toolbar-title>Forgot Password</v-toolbar-title>
     </v-toolbar>
     <form @submit.prevent="reset" @keydown="error.clear($event.target.name)">

@@ -7,6 +7,7 @@ export default {
     access: null,
     editedUser: {},
     loading: false,
+    waiting: false,
     showDelete: false,
     user: {},
     users: []
@@ -17,6 +18,9 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
+    },
+    waiting(state, payload) {
+      state.waiting = payload
     },
     showDelete(state, payload) {
       state.showDelete = payload
@@ -31,25 +35,25 @@ export default {
   },
   actions: {
     async getAccess(context, id) {
-      context.commit('access', null)
       context.commit('loading', true)
+      context.commit('access', null)
       try {
         const res = await Axios.get('/user/' + id)
         context.commit('user', res.data)
         context.commit('access', res.data.access.id)
-      } catch (e) {
+      } catch (error) {
         return
       } finally {
         context.commit('loading', false)
       }
     },
     async getUser(context, id) {
-      context.commit('user', {})
       context.commit('loading', true)
+      context.commit('user', {})
       try {
         const res = await Axios.get('/user/' + id)
         context.commit('user', res.data)
-      } catch (e) {
+      } catch (error) {
         return
       } finally {
         context.commit('loading', false)
@@ -123,6 +127,9 @@ export default {
     },
     loading(state) {
       return state.loading
+    },
+    waiting(state) {
+      return state.waiting
     },
     showDelete(state) {
       return state.showDelete

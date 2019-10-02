@@ -8,7 +8,7 @@
           rounded
           :color="control.color"
           @click="control.action"
-          :disabled="control.access"
+          :disabled="control.access || loading"
         >
           {{ control.label }}
         </v-btn>
@@ -183,6 +183,14 @@ export default {
     },
     actions() {
       return this.user.actionAccess
+    },
+    loading: {
+      get() {
+        return this.$store.getters['check/loading']
+      },
+      set(arg) {
+        this.$store.commit('check/loading', arg)
+      }
     }
   },
   methods: {
@@ -200,53 +208,116 @@ export default {
     },
     showCheck() {
       if (this.selectedChecks.length === 1) {
-        this.$store
-          .dispatch('check/getCheck', this.selectedChecks[0].id)
-          .then(() => this.$store.commit('check/showCheck', true))
+        this.$store.dispatch('check/showCheck', this.selectedChecks[0].id)
       } else if (this.selectedChecks.length > 1) {
-        this.$store.commit('check/showSelected', true)
+        this.loading = true
+        setTimeout(() => {
+          this.loading = false
+          this.$store.commit('check/showSelected', true)
+        }, 500)
       }
     },
     showCancelForm() {
-      this.$store.commit('check/showCancel', true)
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+        this.$store.commit('check/showCancel', true)
+      }, 500)
     },
     showClaimForm() {
-      this.$store.commit('check/showClaim', true)
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+        this.$store.commit('check/showClaim', true)
+      }, 500)
     },
-    showClearForm() {
+    async showClearForm() {
+      this.loading = true
       if (
         this.selectedChecks.length === 1 &&
         this.selectedChecks[0].status_id === 3 &&
         this.actions.includes('clr')
       ) {
-        this.$store
-          .dispatch('check/getCheck', this.selectedChecks[0].id)
-          .then(() => this.$store.commit('check/showClear', true))
+        try {
+          await this.$store.dispatch(
+            'check/getCheck',
+            this.selectedChecks[0].id
+          )
+          this.$store.commit('check/showClear', true)
+        } catch (error) {
+          return
+        } finally {
+          this.loading = false
+        }
       } else if (this.actions.includes('trm')) {
-        this.$store.commit('check/showImportClear', true)
+        setTimeout(() => {
+          this.loading = false
+          this.$store.commit('check/showImportClear', true)
+        }, 500)
       }
     },
-    showCreateForm() {
-      this.$store.commit('check/showCreate', true)
+    async showCreateForm() {
+      this.loading = true
+      try {
+        await this.$store.dispatch('tools/getAccounts')
+        await this.$store.dispatch('tools/getPayees')
+        this.$store.commit('check/showCreate', true)
+      } catch (error) {
+        return
+      } finally {
+        this.loading = false
+      }
     },
-    showEditForm() {
-      this.$store
-        .dispatch('check/getCheck', this.selectedChecks[0].id)
-        .then(() => this.$store.commit('check/showEdit', true))
+    async showEditForm() {
+      this.loading = true
+      try {
+        await this.$store.dispatch('check/getCheck', this.selectedChecks[0].id)
+        this.$store.commit('check/showEdit', true)
+      } catch (error) {
+        return
+      } finally {
+        this.loading = false
+      }
     },
-    showDeleteForm() {
-      this.$store
-        .dispatch('check/getCheck', this.selectedChecks[0].id)
-        .then(() => this.$store.commit('check/showDelete', true))
+    async showDeleteForm() {
+      this.loading = true
+      try {
+        await this.$store.dispatch('check/getCheck', this.selectedChecks[0].id)
+        this.$store.commit('check/showDelete', true)
+      } catch (error) {
+        return
+      } finally {
+        this.loading = false
+      }
     },
     showReceiveForm() {
-      this.$store.commit('check/showReceive', true)
+      this.loading = true
+      setTimeout(() => {
+        this.$store.commit('check/showReceive', true)
+        this.loading = false
+      }, 500)
     },
-    showReturnForm() {
-      this.$store.dispatch('check/getReceivedTransmittals')
+    async showReturnForm() {
+      this.loading = true
+      try {
+        await this.$store.dispatch('check/getReceivedTransmittals')
+        this.$store.commit('check/showReturn', true)
+      } catch (error) {
+        return
+      } finally {
+        this.loading = false
+      }
     },
-    showTransmitForm() {
-      this.$store.commit('check/showTransmit', true)
+    async showTransmitForm() {
+      this.loading = true
+      try {
+        await this.$store.dispatch('tools/getBranches')
+        this.$store.commit('check/showTransmit', true)
+      } catch (error) {
+        return
+      } finally {
+        this.loading = false
+      }
     }
   }
 }

@@ -80,7 +80,7 @@ export default {
   }),
   methods: {
     showCheck(id) {
-      this.$store.dispatch('check/getCheck', id)
+      this.$store.dispatch('check/showCheck', id)
     }
   }
 }

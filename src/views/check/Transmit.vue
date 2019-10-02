@@ -17,7 +17,6 @@
                     name="ref"
                     label="Transmittal Reference"
                     prepend-icon="mdi-barcode-scan"
-                    :loading="loading"
                     placeholder=" "
                     readonly
                   ></v-text-field>
@@ -30,6 +29,7 @@
                     name="branch_id"
                     label="Branch"
                     prepend-icon="mdi-source-branch"
+                    :loading="gettingGroup"
                     :items="branches"
                     item-text="name"
                     item-value="id"
@@ -43,6 +43,8 @@
                     name="group_id"
                     label="Group"
                     prepend-icon="mdi-account-group"
+                    :disabled="gettingGroup"
+                    :loading="gettingIncharge"
                     :items="groups"
                     item-text="name"
                     item-value="id"
@@ -56,6 +58,7 @@
                     name="incharge"
                     label="Incharge"
                     prepend-icon="mdi-account"
+                    :disabled="gettingIncharge"
                     :items="users"
                     item-text="name"
                     item-value="id"
@@ -101,7 +104,7 @@
               type="submit"
               color="blue white--text"
               :loading="transmitting"
-              :disabled="loading"
+              :disabled="gettingGroup || gettingIncharge"
             >
               Transmit
             </v-btn>
@@ -109,7 +112,7 @@
               color="deep-orange"
               outlined
               @click="show = false"
-              :disabled="transmitting || loading"
+              :disabled="transmitting || gettingGroup || gettingIncharge"
             >
               Return
             </v-btn>
@@ -158,9 +161,6 @@ export default {
     },
     transmitting() {
       return this.$store.getters['check/transmitting']
-    },
-    users() {
-      return this.$store.getters['tools/users']
     }
   },
   data: () => ({
@@ -170,10 +170,13 @@ export default {
     group_id: 0,
     groups: [],
     incharge: 0,
-    loading: false,
+    gettingRef: false,
+    gettingGroup: false,
+    gettingIncharge: false,
     ref: '',
     series: '',
-    showCalendar: false
+    showCalendar: false,
+    users: []
   }),
   methods: {
     transmit() {
@@ -195,18 +198,33 @@ export default {
   watch: {
     branch_id(arg) {
       if (arg) {
-        this.loading = true
+        this.gettingRef = true
+        this.gettingGroup = true
+        this.group_id = 0
+        this.incharge = 0
+        this.groups = []
         this.$store
           .dispatch('tools/getTransmittalRef', this.branch_id)
           .then(res => {
-            this.group_id = 0
             this.series = res.data.series
             this.ref = res.data.ref
             this.groups = res.data.groups
           })
           .finally(() => {
-            this.loading = false
+            this.gettingRef = false
+            this.gettingGroup = false
           })
+      }
+    },
+    group_id(arg) {
+      if (arg) {
+        this.gettingIncharge = true
+        this.incharge = 0
+        this.users = []
+        this.$store
+          .dispatch('tools/getGroupIncharge', arg)
+          .then(res => (this.users = res.data))
+          .finally(() => (this.gettingIncharge = false))
       }
     },
     show(arg) {

@@ -6,7 +6,8 @@ export default {
   state: {
     access: {},
     accesses: [],
-    loading: false
+    loading: false,
+    waiting: false
   },
   mutations: {
     access(state, payload) {
@@ -17,16 +18,20 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
+    },
+    waiting(state, payload) {
+      state.waiting = payload
     }
   },
   actions: {
     async getAccess(context, id) {
       context.commit('loading', true)
+      context.commit('access', {})
       try {
-        context.commit('access', {})
         const res = await Axios.get('/access/' + id)
         context.commit('access', res.data)
-      } catch (e) {
+        return res
+      } catch (error) {
         return
       } finally {
         context.commit('loading', false)
@@ -64,6 +69,9 @@ export default {
     },
     loading(state) {
       return state.loading
+    },
+    waiting(state) {
+      return state.waiting
     }
   }
 }

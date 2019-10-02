@@ -7,7 +7,8 @@ export default {
     company: {},
     companies: [],
     editedCompany: {},
-    loading: false
+    loading: false,
+    waiting: false
   },
   mutations: {
     company(state, payload) {
@@ -22,6 +23,9 @@ export default {
     },
     loading(state, payload) {
       state.loading = payload
+    },
+    waiting(state, payload) {
+      state.waiting = payload
     }
   },
   actions: {
@@ -89,6 +93,9 @@ export default {
     },
     loading(state) {
       return state.loading
+    },
+    waiting(state) {
+      return state.waiting
     }
   }
 }
