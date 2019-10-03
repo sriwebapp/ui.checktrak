@@ -9,7 +9,17 @@ export default {
     waiting: false,
     payee: {},
     payees: [],
-    showDelete: false
+    showDelete: false,
+    import: null,
+    showImportCreate: false,
+    showSuccessMessage: false,
+    showFailedMessage: false,
+    successMessage: null,
+    failedMessage: null,
+    failedImports: [],
+    successImports: [],
+    showFailedCreate: false,
+    showSuccessCreate: false
   },
   mutations: {
     editedPayee(state, payload) {
@@ -30,6 +40,38 @@ export default {
     },
     showDelete(state, payload) {
       state.showDelete = payload
+    },
+    import(state, payload) {
+      state.import = payload
+    },
+    showImportCreate(state, payload) {
+      state.showImportCreate = payload
+    },
+    showSuccessMessage(state, payload) {
+      state.showSuccessMessage = payload
+    },
+    showFailedMessage(state, payload) {
+      state.showFailedMessage = payload
+    },
+    successMessage(state, payload) {
+      state.successMessage = payload
+      state.showSuccessMessage = true
+    },
+    failedMessage(state, payload) {
+      state.failedMessage = payload
+      state.showFailedMessage = true
+    },
+    failedImports(state, payload) {
+      state.failedImports = payload
+    },
+    successImports(state, payload) {
+      state.successImports = payload
+    },
+    showFailedCreate(state, payload) {
+      state.showFailedCreate = payload
+    },
+    showSuccessCreate(state, payload) {
+      state.showSuccessCreate = payload
     }
   },
   actions: {
@@ -97,6 +139,30 @@ export default {
         context.commit('loading', false)
         context.commit('showDelete', false)
       }
+    },
+    async importCreatePayees(context, file) {
+      context.commit('loading', true)
+      try {
+        let data = new FormData()
+        data.append('payees_file', file)
+        const url =
+          '/' + context.rootGetters['tools/company'].code + '/import/payee'
+        const res = await Axios.post(url, data)
+        context.commit('showImportCreate', false)
+        router.push({ name: 'payees' })
+
+        if (res.data.successMessage) {
+          context.commit('successMessage', res.data.successMessage)
+        }
+        if (res.data.failedMessage) {
+          context.commit('failedMessage', res.data.failedMessage)
+        }
+        context.commit('import', res.data.import)
+      } catch (error) {
+        return
+      } finally {
+        context.commit('loading', false)
+      }
     }
   },
   getters: {
@@ -117,6 +183,36 @@ export default {
     },
     showDelete(state) {
       return state.showDelete
+    },
+    import(state) {
+      return state.import
+    },
+    showImportCreate(state) {
+      return state.showImportCreate
+    },
+    showSuccessMessage(state) {
+      return state.showSuccessMessage
+    },
+    showFailedMessage(state) {
+      return state.showFailedMessage
+    },
+    successMessage(state) {
+      return state.successMessage
+    },
+    failedMessage(state) {
+      return state.failedMessage
+    },
+    failedImports(state) {
+      return state.failedImports
+    },
+    successImports(state) {
+      return state.successImports
+    },
+    showFailedCreate(state) {
+      return state.showFailedCreate
+    },
+    showSuccessCreate(state) {
+      return state.showSuccessCreate
     }
   }
 }

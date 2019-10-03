@@ -20,6 +20,10 @@
 
     `Check Number, Amount Cleared, Date Cleared`
 
+  - Created Payees
+
+    `BP Code, BP Name, Group Code`
+
 ![removing_unneccessary_fields](https://media.giphy.com/media/hqrkqhDjQDccCob1xU/source.gif)
 
 ---

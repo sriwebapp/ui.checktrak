@@ -56,6 +56,10 @@
         >
           Return
         </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn icon large @click="showImport">
+          <v-icon color="indigo">mdi-file-upload-outline</v-icon>
+        </v-btn>
       </v-card-actions>
     </form>
   </v-card>
@@ -80,6 +84,9 @@ export default {
   methods: {
     create() {
       this.$store.dispatch('payee/create', this.payee)
+    },
+    showImport() {
+      this.$store.commit('payee/showImportCreate', true)
     }
   }
 }

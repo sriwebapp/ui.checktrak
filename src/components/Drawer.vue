@@ -1,13 +1,5 @@
 <template>
-  <v-navigation-drawer
-    fixed
-    dark
-    clipped
-    app
-    v-model="visible"
-    color="brown darken-3"
-    v-if="!loading"
-  >
+  <v-navigation-drawer fixed dark clipped app v-model="visible" v-if="!loading">
     <template v-slot:prepend>
       <v-list-item class="my-3">
         <v-list-item-content>

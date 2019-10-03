@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app dark clipped-left color="brown darken-4">
+  <v-app-bar app dark clipped-left>
     <v-app-bar-nav-icon @click.stop="drawer"></v-app-bar-nav-icon>
     <v-toolbar-title>
       <span>CheckTrak </span>
