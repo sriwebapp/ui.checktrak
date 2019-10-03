@@ -1,6 +1,6 @@
 <template>
   <v-card class="elevation-25">
-    <v-toolbar color="brown darken-4" dark flat>
+    <v-toolbar dark flat color="black">
       <v-toolbar-title>Login</v-toolbar-title>
     </v-toolbar>
     <form @submit.prevent="login" @keydown="error.clear($event.target.name)">
@@ -10,7 +10,7 @@
           <v-flex xs12>
             <v-text-field
               name="username"
-              label="User Name | Email"
+              label="Username or Email"
               prepend-icon="mdi-account-card-details-outline"
               :error-messages="error.get('username')"
               v-model="username"

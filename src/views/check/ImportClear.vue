@@ -7,7 +7,7 @@
           <v-spacer></v-spacer>
           <v-btn
             icon
-            href="https://msforbes09.github.io/ui.checktrak/"
+            href="https://sriwebapp.github.io/ui.checktrak/"
             target="_blank"
           >
             <v-icon color="green">mdi-help-circle-outline</v-icon>

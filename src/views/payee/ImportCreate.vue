@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="show" persistent max-width="600">
     <v-card>
-      <form @submit.prevent="importChecks">
+      <form @submit.prevent="importPayees">
         <v-card-title>
-          Import Checks
+          Import Payees
           <v-spacer></v-spacer>
           <v-btn
             icon
@@ -22,9 +22,9 @@
                   v-model="file"
                   label="Select File to be Imported"
                   show-size
-                  :error-messages="error.get('checks_file')"
-                  :disabled="importing"
-                  :loading="importing"
+                  :error-messages="error.get('payees_file')"
+                  :disabled="loading"
+                  :loading="loading"
                   @change="error.reset()"
                   prepend-icon="mdi-file-upload-outline"
                   accept=".csv"
@@ -37,8 +37,8 @@
           <v-btn
             type="submit"
             color="indigo white--text"
-            :loading="importing"
-            :disabled="!file || importing"
+            :loading="loading"
+            :disabled="!file || loading"
           >
             Start Importing
             <template v-slot:loader>
@@ -49,7 +49,7 @@
             color="deep-orange"
             outlined
             @click="show = false"
-            :disabled="importing"
+            :disabled="loading"
           >
             Return
           </v-btn>
@@ -65,15 +65,15 @@ export default {
     error() {
       return this.$store.getters.error
     },
-    importing() {
-      return this.$store.getters['check/importing']
+    loading() {
+      return this.$store.getters['payee/loading']
     },
     show: {
       get() {
-        return this.$store.getters['check/showImportCreate']
+        return this.$store.getters['payee/showImportCreate']
       },
       set(arg) {
-        this.$store.commit('check/showImportCreate', arg)
+        this.$store.commit('payee/showImportCreate', arg)
       }
     }
   },
@@ -81,8 +81,8 @@ export default {
     file: null
   }),
   methods: {
-    importChecks() {
-      this.$store.dispatch('check/importCreateChecks', this.file)
+    importPayees() {
+      this.$store.dispatch('payee/importCreatePayees', this.file)
     }
   },
   watch: {

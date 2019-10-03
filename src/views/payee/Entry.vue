@@ -1,14 +1,22 @@
 <template>
   <v-container v-if="!waiting">
+    <message></message>
     <router-view></router-view>
     <delete-form></delete-form>
+    <import-create></import-create>
+    <success-create></success-create>
+    <failed-create></failed-create>
   </v-container>
 </template>
 
 <script>
 export default {
   components: {
-    deleteForm: () => import('./Delete.vue')
+    deleteForm: () => import('./Delete.vue'),
+    importCreate: () => import('./ImportCreate.vue'),
+    message: () => import('./Message.vue'),
+    successCreate: () => import('./SuccessCreate.vue'),
+    failedCreate: () => import('./FailedCreate.vue')
   },
   computed: {
     waiting() {

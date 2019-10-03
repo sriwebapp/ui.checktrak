@@ -4,7 +4,7 @@
     <drawer />
     <navbar />
     <loader />
-    <v-content v-if="!loading" class="brown lighten-4">
+    <v-content v-if="!loading" class="blue-grey lighten-5">
       <router-view></router-view>
     </v-content>
     <control v-if="!loading" />

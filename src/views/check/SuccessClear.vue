@@ -1,52 +1,57 @@
 <template>
   <v-dialog v-model="show" max-width="1000">
     <v-card>
-      <v-data-table
-        :headers="headers"
-        :items="checks"
-        :footer-props="{ itemsPerPageOptions: [10] }"
-        :loading="loading"
-      >
-        <template v-slot:item.payee_id="{ item }">
-          {{ item.payee.name }}
-        </template>
-        <template v-slot:item.amount="{ item }">
-          {{
-            Number(item.amount).toLocaleString('en', {
-              style: 'currency',
-              currency: 'Php'
-            })
-          }}
-        </template>
-        <template v-slot:item.cleared="{ item }">
-          {{
-            Number(item.cleared).toLocaleString('en', {
-              style: 'currency',
-              currency: 'Php'
-            })
-          }}
-        </template>
-        <template v-slot:item.status_id="{ item }">
-          <v-chip
-            small
-            :text-color="item.received ? 'white' : 'black'"
-            :outlined="!item.received"
-            :class="item.status.color"
-          >
-            {{ item.status.name }}
-          </v-chip>
-        </template>
-        <template v-slot:item.action="{ item }">
-          <v-btn
-            icon
-            color="indigo"
-            :disabled="loading"
-            @click="showCheck(item.id)"
-          >
-            <v-icon>mdi-open-in-app</v-icon>
-          </v-btn>
-        </template>
-      </v-data-table>
+      <div>
+        <v-card-title>
+          Imported Checks
+        </v-card-title>
+        <v-data-table
+          :headers="headers"
+          :items="checks"
+          :footer-props="{ itemsPerPageOptions: [10] }"
+          :loading="loading"
+        >
+          <template v-slot:item.payee_id="{ item }">
+            {{ item.payee.name }}
+          </template>
+          <template v-slot:item.amount="{ item }">
+            {{
+              Number(item.amount).toLocaleString('en', {
+                style: 'currency',
+                currency: 'Php'
+              })
+            }}
+          </template>
+          <template v-slot:item.cleared="{ item }">
+            {{
+              Number(item.cleared).toLocaleString('en', {
+                style: 'currency',
+                currency: 'Php'
+              })
+            }}
+          </template>
+          <template v-slot:item.status_id="{ item }">
+            <v-chip
+              small
+              :text-color="item.received ? 'white' : 'black'"
+              :outlined="!item.received"
+              :class="item.status.color"
+            >
+              {{ item.status.name }}
+            </v-chip>
+          </template>
+          <template v-slot:item.action="{ item }">
+            <v-btn
+              icon
+              color="indigo"
+              :disabled="loading"
+              @click="showCheck(item.id)"
+            >
+              <v-icon>mdi-open-in-app</v-icon>
+            </v-btn>
+          </template>
+        </v-data-table>
+      </div>
     </v-card>
   </v-dialog>
 </template>
