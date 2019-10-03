@@ -2,7 +2,7 @@ export default {
   check: {},
   newCheck: {},
   pagination: {},
-  checks: [],
+  checks: {},
   transmittals: [],
   selectedChecks: [],
   cancelling: false,

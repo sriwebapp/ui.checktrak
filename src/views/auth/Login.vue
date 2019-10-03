@@ -58,7 +58,7 @@
           router
           :to="{ name: 'forgotPassword' }"
         >
-          Forgot Password
+          Reset Password
         </v-btn>
       </v-card-actions>
     </form>

@@ -23,8 +23,9 @@
         :headers="headers"
         :items="payees"
         :loading="loading"
+        :options.sync="pagination"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
-        :search="search"
+        :server-items-length="totalItems"
       >
         <template v-slot:item.payee_group_id="{ item }">
           {{ item.group ? item.group.name : '' }}
@@ -59,7 +60,10 @@ export default {
       return this.$store.getters['payee/loading']
     },
     payees() {
-      return this.$store.getters['payee/payees']
+      return this.$store.getters['payee/payees'].data
+    },
+    totalItems() {
+      return this.$store.getters['payee/payees'].total
     }
   },
   data: () => ({
@@ -70,10 +74,41 @@ export default {
       { text: 'Active', align: 'center', value: 'active' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ],
+    pagination: {},
     search: ''
   }),
+  created() {
+    this.searchPayees = this._.debounce(this.getPayees, 500)
+  },
+  methods: {
+    getPayees() {
+      let options = Object.assign({}, this.pagination)
+      options.search = this.search
+      this.$store.dispatch('payee/getPayees', options)
+    }
+  },
   mounted() {
-    this.$store.dispatch('payee/getPayees')
+    this.pagination = {
+      groupBy: [],
+      groupDesc: [],
+      itemsPerPage: 10,
+      multiSort: false,
+      mustSort: false,
+      page: 1,
+      sortBy: [],
+      sortDesc: []
+    }
+  },
+  watch: {
+    pagination: {
+      deep: true,
+      handler() {
+        this.getPayees()
+      }
+    },
+    search() {
+      this.searchPayees()
+    }
   }
 }
 </script>

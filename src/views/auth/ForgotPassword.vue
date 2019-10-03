@@ -1,7 +1,7 @@
 <template>
   <v-card class="elevation-25">
     <v-toolbar dark flat color="black">
-      <v-toolbar-title>Forgot Password</v-toolbar-title>
+      <v-toolbar-title>Reset Password</v-toolbar-title>
     </v-toolbar>
     <form @submit.prevent="send" @keydown="error.clear($event.target.name)">
       <v-divider></v-divider>
