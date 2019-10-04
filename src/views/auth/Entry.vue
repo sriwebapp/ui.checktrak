@@ -23,10 +23,9 @@ export default {
     this.$store.commit('auth/loading', true)
     try {
       await this.$store.dispatch('tools/getCompanies', {}, { root: true })
+      this.$store.commit('auth/loading', false)
     } catch (error) {
       return
-    } finally {
-      this.$store.commit('auth/loading', false)
     }
   }
 }

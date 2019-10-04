@@ -1,5 +1,6 @@
 export default {
   check: {},
+  payee: {},
   newCheck: {},
   pagination: {},
   checks: {},
@@ -25,6 +26,7 @@ export default {
   showDelete: false,
   showEdit: false,
   showHistory: false,
+  showPayees: false,
   showReceive: false,
   showReturn: false,
   showSelected: false,

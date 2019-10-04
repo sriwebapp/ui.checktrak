@@ -11,7 +11,7 @@ export default {
     companies: [],
     groups: [],
     modules: [],
-    payees: [],
+    payees: {},
     payeeGroup: [],
     users: []
   },
@@ -126,11 +126,10 @@ export default {
         throw error
       }
     },
-    async getPayees(context) {
+    async getPayees(context, option) {
       try {
-        const res = await Axios.get(
-          '/tools/payees/' + context.rootGetters['tools/company'].code
-        )
+        const url = '/tools/payees/' + context.rootGetters['tools/company'].code
+        const res = await Axios.post(url, option)
         context.commit('payees', res.data)
       } catch (error) {
         throw error

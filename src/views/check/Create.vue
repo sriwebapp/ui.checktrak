@@ -54,7 +54,7 @@
                     name="payee_id"
                     label="Payee"
                     prepend-icon="mdi-account-cash-outline"
-                    @click="showPayees = true"
+                    @click="showPayees"
                     readonly
                   ></v-text-field>
                 </v-flex>
@@ -107,49 +107,6 @@
       <v-date-picker no-title v-model="date" @change="showCalendar = false">
       </v-date-picker>
     </v-dialog>
-
-    <v-dialog v-model="showPayees" persistent width="800px">
-      <v-card>
-        <v-card-title>
-          <div class="flex-grow-1"></div>
-          <v-text-field
-            v-model="payeeSearch"
-            append-icon="mdi-account-search-outline"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
-        </v-card-title>
-        <v-card-text>
-          <v-data-table
-            v-model="selectedPayees"
-            :headers="payeeHeaders"
-            :items="payees"
-            :search="payeeSearch"
-            show-select
-            single-select
-            hide-default-footer
-          >
-            <template v-slot:item.payee_group_id="{ item }">
-              {{ item.group ? item.group.name : '' }}
-            </template>
-          </v-data-table>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            outlined
-            color="indigo"
-            :disabled="!selectedPayees.length"
-            @click="acceptPayee"
-          >
-            Select
-          </v-btn>
-          <v-btn color="deep-orange" outlined @click="showPayees = false">
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
@@ -180,8 +137,13 @@ export default {
     error() {
       return this.$store.getters.error
     },
-    payees() {
-      return this.$store.getters['tools/payees']
+    payee: {
+      get() {
+        return this.$store.getters['check/payee']
+      },
+      set(arg) {
+        this.$store.commit('check/payee', arg)
+      }
     },
     show: {
       get() {
@@ -198,15 +160,6 @@ export default {
   data: () => ({
     date: null,
     date2: null,
-    payeeHeaders: [
-      { text: 'Code', align: 'left', value: 'code', sortable: false },
-      { text: 'Name', align: 'left', value: 'name', sortable: false },
-      { text: 'Group', align: 'left', value: 'payee_group_id', sortable: false }
-    ],
-    selectedPayees: [],
-    payee: {},
-    payeeSearch: '',
-    showPayees: false,
     showCalendar: false
   }),
   methods: {
@@ -215,11 +168,6 @@ export default {
       this.formatDate(this.date2)
       this.$store.dispatch('check/create', this.check)
     },
-    acceptPayee() {
-      this.payee = this.selectedPayees[0]
-      this.check.payee_id = this.selectedPayees[0].id
-      this.showPayees = false
-    },
     formatAmount() {
       this.check.amount = Helper.formatCurrency(this.check.amount)
     },
@@ -227,6 +175,9 @@ export default {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.check.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
+    },
+    showPayees() {
+      this.$store.commit('check/showPayees', true)
     },
     showImport() {
       this.show = false
@@ -240,11 +191,6 @@ export default {
         this.payee = {}
         this.error.reset()
         this.formatDate(Date())
-      }
-    },
-    showPayees(arg) {
-      if (arg) {
-        this.selectedPayees = []
       }
     },
     date(arg) {

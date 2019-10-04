@@ -19,12 +19,10 @@ export default {
       await this.$store.dispatch('tools/getActions')
       await this.$store.dispatch('tools/getGroups')
       await this.$store.dispatch('tools/getModules')
-    } catch (error) {
-      console.log(error)
-      return
-    } finally {
       this.$store.commit('loader', false)
       this.$store.commit('access/waiting', false)
+    } catch (error) {
+      return
     }
   }
 }

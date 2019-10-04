@@ -21,11 +21,10 @@ export default {
     this.$store.commit('group/groups', [])
     try {
       await this.$store.dispatch('tools/getBranches')
-    } catch (error) {
-      return
-    } finally {
       this.$store.commit('loader', false)
       this.$store.commit('group/waiting', false)
+    } catch (error) {
+      return
     }
   }
 }

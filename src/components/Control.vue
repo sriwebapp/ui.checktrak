@@ -260,7 +260,6 @@ export default {
       this.loading = true
       try {
         await this.$store.dispatch('tools/getAccounts')
-        await this.$store.dispatch('tools/getPayees')
         this.$store.commit('check/showCreate', true)
       } catch (error) {
         return
