@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Manage Company</v-card-title>
+    <v-card-title class="title">Manage Company</v-card-title>
     <v-card-text>
       <v-container>
         <v-divider></v-divider>
@@ -98,6 +98,7 @@
       <v-btn
         class="info"
         router
+        small
         :to="{ name: 'edit-company' }"
         :disabled="loading"
       >
@@ -107,6 +108,7 @@
       <v-btn
         class="deep-orange white--text"
         router
+        small
         :to="{ name: 'companies' }"
         :disabled="loading"
       >

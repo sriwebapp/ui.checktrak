@@ -3,9 +3,8 @@
     <v-row>
       <v-col class="my-n2" v-for="(control, index) in controls" :key="index">
         <v-btn
-          small
+          x-small
           block
-          rounded
           :color="control.color"
           @click="control.action"
           :disabled="control.access || loading"

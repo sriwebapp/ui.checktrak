@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>
+    <v-card-title class="title">
       Manage Account
     </v-card-title>
     <v-card-text>
@@ -134,6 +134,7 @@
     <v-card-actions>
       <v-btn
         class="indigo white--text"
+        small
         router
         :to="{ name: 'edit-account' }"
         :disabled="loading"
@@ -143,6 +144,7 @@
 
       <v-btn
         class="deep-orange white--text"
+        small
         router
         :to="{ name: 'accounts' }"
         :disabled="loading"
@@ -150,7 +152,7 @@
         Return
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn icon large @click="showDelete">
+      <v-btn icon large @click="showDelete" :disabled="loading">
         <v-icon color="red">mdi-trash-can-outline</v-icon>
       </v-btn>
     </v-card-actions>

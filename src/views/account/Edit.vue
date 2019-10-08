@@ -1,10 +1,10 @@
 <template>
   <v-card>
-    <v-card-title>Edit Account </v-card-title>
+    <v-card-title class="title">Edit Account </v-card-title>
     <form @submit.prevent="edit" @keydown="error.clear($event.target.name)">
       <v-card-text>
-        <v-container>
-          <v-layout row wrap>
+        <v-layout row wrap>
+          <v-flex xs12 md6 class="px-5">
             <v-flex xs12>
               <v-text-field
                 :value="code"
@@ -57,7 +57,9 @@
                 prepend-icon="mdi-account-badge-horizontal"
               ></v-text-field>
             </v-flex>
+          </v-flex>
 
+          <v-flex xs12 md6 class="px-5">
             <v-flex xs12>
               <v-text-field
                 v-model="editedAccount.tel"
@@ -106,21 +108,18 @@
                 label="Fax"
                 prepend-icon="mdi-fax"
               ></v-text-field>
-
-              <v-flex xs12>
-                <v-switch
-                  v-model="active"
-                  color="indigo"
-                  label="Active"
-                ></v-switch>
-              </v-flex>
             </v-flex>
-          </v-layout>
-        </v-container>
+          </v-flex>
+
+          <v-flex xs12 class="px-5">
+            <v-switch v-model="active" color="indigo" label="Active"></v-switch>
+          </v-flex>
+        </v-layout>
       </v-card-text>
       <v-card-actions>
         <v-btn
           type="submit"
+          small
           class="indigo white--text"
           :loading="loading"
           :disabled="noChanges"
@@ -130,6 +129,7 @@
 
         <v-btn
           class="deep-orange white--text"
+          small
           router
           :to="{ name: 'show-account' }"
           :disabled="loading"

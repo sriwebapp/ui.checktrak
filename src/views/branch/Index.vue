@@ -1,9 +1,14 @@
 <template>
   <v-card>
-    <v-card-title>
+    <v-card-title class="title">
       Branch Management
       <v-spacer></v-spacer>
-      <v-btn class="indigo white--text" router :to="{ name: 'create-branch' }">
+      <v-btn
+        class="indigo white--text"
+        small
+        router
+        :to="{ name: 'create-branch' }"
+      >
         New Branch
       </v-btn>
     </v-card-title>
@@ -20,7 +25,7 @@
               <v-chip
                 :class="item.users.length ? 'primary' : ''"
                 v-on="on"
-                small
+                x-small
                 outlined
               >
                 {{ item.users.length }}
@@ -39,7 +44,7 @@
               <v-chip
                 :class="item.groups.length ? 'primary' : ''"
                 v-on="on"
-                small
+                x-small
                 outlined
               >
                 {{ item.groups.length }}

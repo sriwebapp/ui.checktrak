@@ -1,10 +1,10 @@
 <template>
-  <v-card>
-    <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
-      <v-card-title>Create Group</v-card-title>
-      <v-card-text>
-        <v-container>
-          <v-layout row wrap>
+  <v-row justify="center">
+    <v-card width="600">
+      <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
+        <v-card-title class="title">Create Group</v-card-title>
+        <v-card-text>
+          <v-layout row wrap class="px-5">
             <v-flex xs12>
               <v-select
                 v-model="branch_id"
@@ -43,34 +43,37 @@
                 item-value="id"
                 multiple
                 chips
+                small-chips
                 deletable-chips
                 :disabled="gettingUsers"
               ></v-select>
             </v-flex>
           </v-layout>
-        </v-container>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn
-          type="submit"
-          class="indigo white--text"
-          :disabled="gettingUsers"
-          :loading="loading"
-        >
-          Save
-        </v-btn>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+            type="submit"
+            small
+            class="indigo white--text"
+            :disabled="gettingUsers"
+            :loading="loading"
+          >
+            Save
+          </v-btn>
 
-        <v-btn
-          class="deep-orange white--text"
-          router
-          :to="{ name: 'groups' }"
-          :disabled="loading || gettingUsers"
-        >
-          Return
-        </v-btn>
-      </v-card-actions>
-    </form>
-  </v-card>
+          <v-btn
+            class="deep-orange white--text"
+            small
+            router
+            :to="{ name: 'groups' }"
+            :disabled="loading || gettingUsers"
+          >
+            Return
+          </v-btn>
+        </v-card-actions>
+      </form>
+    </v-card>
+  </v-row>
 </template>
 
 <script>

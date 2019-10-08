@@ -1,26 +1,23 @@
 <template>
   <v-card>
-    <v-card-title>Update User Access</v-card-title>
+    <v-card-title class="title">Update User Access</v-card-title>
     <form @submit.prevent="editAccess">
       <v-card-text>
-        <v-container grid-list-md>
+        <v-layout row wrap class="px-5">
           <v-flex xs12>
-            <p class="title">Select Accessibility:</p>
+            <v-select
+              v-model="access"
+              label="Select Accessibility"
+              prepend-icon="mdi-door-closed-lock"
+              :items="accesses"
+              item-text="name"
+              item-value="id"
+              autofocus
+            ></v-select>
           </v-flex>
 
-          <v-radio-group v-model="access">
-            <v-radio
-              v-for="access in accesses"
-              :key="access.id"
-              :label="access.name"
-              :value="access.id"
-            ></v-radio>
-          </v-radio-group>
-
-          <v-divider class="mb-4"></v-divider>
-
           <v-flex xs12>
-            <p :class="{ title: true, 'grey--text': disable('action') }">
+            <p :class="{ 'subtitle-1': true, 'grey--text': disable('action') }">
               Select Actions:
             </p>
           </v-flex>
@@ -44,7 +41,7 @@
           </v-row>
 
           <v-flex xs12>
-            <p :class="{ title: true, 'grey--text': disable('group') }">
+            <p :class="{ 'subtitle-1': true, 'grey--text': disable('group') }">
               Select Groups:
             </p>
           </v-flex>
@@ -68,7 +65,7 @@
           </v-row>
 
           <v-flex xs12>
-            <p :class="{ title: true, 'grey--text': disable('module') }">
+            <p :class="{ 'subtitle-1': true, 'grey--text': disable('module') }">
               Select Modules:
             </p>
           </v-flex>
@@ -90,15 +87,16 @@
               ></v-checkbox>
             </v-col>
           </v-row>
-        </v-container>
+        </v-layout>
       </v-card-text>
 
       <v-card-actions>
-        <v-btn type="submit" color="indigo" dark :loading="loading">
+        <v-btn type="submit" small color="indigo" dark :loading="loading">
           Update
         </v-btn>
         <v-btn
           class="deep-orange white--text"
+          small
           router
           :to="{ name: 'edit-user' }"
           :disabled="loading"

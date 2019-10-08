@@ -1,10 +1,10 @@
 <template>
   <v-card>
-    <v-card-title>Create Account</v-card-title>
+    <v-card-title class="title">Create Account</v-card-title>
     <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
       <v-card-text>
-        <v-container>
-          <v-layout row wrap>
+        <v-layout row wrap>
+          <v-flex xs12 md6 class="px-5">
             <v-flex xs12>
               <v-text-field
                 :value="code"
@@ -57,7 +57,9 @@
                 prepend-icon="mdi-account-badge-horizontal"
               ></v-text-field>
             </v-flex>
+          </v-flex>
 
+          <v-flex xs12 md6 class="px-5">
             <v-flex xs12>
               <v-text-field
                 v-model="account.tel"
@@ -107,16 +109,22 @@
                 prepend-icon="mdi-fax"
               ></v-text-field>
             </v-flex>
-          </v-layout>
-        </v-container>
+          </v-flex>
+        </v-layout>
       </v-card-text>
       <v-card-actions>
-        <v-btn type="submit" class="indigo white--text" :loading="loading">
+        <v-btn
+          type="submit"
+          small
+          class="indigo white--text"
+          :loading="loading"
+        >
           Save
         </v-btn>
 
         <v-btn
           class="deep-orange white--text"
+          small
           router
           :to="{ name: 'accounts' }"
           :disabled="loading"

@@ -1,11 +1,16 @@
 <template>
   <v-card>
-    <v-card-title>
+    <v-card-title class="title">
       Company Management
       <v-spacer></v-spacer>
-      <v-btn class="indigo white--text" router :to="{ name: 'create-company' }"
-        >New Company</v-btn
+      <v-btn
+        class="indigo white--text"
+        small
+        router
+        :to="{ name: 'create-company' }"
       >
+        New Company
+      </v-btn>
     </v-card-title>
     <v-card-text>
       <v-data-table

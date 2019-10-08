@@ -110,6 +110,7 @@ export default {
     show(arg) {
       if (arg) {
         this.search = ''
+        this.selectedPayees = []
       }
     }
   }

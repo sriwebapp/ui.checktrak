@@ -1,10 +1,10 @@
 <template>
-  <v-card>
-    <v-card-title>Create User </v-card-title>
-    <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
-      <v-card-text>
-        <v-container>
-          <v-layout row wrap>
+  <v-row justify="center">
+    <v-card width="600">
+      <v-card-title class="title">Create User </v-card-title>
+      <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
+        <v-card-text>
+          <v-layout row wrap class="px-5">
             <v-flex xs12>
               <v-text-field
                 v-model="user.name"
@@ -66,23 +66,29 @@
               ></v-select>
             </v-flex>
           </v-layout>
-        </v-container>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn type="submit" color="indigo white--text" :loading="loading">
-          Save
-        </v-btn>
-        <v-btn
-          class="deep-orange white--text"
-          router
-          :to="{ name: 'users' }"
-          :disabled="loading"
-        >
-          Return
-        </v-btn>
-      </v-card-actions>
-    </form>
-  </v-card>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+            type="submit"
+            small
+            color="indigo white--text"
+            :loading="loading"
+          >
+            Save
+          </v-btn>
+          <v-btn
+            class="deep-orange white--text"
+            small
+            router
+            :to="{ name: 'users' }"
+            :disabled="loading"
+          >
+            Return
+          </v-btn>
+        </v-card-actions>
+      </form>
+    </v-card>
+  </v-row>
 </template>
 
 <script>

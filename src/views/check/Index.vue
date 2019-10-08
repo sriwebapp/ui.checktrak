@@ -34,7 +34,7 @@
         </template>
         <template v-slot:item.status_id="{ item }">
           <v-chip
-            small
+            x-small
             :text-color="item.received ? 'white' : 'black'"
             :outlined="!item.received"
             :class="item.status.color"
@@ -47,16 +47,6 @@
         </template>
         <template v-slot:item.updated_at="{ item }">
           {{ formatUpdate(item.updated_at) }}
-        </template>
-        <template v-slot:item.details="{ item }">
-          <v-tooltip top>
-            <template v-slot:activator="{ on }">
-              <span v-on="on">
-                {{ item.details ? truncate(item.details, 20) : '' }}
-              </span>
-            </template>
-            <span>{{ item.details }}</span>
-          </v-tooltip>
         </template>
       </v-data-table>
     </v-card-text>
@@ -96,16 +86,11 @@ export default {
   data: () => ({
     headers: [
       { text: 'Account', align: 'left', value: 'account_id' },
-      { text: 'Number', align: 'left', value: 'number' },
+      { text: 'Posted', align: 'left', value: 'date' },
+      { text: 'Check Number', align: 'left', value: 'number' },
       { text: 'Payee', align: 'left', value: 'payee_id' },
       { text: 'Amount', align: 'left', value: 'amount' },
       { text: 'Details', align: 'left', value: 'details' },
-      { text: 'Posted', align: 'left', value: 'date' },
-      {
-        text: 'Last Update',
-        align: 'left',
-        value: 'updated_at'
-      },
       { text: 'Status', align: 'center', value: 'status_id' }
     ]
   }),

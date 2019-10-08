@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="!waiting">
+  <v-container fluid v-if="!waiting">
     <message />
     <router-view></router-view>
     <import-create />

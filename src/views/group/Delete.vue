@@ -4,11 +4,18 @@
       <v-card-title>You are going to delete this group</v-card-title>
       <v-card-text>Do you want to continue? </v-card-text>
       <v-card-actions>
-        <v-btn outlined color="indigo" @click="deleteGroup" :loading="loading">
+        <v-btn
+          outlined
+          small
+          color="indigo"
+          @click="deleteGroup"
+          :loading="loading"
+        >
           Continue
         </v-btn>
         <v-btn
           color="deep-orange"
+          small
           outlined
           @click="show = false"
           :disabled="loading"
