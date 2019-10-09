@@ -1,7 +1,9 @@
 <template>
   <v-card>
-    <v-card-title class="title">
-      User Management
+    <v-card-title>
+      <span class="title">
+        User Management
+      </span>
       <div class="flex-grow-1"></div>
       <v-btn
         class="indigo white--text"
@@ -70,7 +72,7 @@ export default {
   data: () => ({
     headers: [
       { text: 'Name', align: 'left', value: 'name' },
-      { text: 'Username', align: 'left', value: 'name' },
+      { text: 'Username', align: 'left', value: 'username' },
       { text: 'Branch', align: 'left', value: 'branch_id' },
       { text: 'Access', align: 'left', value: 'access_id' },
       { text: 'Active', align: 'center', value: 'active' },

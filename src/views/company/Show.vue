@@ -112,7 +112,7 @@
         :to="{ name: 'companies' }"
         :disabled="loading"
       >
-        Return
+        Companies
       </v-btn>
     </v-card-actions>
   </v-card>

@@ -1,14 +1,21 @@
 <template>
   <v-card>
     <v-card-title>
-      Payee Management
+      <span class="title">
+        Payee Management
+      </span>
       <v-spacer></v-spacer>
-      <v-btn class="indigo white--text" router :to="{ name: 'create-payee' }">
+      <v-btn
+        class="indigo white--text"
+        small
+        router
+        :to="{ name: 'create-payee' }"
+      >
         New Payee
       </v-btn>
     </v-card-title>
     <v-card-text>
-      <v-layout class="mb-5">
+      <v-layout class="mb-5 mt-n5">
         <div class="flex-grow-1"></div>
         <v-text-field
           v-model="search"
@@ -31,7 +38,7 @@
           {{ item.group ? item.group.name : '' }}
         </template>
         <template v-slot:item.active="{ item }">
-          <v-icon :class="item.active ? 'green--text' : 'red--text'">{{
+          <v-icon small :class="item.active ? 'green--text' : 'red--text'">{{
             item.active
               ? 'mdi-check-circle-outline'
               : 'mdi-close-circle-outline'

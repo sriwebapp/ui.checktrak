@@ -1,10 +1,10 @@
 <template>
-  <v-card>
-    <v-card-title>Create Payee</v-card-title>
-    <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
-      <v-card-text>
-        <v-container>
-          <v-layout row wrap>
+  <v-row justify="center">
+    <v-card width="600">
+      <v-card-title class="title">Create Payee</v-card-title>
+      <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
+        <v-card-text>
+          <v-layout row wrap class="px-5">
             <v-flex xs12>
               <v-text-field
                 v-model="payee.code"
@@ -41,28 +41,34 @@
               ></v-select>
             </v-flex>
           </v-layout>
-        </v-container>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn type="submit" class="indigo white--text" :loading="loading">
-          Save
-        </v-btn>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+            type="submit"
+            small
+            class="indigo white--text"
+            :loading="loading"
+          >
+            Save
+          </v-btn>
 
-        <v-btn
-          class="deep-orange white--text"
-          router
-          :to="{ name: 'payees' }"
-          :disabled="loading"
-        >
-          Return
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn icon large @click="showImport">
-          <v-icon color="indigo">mdi-file-upload-outline</v-icon>
-        </v-btn>
-      </v-card-actions>
-    </form>
-  </v-card>
+          <v-btn
+            class="deep-orange white--text"
+            small
+            router
+            :to="{ name: 'payees' }"
+            :disabled="loading"
+          >
+            Return
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn icon large @click="showImport" :disabled="loading">
+            <v-icon color="indigo">mdi-file-upload-outline</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </form>
+    </v-card>
+  </v-row>
 </template>
 
 <script>

@@ -2,40 +2,42 @@
   <v-dialog v-model="show" max-width="1000">
     <v-card>
       <div>
-        <v-card-title>
+        <v-card-title class="title">
           Imported Checks
         </v-card-title>
-        <v-data-table
-          :headers="headers"
-          :items="checks"
-          :footer-props="{ itemsPerPageOptions: [10] }"
-          :loading="loading"
-        >
-          <template v-slot:item.account_id="{ item }">
-            {{ item.account.code }}
-          </template>
-          <template v-slot:item.payee_id="{ item }">
-            {{ item.payee.name }}
-          </template>
-          <template v-slot:item.amount="{ item }">
-            {{
-              Number(item.amount).toLocaleString('en', {
-                style: 'currency',
-                currency: 'Php'
-              })
-            }}
-          </template>
-          <template v-slot:item.action="{ item }">
-            <v-btn
-              icon
-              color="indigo"
-              :disabled="loading"
-              @click="showCheck(item.id)"
-            >
-              <v-icon>mdi-open-in-app</v-icon>
-            </v-btn>
-          </template>
-        </v-data-table>
+        <v-card-text>
+          <v-data-table
+            :headers="headers"
+            :items="checks"
+            :footer-props="{ itemsPerPageOptions: [10] }"
+            :loading="loading"
+          >
+            <template v-slot:item.account_id="{ item }">
+              {{ item.account.code }}
+            </template>
+            <template v-slot:item.payee_id="{ item }">
+              {{ item.payee.name }}
+            </template>
+            <template v-slot:item.amount="{ item }">
+              {{
+                Number(item.amount).toLocaleString('en', {
+                  style: 'currency',
+                  currency: 'Php'
+                })
+              }}
+            </template>
+            <template v-slot:item.action="{ item }">
+              <v-btn
+                icon
+                color="indigo"
+                :disabled="loading"
+                @click="showCheck(item.id)"
+              >
+                <v-icon>mdi-open-in-app</v-icon>
+              </v-btn>
+            </template>
+          </v-data-table>
+        </v-card-text>
       </div>
     </v-card>
   </v-dialog>

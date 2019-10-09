@@ -2,18 +2,22 @@
   <v-dialog v-model="show" persistent max-width="1000">
     <v-card>
       <v-card-title>
-        Failed Payees
+        <span class="title">
+          Failed Payees
+        </span>
         <v-spacer></v-spacer>
-        <v-btn icon @click="show = false">
+        <v-btn icon @click="show = false" small>
           <v-icon color="error">mdi-close-box</v-icon>
         </v-btn>
       </v-card-title>
-      <v-data-table
-        :headers="headers"
-        :items="payees"
-        :footer-props="{ itemsPerPageOptions: [10] }"
-      >
-      </v-data-table>
+      <v-card-text>
+        <v-data-table
+          :headers="headers"
+          :items="payees"
+          :footer-props="{ itemsPerPageOptions: [10] }"
+        >
+        </v-data-table>
+      </v-card-text>
     </v-card>
   </v-dialog>
 </template>

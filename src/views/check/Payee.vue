@@ -1,43 +1,42 @@
 <template>
-  <v-dialog v-model="show" persistent width="800px">
+  <v-dialog v-model="show" persistent width="600px">
     <v-card>
-      <v-card-title>
-        <div class="flex-grow-1"></div>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-account-search-outline"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
-      </v-card-title>
       <v-card-text>
-        <v-data-table
-          v-model="selectedPayees"
-          :headers="payeeHeaders"
-          :items="payees"
-          :options.sync="pagination"
-          :server-items-length="totalItems"
-          :loading="loading"
-          show-select
-          single-select
-          hide-default-footer
-        >
-          <template v-slot:item.payee_group_id="{ item }">
-            {{ item.group ? item.group.name : '' }}
-          </template>
-        </v-data-table>
+        <v-layout>
+          <div class="flex-grow-1"></div>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-account-search-outline"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-layout>
       </v-card-text>
+      <v-data-table
+        v-model="selectedPayees"
+        :headers="payeeHeaders"
+        :items="payees"
+        :options.sync="pagination"
+        :server-items-length="totalItems"
+        :loading="loading"
+        show-select
+        single-select
+        hide-default-footer
+        hide-default-header
+      >
+      </v-data-table>
       <v-card-actions>
         <v-btn
           outlined
+          small
           color="indigo"
           :disabled="!selectedPayees.length"
           @click="acceptPayee"
         >
           Select
         </v-btn>
-        <v-btn color="deep-orange" outlined @click="show = false">
+        <v-btn color="deep-orange" small outlined @click="show = false">
           Close
         </v-btn>
       </v-card-actions>
@@ -67,8 +66,7 @@ export default {
     loading: false,
     payeeHeaders: [
       { text: 'Code', align: 'left', value: 'code' },
-      { text: 'Name', align: 'left', value: 'name' },
-      { text: 'Group', align: 'left', value: 'payee_group_id' }
+      { text: 'Name', align: 'left', value: 'name' }
     ],
     pagination: {},
     selectedPayees: [],

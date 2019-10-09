@@ -1,10 +1,12 @@
 <template>
   <v-card>
     <v-card-title>
-      Check Masterlist
+      <span class="title">
+        Check Masterlist
+      </span>
       <v-spacer></v-spacer>
-      <v-btn icon @click="showFilter">
-        <v-icon color="indigo">mdi-dots-horizontal</v-icon>
+      <v-btn icon @click="showFilter" small>
+        <v-icon color="indigo">mdi-filter-variant</v-icon>
       </v-btn>
     </v-card-title>
     <v-card-text>
@@ -87,8 +89,8 @@ export default {
     headers: [
       { text: 'Account', align: 'left', value: 'account_id' },
       { text: 'Posted', align: 'left', value: 'date' },
-      { text: 'Check Number', align: 'left', value: 'number' },
-      { text: 'Payee', align: 'left', value: 'payee_id' },
+      { text: 'Check #', align: 'left', value: 'number' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id' },
       { text: 'Amount', align: 'left', value: 'amount' },
       { text: 'Details', align: 'left', value: 'details' },
       { text: 'Status', align: 'center', value: 'status_id' }

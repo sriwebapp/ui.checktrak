@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Check Transmittal</v-card-title>
+    <v-card-title class="title">Check Transmittal</v-card-title>
     <v-card-text>
       <v-data-table :headers="headers" :items="transmittals" :loading="loading">
         <template v-slot:item.branch_id="{ item }">
@@ -19,7 +19,7 @@
           {{ formatDate(item.returned) }}
         </template>
         <template v-slot:item.view="{ item }">
-          <v-btn icon color="indigo" :disabled="loading">
+          <v-btn icon color="indigo" small :disabled="loading">
             <v-icon>mdi-eye</v-icon>
           </v-btn>
         </template>

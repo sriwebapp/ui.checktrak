@@ -2,7 +2,6 @@
   <v-dialog v-model="show" max-width="800">
     <v-card>
       <div>
-        <v-card-title>History </v-card-title>
         <v-data-table
           :headers="headers"
           :items="history"
@@ -17,7 +16,7 @@
           </template>
           <template v-slot:item.action_id="{ item }">
             <v-chip
-              small
+              x-small
               outlined
               :text-color="item.action.color"
               :class="item.action.color"

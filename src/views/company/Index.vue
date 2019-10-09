@@ -1,7 +1,9 @@
 <template>
   <v-card>
-    <v-card-title class="title">
-      Company Management
+    <v-card-title>
+      <span class="title">
+        Company Management
+      </span>
       <v-spacer></v-spacer>
       <v-btn
         class="indigo white--text"

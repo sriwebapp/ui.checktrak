@@ -6,6 +6,7 @@
       type="success"
       icon="mdi-check-circle"
       dismissible
+      dense
     >
       <v-layout>
         {{ successMessage }}
@@ -16,7 +17,7 @@
       </v-layout>
     </v-alert>
 
-    <v-alert v-model="showFailed" border="left" type="error" dismissible>
+    <v-alert v-model="showFailed" border="left" type="error" dismissible dense>
       <v-layout>
         {{ failedMessage }}
         <v-spacer></v-spacer>

@@ -21,7 +21,7 @@
         </template>
         <template v-slot:item.status_id="{ item }">
           <v-chip
-            small
+            x-small
             :text-color="item.received ? 'white' : 'black'"
             :outlined="!item.received"
             :class="item.status.color"
@@ -32,6 +32,7 @@
         <template v-slot:item.action="{ item }">
           <v-btn
             icon
+            small
             color="indigo"
             :disabled="loading"
             @click="showCheck(item.id)"

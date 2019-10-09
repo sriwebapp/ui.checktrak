@@ -1,69 +1,72 @@
 <template>
   <div>
-    <v-dialog v-model="show" persistent max-width="600">
+    <v-dialog v-model="show" persistent max-width="500">
       <v-card>
-        <v-card-title>Clear Check</v-card-title>
         <form
           @submit.prevent="checkAmount"
           @keydown="error.clear($event.target.name)"
         >
           <v-card-text>
-            <v-container>
-              <v-layout row wrap>
-                <v-flex xs12>
-                  <v-text-field
-                    v-model="date2"
-                    :error-messages="error.get('date')"
-                    name="date"
-                    label="Date"
-                    prepend-icon="mdi-calendar"
-                    @blur="formatDate(date2)"
-                    @dblclick="showCalendar = true"
-                    required
-                  ></v-text-field>
-                </v-flex>
+            <v-layout row wrap class="px-5">
+              <v-flex xs12>
+                <v-text-field
+                  v-model="date2"
+                  :error-messages="error.get('date')"
+                  name="date"
+                  label="Date"
+                  prepend-icon="mdi-calendar"
+                  @blur="formatDate(date2)"
+                  @dblclick="showCalendar = true"
+                  required
+                ></v-text-field>
+              </v-flex>
 
-                <v-flex xs12>
-                  <v-text-field
-                    v-model="amount"
-                    :error-messages="error.get('amount')"
-                    name="amount"
-                    label="Amount Cleared"
-                    prepend-icon="mdi-currency-php"
-                  ></v-text-field>
-                </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="amount"
+                  :error-messages="error.get('amount')"
+                  name="amount"
+                  label="Amount Cleared"
+                  prepend-icon="mdi-currency-php"
+                ></v-text-field>
+              </v-flex>
 
-                <v-flex xs6>
-                  <v-text-field
-                    :value="check.number"
-                    label="Check Number"
-                    prepend-icon="mdi-tag-text-outline"
-                    hide-details
-                    class="mb-3"
-                    placeholder=" "
-                    disabled
-                  ></v-text-field>
-                </v-flex>
+              <v-flex xs6>
+                <v-text-field
+                  :value="check.number"
+                  label="Check Number"
+                  prepend-icon="mdi-tag-text-outline"
+                  hide-details
+                  class="mb-3"
+                  placeholder=" "
+                  disabled
+                ></v-text-field>
+              </v-flex>
 
-                <v-flex xs6>
-                  <v-text-field
-                    :value="check.amount"
-                    label="Amount"
-                    prepend-icon="mdi-currency-php"
-                    hide-details
-                    class="mb-3"
-                    disabled
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
+              <v-flex xs6>
+                <v-text-field
+                  :value="check.amount"
+                  label="Amount"
+                  prepend-icon="mdi-currency-php"
+                  hide-details
+                  class="mb-3"
+                  disabled
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn type="submit" color="teal white--text" :loading="clearing">
+            <v-btn
+              type="submit"
+              small
+              color="teal white--text"
+              :loading="clearing"
+            >
               Clear
             </v-btn>
             <v-btn
               color="deep-orange"
+              small
               outlined
               @click="show = false"
               :disabled="clearing"
@@ -71,7 +74,12 @@
               Close
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn icon large @click="showImport" :disabled="!importable">
+            <v-btn
+              icon
+              large
+              @click="showImport"
+              :disabled="!importable || clearing"
+            >
               <v-icon color="indigo">mdi-file-upload-outline</v-icon>
             </v-btn>
           </v-card-actions>

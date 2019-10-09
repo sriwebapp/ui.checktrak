@@ -3,20 +3,24 @@
     <v-card>
       <div>
         <v-card-title>
-          Failed Checks
+          <span class="title">
+            Failed Checks
+          </span>
           <v-spacer></v-spacer>
-          <v-btn icon @click="show = false">
+          <v-btn icon @click="show = false" small>
             <v-icon color="error">mdi-close-box</v-icon>
           </v-btn>
         </v-card-title>
-        <v-data-table
-          :headers="headers"
-          :items="checks"
-          :footer-props="{ itemsPerPageOptions: [10] }"
-          :loading="loading"
-          :options.sync="pagination"
-        >
-        </v-data-table>
+        <v-card-text>
+          <v-data-table
+            :headers="headers"
+            :items="checks"
+            :footer-props="{ itemsPerPageOptions: [10] }"
+            :loading="loading"
+            :options.sync="pagination"
+          >
+          </v-data-table>
+        </v-card-text>
       </div>
     </v-card>
   </v-dialog>

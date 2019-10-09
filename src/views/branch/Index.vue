@@ -1,7 +1,9 @@
 <template>
   <v-card>
-    <v-card-title class="title">
-      Branch Management
+    <v-card-title>
+      <span class="title">
+        Branch Management
+      </span>
       <v-spacer></v-spacer>
       <v-btn
         class="indigo white--text"

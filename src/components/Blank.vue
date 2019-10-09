@@ -14,8 +14,8 @@ export default {}
 .code {
   display: block;
   width: 500px;
-  height: 200px;
-  line-height: 200px;
+  height: 150px;
+  line-height: 150px;
   margin: auto;
   position: absolute;
   top: 0;
