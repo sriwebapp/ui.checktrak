@@ -6,60 +6,63 @@
           @submit.prevent="cancel"
           @keydown="error.clear($event.target.name)"
         >
-          <v-card-title>Cancel Checks</v-card-title>
           <v-card-text>
-            <v-container>
-              <v-layout row wrap>
-                <v-flex xs12>
-                  <v-text-field
-                    v-model="date2"
-                    :error-messages="error.get('date')"
-                    name="date"
-                    label="Date"
-                    prepend-icon="mdi-calendar"
-                    @blur="formatDate(date2)"
-                    @dblclick="showCalendar = true"
-                    required
-                  ></v-text-field>
-                </v-flex>
+            <v-layout row wrap class="px-5">
+              <v-flex xs12>
+                <v-text-field
+                  v-model="date2"
+                  :error-messages="error.get('date')"
+                  name="date"
+                  label="Date"
+                  prepend-icon="mdi-calendar"
+                  @blur="formatDate(date2)"
+                  @dblclick="showCalendar = true"
+                  required
+                ></v-text-field>
+              </v-flex>
 
-                <v-flex xs12>
-                  <v-text-field
-                    v-model="remarks"
-                    :error-messages="error.get('remarks')"
-                    name="remarks"
-                    label="Remarks"
-                    prepend-icon="mdi-clipboard-list-outline"
-                    required
-                  ></v-text-field>
-                </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="remarks"
+                  :error-messages="error.get('remarks')"
+                  name="remarks"
+                  label="Remarks"
+                  prepend-icon="mdi-clipboard-list-outline"
+                  required
+                ></v-text-field>
+              </v-flex>
 
-                <v-flex xs6>
-                  <v-text-field
-                    :value="checks.length"
-                    label="No of Checks"
-                    prepend-icon="mdi-checkbook"
-                    readonly
-                  ></v-text-field>
-                </v-flex>
+              <v-flex xs6>
+                <v-text-field
+                  :value="checks.length"
+                  label="No of Checks"
+                  prepend-icon="mdi-checkbook"
+                  readonly
+                ></v-text-field>
+              </v-flex>
 
-                <v-flex xs6>
-                  <v-text-field
-                    :value="amount"
-                    label="Total Amount"
-                    prepend-icon="mdi-currency-php"
-                    readonly
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
+              <v-flex xs6>
+                <v-text-field
+                  :value="amount"
+                  label="Total Amount"
+                  prepend-icon="mdi-currency-php"
+                  readonly
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn type="submit" color="red white--text" :loading="cancelling">
+            <v-btn
+              type="submit"
+              small
+              color="red white--text"
+              :loading="cancelling"
+            >
               Cancel
             </v-btn>
             <v-btn
               color="deep-orange"
+              small
               outlined
               @click="show = false"
               :disabled="cancelling"

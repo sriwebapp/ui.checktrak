@@ -1,94 +1,97 @@
 <template>
   <div>
-    <v-dialog v-model="show" persistent max-width="600">
+    <v-dialog v-model="show" persistent max-width="500">
       <v-card>
         <form
           @submit.prevent="create"
           @keydown="error.clear($event.target.name)"
         >
-          <v-card-title>Create Check</v-card-title>
           <v-card-text>
-            <v-container>
-              <v-layout row wrap>
-                <v-flex xs12>
-                  <v-select
-                    v-model="check.account_id"
-                    :error-messages="error.get('account_id')"
-                    name="account_id"
-                    label="Account"
-                    prepend-icon="mdi-bank"
-                    :items="accounts"
-                    item-text="number"
-                    item-value="id"
-                  ></v-select>
-                </v-flex>
+            <v-layout row wrap class="px-5">
+              <v-flex xs12>
+                <v-select
+                  v-model="check.account_id"
+                  :error-messages="error.get('account_id')"
+                  name="account_id"
+                  label="Account"
+                  prepend-icon="mdi-bank"
+                  :items="accounts"
+                  item-text="number"
+                  item-value="id"
+                ></v-select>
+              </v-flex>
 
-                <v-flex xs12>
-                  <v-text-field
-                    v-model="date2"
-                    :error-messages="error.get('date')"
-                    name="date"
-                    label="Date Posted"
-                    prepend-icon="mdi-calendar"
-                    @blur="formatDate(date2)"
-                    @dblclick="showCalendar = true"
-                    required
-                  ></v-text-field>
-                </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="date2"
+                  :error-messages="error.get('date')"
+                  name="date"
+                  label="Date Posted"
+                  prepend-icon="mdi-calendar"
+                  @blur="formatDate(date2)"
+                  @dblclick="showCalendar = true"
+                  required
+                ></v-text-field>
+              </v-flex>
 
-                <v-flex xs12>
-                  <v-text-field
-                    v-model="check.check_number"
-                    :error-messages="error.get('check_number')"
-                    name="check_number"
-                    label="Check Number"
-                    prepend-icon="mdi-tag-text-outline"
-                    required
-                  ></v-text-field>
-                </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="check.check_number"
+                  :error-messages="error.get('check_number')"
+                  name="check_number"
+                  label="Check Number"
+                  prepend-icon="mdi-tag-text-outline"
+                  required
+                ></v-text-field>
+              </v-flex>
 
-                <v-flex xs12>
-                  <v-text-field
-                    :value="payee.name"
-                    :error-messages="error.get('payee_id')"
-                    name="payee_id"
-                    label="Payee"
-                    prepend-icon="mdi-account-cash-outline"
-                    @click="showPayees = true"
-                    readonly
-                  ></v-text-field>
-                </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  :value="payee.name"
+                  :error-messages="error.get('payee_id')"
+                  name="payee_id"
+                  label="Payee"
+                  prepend-icon="mdi-account-cash-outline"
+                  @click="showPayees"
+                  readonly
+                ></v-text-field>
+              </v-flex>
 
-                <v-flex xs12>
-                  <v-text-field
-                    v-model="check.details"
-                    :error-messages="error.get('details')"
-                    name="details"
-                    label="Details"
-                    prepend-icon="mdi-clipboard-list-outline"
-                  ></v-text-field>
-                </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="check.details"
+                  :error-messages="error.get('details')"
+                  name="details"
+                  label="Details"
+                  prepend-icon="mdi-clipboard-list-outline"
+                ></v-text-field>
+              </v-flex>
 
-                <v-flex xs12>
-                  <v-text-field
-                    v-model="check.amount"
-                    :error-messages="error.get('amount')"
-                    name="amount"
-                    label="Amount"
-                    prepend-icon="mdi-currency-php"
-                    @blur="formatAmount"
-                    required
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="check.amount"
+                  :error-messages="error.get('amount')"
+                  name="amount"
+                  label="Amount"
+                  prepend-icon="mdi-currency-php"
+                  @blur="formatAmount"
+                  required
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
           </v-card-text>
           <v-card-actions>
-            <v-btn type="submit" color="indigo white--text" :loading="creating">
+            <v-btn
+              type="submit"
+              small
+              color="indigo white--text"
+              :loading="creating"
+            >
               Create
             </v-btn>
             <v-btn
               color="deep-orange"
+              small
               outlined
               @click="show = false"
               :disabled="creating"
@@ -96,7 +99,12 @@
               Return
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn icon large @click="showImport" :disabled="!importable">
+            <v-btn
+              icon
+              large
+              @click="showImport"
+              :disabled="!importable || creating"
+            >
               <v-icon color="indigo">mdi-file-upload-outline</v-icon>
             </v-btn>
           </v-card-actions>
@@ -106,49 +114,6 @@
     <v-dialog v-model="showCalendar" width="290px">
       <v-date-picker no-title v-model="date" @change="showCalendar = false">
       </v-date-picker>
-    </v-dialog>
-
-    <v-dialog v-model="showPayees" persistent width="800px">
-      <v-card>
-        <v-card-title>
-          <div class="flex-grow-1"></div>
-          <v-text-field
-            v-model="payeeSearch"
-            append-icon="mdi-account-search-outline"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
-        </v-card-title>
-        <v-card-text>
-          <v-data-table
-            v-model="selectedPayees"
-            :headers="payeeHeaders"
-            :items="payees"
-            :search="payeeSearch"
-            show-select
-            single-select
-            hide-default-footer
-          >
-            <template v-slot:item.payee_group_id="{ item }">
-              {{ item.group ? item.group.name : '' }}
-            </template>
-          </v-data-table>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            outlined
-            color="indigo"
-            :disabled="!selectedPayees.length"
-            @click="acceptPayee"
-          >
-            Select
-          </v-btn>
-          <v-btn color="deep-orange" outlined @click="showPayees = false">
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
     </v-dialog>
   </div>
 </template>
@@ -180,8 +145,13 @@ export default {
     error() {
       return this.$store.getters.error
     },
-    payees() {
-      return this.$store.getters['tools/payees']
+    payee: {
+      get() {
+        return this.$store.getters['check/payee']
+      },
+      set(arg) {
+        this.$store.commit('check/payee', arg)
+      }
     },
     show: {
       get() {
@@ -198,15 +168,6 @@ export default {
   data: () => ({
     date: null,
     date2: null,
-    payeeHeaders: [
-      { text: 'Code', align: 'left', value: 'code', sortable: false },
-      { text: 'Name', align: 'left', value: 'name', sortable: false },
-      { text: 'Group', align: 'left', value: 'payee_group_id', sortable: false }
-    ],
-    selectedPayees: [],
-    payee: {},
-    payeeSearch: '',
-    showPayees: false,
     showCalendar: false
   }),
   methods: {
@@ -215,11 +176,6 @@ export default {
       this.formatDate(this.date2)
       this.$store.dispatch('check/create', this.check)
     },
-    acceptPayee() {
-      this.payee = this.selectedPayees[0]
-      this.check.payee_id = this.selectedPayees[0].id
-      this.showPayees = false
-    },
     formatAmount() {
       this.check.amount = Helper.formatCurrency(this.check.amount)
     },
@@ -227,6 +183,9 @@ export default {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.check.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
+    },
+    showPayees() {
+      this.$store.commit('check/showPayees', true)
     },
     showImport() {
       this.show = false
@@ -240,11 +199,6 @@ export default {
         this.payee = {}
         this.error.reset()
         this.formatDate(Date())
-      }
-    },
-    showPayees(arg) {
-      if (arg) {
-        this.selectedPayees = []
       }
     },
     date(arg) {

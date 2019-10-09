@@ -1,33 +1,37 @@
 <template>
-  <v-dialog v-model="show" persistent max-width="600">
+  <v-dialog v-model="show" persistent max-width="500">
     <v-card>
       <form
         @submit.prevent="deleteCheck"
         @keydown="error.clear($event.target.name)"
       >
-        <v-card-title>Delete Check</v-card-title>
+        <v-card-title class="title">Delete Check</v-card-title>
         <v-card-text>
-          <v-container>
-            <v-layout row wrap>
-              <v-flex xs12>
-                <v-text-field
-                  v-model="remarks"
-                  :error-messages="error.get('remarks')"
-                  name="remarks"
-                  label="Remarks"
-                  prepend-icon="mdi-clipboard-list-outline"
-                  required
-                ></v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-container>
+          <v-layout row wrap class="px-5">
+            <v-flex xs12>
+              <v-text-field
+                v-model="remarks"
+                :error-messages="error.get('remarks')"
+                name="remarks"
+                label="Remarks"
+                prepend-icon="mdi-clipboard-list-outline"
+                required
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
         </v-card-text>
         <v-card-actions>
-          <v-btn type="submit" color="red white--text" :loading="deleting">
+          <v-btn
+            type="submit"
+            small
+            color="red white--text"
+            :loading="deleting"
+          >
             Delete
           </v-btn>
           <v-btn
             color="deep-orange"
+            small
             outlined
             @click="show = false"
             :disabled="deleting"

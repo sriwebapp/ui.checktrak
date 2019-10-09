@@ -1,86 +1,89 @@
 <template>
-  <v-dialog v-model="show" persistent max-width="600">
+  <v-dialog v-model="show" persistent max-width="500">
     <v-card>
       <form @submit.prevent="edit" @keydown="error.clear($event.target.name)">
-        <v-card-title>Edit Check</v-card-title>
         <v-card-text>
-          <v-container>
-            <v-layout row wrap>
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.account ? check.account.code : ''"
-                  label="Account"
-                  prepend-icon="mdi-bank"
-                  hide-details
-                  class="mb-3"
-                  disabled
-                ></v-text-field>
-              </v-flex>
+          <v-layout row wrap class="px-5">
+            <v-flex xs12>
+              <v-text-field
+                :value="check.account ? check.account.code : ''"
+                label="Account"
+                prepend-icon="mdi-bank"
+                hide-details
+                class="mb-3"
+                disabled
+              ></v-text-field>
+            </v-flex>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="date"
-                  label="Date Posted"
-                  prepend-icon="mdi-calendar"
-                  hide-details
-                  class="mb-3"
-                  disabled
-                ></v-text-field>
-              </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                :value="date"
+                label="Date Posted"
+                prepend-icon="mdi-calendar"
+                hide-details
+                class="mb-3"
+                disabled
+              ></v-text-field>
+            </v-flex>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.number"
-                  label="Check Number"
-                  prepend-icon="mdi-tag-text-outline"
-                  hide-details
-                  class="mb-3"
-                  placeholder=" "
-                  disabled
-                ></v-text-field>
-              </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                :value="check.number"
+                label="Check Number"
+                prepend-icon="mdi-tag-text-outline"
+                hide-details
+                class="mb-3"
+                placeholder=" "
+                disabled
+              ></v-text-field>
+            </v-flex>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.payee ? check.payee.name : ''"
-                  label="Payee"
-                  prepend-icon="mdi-account-cash-outline"
-                  hide-details
-                  class="mb-3"
-                  disabled
-                ></v-text-field>
-              </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                :value="check.payee ? check.payee.name : ''"
+                label="Payee"
+                prepend-icon="mdi-account-cash-outline"
+                hide-details
+                class="mb-3"
+                disabled
+              ></v-text-field>
+            </v-flex>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="check.amount"
-                  label="Amount"
-                  prepend-icon="mdi-currency-php"
-                  hide-details
-                  class="mb-3"
-                  disabled
-                ></v-text-field>
-              </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                :value="check.amount"
+                label="Amount"
+                prepend-icon="mdi-currency-php"
+                hide-details
+                class="mb-3"
+                disabled
+              ></v-text-field>
+            </v-flex>
 
-              <v-flex xs12>
-                <v-text-field
-                  v-model="check.details"
-                  :error-messages="error.get('details')"
-                  name="details"
-                  label="Details"
-                  prepend-icon="mdi-clipboard-list-outline"
-                  required
-                ></v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-container>
+            <v-flex xs12>
+              <v-text-field
+                v-model="check.details"
+                :error-messages="error.get('details')"
+                name="details"
+                label="Details"
+                prepend-icon="mdi-clipboard-list-outline"
+                required
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
         </v-card-text>
         <v-card-actions>
-          <v-btn type="submit" color="orange white--text" :loading="editing">
+          <v-btn
+            type="submit"
+            small
+            color="orange white--text"
+            :loading="editing"
+          >
             Edit
           </v-btn>
           <v-btn
             color="deep-orange"
+            small
             outlined
             @click="show = false"
             :disabled="editing"

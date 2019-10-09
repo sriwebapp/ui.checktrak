@@ -6,82 +6,80 @@
           @submit.prevent="returnChecks"
           @keydown="error.clear($event.target.name)"
         >
-          <v-card-title>Return Checks </v-card-title>
           <v-card-text>
-            <v-container>
-              <v-layout row wrap>
-                <v-flex xs6>
-                  <v-select
-                    v-model="transmittal_id"
-                    :error-messages="error.get('transmittal_id')"
-                    name="transmittal_id"
-                    label="Select Transmittal"
-                    prepend-icon="mdi-bank"
-                    :items="transmittals"
-                    item-text="ref"
-                    item-value="id"
-                  ></v-select>
-                </v-flex>
+            <v-layout row wrap>
+              <v-flex xs6 class="px-5">
+                <v-select
+                  v-model="transmittal_id"
+                  :error-messages="error.get('transmittal_id')"
+                  name="transmittal_id"
+                  label="Select Transmittal"
+                  prepend-icon="mdi-bank"
+                  :items="transmittals"
+                  item-text="ref"
+                  item-value="id"
+                ></v-select>
+              </v-flex>
 
-                <v-flex xs6>
-                  <v-text-field
-                    v-model="date2"
-                    :error-messages="error.get('date')"
-                    name="date"
-                    label="Date"
-                    prepend-icon="mdi-calendar"
-                    @blur="formatDate(date2)"
-                    @dblclick="showCalendar = true"
-                    required
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-              <v-data-table
-                :headers="headers"
-                :items="checks"
-                :loading="loading"
-                :footer-props="{ itemsPerPageOptions: [10] }"
-                dense
-              >
-                <template v-slot:body="{ items }">
-                  <tbody>
-                    <tr
-                      v-for="item in items"
-                      :key="item.id"
-                      :class="item.status.color + ' lighten-4'"
-                    >
-                      <td>{{ item.account.code }}</td>
-                      <td>{{ item.number }}</td>
-                      <td>{{ item.amount }}</td>
-                      <td>{{ item.status.name }}</td>
-                    </tr>
-                  </tbody>
-                </template>
-              </v-data-table>
-              <v-layout row wrap class="mt-5">
-                <v-flex xs6>
-                  <v-text-field
-                    :value="returnableChecks.length + '/' + checks.length"
-                    label="No of Checks to be Returned"
-                    prepend-icon="mdi-checkbook"
-                    readonly
-                  ></v-text-field>
-                </v-flex>
+              <v-flex xs6 class="px-5">
+                <v-text-field
+                  v-model="date2"
+                  :error-messages="error.get('date')"
+                  name="date"
+                  label="Date"
+                  prepend-icon="mdi-calendar"
+                  @blur="formatDate(date2)"
+                  @dblclick="showCalendar = true"
+                  required
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+            <v-data-table
+              :headers="headers"
+              :items="checks"
+              :loading="loading"
+              :footer-props="{ itemsPerPageOptions: [10] }"
+              dense
+            >
+              <template v-slot:body="{ items }">
+                <tbody>
+                  <tr
+                    v-for="item in items"
+                    :key="item.id"
+                    :class="item.status.color + ' lighten-4'"
+                  >
+                    <td>{{ item.account.code }}</td>
+                    <td>{{ item.number }}</td>
+                    <td>{{ item.amount }}</td>
+                    <td>{{ item.status.name }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-data-table>
+            <v-layout row wrap>
+              <v-flex xs6 class="px-5">
+                <v-text-field
+                  :value="returnableChecks.length + '/' + checks.length"
+                  label="No of Checks to be Returned"
+                  prepend-icon="mdi-checkbook"
+                  readonly
+                ></v-text-field>
+              </v-flex>
 
-                <v-flex xs6>
-                  <v-text-field
-                    :value="amount"
-                    label="Total Amount to be Returned"
-                    prepend-icon="mdi-currency-php"
-                    readonly
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
+              <v-flex xs6 class="px-5">
+                <v-text-field
+                  :value="amount"
+                  label="Total Amount to be Returned"
+                  prepend-icon="mdi-currency-php"
+                  readonly
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
           </v-card-text>
           <v-card-actions>
             <v-btn
               type="submit"
+              small
               color="teal white--text"
               :loading="returning"
               :disabled="loading"
@@ -90,6 +88,7 @@
             </v-btn>
             <v-btn
               color="deep-orange"
+              small
               outlined
               @click="show = false"
               :disabled="returning || loading"

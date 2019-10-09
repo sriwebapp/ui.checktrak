@@ -1,10 +1,10 @@
 <template>
-  <v-card>
-    <v-card-title>Update User </v-card-title>
-    <form @submit.prevent="edit" @keydown="error.clear($event.target.name)">
-      <v-card-text>
-        <v-container>
-          <v-layout row wrap>
+  <v-row justify="center">
+    <v-card width="600">
+      <v-card-title class="title">Update User </v-card-title>
+      <form @submit.prevent="edit" @keydown="error.clear($event.target.name)">
+        <v-card-text>
+          <v-layout row wrap class="px-5">
             <v-flex xs12>
               <v-text-field
                 v-model="editedUser.name"
@@ -61,41 +61,44 @@
               ></v-switch>
             </v-flex>
           </v-layout>
-        </v-container>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn
-          color="indigo white--text"
-          :loading="loading"
-          v-if="noChanges"
-          router
-          :to="{ name: 'user-access' }"
-        >
-          Next
-        </v-btn>
-        <v-btn
-          type="submit"
-          color="indigo white--text"
-          :loading="loading"
-          v-if="!noChanges"
-        >
-          Update & Next
-        </v-btn>
-        <v-btn
-          class="deep-orange white--text"
-          router
-          :to="{ name: 'users' }"
-          :disabled="loading"
-        >
-          Return
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn icon large @click="showDelete">
-          <v-icon color="red">mdi-trash-can-outline</v-icon>
-        </v-btn>
-      </v-card-actions>
-    </form>
-  </v-card>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+            color="indigo white--text"
+            small
+            :loading="loading"
+            v-if="noChanges"
+            router
+            :to="{ name: 'user-access' }"
+          >
+            Next
+          </v-btn>
+          <v-btn
+            type="submit"
+            small
+            color="indigo white--text"
+            :loading="loading"
+            v-if="!noChanges"
+          >
+            Update & Next
+          </v-btn>
+          <v-btn
+            class="deep-orange white--text"
+            small
+            router
+            :to="{ name: 'users' }"
+            :disabled="loading"
+          >
+            Return
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn icon large @click="showDelete" :disabled="loading">
+            <v-icon color="red">mdi-trash-can-outline</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </form>
+    </v-card>
+  </v-row>
 </template>
 
 <script>

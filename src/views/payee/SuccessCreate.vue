@@ -1,10 +1,10 @@
 <template>
   <v-dialog v-model="show" max-width="800">
     <v-card>
-      <div>
-        <v-card-title>
-          Imported Payees
-        </v-card-title>
+      <v-card-title class="title">
+        Imported Payees
+      </v-card-title>
+      <v-card-text>
         <v-data-table
           :headers="headers"
           :items="payees"
@@ -14,7 +14,7 @@
             {{ item.group.name }}
           </template>
         </v-data-table>
-      </div>
+      </v-card-text>
     </v-card>
   </v-dialog>
 </template>

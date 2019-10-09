@@ -1,12 +1,12 @@
 <template>
   <v-card class="elevation-25">
-    <v-toolbar dark flat color="black">
-      <v-toolbar-title>Forgot Password</v-toolbar-title>
+    <v-toolbar dark flat color="black" height="50">
+      <v-toolbar-title>Reset Password</v-toolbar-title>
     </v-toolbar>
     <form @submit.prevent="send" @keydown="error.clear($event.target.name)">
       <v-divider></v-divider>
       <v-card-text>
-        <v-container grid-list-md>
+        <v-layout row wrap class="mx-5">
           <v-flex xs12>
             <v-text-field
               type="email"
@@ -19,7 +19,7 @@
               required
             ></v-text-field>
           </v-flex>
-        </v-container>
+        </v-layout>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>

@@ -8,7 +8,7 @@ export default {
     loading: false,
     waiting: false,
     payee: {},
-    payees: [],
+    payees: {},
     showDelete: false,
     import: null,
     showImportCreate: false,
@@ -75,11 +75,11 @@ export default {
     }
   },
   actions: {
-    async getPayees(context) {
+    async getPayees(context, options) {
       context.commit('loading', true)
       try {
         const url = '/' + context.rootGetters['tools/company'].code + '/payee'
-        const res = await Axios.get(url)
+        const res = await Axios.post(url, options)
         context.commit('payees', res.data)
       } catch (e) {
         return
@@ -104,7 +104,8 @@ export default {
     async create(context, payee) {
       context.commit('loading', true)
       try {
-        const url = '/' + context.rootGetters['tools/company'].code + '/payee'
+        const url =
+          '/' + context.rootGetters['tools/company'].code + '/payee/create'
         await Axios.post(url, payee)
         router.push({ name: 'payees' })
       } catch (e) {

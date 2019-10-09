@@ -1,5 +1,14 @@
 <template>
-  <v-navigation-drawer fixed dark clipped app v-model="visible" v-if="!loading">
+  <v-navigation-drawer
+    fixed
+    dark
+    clipped
+    app
+    v-model="visible"
+    v-if="!loading"
+    expand-on-hover
+    :mini-variant-width="60"
+  >
     <template v-slot:prepend>
       <v-list-item class="my-3">
         <v-list-item-content>
@@ -16,10 +25,10 @@
       <v-divider></v-divider>
     </template>
 
-    <v-list dense rounded color="transparent">
+    <v-list dense nav color="transparent">
       <v-list-item
         active-class="indigo darken-2"
-        v-for="item in adminModules"
+        v-for="item in admin"
         :key="item.title"
         link
         :to="item.route"
@@ -36,7 +45,7 @@
 
     <v-divider></v-divider>
 
-    <v-list dense rounded color="transparent">
+    <v-list dense nav color="transparent">
       <v-list-item
         active-class="indigo darken-2"
         v-for="item in check"
@@ -53,24 +62,58 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
-
-    <template v-slot:append>
-      <div class="pa-3">
-        <v-btn block rounded color="deep-orange" @click="logout" elevation="10">
-          Logout
-          <v-icon right>mdi-exit-to-app</v-icon>
-        </v-btn>
-      </div>
-    </template>
   </v-navigation-drawer>
 </template>
 
 <script>
 export default {
   computed: {
-    adminModules() {
+    admin() {
       if (!this.loading) {
-        return this.admin.filter(item => {
+        return [
+          {
+            title: 'Accessibility',
+            icon: 'mdi-door-closed-lock',
+            route: '/access',
+            code: 'acs'
+          },
+          {
+            title: 'Companies',
+            icon: 'mdi-home-city',
+            route: '/company/' + this.$store.getters['tools/company'].code,
+            code: 'cmp'
+          },
+          {
+            title: 'Branches',
+            icon: 'mdi-source-branch',
+            route: '/branch',
+            code: 'bra'
+          },
+          {
+            title: 'Groups',
+            icon: 'mdi-account-group',
+            route: '/group',
+            code: 'usr'
+          },
+          {
+            title: 'Users',
+            icon: 'mdi-account',
+            route: '/user',
+            code: 'usr'
+          },
+          {
+            title: 'Bank Accounts',
+            icon: 'mdi-bank',
+            route: '/account',
+            code: 'acc'
+          },
+          {
+            title: 'Payees',
+            icon: 'mdi-account-cash-outline',
+            route: '/payee',
+            code: 'pye'
+          }
+        ].filter(item => {
           return this.modules.includes(item.code)
         })
       } else {
@@ -106,50 +149,6 @@ export default {
     }
   },
   data: () => ({
-    admin: [
-      {
-        title: 'Accessibility',
-        icon: 'mdi-door-closed-lock',
-        route: '/access',
-        code: 'acs'
-      },
-      {
-        title: 'Companies',
-        icon: 'mdi-home-city',
-        route: '/company',
-        code: 'cmp'
-      },
-      {
-        title: 'Branches',
-        icon: 'mdi-source-branch',
-        route: '/branch',
-        code: 'bra'
-      },
-      {
-        title: 'Users',
-        icon: 'mdi-account',
-        route: '/user',
-        code: 'usr'
-      },
-      {
-        title: 'Groups',
-        icon: 'mdi-account-group',
-        route: '/group',
-        code: 'usr'
-      },
-      {
-        title: 'Bank Accounts',
-        icon: 'mdi-bank',
-        route: '/account',
-        code: 'acc'
-      },
-      {
-        title: 'Payees',
-        icon: 'mdi-account-cash-outline',
-        route: '/payee',
-        code: 'pye'
-      }
-    ],
     check: [
       {
         title: 'Check Masterlist',

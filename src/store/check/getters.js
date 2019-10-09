@@ -2,6 +2,9 @@ export default {
   check(state) {
     return state.check
   },
+  payee(state) {
+    return state.payee
+  },
   newCheck(state) {
     return state.newCheck
   },
@@ -76,6 +79,9 @@ export default {
   },
   showHistory(state) {
     return state.showHistory
+  },
+  showPayees(state) {
+    return state.showPayees
   },
   showReceive(state) {
     return state.showReceive

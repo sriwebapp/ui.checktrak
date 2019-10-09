@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Accessibility Management</v-card-title>
+    <v-card-title class="title">Accessibility Management</v-card-title>
     <v-card-text>
       <v-data-table
         :headers="headers"
@@ -13,17 +13,17 @@
             <tr v-for="item in items" :key="item.id">
               <td>{{ item.name }}</td>
               <td class="text-center">
-                <v-chip small outlined :class="decrypt(item.action).color">
+                <v-chip x-small outlined :class="decrypt(item.action).color">
                   {{ decrypt(item.action).text }}
                 </v-chip>
               </td>
               <td class="text-center">
-                <v-chip small outlined :class="decrypt(item.group).color">
+                <v-chip x-small outlined :class="decrypt(item.group).color">
                   {{ decrypt(item.group).text }}
                 </v-chip>
               </td>
               <td class="text-center">
-                <v-chip small outlined :class="decrypt(item.module).color">
+                <v-chip x-small outlined :class="decrypt(item.module).color">
                   {{ decrypt(item.module).text }}
                 </v-chip>
               </td>

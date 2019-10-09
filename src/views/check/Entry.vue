@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="!waiting">
+  <v-container fluid v-if="!waiting">
     <message />
     <router-view></router-view>
     <import-create />
@@ -20,6 +20,7 @@
     <success-clear />
     <show-history />
     <show-selected />
+    <payee-list />
     <filter-menu />
   </v-container>
 </template>
@@ -47,6 +48,7 @@ export default {
     successClear: () => import('./SuccessClear.vue'),
     showHistory: () => import('./History.vue'),
     showSelected: () => import('./Selected.vue'),
+    payeeList: () => import('./Payee.vue'),
     filterMenu: () => import('./Filter.vue')
   },
   computed: {

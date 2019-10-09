@@ -1,14 +1,21 @@
 <template>
   <v-card>
     <v-card-title>
-      Payee Management
+      <span class="title">
+        Payee Management
+      </span>
       <v-spacer></v-spacer>
-      <v-btn class="indigo white--text" router :to="{ name: 'create-payee' }">
+      <v-btn
+        class="indigo white--text"
+        small
+        router
+        :to="{ name: 'create-payee' }"
+      >
         New Payee
       </v-btn>
     </v-card-title>
     <v-card-text>
-      <v-layout class="mb-5">
+      <v-layout class="mb-5 mt-n5">
         <div class="flex-grow-1"></div>
         <v-text-field
           v-model="search"
@@ -23,14 +30,15 @@
         :headers="headers"
         :items="payees"
         :loading="loading"
+        :options.sync="pagination"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
-        :search="search"
+        :server-items-length="totalItems"
       >
         <template v-slot:item.payee_group_id="{ item }">
           {{ item.group ? item.group.name : '' }}
         </template>
         <template v-slot:item.active="{ item }">
-          <v-icon :class="item.active ? 'green--text' : 'red--text'">{{
+          <v-icon small :class="item.active ? 'green--text' : 'red--text'">{{
             item.active
               ? 'mdi-check-circle-outline'
               : 'mdi-close-circle-outline'
@@ -59,7 +67,10 @@ export default {
       return this.$store.getters['payee/loading']
     },
     payees() {
-      return this.$store.getters['payee/payees']
+      return this.$store.getters['payee/payees'].data
+    },
+    totalItems() {
+      return this.$store.getters['payee/payees'].total
     }
   },
   data: () => ({
@@ -70,10 +81,41 @@ export default {
       { text: 'Active', align: 'center', value: 'active' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ],
+    pagination: {},
     search: ''
   }),
+  created() {
+    this.searchPayees = this._.debounce(this.getPayees, 500)
+  },
+  methods: {
+    getPayees() {
+      let options = Object.assign({}, this.pagination)
+      options.search = this.search
+      this.$store.dispatch('payee/getPayees', options)
+    }
+  },
   mounted() {
-    this.$store.dispatch('payee/getPayees')
+    this.pagination = {
+      groupBy: [],
+      groupDesc: [],
+      itemsPerPage: 10,
+      multiSort: false,
+      mustSort: false,
+      page: 1,
+      sortBy: [],
+      sortDesc: []
+    }
+  },
+  watch: {
+    pagination: {
+      deep: true,
+      handler() {
+        this.getPayees()
+      }
+    },
+    search() {
+      this.searchPayees()
+    }
   }
 }
 </script>

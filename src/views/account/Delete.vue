@@ -6,6 +6,7 @@
       <v-card-actions>
         <v-btn
           outlined
+          small
           color="indigo"
           @click="deleteAccount"
           :loading="loading"
@@ -14,6 +15,7 @@
         </v-btn>
         <v-btn
           color="deep-orange"
+          small
           outlined
           @click="show = false"
           :disabled="loading"

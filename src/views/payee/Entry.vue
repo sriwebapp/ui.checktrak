@@ -29,11 +29,10 @@ export default {
     this.$store.commit('payee/payees', [])
     try {
       await this.$store.dispatch('tools/getPayeeGroup')
-    } catch (error) {
-      return
-    } finally {
       this.$store.commit('loader', false)
       this.$store.commit('payee/waiting', false)
+    } catch (error) {
+      return
     }
   }
 }

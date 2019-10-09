@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Update Accessibility</v-card-title>
+    <v-card-title class="title">Update Accessibility</v-card-title>
     <form @submit.prevent="edit">
       <v-card-text>
         <v-container grid-list-md>
@@ -15,7 +15,7 @@
           </v-flex>
 
           <v-flex xs12>
-            <p class="title">Select Actions:</p>
+            <p class="subtitle-1">Select Actions:</p>
           </v-flex>
 
           <v-flex>
@@ -48,7 +48,7 @@
           </v-row>
 
           <v-flex xs12>
-            <p class="title">Select Groups:</p>
+            <p class="subtitle-1">Select Groups:</p>
           </v-flex>
 
           <v-flex>
@@ -81,7 +81,7 @@
           </v-row>
 
           <v-flex xs12>
-            <p class="title">Select Modules:</p>
+            <p class="subtitle-1">Select Modules:</p>
           </v-flex>
 
           <v-flex>
@@ -115,13 +115,19 @@
         </v-container>
       </v-card-text>
       <v-card-actions>
-        <v-btn type="submit" class="indigo white--text" :loading="loading">
+        <v-btn
+          type="submit"
+          small
+          class="indigo white--text"
+          :loading="loading"
+        >
           Update
         </v-btn>
 
         <v-btn
           class="deep-orange white--text"
           router
+          small
           :to="{ name: 'access' }"
           :disabled="loading"
         >

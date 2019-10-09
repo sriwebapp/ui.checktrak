@@ -1,24 +1,20 @@
 <template>
   <v-card>
     <v-card-title>
-      Bank Management
+      <span class="title">
+        Bank Account Management
+      </span>
       <v-spacer></v-spacer>
-      <v-btn class="indigo white--text" router :to="{ name: 'create-account' }">
+      <v-btn
+        class="indigo white--text"
+        small
+        router
+        :to="{ name: 'create-account' }"
+      >
         New Account
       </v-btn></v-card-title
     >
     <v-card-text>
-      <v-layout class="mb-5">
-        <div class="flex-grow-1"></div>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-account-search-outline"
-          label="Search"
-          single-line
-          hide-details
-          autofocus
-        ></v-text-field>
-      </v-layout>
       <v-data-table
         :headers="headers"
         :items="accounts"
@@ -27,7 +23,7 @@
         :search="search"
       >
         <template v-slot:item.active="{ item }">
-          <v-icon :class="item.active ? 'green--text' : 'red--text'">{{
+          <v-icon small :class="item.active ? 'green--text' : 'red--text'">{{
             item.active
               ? 'mdi-check-circle-outline'
               : 'mdi-close-circle-outline'
@@ -64,7 +60,7 @@ export default {
       { text: 'Code', align: 'left', value: 'code' },
       { text: 'Number', align: 'left', value: 'number' },
       { text: 'Purpose', align: 'left', value: 'purpose' },
-      { text: 'Active', align: 'Center', value: 'active' },
+      { text: 'Active', align: 'center', value: 'active' },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ],
     search: ''
