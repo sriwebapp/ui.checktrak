@@ -1,9 +1,9 @@
 export default {
   check: {},
-  payee: {},
   newCheck: {},
   pagination: {},
   checks: {},
+  filter: null,
   transmittals: [],
   selectedChecks: [],
   cancelling: false,
@@ -26,7 +26,6 @@ export default {
   showDelete: false,
   showEdit: false,
   showHistory: false,
-  showPayees: false,
   showReceive: false,
   showReturn: false,
   showSelected: false,

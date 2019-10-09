@@ -41,7 +41,7 @@
               :footer-props="{ itemsPerPageOptions: [10] }"
               dense
             >
-              <template v-slot:body="{ items }">
+              <template v-if="checks.length" v-slot:body="{ items }">
                 <tbody>
                   <tr
                     v-for="item in items"

@@ -20,7 +20,6 @@
     <success-clear />
     <show-history />
     <show-selected />
-    <payee-list />
     <filter-menu />
   </v-container>
 </template>
@@ -48,7 +47,6 @@ export default {
     successClear: () => import('./SuccessClear.vue'),
     showHistory: () => import('./History.vue'),
     showSelected: () => import('./Selected.vue'),
-    payeeList: () => import('./Payee.vue'),
     filterMenu: () => import('./Filter.vue')
   },
   computed: {
