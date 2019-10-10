@@ -14,7 +14,7 @@
 
   - Created Checks
 
-    `Bank No, Account, Posting Date, Cheque No, BP Code BP Name, Journal Remarks, Payment Amt`
+    `Bank No, Account, Posting Date, Cheque No, BP Code, BP Name, Journal Remarks, Payment Amt`
 
   - Cleared Checks
 

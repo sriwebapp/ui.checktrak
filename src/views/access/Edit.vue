@@ -19,7 +19,7 @@
           </v-flex>
 
           <v-flex>
-            <v-radio-group v-model="action" row>
+            <v-radio-group v-model="action" row :disabled="loading">
               <v-radio
                 v-for="(option, index) in options"
                 :key="index"
@@ -52,7 +52,7 @@
           </v-flex>
 
           <v-flex>
-            <v-radio-group v-model="group" row>
+            <v-radio-group v-model="group" row :disabled="loading">
               <v-radio
                 v-for="(option, index) in options"
                 :key="index"
@@ -85,7 +85,7 @@
           </v-flex>
 
           <v-flex>
-            <v-radio-group v-model="module" row>
+            <v-radio-group v-model="module" row :disabled="loading">
               <v-radio
                 v-for="(option, index) in options"
                 :key="index"
