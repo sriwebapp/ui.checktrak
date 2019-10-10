@@ -5,6 +5,7 @@ export default {
   state: {
     loading: false,
     transmittals: [],
+    transmittal: { checks: [] },
     waiting: false
   },
   mutations: {
@@ -13,6 +14,9 @@ export default {
     },
     transmittals(state, payload) {
       state.transmittals = payload
+    },
+    transmittal(state, payload) {
+      state.transmittal = payload
     },
     waiting(state, payload) {
       state.waiting = payload
@@ -31,6 +35,20 @@ export default {
       } finally {
         context.commit('loading', false)
       }
+    },
+    async getTransmittal(context, id) {
+      context.commit('loading', true)
+      context.commit('transmittal', { checks: [] })
+      try {
+        const url =
+          '/' + context.rootGetters['tools/company'].code + '/transmittal/' + id
+        const res = await Axios.get(url)
+        context.commit('transmittal', res.data)
+      } catch (error) {
+        return
+      } finally {
+        context.commit('loading', false)
+      }
     }
   },
   getters: {
@@ -39,6 +57,9 @@ export default {
     },
     transmittals(state) {
       return state.transmittals
+    },
+    transmittal(state) {
+      return state.transmittal
     },
     waiting(state) {
       return state.waiting

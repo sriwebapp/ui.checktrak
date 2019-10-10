@@ -19,7 +19,14 @@
           {{ formatDate(item.returned) }}
         </template>
         <template v-slot:item.view="{ item }">
-          <v-btn icon color="indigo" small :disabled="loading">
+          <v-btn
+            icon
+            color="indigo"
+            small
+            :disabled="loading"
+            router
+            :to="{ name: 'show-transmittal', params: { id: item.id } }"
+          >
             <v-icon>mdi-eye</v-icon>
           </v-btn>
         </template>
