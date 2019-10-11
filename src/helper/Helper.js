@@ -2,6 +2,7 @@ import moment from 'moment'
 
 export default class Helper {
   static formatCurrency(arg) {
+    if (!arg) return
     return arg.replace(/,/g, '')
   }
 

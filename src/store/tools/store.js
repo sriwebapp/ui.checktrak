@@ -11,7 +11,7 @@ export default {
     companies: [],
     groups: [],
     modules: [],
-    payees: {},
+    payees: [],
     payeeGroup: [],
     users: []
   },

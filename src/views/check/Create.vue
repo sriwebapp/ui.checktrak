@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog v-model="show" persistent max-width="500">
+    <v-dialog v-model="show" persistent max-width="550">
       <v-card>
         <form
           @submit.prevent="create"
@@ -45,16 +45,35 @@
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs12>
-                <v-text-field
-                  :value="payee.name"
-                  :error-messages="error.get('payee_id')"
+              <v-flex xs4>
+                <v-autocomplete
+                  label="Payee Code"
+                  v-model="payee"
                   name="payee_id"
-                  label="Payee"
+                  :items="payees"
+                  :search-input.sync="searchPayeeCode"
+                  item-text="code"
+                  item-value="id"
                   prepend-icon="mdi-account-cash-outline"
-                  @click="showPayees"
-                  readonly
-                ></v-text-field>
+                  return-object
+                  autocomplete="off"
+                ></v-autocomplete>
+              </v-flex>
+
+              <v-flex xs8 class="pl-1">
+                <v-autocomplete
+                  label="Payee Name"
+                  v-model="payee"
+                  :error-messages="error.get('payee_id')"
+                  :items="payees"
+                  :search-input.sync="searchPayeeName"
+                  :loading="gettingPayee"
+                  item-text="name"
+                  item-value="id"
+                  return-object
+                  clearable
+                  autocomplete="off"
+                ></v-autocomplete>
               </v-flex>
 
               <v-flex xs12>
@@ -86,6 +105,7 @@
               small
               color="indigo white--text"
               :loading="creating"
+              :disabled="gettingPayee"
             >
               Create
             </v-btn>
@@ -94,16 +114,16 @@
               small
               outlined
               @click="show = false"
-              :disabled="creating"
+              :disabled="creating || gettingPayee"
             >
               Return
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn
               icon
-              large
+              small
               @click="showImport"
-              :disabled="!importable || creating"
+              :disabled="!importable || creating || gettingPayee"
             >
               <v-icon color="indigo">mdi-file-upload-outline</v-icon>
             </v-btn>
@@ -145,13 +165,8 @@ export default {
     error() {
       return this.$store.getters.error
     },
-    payee: {
-      get() {
-        return this.$store.getters['check/payee']
-      },
-      set(arg) {
-        this.$store.commit('check/payee', arg)
-      }
+    payees() {
+      return this.$store.getters['tools/payees']
     },
     show: {
       get() {
@@ -165,15 +180,23 @@ export default {
       return this.$store.getters['auth/user'].actionAccess.includes('imt')
     }
   },
+  created() {
+    this.searchPayees = this._.debounce(this.getPayees, 500)
+  },
   data: () => ({
     date: null,
     date2: null,
+    gettingPayee: false,
+    payee: {},
+    searchPayeeCode: '',
+    searchPayeeName: '',
     showCalendar: false
   }),
   methods: {
     create() {
       this.formatAmount()
       this.formatDate(this.date2)
+      this.check.payee_id = this.payee ? this.payee.id : ''
       this.$store.dispatch('check/create', this.check)
     },
     formatAmount() {
@@ -184,8 +207,10 @@ export default {
       this.check.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
     },
-    showPayees() {
-      this.$store.commit('check/showPayees', true)
+    async getPayees(search) {
+      this.gettingPayee = true
+      await this.$store.dispatch('tools/getPayees', { search })
+      this.gettingPayee = false
     },
     showImport() {
       this.show = false
@@ -193,6 +218,12 @@ export default {
     }
   },
   watch: {
+    searchPayeeCode(arg) {
+      this.searchPayees(arg)
+    },
+    searchPayeeName(arg) {
+      this.searchPayees(arg)
+    },
     show(arg) {
       if (arg) {
         this.check = {}

@@ -4,6 +4,9 @@
       <span class="title">
         Check Masterlist
       </span>
+      <v-chip v-if="filter" small class="ml-2" color="success">
+        {{ filter }}
+      </v-chip>
       <v-spacer></v-spacer>
       <v-btn icon @click="showFilter" small>
         <v-icon color="indigo">mdi-filter-variant</v-icon>
@@ -61,6 +64,9 @@ export default {
   computed: {
     checks() {
       return this.$store.getters['check/checks'].data
+    },
+    filter() {
+      return this.$store.getters['check/filter']
     },
     loading() {
       return this.$store.getters['check/loading']

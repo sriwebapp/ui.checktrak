@@ -2,9 +2,6 @@ export default {
   check(state, payload) {
     state.check = payload
   },
-  payee(state, payload) {
-    state.payee = payload
-  },
   newCheck(state, payload) {
     state.newCheck = payload
   },
@@ -13,6 +10,9 @@ export default {
   },
   checks(state, payload) {
     state.checks = payload
+  },
+  filter(state, payload) {
+    state.filter = payload
   },
   transmittals(state, payload) {
     state.transmittals = payload
@@ -79,9 +79,6 @@ export default {
   },
   showHistory(state, payload) {
     state.showHistory = payload
-  },
-  showPayees(state, payload) {
-    state.showPayees = payload
   },
   showReceive(state, payload) {
     state.showReceive = payload

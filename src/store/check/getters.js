@@ -2,9 +2,6 @@ export default {
   check(state) {
     return state.check
   },
-  payee(state) {
-    return state.payee
-  },
   newCheck(state) {
     return state.newCheck
   },
@@ -13,6 +10,9 @@ export default {
   },
   checks(state) {
     return state.checks
+  },
+  filter(state) {
+    return state.filter
   },
   transmittals(state) {
     return state.transmittals
@@ -79,9 +79,6 @@ export default {
   },
   showHistory(state) {
     return state.showHistory
-  },
-  showPayees(state) {
-    return state.showPayees
   },
   showReceive(state) {
     return state.showReceive

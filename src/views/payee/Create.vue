@@ -62,7 +62,7 @@
             Return
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn icon large @click="showImport" :disabled="loading">
+          <v-btn icon small @click="showImport" :disabled="loading">
             <v-icon color="indigo">mdi-file-upload-outline</v-icon>
           </v-btn>
         </v-card-actions>

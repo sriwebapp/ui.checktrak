@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import router from './../../router'
 
 export default {
   async getChecks(context, options) {
@@ -205,7 +206,10 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/return'
       await Axios.post(url, data)
       context.commit('showReturn', false)
-      context.dispatch('getChecks', context.getters.pagination)
+      router.push({
+        name: 'show-transmittal',
+        params: { id: data.transmittal_id }
+      })
     } catch (e) {
       return
     } finally {
@@ -217,9 +221,12 @@ export default {
     try {
       const url =
         '/' + context.rootGetters['tools/company'].code + '/check/transmit'
-      await Axios.post(url, data)
+      const res = await Axios.post(url, data)
       context.commit('showTransmit', false)
-      context.dispatch('getChecks', context.getters.pagination)
+      router.push({
+        name: 'show-transmittal',
+        params: { id: res.data.transmittal }
+      })
     } catch (e) {
       return
     } finally {

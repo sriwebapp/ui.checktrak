@@ -81,7 +81,7 @@
           <v-spacer></v-spacer>
           <v-btn
             icon
-            large
+            small
             @click="showDelete"
             :disabled="loading || gettingUsers"
           >

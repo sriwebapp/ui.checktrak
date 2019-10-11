@@ -16,6 +16,17 @@
       <v-divider></v-divider>
       <v-list-item two-line>
         <v-list-item-avatar size="20">
+          <v-icon color="indigo">mdi-calendar</v-icon>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title>{{ date }}</v-list-item-title>
+          <v-list-item-subtitle>Date Posted</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+      <v-list-item two-line>
+        <v-list-item-avatar size="20">
           <v-icon color="indigo">mdi-tag-text-outline</v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
@@ -40,17 +51,6 @@
       <v-divider></v-divider>
       <v-list-item two-line>
         <v-list-item-avatar size="20">
-          <v-icon color="indigo">mdi-currency-php</v-icon>
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title>{{ check.amount }}</v-list-item-title>
-          <v-list-item-subtitle>Amount</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-divider></v-divider>
-      <v-list-item two-line>
-        <v-list-item-avatar size="20">
           <v-icon color="indigo">mdi-clipboard-list-outline</v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
@@ -62,11 +62,11 @@
       <v-divider></v-divider>
       <v-list-item two-line>
         <v-list-item-avatar size="20">
-          <v-icon color="indigo">mdi-calendar</v-icon>
+          <v-icon color="indigo">mdi-currency-php</v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title>{{ date }}</v-list-item-title>
-          <v-list-item-subtitle>Date Posted</v-list-item-subtitle>
+          <v-list-item-title>{{ check.amount }}</v-list-item-title>
+          <v-list-item-subtitle>Amount</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
