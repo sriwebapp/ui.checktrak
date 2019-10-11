@@ -27,7 +27,7 @@
             router
             :to="{ name: 'show-transmittal', params: { id: item.id } }"
           >
-            <v-icon>mdi-eye</v-icon>
+            <v-icon>mdi-open-in-app</v-icon>
           </v-btn>
         </template>
       </v-data-table>

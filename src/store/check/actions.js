@@ -1,6 +1,5 @@
 import Axios from 'axios'
 import router from './../../router'
-import transmittal from '../../routes/transmittal'
 
 export default {
   async getChecks(context, options) {
@@ -207,7 +206,10 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/return'
       await Axios.post(url, data)
       context.commit('showReturn', false)
-      context.dispatch('getChecks', context.getters.pagination)
+      router.push({
+        name: 'show-transmittal',
+        params: { id: data.transmittal_id }
+      })
     } catch (e) {
       return
     } finally {

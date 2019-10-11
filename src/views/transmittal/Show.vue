@@ -33,6 +33,19 @@
               <v-list-item-subtitle>Date Transmitted</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
+
+          <v-list-item two-line class="my-n4">
+            <v-list-item-content>
+              <v-list-item-title>
+                {{
+                  transmittal.returned
+                    ? formatDate(transmittal.returned, 'MMM DD, Y')
+                    : ''
+                }}
+              </v-list-item-title>
+              <v-list-item-subtitle>Date Returned</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
         </v-flex>
         <v-flex xs6>
           <v-list-item two-line class="my-n4">
@@ -61,13 +74,22 @@
               <v-list-item-subtitle>Prepared by</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
+
+          <v-list-item two-line class="my-n4">
+            <v-list-item-content class="text-right">
+              <v-list-item-title>
+                {{ totalAmount }}
+              </v-list-item-title>
+              <v-list-item-subtitle>Total Amount</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
         </v-flex>
       </v-layout>
       <v-data-table
         :headers="headers"
         :items="transmittal.checks"
         :loading="loading"
-        :footer-props="{ itemsPerPageOptions: [5] }"
+        :footer-props="{ itemsPerPageOptions: [10] }"
       >
         <template v-slot:item.date="{ item }">
           {{ formatDate(item.date, 'MM/DD/Y') }}
@@ -83,6 +105,9 @@
             })
           }}
         </template>
+        <template v-slot:item.history="{ item }">
+          {{ showClaimedDate(item.history) }}
+        </template>
       </v-data-table>
     </v-card-text>
     <v-divider></v-divider>
@@ -90,11 +115,22 @@
       <v-btn
         small
         class="indigo white--text"
-        :href="pdfPath"
+        :href="transmittalReport"
         target="_blank"
-        :loading="loading"
+        :disabled="loading"
       >
-        View Pdf
+        Transmittal Report
+      </v-btn>
+
+      <v-btn
+        v-if="transmittal.returned"
+        small
+        class="indigo white--text"
+        :href="returnReport"
+        target="_blank"
+        :disabled="loading"
+      >
+        Return Report
       </v-btn>
 
       <v-btn
@@ -120,7 +156,27 @@ export default {
     transmittal() {
       return this.$store.getters['transmittal/transmittal']
     },
-    pdfPath() {
+    returnReport() {
+      return (
+        process.env.VUE_APP_API +
+        '/pdf/transmittal/' +
+        this.transmittal.ref +
+        '-1.pdf'
+      )
+    },
+    totalAmount() {
+      let total = this.transmittal.checks
+        ? this.transmittal.checks.reduce((total, check) => {
+            return total + parseFloat(check.amount)
+          }, 0)
+        : 0
+
+      return Number(total).toLocaleString('en', {
+        style: 'currency',
+        currency: 'Php'
+      })
+    },
+    transmittalReport() {
       return (
         process.env.VUE_APP_API +
         '/pdf/transmittal/' +
@@ -135,7 +191,8 @@ export default {
       { text: 'Check #', align: 'left', value: 'number' },
       { text: 'Payee Name', align: 'left', value: 'payee_id' },
       { text: 'Details', align: 'left', value: 'details' },
-      { text: 'Amount', align: 'left', value: 'amount' }
+      { text: 'Amount', align: 'left', value: 'amount' },
+      { text: 'Claimed', align: 'left', value: 'history', sortable: false }
     ]
   }),
   methods: {
@@ -143,6 +200,11 @@ export default {
       if (Date.parse(arg)) {
         return moment(new Date(arg)).format(format)
       }
+    },
+    showClaimedDate(history) {
+      let claimed = history.find(h => h.action_id === 4)
+      if (!claimed) return
+      return moment(new Date(claimed.date)).format('MM/DD/Y')
     }
   },
   mounted() {
