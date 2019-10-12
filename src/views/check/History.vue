@@ -49,10 +49,10 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Action', align: 'center', value: 'action_id' },
+      { text: 'Transaction Date', align: 'left', value: 'date' },
+      { text: 'Action', align: 'left', value: 'action_id' },
       { text: 'User', align: 'left', value: 'user_id' },
-      { text: 'Remarks', align: 'left', value: 'remarks' },
-      { text: 'Transaction Date', align: 'center', value: 'date' }
+      { text: 'Remarks', align: 'left', value: 'remarks' }
     ]
   }),
   methods: {

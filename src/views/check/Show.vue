@@ -65,7 +65,12 @@
           <v-icon color="indigo">mdi-currency-php</v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title>{{ check.amount }}</v-list-item-title>
+          <v-list-item-title>{{
+            Number(check.amount).toLocaleString('en', {
+              style: 'currency',
+              currency: 'Php'
+            })
+          }}</v-list-item-title>
           <v-list-item-subtitle>Amount</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>

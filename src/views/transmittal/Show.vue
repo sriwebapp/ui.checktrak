@@ -91,22 +91,28 @@
         :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10] }"
       >
-        <template v-slot:item.date="{ item }">
-          {{ formatDate(item.date, 'MM/DD/Y') }}
-        </template>
-        <template v-slot:item.payee_id="{ item }">
-          {{ item.payee.name }}
-        </template>
-        <template v-slot:item.amount="{ item }">
-          {{
-            Number(item.amount).toLocaleString('en', {
-              style: 'currency',
-              currency: 'Php'
-            })
-          }}
-        </template>
-        <template v-slot:item.history="{ item }">
-          {{ showClaimedDate(item.history) }}
+        <template v-if="transmittal.checks.length" v-slot:body="{ items }">
+          <tbody>
+            <tr
+              v-for="item in items"
+              :key="item.id"
+              :class="item.status.color + ' lighten-5'"
+            >
+              <td>{{ formatDate(item.date, 'MM/DD/Y') }}</td>
+              <td>{{ item.number }}</td>
+              <td>{{ item.payee.name }}</td>
+              <td>{{ item.details }}</td>
+              <td>
+                {{
+                  Number(item.amount).toLocaleString('en', {
+                    style: 'currency',
+                    currency: 'Php'
+                  })
+                }}
+              </td>
+              <td>{{ showClaimedDate(item.history) }}</td>
+            </tr>
+          </tbody>
         </template>
       </v-data-table>
     </v-card-text>

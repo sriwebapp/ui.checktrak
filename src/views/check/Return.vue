@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog v-model="show" persistent max-width="800">
+    <v-dialog v-model="show" persistent max-width="1000">
       <v-card>
         <form
           @submit.prevent="returnChecks"
@@ -33,30 +33,6 @@
                   required
                 ></v-text-field>
               </v-flex>
-            </v-layout>
-            <v-data-table
-              :headers="headers"
-              :items="checks"
-              :loading="loading"
-              :footer-props="{ itemsPerPageOptions: [10] }"
-              dense
-            >
-              <template v-if="checks.length" v-slot:body="{ items }">
-                <tbody>
-                  <tr
-                    v-for="item in items"
-                    :key="item.id"
-                    :class="item.status.color + ' lighten-4'"
-                  >
-                    <td>{{ item.account.code }}</td>
-                    <td>{{ item.number }}</td>
-                    <td>{{ item.amount }}</td>
-                    <td>{{ item.status.name }}</td>
-                  </tr>
-                </tbody>
-              </template>
-            </v-data-table>
-            <v-layout row wrap>
               <v-flex xs6 class="px-5">
                 <v-text-field
                   :value="returnableChecks.length + '/' + checks.length"
@@ -75,6 +51,35 @@
                 ></v-text-field>
               </v-flex>
             </v-layout>
+            <v-data-table
+              :headers="headers"
+              :items="checks"
+              :loading="loading"
+              :footer-props="{ itemsPerPageOptions: [10] }"
+              dense
+            >
+              <template v-if="checks.length" v-slot:body="{ items }">
+                <tbody>
+                  <tr
+                    v-for="item in items"
+                    :key="item.id"
+                    :class="item.status.color + ' lighten-5'"
+                  >
+                    <td>{{ item.number }}</td>
+                    <td>{{ item.payee.name }}</td>
+                    <td>
+                      {{
+                        Number(item.amount).toLocaleString('en', {
+                          style: 'currency',
+                          currency: 'Php'
+                        })
+                      }}
+                    </td>
+                    <td>{{ showClaimedDate(item.history) }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-data-table>
           </v-card-text>
           <v-card-actions>
             <v-btn
@@ -108,6 +113,7 @@
 
 <script>
 import Helper from './../../helper/Helper'
+import moment from 'moment'
 
 export default {
   computed: {
@@ -147,10 +153,10 @@ export default {
     date: null,
     date2: null,
     headers: [
-      { text: 'Account', align: 'left', value: 'account_id' },
-      { text: 'Number', align: 'left', value: 'number' },
+      { text: 'Check #', align: 'left', value: 'number' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id' },
       { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Status', align: 'left', value: 'status_id' }
+      { text: 'Claimed', align: 'left', value: 'claimed' }
     ],
     loading: false,
     showCalendar: false,
@@ -167,6 +173,11 @@ export default {
     formatDate(date) {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
+    },
+    showClaimedDate(history) {
+      let claimed = history.find(h => h.action_id === 4)
+      if (!claimed) return
+      return moment(new Date(claimed.date)).format('MM/DD/Y')
     }
   },
   watch: {
