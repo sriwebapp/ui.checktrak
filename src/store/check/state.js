@@ -4,7 +4,6 @@ export default {
   pagination: {},
   checks: {},
   filter: null,
-  transmittals: [],
   selectedChecks: [],
   cancelling: false,
   claiming: false,

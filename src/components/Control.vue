@@ -148,13 +148,7 @@ export default {
       )
     },
     receivable() {
-      return (
-        this.selectedChecks.length > 0 &&
-        this.selectedChecks.every(check => {
-          return !check.received && check.branch_id === this.user.branch_id
-        }) &&
-        this.actions.includes('rcv')
-      )
+      return this.actions.includes('rcv')
     },
     returnable() {
       return this.actions.includes('rtn')
@@ -288,17 +282,24 @@ export default {
         this.loading = false
       }
     },
-    showReceiveForm() {
-      this.loading = true
-      setTimeout(() => {
+    async showReceiveForm() {
+      try {
+        if (this.user.access.id < 4) {
+          await this.$store.dispatch('tools/getReturnedTransmittals')
+        } else {
+          await this.$store.dispatch('tools/getSentTransmittals')
+        }
         this.$store.commit('check/showReceive', true)
+      } catch (error) {
+        return
+      } finally {
         this.loading = false
-      }, 500)
+      }
     },
     async showReturnForm() {
       this.loading = true
       try {
-        await this.$store.dispatch('check/getReceivedTransmittals')
+        await this.$store.dispatch('tools/getReceivedTransmittals')
         this.$store.commit('check/showReturn', true)
       } catch (error) {
         return

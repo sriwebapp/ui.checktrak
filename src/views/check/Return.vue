@@ -8,7 +8,7 @@
         >
           <v-card-text>
             <v-layout row wrap>
-              <v-flex xs6 class="px-5">
+              <v-flex xs4 class="px-4">
                 <v-select
                   v-model="transmittal_id"
                   :error-messages="error.get('transmittal_id')"
@@ -21,7 +21,7 @@
                 ></v-select>
               </v-flex>
 
-              <v-flex xs6 class="px-5">
+              <v-flex xs4 class="px-4">
                 <v-text-field
                   v-model="date2"
                   :error-messages="error.get('date')"
@@ -33,6 +33,17 @@
                   required
                 ></v-text-field>
               </v-flex>
+
+              <v-flex xs4 class="px-4">
+                <v-text-field
+                  v-model="remarks"
+                  :error-messages="error.get('remarks')"
+                  name="remarks"
+                  label="Remarks"
+                  prepend-icon="mdi-clipboard-list-outline"
+                ></v-text-field>
+              </v-flex>
+
               <v-flex xs6 class="px-5">
                 <v-text-field
                   :value="returnableChecks.length + '/' + checks.length"
@@ -145,7 +156,7 @@ export default {
       }
     },
     transmittals() {
-      return this.$store.getters['check/transmittals']
+      return this.$store.getters['tools/transmittals']
     }
   },
   data: () => ({
@@ -159,6 +170,7 @@ export default {
       { text: 'Claimed', align: 'left', value: 'claimed' }
     ],
     loading: false,
+    remarks: '',
     showCalendar: false,
     transmittal_id: null
   }),
@@ -167,6 +179,7 @@ export default {
       this.formatDate(this.date2)
       this.$store.dispatch('check/returnChecks', {
         date: this.date,
+        remarks: this.remarks,
         transmittal_id: this.transmittal_id
       })
     },
@@ -184,6 +197,7 @@ export default {
     show(arg) {
       if (arg) {
         this.transmittal_id = null
+        this.remarks = ''
         this.checks = []
         this.formatDate(Date())
       }

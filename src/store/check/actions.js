@@ -36,17 +36,6 @@ export default {
       context.commit('loading', false)
     }
   },
-  async getReceivedTransmittals(context) {
-    try {
-      const url =
-        '/tools/transmittals/received/' +
-        context.rootGetters['tools/company'].code
-      const res = await Axios.get(url)
-      context.commit('transmittals', res.data)
-    } catch (e) {
-      return
-    }
-  },
   async cancel(context, data) {
     context.commit('cancelling', true)
     try {

@@ -14,9 +14,6 @@ export default {
   filter(state) {
     return state.filter
   },
-  transmittals(state) {
-    return state.transmittals
-  },
   selectedChecks(state) {
     return state.selectedChecks
   },

@@ -13,6 +13,7 @@ export default {
     modules: [],
     payees: [],
     payeeGroup: [],
+    transmittals: [],
     users: []
   },
   mutations: {
@@ -45,6 +46,9 @@ export default {
     },
     payeeGroup(state, payload) {
       state.payeeGroup = payload
+    },
+    transmittals(state, payload) {
+      state.transmittals = payload
     },
     users(state, payload) {
       state.users = payload
@@ -179,6 +183,39 @@ export default {
       } catch (error) {
         return
       }
+    },
+    async getReceivedTransmittals(context) {
+      try {
+        const url =
+          '/tools/transmittals/received/' +
+          context.rootGetters['tools/company'].code
+        const res = await Axios.get(url)
+        context.commit('transmittals', res.data)
+      } catch (e) {
+        return
+      }
+    },
+    async getSentTransmittals(context) {
+      try {
+        const url =
+          '/tools/transmittals/sent/' +
+          context.rootGetters['tools/company'].code
+        const res = await Axios.get(url)
+        context.commit('transmittals', res.data)
+      } catch (e) {
+        return
+      }
+    },
+    async getReturnedTransmittals(context) {
+      try {
+        const url =
+          '/tools/transmittals/returned/' +
+          context.rootGetters['tools/company'].code
+        const res = await Axios.get(url)
+        context.commit('transmittals', res.data)
+      } catch (e) {
+        return
+      }
     }
   },
   getters: {
@@ -211,6 +248,9 @@ export default {
     },
     payeeGroup(state) {
       return state.payeeGroup
+    },
+    transmittals(state) {
+      return state.transmittals
     },
     users(state) {
       return state.users
