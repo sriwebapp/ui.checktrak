@@ -60,18 +60,18 @@
           <v-list-item two-line class="my-n4">
             <v-list-item-content class="text-right">
               <v-list-item-title>
-                {{ transmittal.checks ? transmittal.checks.length : '0' }} pc/s
+                {{ transmittal.user ? transmittal.user.name : '' }}
               </v-list-item-title>
-              <v-list-item-subtitle>No. of Checks</v-list-item-subtitle>
+              <v-list-item-subtitle>Prepared by</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
 
           <v-list-item two-line class="my-n4">
             <v-list-item-content class="text-right">
               <v-list-item-title>
-                {{ transmittal.user ? transmittal.user.name : '' }}
+                {{ transmittal.checks ? transmittal.checks.length : '0' }} pc/s
               </v-list-item-title>
-              <v-list-item-subtitle>Prepared by</v-list-item-subtitle>
+              <v-list-item-subtitle>No. of Checks</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
 
@@ -142,11 +142,10 @@
       <v-btn
         class="deep-orange white--text"
         small
-        router
-        :to="{ name: 'transmittals' }"
+        @click="$router.go(-1)"
         :disabled="loading"
       >
-        Return
+        Go Back
       </v-btn>
     </v-card-actions>
   </v-card>

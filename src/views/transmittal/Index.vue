@@ -78,15 +78,10 @@ export default {
       }).length
     },
     overDue(transmittal) {
-      if (
-        transmittal.returned ||
-        transmittal.checks.length === this.claimedChecks(transmittal.checks)
-      )
-        return
+      if (transmittal.returned) return
       if (moment(transmittal.due).diff(moment(), 'days') < 0) {
         return 'red lighten-5'
       }
-
       return
     }
   },

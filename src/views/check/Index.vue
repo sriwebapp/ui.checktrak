@@ -19,7 +19,7 @@
         :items="checks"
         :loading="loading"
         :options.sync="pagination"
-        :footer-props="{ itemsPerPageOptions: [10, 50, 100] }"
+        :footer-props="{ itemsPerPageOptions: [10, 100, 500, 1000] }"
         :server-items-length="totalItems"
         show-select
       >

@@ -226,6 +226,7 @@ export default {
     },
     async showClearForm() {
       this.loading = true
+      await this.$store.dispatch('tools/getAccounts')
       if (
         this.selectedChecks.length === 1 &&
         this.selectedChecks[0].status_id === 3 &&
@@ -283,6 +284,7 @@ export default {
       }
     },
     async showReceiveForm() {
+      this.loading = true
       try {
         if (this.user.access.id < 4) {
           await this.$store.dispatch('tools/getReturnedTransmittals')

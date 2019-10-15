@@ -43,7 +43,7 @@
       </v-list-item>
     </v-list>
 
-    <v-divider></v-divider>
+    <v-divider v-if="admin.length"></v-divider>
 
     <v-list dense nav color="transparent">
       <v-list-item

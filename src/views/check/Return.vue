@@ -8,9 +8,9 @@
         >
           <v-card-text>
             <v-layout row wrap>
-              <v-flex xs4 class="px-4">
+              <v-flex xs4 class="px-5">
                 <v-select
-                  v-model="transmittal_id"
+                  v-model="transmittal"
                   :error-messages="error.get('transmittal_id')"
                   name="transmittal_id"
                   label="Select Transmittal"
@@ -18,10 +18,11 @@
                   :items="transmittals"
                   item-text="ref"
                   item-value="id"
+                  return-object
                 ></v-select>
               </v-flex>
 
-              <v-flex xs4 class="px-4">
+              <v-flex xs4>
                 <v-text-field
                   v-model="date2"
                   :error-messages="error.get('date')"
@@ -34,13 +35,16 @@
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs4 class="px-4">
+              <v-flex xs4 class="px-5">
                 <v-text-field
                   v-model="remarks"
                   :error-messages="error.get('remarks')"
                   name="remarks"
-                  label="Remarks"
+                  :label="
+                    !transactLate ? 'Remarks' : 'Reason for delay on update'
+                  "
                   prepend-icon="mdi-clipboard-list-outline"
+                  :required="transactLate"
                 ></v-text-field>
               </v-flex>
 
@@ -96,7 +100,7 @@
             <v-btn
               type="submit"
               small
-              color="teal white--text"
+              color="blue-grey white--text"
               :loading="returning"
               :disabled="loading"
             >
@@ -155,6 +159,11 @@ export default {
         this.$store.commit('check/showReturn', arg)
       }
     },
+    transactLate() {
+      if (!this.transmittal || !this.date) return false
+
+      return this.transmittal.due < this.date
+    },
     transmittals() {
       return this.$store.getters['tools/transmittals']
     }
@@ -172,7 +181,7 @@ export default {
     loading: false,
     remarks: '',
     showCalendar: false,
-    transmittal_id: null
+    transmittal: null
   }),
   methods: {
     returnChecks() {
@@ -180,12 +189,13 @@ export default {
       this.$store.dispatch('check/returnChecks', {
         date: this.date,
         remarks: this.remarks,
-        transmittal_id: this.transmittal_id
+        transmittal_id: this.transmittal ? this.transmittal.id : null
       })
     },
     formatDate(date) {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
+      this.remarks = !this.transactLate ? 'Claimed' : ''
     },
     showClaimedDate(history) {
       let claimed = history.find(h => h.action_id === 4)
@@ -196,17 +206,18 @@ export default {
   watch: {
     show(arg) {
       if (arg) {
-        this.transmittal_id = null
+        this.transmittal = null
         this.remarks = ''
         this.checks = []
         this.formatDate(Date())
+        this.remarks = 'Returned'
       }
     },
-    transmittal_id(arg) {
+    transmittal(arg) {
       if (arg) {
         this.loading = true
         this.$store
-          .dispatch('tools/getChecks', arg)
+          .dispatch('tools/getChecks', arg.id)
           .then(res => {
             this.checks = res.data
           })

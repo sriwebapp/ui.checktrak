@@ -26,8 +26,11 @@
                   v-model="remarks"
                   :error-messages="error.get('remarks')"
                   name="remarks"
-                  label="Remarks"
+                  :label="
+                    transactToday ? 'Remarks' : 'Reason for delay on update'
+                  "
                   prepend-icon="mdi-clipboard-list-outline"
+                  :required="!transactToday"
                 ></v-text-field>
               </v-flex>
 
@@ -73,7 +76,12 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="showCalendar" width="290px">
-      <v-date-picker no-title v-model="date" @change="showCalendar = false">
+      <v-date-picker
+        no-title
+        v-model="date"
+        :max="today"
+        @change="showCalendar = false"
+      >
       </v-date-picker>
     </v-dialog>
   </div>
@@ -81,6 +89,7 @@
 
 <script>
 import Helper from './../../helper/Helper'
+import moment from 'moment'
 
 export default {
   computed: {
@@ -110,13 +119,17 @@ export default {
       set(arg) {
         this.$store.commit('check/showClaim', arg)
       }
+    },
+    transactToday() {
+      return this.today === this.date
     }
   },
   data: () => ({
     date: null,
     date2: null,
     remarks: '',
-    showCalendar: false
+    showCalendar: false,
+    today: moment().format('Y-MM-DD')
   }),
   methods: {
     claim() {
@@ -130,6 +143,7 @@ export default {
     formatDate(date) {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
+      this.remarks = this.transactToday ? 'Claimed' : ''
     }
   },
   watch: {
@@ -137,7 +151,7 @@ export default {
       if (arg) {
         this.formatDate(Date())
         this.error.reset()
-        this.remarks = ''
+        this.remarks = 'Claimed'
       }
     },
     date(arg) {

@@ -8,7 +8,7 @@
         >
           <v-card-text>
             <v-layout row wrap>
-              <v-flex xs4 class="px-4">
+              <v-flex xs4 class="px-5">
                 <v-select
                   v-model="transmittal_id"
                   :error-messages="error.get('transmittal_id')"
@@ -21,7 +21,7 @@
                 ></v-select>
               </v-flex>
 
-              <v-flex xs4 class="px-4">
+              <v-flex xs4>
                 <v-text-field
                   v-model="date2"
                   :error-messages="error.get('date')"
@@ -34,7 +34,7 @@
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs4 class="px-4">
+              <v-flex xs4 class="px-5">
                 <v-text-field
                   v-model="remarks"
                   :error-messages="error.get('remarks')"
@@ -167,7 +167,7 @@ export default {
       { text: 'Check #', align: 'left', value: 'number' },
       { text: 'Payee Name', align: 'left', value: 'payee_id' },
       { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Claimed', align: 'left', value: 'claimed' }
+      { text: 'Claimed', align: 'left', value: 'status_id' }
     ],
     loading: false,
     remarks: '',
@@ -197,7 +197,7 @@ export default {
     show(arg) {
       if (arg) {
         this.transmittal_id = null
-        this.remarks = ''
+        this.remarks = 'Received complete'
         this.checks = []
         this.formatDate(Date())
       }
