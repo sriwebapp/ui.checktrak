@@ -121,7 +121,7 @@ export default {
       }
     },
     transactToday() {
-      return this.today === this.date
+      return this.today <= this.date
     }
   },
   data: () => ({

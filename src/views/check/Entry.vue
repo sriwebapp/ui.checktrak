@@ -20,7 +20,7 @@
     <success-clear />
     <show-history />
     <show-selected />
-    <filter-menu />
+    <select-filter />
   </v-container>
 </template>
 
@@ -47,7 +47,7 @@ export default {
     successClear: () => import('./SuccessClear.vue'),
     showHistory: () => import('./History.vue'),
     showSelected: () => import('./Selected.vue'),
-    filterMenu: () => import('./Filter.vue')
+    selectFilter: () => import('./SelectFilter.vue')
   },
   computed: {
     waiting() {
@@ -61,6 +61,7 @@ export default {
     setTimeout(() => {
       this.$store.commit('loader', false)
       this.$store.commit('check/waiting', false)
+      this.$store.commit('check/filter', 0)
       this.$store.commit('footer', true)
     }, 500)
   },

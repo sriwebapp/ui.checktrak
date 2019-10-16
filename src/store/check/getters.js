@@ -14,6 +14,9 @@ export default {
   filter(state) {
     return state.filter
   },
+  filterContent(state) {
+    return state.filterContent
+  },
   selectedChecks(state) {
     return state.selectedChecks
   },

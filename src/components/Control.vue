@@ -188,6 +188,7 @@ export default {
   },
   methods: {
     refresh() {
+      this.$store.commit('check/selectedChecks', [])
       this.$store.commit('check/pagination', {
         groupBy: [],
         groupDesc: [],

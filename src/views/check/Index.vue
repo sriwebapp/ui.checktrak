@@ -1,17 +1,27 @@
 <template>
   <v-card>
-    <v-card-title>
+    <v-card-title v-if="!filterType">
       <span class="title">
         Check Masterlist
       </span>
-      <v-chip v-if="filter" small class="ml-2" color="success">
-        {{ filter }}
-      </v-chip>
-      <v-spacer></v-spacer>
-      <v-btn icon @click="showFilter" small>
-        <v-icon color="indigo">mdi-filter-variant</v-icon>
-      </v-btn>
     </v-card-title>
+    <v-btn
+      fab
+      color="indigo "
+      small
+      top
+      dark
+      right
+      fixed
+      style="margin-top: 58px"
+      @click="showFilter"
+    >
+      <v-icon>mdi-arrow-left-bold-box-outline</v-icon>
+    </v-btn>
+
+    <filter-menu></filter-menu>
+    <v-divider v-if="filterType"></v-divider>
+
     <v-card-text>
       <v-data-table
         v-model="selected"
@@ -61,12 +71,18 @@
 <script>
 import moment from 'moment'
 export default {
+  components: {
+    filterMenu: () => import('./Filter.vue')
+  },
   computed: {
     checks() {
       return this.$store.getters['check/checks'].data
     },
-    filter() {
+    filterType() {
       return this.$store.getters['check/filter']
+    },
+    filterContent() {
+      return this.$store.getters['check/filterContent']
     },
     loading() {
       return this.$store.getters['check/loading']
@@ -102,7 +118,18 @@ export default {
       { text: 'Status', align: 'center', value: 'status_id' }
     ]
   }),
+  created() {
+    this.debouncedGetChecks = this._.debounce(this.getChecks, 500)
+  },
   methods: {
+    getChecks() {
+      const options = Object.assign(this.pagination, {
+        filterType: this.filterType,
+        filterContent: this.filterContent
+      })
+
+      this.$store.dispatch('check/getChecks', options)
+    },
     formatUpdate(arg) {
       if (Date.parse(arg)) {
         const date = moment(new Date(arg))
@@ -142,10 +169,24 @@ export default {
     }
   },
   watch: {
+    filterType: {
+      deep: true,
+      handler(/* arg */) {
+        // console.log(arg)
+        this.debouncedGetChecks()
+      }
+    },
+    filterContent: {
+      deep: true,
+      handler(/* arg */) {
+        // console.log(arg)
+        this.debouncedGetChecks()
+      }
+    },
     pagination: {
       deep: true,
-      handler(arg) {
-        this.$store.dispatch('check/getChecks', arg)
+      handler() {
+        this.debouncedGetChecks()
       }
     }
   }

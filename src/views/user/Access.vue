@@ -3,7 +3,7 @@
     <v-card-title class="title">Update User Access</v-card-title>
     <form @submit.prevent="editAccess">
       <v-card-text>
-        <v-layout row wrap class="px-5">
+        <v-layout row wrap class="px-5 mt-n4">
           <v-flex xs12>
             <v-select
               v-model="access"
@@ -32,11 +32,14 @@
             >
               <v-checkbox
                 v-model="selectedActions"
-                :label="action.name"
                 :value="action.code"
                 :disabled="disable('action')"
                 hide-details
-              ></v-checkbox>
+              >
+                <template v-slot:label>
+                  <span class="body-2">{{ action.name }}</span>
+                </template>
+              </v-checkbox>
             </v-col>
           </v-row>
 
@@ -56,11 +59,14 @@
             >
               <v-checkbox
                 v-model="selectedGroups"
-                :label="group.name"
                 :value="group.id"
                 :disabled="disable('group')"
                 hide-details
-              ></v-checkbox>
+              >
+                <template v-slot:label>
+                  <span class="body-2">{{ group.name }}</span>
+                </template>
+              </v-checkbox>
             </v-col>
           </v-row>
 
@@ -80,11 +86,14 @@
             >
               <v-checkbox
                 v-model="selectedModules"
-                :label="module.name"
                 :value="module.code"
                 :disabled="disable('module')"
                 hide-details
-              ></v-checkbox>
+              >
+                <template v-slot:label>
+                  <span class="body-2">{{ module.name }}</span>
+                </template>
+              </v-checkbox>
             </v-col>
           </v-row>
         </v-layout>
