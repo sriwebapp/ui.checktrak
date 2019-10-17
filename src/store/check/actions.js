@@ -106,6 +106,8 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/' + data.id
       await Axios.delete(url, { data })
       context.commit('showDelete', false)
+      context.commit('showCheck', false)
+      context.commit('showSelected', false)
       context.commit('selectedChecks', [])
       context.dispatch('getChecks', context.getters.pagination)
     } catch (e) {
@@ -121,11 +123,29 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/' + check.id
       await Axios.patch(url, check)
       context.commit('showEdit', false)
+      context.commit('showCheck', false)
+      context.commit('showSelected', false)
       context.dispatch('getChecks', context.getters.pagination)
     } catch (e) {
       return
     } finally {
       context.commit('editing', false)
+    }
+  },
+  async undo(context, data) {
+    context.commit('undoing', true)
+    try {
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/check/undo'
+      await Axios.post(url, data)
+      context.commit('showUndo', false)
+      context.commit('showCheck', false)
+      context.commit('showSelected', false)
+      context.dispatch('getChecks', context.getters.pagination)
+    } catch (e) {
+      return
+    } finally {
+      context.commit('undoing', false)
     }
   },
   async importCreateChecks(context, file) {

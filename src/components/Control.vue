@@ -4,12 +4,14 @@
       <v-col class="my-n2" v-for="(control, index) in controls" :key="index">
         <v-btn
           x-small
+          rounded
           block
           :color="control.color"
           @click="control.action"
           :disabled="control.access || loading"
         >
           {{ control.label }}
+          <v-icon x-small>{{ control.icon }}</v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -27,20 +29,6 @@ export default {
           icon: 'mdi-plus',
           action: this.showCreateForm,
           access: !this.creatable
-        },
-        {
-          label: 'Edit',
-          color: 'orange',
-          icon: 'mdi-update',
-          action: this.showEditForm,
-          access: !this.editable
-        },
-        {
-          label: 'Delete',
-          color: 'red',
-          icon: 'mdi-trash-can-outline',
-          action: this.showDeleteForm,
-          access: !this.deletable
         },
         {
           label: 'Transmit',
@@ -133,20 +121,6 @@ export default {
     creatable() {
       return this.actions.includes('crt')
     },
-    editable() {
-      return (
-        this.selectedChecks.length === 1 &&
-        this.selectedChecks[0].status_id !== 6 /* cleared */ &&
-        this.actions.includes('edt')
-      )
-    },
-    deletable() {
-      return (
-        this.selectedChecks.length === 1 &&
-        this.selectedChecks[0].status_id === 1 /* created */ &&
-        this.actions.includes('dlt')
-      )
-    },
     receivable() {
       return this.actions.includes('rcv')
     },
@@ -200,11 +174,12 @@ export default {
         sortDesc: []
       })
     },
-    showCheck() {
+    async showCheck() {
+      this.loading = true
       if (this.selectedChecks.length === 1) {
+        await this.$store.dispatch('tools/getStatus')
         this.$store.dispatch('check/showCheck', this.selectedChecks[0].id)
       } else if (this.selectedChecks.length > 1) {
-        this.loading = true
         setTimeout(() => {
           this.loading = false
           this.$store.commit('check/showSelected', true)
@@ -256,28 +231,6 @@ export default {
       try {
         await this.$store.dispatch('tools/getAccounts')
         this.$store.commit('check/showCreate', true)
-      } catch (error) {
-        return
-      } finally {
-        this.loading = false
-      }
-    },
-    async showEditForm() {
-      this.loading = true
-      try {
-        await this.$store.dispatch('check/getCheck', this.selectedChecks[0].id)
-        this.$store.commit('check/showEdit', true)
-      } catch (error) {
-        return
-      } finally {
-        this.loading = false
-      }
-    },
-    async showDeleteForm() {
-      this.loading = true
-      try {
-        await this.$store.dispatch('check/getCheck', this.selectedChecks[0].id)
-        this.$store.commit('check/showDelete', true)
       } catch (error) {
         return
       } finally {

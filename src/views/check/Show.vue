@@ -108,6 +108,16 @@
         <v-btn color="deep-orange" small outlined @click="show = false">
           Close
         </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn icon small :disabled="!editable" @click="showEditForm">
+          <v-icon color="orange darken-2">mdi-file-edit</v-icon>
+        </v-btn>
+        <v-btn icon small :disabled="!undoable" @click="showUndoForm">
+          <v-icon color="purple">mdi-update</v-icon>
+        </v-btn>
+        <v-btn icon small :disabled="!deletable" @click="showDeleteForm">
+          <v-icon color="red">mdi-trash-can-outline</v-icon>
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -117,6 +127,9 @@
 import moment from 'moment'
 export default {
   computed: {
+    user() {
+      return this.$store.getters['auth/user']
+    },
     check() {
       return this.$store.getters['check/check']
     },
@@ -130,11 +143,45 @@ export default {
       set(arg) {
         this.$store.commit('check/showCheck', arg)
       }
+    },
+    editable() {
+      return (
+        this.check.status_id !== 6 /* cleared */ &&
+        this.user.actionAccess.includes('edt')
+      )
+    },
+    deletable() {
+      return (
+        this.check.status_id === 1 /* created */ &&
+        this.user.actionAccess.includes('dlt')
+      )
+    },
+    undoable() {
+      if (!this.check.history) return
+
+      return (
+        this.check.history.length >= 2 &&
+        this.check.history[0].action_id !== 11 &&
+        this.user.actionAccess.includes('und')
+      )
     }
   },
   methods: {
     showHistory() {
       this.$store.commit('check/showHistory', true)
+    },
+    showEditForm() {
+      this.$store.commit('check/showEdit', true)
+    },
+    showDeleteForm() {
+      this.$store.commit('check/showDelete', true)
+    },
+    showUndoForm() {
+      this.$store.commit(
+        'check/checkState',
+        JSON.parse(this.check.history[1].state)
+      )
+      this.$store.commit('check/showUndo', true)
     }
   }
 }

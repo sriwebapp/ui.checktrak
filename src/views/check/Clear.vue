@@ -97,10 +97,15 @@
         <v-card-title>Check amount does not matched</v-card-title>
         <v-card-text>Do you want to continue? </v-card-text>
         <v-card-actions>
-          <v-btn outlined color="indigo" @click="clear">
+          <v-btn outlined small color="indigo" @click="clear">
             Continue
           </v-btn>
-          <v-btn color="deep-orange" outlined @click="showConfirm = false">
+          <v-btn
+            color="deep-orange"
+            small
+            outlined
+            @click="showConfirm = false"
+          >
             Close
           </v-btn>
         </v-card-actions>

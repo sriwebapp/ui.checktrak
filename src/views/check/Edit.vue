@@ -6,62 +6,6 @@
           <v-layout row wrap class="px-5">
             <v-flex xs12>
               <v-text-field
-                :value="check.account ? check.account.code : ''"
-                label="Account"
-                prepend-icon="mdi-bank"
-                hide-details
-                class="mb-3"
-                disabled
-              ></v-text-field>
-            </v-flex>
-
-            <v-flex xs12>
-              <v-text-field
-                :value="date"
-                label="Date Posted"
-                prepend-icon="mdi-calendar"
-                hide-details
-                class="mb-3"
-                disabled
-              ></v-text-field>
-            </v-flex>
-
-            <v-flex xs12>
-              <v-text-field
-                :value="check.number"
-                label="Check Number"
-                prepend-icon="mdi-tag-text-outline"
-                hide-details
-                class="mb-3"
-                placeholder=" "
-                disabled
-              ></v-text-field>
-            </v-flex>
-
-            <v-flex xs12>
-              <v-text-field
-                :value="check.payee ? check.payee.name : ''"
-                label="Payee"
-                prepend-icon="mdi-account-cash-outline"
-                hide-details
-                class="mb-3"
-                disabled
-              ></v-text-field>
-            </v-flex>
-
-            <v-flex xs12>
-              <v-text-field
-                :value="check.amount"
-                label="Amount"
-                prepend-icon="mdi-currency-php"
-                hide-details
-                class="mb-3"
-                disabled
-              ></v-text-field>
-            </v-flex>
-
-            <v-flex xs12>
-              <v-text-field
                 v-model="check.details"
                 :error-messages="error.get('details')"
                 name="details"
@@ -97,16 +41,8 @@
 </template>
 
 <script>
-import moment from 'moment'
-
 export default {
   computed: {
-    check() {
-      return this.$store.getters['check/check']
-    },
-    date() {
-      return moment(new Date(this.check.date)).format('MM/DD/Y')
-    },
     editing() {
       return this.$store.getters['check/editing']
     },
@@ -122,9 +58,19 @@ export default {
       }
     }
   },
+  data: () => ({
+    check: {}
+  }),
   methods: {
     edit() {
       this.$store.dispatch('check/edit', this.check)
+    }
+  },
+  watch: {
+    show(arg) {
+      if (arg) {
+        this.check = Object.assign({}, this.$store.getters['check/check'])
+      }
     }
   }
 }
