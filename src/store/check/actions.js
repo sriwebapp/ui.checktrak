@@ -43,6 +43,7 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/cancel'
       await Axios.post(url, data)
       context.commit('showCancel', false)
+      context.commit('selectedChecks', [])
       context.dispatch('getChecks', context.getters.pagination)
     } catch (e) {
       return
@@ -57,6 +58,7 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/claim'
       await Axios.post(url, data)
       context.commit('showClaim', false)
+      context.commit('selectedChecks', [])
       context.dispatch('getChecks', context.getters.pagination)
     } catch (e) {
       return
@@ -71,6 +73,7 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/clear'
       await Axios.post(url, data)
       context.commit('showClear', false)
+      context.commit('selectedChecks', [])
       context.dispatch('getChecks', context.getters.pagination)
     } catch (e) {
       return
@@ -88,6 +91,7 @@ export default {
       context.commit('newCheck', {
         date: new Date().toISOString().substr(0, 10)
       })
+      context.commit('selectedChecks', [])
       context.dispatch('getChecks', context.getters.pagination)
     } catch (e) {
       return
@@ -102,6 +106,7 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/' + data.id
       await Axios.delete(url, { data })
       context.commit('showDelete', false)
+      context.commit('selectedChecks', [])
       context.dispatch('getChecks', context.getters.pagination)
     } catch (e) {
       return
@@ -140,6 +145,7 @@ export default {
       if (res.data.failedMessage) {
         context.commit('failedMessage', res.data.failedMessage)
       }
+      context.commit('selectedChecks', [])
       context.commit('import', res.data.import)
     } catch (error) {
       return
@@ -167,6 +173,7 @@ export default {
       if (res.data.failedMessage) {
         context.commit('failedMessage', res.data.failedMessage)
       }
+      context.commit('selectedChecks', [])
       context.commit('import', res.data.import)
     } catch (error) {
       return
@@ -181,6 +188,7 @@ export default {
         '/' + context.rootGetters['tools/company'].code + '/check/receive'
       await Axios.post(url, data)
       context.commit('showReceive', false)
+      context.commit('selectedChecks', [])
       context.dispatch('getChecks', context.getters.pagination)
     } catch (e) {
       return

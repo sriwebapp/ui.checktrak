@@ -61,6 +61,7 @@ export default {
     setTimeout(() => {
       this.$store.commit('loader', false)
       this.$store.commit('check/waiting', false)
+      this.$store.commit('check/selectedChecks', [])
       this.$store.commit('check/filter', 0)
       this.$store.commit('footer', true)
     }, 500)

@@ -95,7 +95,6 @@ export default {
   }),
   methods: {
     async selectFilter(arg) {
-      this.$store.commit('check/loading', true)
       switch (arg) {
         case 1:
           await this.$store.dispatch('tools/getAccounts')
@@ -107,7 +106,6 @@ export default {
           this.visible = false
           break
       }
-      this.$store.commit('check/loading', false)
       this.filter = arg
     }
   }

@@ -15,16 +15,17 @@
       </v-btn>
     </v-card-title>
     <v-card-text>
-      <v-layout class="mb-5 mt-n5">
-        <div class="flex-grow-1"></div>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-account-search-outline"
-          label="Search"
-          single-line
-          hide-details
-          autofocus
-        ></v-text-field>
+      <v-layout class="mb-5 mt-n4" justify-end>
+        <v-flex xs4>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-account-search-outline"
+            label="Search"
+            single-line
+            hide-details
+            autofocus
+          ></v-text-field>
+        </v-flex>
       </v-layout>
       <v-data-table
         :headers="headers"

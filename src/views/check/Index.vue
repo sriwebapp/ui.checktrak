@@ -1,10 +1,5 @@
 <template>
   <v-card>
-    <v-card-title v-if="!filterType">
-      <span class="title">
-        Check Masterlist
-      </span>
-    </v-card-title>
     <v-btn
       fab
       color="indigo "
@@ -169,17 +164,9 @@ export default {
     }
   },
   watch: {
-    filterType: {
-      deep: true,
-      handler(/* arg */) {
-        // console.log(arg)
-        this.debouncedGetChecks()
-      }
-    },
     filterContent: {
       deep: true,
-      handler(/* arg */) {
-        // console.log(arg)
+      handler() {
         this.debouncedGetChecks()
       }
     },

@@ -44,16 +44,28 @@
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs6 class="px-5">
+              <v-flex xs4 class="px-5">
+                <v-switch
+                  inset
+                  color="indigo"
+                  hide-details
+                  label="Select Checks"
+                  v-model="selectChecks"
+                  :disabled="!checks.length"
+                >
+                </v-switch>
+              </v-flex>
+
+              <v-flex xs4>
                 <v-text-field
-                  :value="receivableChecks.length + '/' + checks.length"
+                  :value="selectedChecks.length + '/' + receivableChecks.length"
                   label="No of Checks to be Received"
                   prepend-icon="mdi-checkbook"
                   readonly
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs6 class="px-5">
+              <v-flex xs4 class="px-5">
                 <v-text-field
                   :value="amount"
                   label="Total Amount to be Received"
@@ -64,12 +76,33 @@
             </v-layout>
             <v-data-table
               :headers="headers"
-              :items="checks"
+              :items="selectChecks ? receivableChecks : checks"
               :loading="loading"
               :footer-props="{ itemsPerPageOptions: [10] }"
+              :show-select="selectChecks"
+              v-model="selectedChecks"
+              :options.sync="pagination"
               dense
             >
-              <template v-if="checks.length" v-slot:body="{ items }">
+              <template v-slot:item.payee_id="{ item }">
+                {{ item.payee.name }}
+              </template>
+              <template v-slot:item.amount="{ item }">
+                {{
+                  Number(item.amount).toLocaleString('en', {
+                    style: 'currency',
+                    currency: 'Php'
+                  })
+                }}
+              </template>
+              <template v-slot:item.status_id="{ item }">
+                {{ showClaimedDate(item.history) }}
+              </template>
+
+              <template
+                v-if="checks.length && !selectChecks"
+                v-slot:body="{ items }"
+              >
                 <tbody>
                   <tr
                     v-for="item in items"
@@ -129,7 +162,7 @@ import moment from 'moment'
 export default {
   computed: {
     amount() {
-      const total = this.receivableChecks.reduce((total, check) => {
+      const total = this.selectedChecks.reduce((total, check) => {
         return total + parseFloat(check.amount)
       }, 0)
 
@@ -172,7 +205,10 @@ export default {
     loading: false,
     remarks: '',
     showCalendar: false,
-    transmittal_id: null
+    transmittal_id: null,
+    selectChecks: false,
+    selectedChecks: [],
+    pagination: {}
   }),
   methods: {
     receiveChecks() {
@@ -198,6 +234,9 @@ export default {
       if (arg) {
         this.transmittal_id = null
         this.remarks = 'Received complete'
+        this.selectChecks = false
+        this.selectedChecks = []
+        this.pagination = { page: 1 }
         this.checks = []
         this.formatDate(Date())
       }
@@ -209,11 +248,18 @@ export default {
           .dispatch('tools/getChecks', arg)
           .then(res => {
             this.checks = res.data
+            this.selectedChecks = this.receivableChecks
+            this.pagination = { page: 1 }
+            this.selectChecks = false
           })
           .finally(() => {
             this.loading = false
           })
       }
+    },
+    selectChecks() {
+      this.pagination = { page: 1 }
+      this.selectedChecks = this.receivableChecks
     },
     date(arg) {
       this.formatDate(arg)

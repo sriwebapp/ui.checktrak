@@ -48,16 +48,28 @@
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs6 class="px-5">
+              <v-flex xs4 class="px-5">
+                <v-switch
+                  inset
+                  color="indigo"
+                  hide-details
+                  label="Select Checks"
+                  v-model="selectChecks"
+                  :disabled="!checks.length"
+                >
+                </v-switch>
+              </v-flex>
+
+              <v-flex xs4>
                 <v-text-field
-                  :value="returnableChecks.length + '/' + checks.length"
+                  :value="selectedChecks.length + '/' + returnableChecks.length"
                   label="No of Checks to be Returned"
                   prepend-icon="mdi-checkbook"
                   readonly
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs6 class="px-5">
+              <v-flex xs4 class="px-5">
                 <v-text-field
                   :value="amount"
                   label="Total Amount to be Returned"
@@ -68,12 +80,33 @@
             </v-layout>
             <v-data-table
               :headers="headers"
-              :items="checks"
+              :items="selectChecks ? returnableChecks : checks"
               :loading="loading"
               :footer-props="{ itemsPerPageOptions: [10] }"
+              :show-select="selectChecks"
+              v-model="selectedChecks"
+              :options.sync="pagination"
               dense
             >
-              <template v-if="checks.length" v-slot:body="{ items }">
+              <template v-slot:item.payee_id="{ item }">
+                {{ item.payee.name }}
+              </template>
+              <template v-slot:item.amount="{ item }">
+                {{
+                  Number(item.amount).toLocaleString('en', {
+                    style: 'currency',
+                    currency: 'Php'
+                  })
+                }}
+              </template>
+              <template v-slot:item.status_id="{ item }">
+                {{ showClaimedDate(item.history) }}
+              </template>
+
+              <template
+                v-if="checks.length && !selectChecks"
+                v-slot:body="{ items }"
+              >
                 <tbody>
                   <tr
                     v-for="item in items"
@@ -133,7 +166,7 @@ import moment from 'moment'
 export default {
   computed: {
     amount() {
-      const total = this.returnableChecks.reduce((total, check) => {
+      const total = this.selectedChecks.reduce((total, check) => {
         return total + parseFloat(check.amount)
       }, 0)
 
@@ -176,12 +209,15 @@ export default {
       { text: 'Check #', align: 'left', value: 'number' },
       { text: 'Payee Name', align: 'left', value: 'payee_id' },
       { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Claimed', align: 'left', value: 'claimed' }
+      { text: 'Claimed', align: 'left', value: 'status_id' }
     ],
     loading: false,
     remarks: '',
     showCalendar: false,
-    transmittal: null
+    transmittal: null,
+    selectChecks: false,
+    selectedChecks: [],
+    pagination: {}
   }),
   methods: {
     returnChecks() {
@@ -206,8 +242,10 @@ export default {
   watch: {
     show(arg) {
       if (arg) {
+        this.pagination = { page: 1 }
         this.transmittal = null
         this.remarks = ''
+        this.selectChecks = false
         this.checks = []
         this.formatDate(Date())
         this.remarks = 'Returned'
@@ -220,11 +258,18 @@ export default {
           .dispatch('tools/getChecks', arg.id)
           .then(res => {
             this.checks = res.data
+            this.selectedChecks = this.returnableChecks
+            this.pagination = { page: 1 }
+            this.selectChecks = false
           })
           .finally(() => {
             this.loading = false
           })
       }
+    },
+    selectChecks() {
+      this.selectedChecks = this.returnableChecks
+      this.pagination = { page: 1 }
     },
     date(arg) {
       this.formatDate(arg)

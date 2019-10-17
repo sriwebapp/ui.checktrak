@@ -1,8 +1,18 @@
 <template>
-  <v-container fluid class="pb-0" style="padding-right: 70px" v-if="filter">
+  <v-container fluid class="pb-0" style="padding-right: 70px">
+    <v-layout v-if="filter === 0" class="mb-5">
+      <v-flex xs6 md8>
+        <span class="title"> {{ title }} </span>
+      </v-flex>
+    </v-layout>
+
     <v-layout justify-end v-if="filter === 1" class="mb-n4">
+      <v-flex xs6 md8>
+        <span class="title"> {{ title }} </span>
+      </v-flex>
+
       <v-flex xs6 md4>
-        <v-autocomplete
+        <v-select
           v-model="account"
           label="Select Account"
           :items="accounts"
@@ -13,11 +23,15 @@
           return-object
           dense
           outlined
-        ></v-autocomplete>
+        ></v-select>
       </v-flex>
     </v-layout>
 
     <v-layout justify-end v-if="filter === 2" class="mb-n4">
+      <v-flex xs6>
+        <span class="title"> {{ title }} </span>
+      </v-flex>
+
       <v-flex xs2>
         <v-autocomplete
           label="Payee Code"
@@ -52,6 +66,10 @@
     </v-layout>
 
     <v-layout justify-end v-if="filter === 3" class="mb-n4">
+      <v-flex xs6 md8>
+        <span class="title"> {{ title }} </span>
+      </v-flex>
+
       <v-flex xs6 md4>
         <v-autocomplete
           label="Select Transmittal"
@@ -70,6 +88,10 @@
     </v-layout>
 
     <v-layout justify-end v-if="filter === 4" class="mb-n4">
+      <v-flex xs6 md8>
+        <span class="title"> {{ title }} </span>
+      </v-flex>
+
       <v-flex xs3 md2>
         <v-text-field
           :value="formatDate(dateFrom)"
@@ -96,6 +118,10 @@
     </v-layout>
 
     <v-layout justify-end v-if="filter === 5" class="mb-n4">
+      <v-flex xs6 md8>
+        <span class="title"> {{ title }} </span>
+      </v-flex>
+
       <v-flex xs3 md2>
         <v-text-field
           v-model="numberFrom"
@@ -119,6 +145,10 @@
     </v-layout>
 
     <v-layout justify-end v-if="filter === 6" class="mb-n4">
+      <v-flex xs6 md8>
+        <span class="title"> {{ title }} </span>
+      </v-flex>
+
       <v-flex xs6 md4>
         <v-text-field
           v-model="searchDetail"
@@ -132,6 +162,10 @@
     </v-layout>
 
     <v-layout justify-end class=" mb-5 mt-n3" v-if="filter === 7">
+      <v-flex xs4 class="mt-3">
+        <span class="title"> {{ title }} </span>
+      </v-flex>
+
       <v-flex xs1 v-for="stat in status" :key="stat.id">
         <v-checkbox
           :value="stat.id"
@@ -180,6 +214,14 @@
 import moment from 'moment'
 export default {
   computed: {
+    title() {
+      return this.selectedChecks.length
+        ? 'Selected Checks: ' + this.selectedChecks.length
+        : 'Check Masterlist '
+    },
+    selectedChecks() {
+      return this.$store.getters['check/selectedChecks']
+    },
     content: {
       get() {
         return this.$store.getters['check/filterContent']
