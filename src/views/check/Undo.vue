@@ -57,6 +57,7 @@
                 name="remarks"
                 label="Reason"
                 prepend-icon="mdi-clipboard-list-outline"
+                required
               ></v-text-field>
             </v-flex>
           </v-layout>

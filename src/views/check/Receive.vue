@@ -107,7 +107,9 @@
                   <tr
                     v-for="item in items"
                     :key="item.id"
-                    :class="item.status.color + ' lighten-5'"
+                    :class="
+                      item.status.color + ' lighten-' + (item.received ? 5 : 3)
+                    "
                   >
                     <td>{{ item.number }}</td>
                     <td>{{ item.payee.name }}</td>
@@ -216,7 +218,9 @@ export default {
       this.$store.dispatch('check/receive', {
         date: this.date,
         remarks: this.remarks,
-        transmittal_id: this.transmittal_id
+        transmittal_id: this.transmittal_id,
+        selectChecks: this.selectChecks,
+        selectedChecks: this.selectedChecks.map(i => i.id)
       })
     },
     formatDate(date) {

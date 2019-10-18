@@ -14,6 +14,9 @@
               <td class="text-center">{{ item.checks.length }}</td>
               <td class="text-center">{{ claimedChecks(item.checks) }}</td>
               <td class="text-center">
+                {{ item.sent_checks - item.received_checks }}
+              </td>
+              <td class="text-center">
                 <v-btn
                   icon
                   color="indigo"
@@ -61,6 +64,12 @@ export default {
         text: 'Claimed',
         align: 'center',
         value: 'claimed',
+        sortable: false
+      },
+      {
+        text: 'Not Yet Received',
+        align: 'center',
+        value: 'nyr',
         sortable: false
       },
       { text: 'View', align: 'center', value: 'view', sortable: false }

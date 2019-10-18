@@ -141,6 +141,7 @@ export default {
       context.commit('showUndo', false)
       context.commit('showCheck', false)
       context.commit('showSelected', false)
+      context.commit('selectedChecks', [])
       context.dispatch('getChecks', context.getters.pagination)
     } catch (e) {
       return

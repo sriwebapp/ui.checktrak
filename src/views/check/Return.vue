@@ -53,7 +53,7 @@
                   inset
                   color="indigo"
                   hide-details
-                  label="Select Checks"
+                  label="Filter Checks"
                   v-model="selectChecks"
                   :disabled="!checks.length"
                 >
@@ -83,7 +83,6 @@
               :items="selectChecks ? returnableChecks : checks"
               :loading="loading"
               :footer-props="{ itemsPerPageOptions: [10] }"
-              :show-select="selectChecks"
               v-model="selectedChecks"
               :options.sync="pagination"
               dense

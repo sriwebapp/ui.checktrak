@@ -28,6 +28,7 @@
                   name="amount"
                   label="Amount Cleared"
                   prepend-icon="mdi-currency-php"
+                  @blur="formatAmount"
                 ></v-text-field>
               </v-flex>
 
@@ -156,6 +157,7 @@ export default {
       }
     },
     clear() {
+      this.formatAmount()
       this.showConfirm = false
       this.formatDate(this.date2)
       this.$store.dispatch('check/clear', {
@@ -171,6 +173,9 @@ export default {
     showImport() {
       this.show = false
       this.$store.commit('check/showImportClear', true)
+    },
+    formatAmount() {
+      this.amount = Helper.formatCurrency(this.amount)
     }
   },
   watch: {

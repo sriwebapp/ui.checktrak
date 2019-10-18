@@ -3,15 +3,14 @@
     <v-row>
       <v-col class="my-n2" v-for="(control, index) in controls" :key="index">
         <v-btn
-          x-small
-          rounded
+          small
           block
           :color="control.color"
           @click="control.action"
           :disabled="control.access || loading"
         >
           {{ control.label }}
-          <v-icon x-small>{{ control.icon }}</v-icon>
+          <v-icon small>{{ control.icon }}</v-icon>
         </v-btn>
       </v-col>
     </v-row>
