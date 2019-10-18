@@ -111,7 +111,7 @@ export default {
     pagination: {
       deep: true,
       handler() {
-        this.getPayees()
+        this.searchPayees()
       }
     },
     search() {

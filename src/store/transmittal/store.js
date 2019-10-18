@@ -4,7 +4,7 @@ export default {
   namespaced: true,
   state: {
     loading: false,
-    transmittals: [],
+    transmittals: {},
     transmittal: { checks: [] },
     waiting: false
   },
@@ -23,12 +23,12 @@ export default {
     }
   },
   actions: {
-    async getTransmittals(context) {
+    async getTransmittals(context, options) {
       context.commit('loading', true)
       try {
         const url =
           '/' + context.rootGetters['tools/company'].code + '/transmittal'
-        const res = await Axios.get(url)
+        const res = await Axios.post(url, options)
         context.commit('transmittals', res.data)
       } catch (error) {
         return

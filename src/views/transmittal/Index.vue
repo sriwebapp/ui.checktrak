@@ -6,9 +6,14 @@
         :headers="headers"
         :items="transmittals"
         :loading="loading"
+        :options.sync="pagination"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
+        :server-items-length="totalItems"
       >
-        <template v-slot:body="{ items }" v-if="transmittals.length">
+        <template
+          v-slot:body="{ items }"
+          v-if="transmittals && transmittals.length"
+        >
           <tbody>
             <tr v-for="item in items" :key="item.id" :class="overDue(item)">
               <td>{{ item.ref }}</td>
@@ -50,8 +55,14 @@ export default {
       return this.$store.getters['transmittal/loading']
     },
     transmittals() {
-      return this.$store.getters['transmittal/transmittals']
+      return this.$store.getters['transmittal/transmittals'].data
+    },
+    totalItems() {
+      return this.$store.getters['transmittal/transmittals'].total
     }
+  },
+  created() {
+    this.debounceGetTransmittals = this._.debounce(this.getTransmittals, 500)
   },
   data: () => ({
     headers: [
@@ -80,7 +91,8 @@ export default {
         sortable: false
       },
       { text: 'View', align: 'center', value: 'view', sortable: false }
-    ]
+    ],
+    pagination: {}
   }),
   methods: {
     formatDate(arg) {
@@ -100,10 +112,30 @@ export default {
         return 'red lighten-5'
       }
       return
+    },
+    getTransmittals() {
+      this.$store.dispatch('transmittal/getTransmittals', this.pagination)
     }
   },
   mounted() {
-    this.$store.dispatch('transmittal/getTransmittals')
+    this.pagination = {
+      groupBy: [],
+      groupDesc: [],
+      itemsPerPage: 10,
+      multiSort: false,
+      mustSort: false,
+      page: 1,
+      sortBy: [],
+      sortDesc: []
+    }
+  },
+  watch: {
+    pagination: {
+      deep: true,
+      handler() {
+        this.debounceGetTransmittals()
+      }
+    }
   }
 }
 </script>

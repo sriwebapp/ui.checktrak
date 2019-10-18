@@ -191,6 +191,8 @@ export default {
     },
     async showCheck(id) {
       if (this.loading) return
+
+      this.$store.commit('check/loading', true)
       await this.$store.dispatch('tools/getStatus')
       this.$store.dispatch('check/showCheck', id)
     }
