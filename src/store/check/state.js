@@ -17,6 +17,7 @@ export default {
   loading: false,
   receiving: false,
   returning: false,
+  selecting: false,
   transmitting: false,
   undoing: false,
   waiting: false,

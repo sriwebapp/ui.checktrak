@@ -53,6 +53,9 @@ export default {
   returning(state) {
     return state.returning
   },
+  selecting(state) {
+    return state.selecting
+  },
   transmitting(state) {
     return state.transmitting
   },

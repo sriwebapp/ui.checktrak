@@ -24,9 +24,9 @@
         :items="checks"
         :loading="loading"
         :options.sync="pagination"
-        :footer-props="{ itemsPerPageOptions: [10, 100, 500, 1000] }"
+        :footer-props="{ itemsPerPageOptions: [10, 100, 500] }"
         :server-items-length="totalItems"
-        show-select
+        :show-select="selecting"
       >
         <template v-slot:item.account_id="{ item }">
           {{ item.account.code }}
@@ -58,6 +58,42 @@
         <template v-slot:item.updated_at="{ item }">
           {{ formatUpdate(item.updated_at) }}
         </template>
+
+        <template v-if="checks.length && !selecting" v-slot:body="{ items }">
+          <tbody>
+            <tr
+              v-for="item in items"
+              :key="item.id"
+              :class="item.status.color + ' lighten-' + (item.received ? 5 : 4)"
+              @click="showCheck(item.id)"
+              style="cursor: pointer;"
+            >
+              <td>{{ item.account.code }}</td>
+              <td>{{ formatDate(item.date) }}</td>
+              <td>{{ item.number }}</td>
+              <td>{{ item.payee.name }}</td>
+              <td>
+                {{
+                  Number(item.amount).toLocaleString('en', {
+                    style: 'currency',
+                    currency: 'Php'
+                  })
+                }}
+              </td>
+              <td>{{ item.details }}</td>
+              <td class="text-center">
+                <v-chip
+                  x-small
+                  :text-color="item.received ? 'white' : 'black'"
+                  :outlined="!item.received"
+                  :class="item.status.color"
+                >
+                  {{ item.status.name }}
+                </v-chip>
+              </td>
+            </tr>
+          </tbody>
+        </template>
       </v-data-table>
     </v-card-text>
   </v-card>
@@ -81,6 +117,9 @@ export default {
     },
     loading() {
       return this.$store.getters['check/loading']
+    },
+    selecting() {
+      return this.$store.getters['check/selecting']
     },
     selected: {
       get() {
@@ -149,6 +188,11 @@ export default {
         return str
       }
       return str.slice(0, num - 3) + '...'
+    },
+    async showCheck(id) {
+      if (this.loading) return
+      await this.$store.dispatch('tools/getStatus')
+      this.$store.dispatch('check/showCheck', id)
     }
   },
   mounted() {
@@ -175,6 +219,9 @@ export default {
       handler() {
         this.debouncedGetChecks()
       }
+    },
+    selecting() {
+      this.selected = []
     }
   }
 }

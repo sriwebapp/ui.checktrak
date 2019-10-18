@@ -23,6 +23,13 @@ export default {
     controls() {
       return [
         {
+          label: 'Select',
+          color: 'purple',
+          icon: 'mdi-hand-pointing-up',
+          action: this.toogleSelection,
+          access: false
+        },
+        {
           label: 'Create',
           color: 'indigo',
           icon: 'mdi-plus',
@@ -160,6 +167,12 @@ export default {
     }
   },
   methods: {
+    toogleSelection() {
+      this.$store.commit(
+        'check/selecting',
+        !this.$store.getters['check/selecting']
+      )
+    },
     refresh() {
       this.$store.commit('check/selectedChecks', [])
       this.$store.commit('check/pagination', {

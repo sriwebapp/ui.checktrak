@@ -2,12 +2,18 @@
   <v-card>
     <v-card-title class="title">Check Transmittal</v-card-title>
     <v-card-text>
-      <v-data-table :headers="headers" :items="transmittals" :loading="loading">
+      <v-data-table
+        :headers="headers"
+        :items="transmittals"
+        :loading="loading"
+        :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
+      >
         <template v-slot:body="{ items }" v-if="transmittals.length">
           <tbody>
             <tr v-for="item in items" :key="item.id" :class="overDue(item)">
               <td>{{ item.ref }}</td>
               <td>{{ item.branch.name }}</td>
+              <td>{{ item.group.name }}</td>
               <td>{{ formatDate(item.date) }}</td>
               <td>{{ formatDate(item.due) }}</td>
               <td>{{ formatDate(item.returned) }}</td>
@@ -51,6 +57,7 @@ export default {
     headers: [
       { text: 'Reference No.', align: 'left', value: 'ref' },
       { text: 'Branch', align: 'left', value: 'branch_id' },
+      { text: 'Group', align: 'left', value: 'group_id' },
       { text: 'Date', align: 'left', value: 'date' },
       { text: 'Due', align: 'left', value: 'due' },
       { text: 'Returned', align: 'left', value: 'returned' },
@@ -87,7 +94,8 @@ export default {
       }).length
     },
     overDue(transmittal) {
-      if (transmittal.returned) return
+      if (transmittal.returned_all) return
+
       if (moment(transmittal.due).diff(moment(), 'days') < 0) {
         return 'red lighten-5'
       }

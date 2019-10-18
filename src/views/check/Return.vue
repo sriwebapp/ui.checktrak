@@ -83,6 +83,7 @@
               :items="selectChecks ? returnableChecks : checks"
               :loading="loading"
               :footer-props="{ itemsPerPageOptions: [10] }"
+              :show-select="selectChecks"
               v-model="selectedChecks"
               :options.sync="pagination"
               dense
@@ -224,7 +225,9 @@ export default {
       this.$store.dispatch('check/returnChecks', {
         date: this.date,
         remarks: this.remarks,
-        transmittal_id: this.transmittal ? this.transmittal.id : null
+        transmittal_id: this.transmittal ? this.transmittal.id : null,
+        selectChecks: this.selectChecks,
+        selectedChecks: this.selectedChecks.map(i => i.id)
       })
     },
     formatDate(date) {

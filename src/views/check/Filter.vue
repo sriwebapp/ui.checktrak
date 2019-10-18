@@ -215,9 +215,12 @@ import moment from 'moment'
 export default {
   computed: {
     title() {
-      return this.selectedChecks.length
+      return this.selecting
         ? 'Selected Checks: ' + this.selectedChecks.length
         : 'Check Masterlist '
+    },
+    selecting() {
+      return this.$store.getters['check/selecting']
     },
     selectedChecks() {
       return this.$store.getters['check/selectedChecks']
