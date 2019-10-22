@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog v-model="show" persistent max-width="500">
+    <v-dialog v-model="show" persistent max-width="1200">
       <v-card>
         <form
           @submit.prevent="transmit"
@@ -8,19 +8,7 @@
         >
           <v-card-text>
             <v-layout row wrap class="px-5">
-              <v-flex xs12>
-                <v-text-field
-                  :value="ref"
-                  :error-messages="error.get('ref')"
-                  name="ref"
-                  label="Transmittal Reference"
-                  prepend-icon="mdi-barcode-scan"
-                  placeholder=" "
-                  readonly
-                ></v-text-field>
-              </v-flex>
-
-              <v-flex xs12>
+              <v-flex xs3 pr-2>
                 <v-select
                   v-model="branch_id"
                   :error-messages="error.get('branch_id')"
@@ -34,7 +22,7 @@
                 ></v-select>
               </v-flex>
 
-              <v-flex xs12>
+              <v-flex xs3 px-2>
                 <v-select
                   v-model="group_id"
                   :error-messages="error.get('group_id')"
@@ -49,7 +37,7 @@
                 ></v-select>
               </v-flex>
 
-              <v-flex xs12>
+              <v-flex xs3 px-2>
                 <v-select
                   v-model="incharge"
                   :error-messages="error.get('incharge')"
@@ -63,7 +51,7 @@
                 ></v-select>
               </v-flex>
 
-              <v-flex xs12>
+              <v-flex xs3 pl-2>
                 <v-text-field
                   v-model="date2"
                   :error-messages="error.get('date')"
@@ -76,16 +64,39 @@
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs6>
+              <v-flex xs3 pr-2>
+                <v-switch
+                  inset
+                  color="indigo"
+                  hide-details
+                  label="Select Checks"
+                  v-model="selectChecks"
+                  :disabled="!checks.length"
+                >
+                </v-switch>
+              </v-flex>
+
+              <v-flex xs3 px-2>
                 <v-text-field
-                  :value="checks.length"
+                  :value="ref"
+                  :error-messages="error.get('ref')"
+                  name="ref"
+                  label="Transmittal Reference"
+                  prepend-icon="mdi-barcode-scan"
+                  readonly
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs3 px-2>
+                <v-text-field
+                  :value="selectedChecks.length"
                   label="No of Checks"
                   prepend-icon="mdi-checkbook"
                   readonly
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs6>
+              <v-flex xs3 pl-2>
                 <v-text-field
                   :value="amount"
                   label="Total Amount"
@@ -94,6 +105,56 @@
                 ></v-text-field>
               </v-flex>
             </v-layout>
+
+            <v-data-table
+              :headers="headers"
+              :items="checks"
+              :loading="transmitting"
+              :footer-props="{ itemsPerPageOptions: [10] }"
+              :show-select="selectChecks"
+              v-model="selectedChecks"
+              :options.sync="pagination"
+              dense
+            >
+              <template v-slot:item.payee_id="{ item }">
+                {{ item.payee.name }}
+              </template>
+              <template v-slot:item.amount="{ item }">
+                {{
+                  Number(item.amount).toLocaleString('en', {
+                    style: 'currency',
+                    currency: 'Php'
+                  })
+                }}
+              </template>
+
+              <template
+                v-if="checks.length && !selectChecks"
+                v-slot:body="{ items }"
+              >
+                <tbody>
+                  <tr
+                    v-for="item in items"
+                    :key="item.id"
+                    :class="
+                      item.status.color + ' lighten-' + (item.received ? 5 : 3)
+                    "
+                  >
+                    <td>{{ item.number }}</td>
+                    <td>{{ item.payee.name }}</td>
+                    <td>
+                      {{
+                        Number(item.amount).toLocaleString('en', {
+                          style: 'currency',
+                          currency: 'Php'
+                        })
+                      }}
+                    </td>
+                    <td>{{ item.details }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-data-table>
           </v-card-text>
 
           <v-card-actions>
@@ -132,7 +193,7 @@ import Helper from './../../helper/Helper'
 export default {
   computed: {
     amount() {
-      const total = this.checks.reduce((total, check) => {
+      const total = this.selectedChecks.reduce((total, check) => {
         return total + parseFloat(check.amount)
       }, 0)
 
@@ -155,7 +216,7 @@ export default {
         this.$store.commit('check/showTransmit', arg)
       }
     },
-    checks() {
+    appChecks() {
       return this.$store.getters['check/selectedChecks']
     },
     transmitting() {
@@ -164,16 +225,26 @@ export default {
   },
   data: () => ({
     branch_id: 0,
+    checks: [],
     date: null,
     date2: null,
+    headers: [
+      { text: 'Check #', align: 'left', value: 'number' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id' },
+      { text: 'Amount', align: 'left', value: 'amount' },
+      { text: 'Details', align: 'left', value: 'details' }
+    ],
     group_id: 0,
     groups: [],
     incharge: 0,
     gettingRef: false,
     gettingGroup: false,
     gettingIncharge: false,
+    pagination: {},
     ref: '',
     series: '',
+    selectChecks: false,
+    selectedChecks: [],
     showCalendar: false,
     users: []
   }),
@@ -186,7 +257,7 @@ export default {
         ref: this.ref,
         series: this.series,
         incharge: this.incharge,
-        checks: this.checks.map(check => check.id)
+        checks: this.selectedChecks.map(check => check.id)
       })
     },
     formatDate(date) {
@@ -231,9 +302,19 @@ export default {
         this.formatDate(Date())
         this.error.reset()
         this.branch_id = 0
+        this.pagination = { page: 1 }
         this.incharge = 0
         this.ref = ''
+        this.checks = this.appChecks
+        this.selectedChecks = this.appChecks
+        this.selectChecks = false
       }
+    },
+    selectChecks() {
+      this.selectedChecks = this.checks
+    },
+    selectedChecks() {
+      this.$store.commit('check/selectedChecks', this.selectedChecks)
     },
     date(arg) {
       this.formatDate(arg)

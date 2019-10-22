@@ -86,7 +86,8 @@ export default {
     ]
   }),
   methods: {
-    showCheck(id) {
+    async showCheck(id) {
+      await this.$store.dispatch('tools/getStatus')
       this.$store.dispatch('check/showCheck', id)
     }
   }

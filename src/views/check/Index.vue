@@ -59,7 +59,10 @@
           {{ formatUpdate(item.updated_at) }}
         </template>
 
-        <template v-if="checks.length && !selecting" v-slot:body="{ items }">
+        <template
+          v-if="checks && checks.length && !selecting"
+          v-slot:body="{ items }"
+        >
           <tbody>
             <tr
               v-for="item in items"
