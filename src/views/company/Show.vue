@@ -130,6 +130,11 @@ export default {
   },
   mounted() {
     this.$store.dispatch('company/getCompany', this.$route.params.code)
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.$store.dispatch('company/getCompany', to.params.code)
+
+    next()
   }
 }
 </script>
