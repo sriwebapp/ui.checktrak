@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog v-model="show" persistent max-width="500">
+    <v-dialog v-model="show" persistent max-width="1000">
       <v-card>
         <form
           @submit.prevent="claim"
@@ -8,7 +8,7 @@
         >
           <v-card-text>
             <v-layout row wrap class="px-5">
-              <v-flex xs12>
+              <v-flex xs6 pr-2>
                 <v-text-field
                   v-model="date2"
                   :error-messages="error.get('date')"
@@ -21,26 +21,41 @@
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs12>
+              <v-flex xs6 pl-2>
                 <v-text-field
                   v-model="remarks"
                   :error-messages="error.get('remarks')"
                   name="remarks"
-                  label="Remarks"
+                  :label="
+                    transactToday ? 'Remarks' : 'Reason for delay on update'
+                  "
                   prepend-icon="mdi-clipboard-list-outline"
+                  :required="!transactToday"
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs6>
+              <v-flex xs4 pr-2>
+                <v-switch
+                  inset
+                  color="indigo"
+                  hide-details
+                  label="Select Checks"
+                  v-model="selectChecks"
+                  :disabled="!checks.length"
+                >
+                </v-switch>
+              </v-flex>
+
+              <v-flex xs4 px-2>
                 <v-text-field
-                  :value="checks.length"
+                  :value="selectedChecks.length"
                   label="No of Checks"
                   prepend-icon="mdi-checkbook"
                   readonly
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs6>
+              <v-flex xs4 pl-2>
                 <v-text-field
                   :value="amount"
                   label="Total Amount"
@@ -49,6 +64,56 @@
                 ></v-text-field>
               </v-flex>
             </v-layout>
+
+            <v-data-table
+              :headers="headers"
+              :items="checks"
+              :loading="claiming"
+              :footer-props="{ itemsPerPageOptions: [10] }"
+              :show-select="selectChecks"
+              v-model="selectedChecks"
+              :options.sync="pagination"
+              dense
+            >
+              <template v-slot:item.payee_id="{ item }">
+                {{ item.payee.name }}
+              </template>
+              <template v-slot:item.amount="{ item }">
+                {{
+                  Number(item.amount).toLocaleString('en', {
+                    style: 'currency',
+                    currency: 'Php'
+                  })
+                }}
+              </template>
+
+              <template
+                v-if="checks.length && !selectChecks"
+                v-slot:body="{ items }"
+              >
+                <tbody>
+                  <tr
+                    v-for="item in items"
+                    :key="item.id"
+                    :class="
+                      item.status.color + ' lighten-' + (item.received ? 5 : 3)
+                    "
+                  >
+                    <td>{{ item.number }}</td>
+                    <td>{{ item.payee.name }}</td>
+                    <td>
+                      {{
+                        Number(item.amount).toLocaleString('en', {
+                          style: 'currency',
+                          currency: 'Php'
+                        })
+                      }}
+                    </td>
+                    <td>{{ item.details }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-data-table>
           </v-card-text>
           <v-card-actions>
             <v-btn
@@ -73,7 +138,12 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="showCalendar" width="290px">
-      <v-date-picker no-title v-model="date" @change="showCalendar = false">
+      <v-date-picker
+        no-title
+        v-model="date"
+        :max="today"
+        @change="showCalendar = false"
+      >
       </v-date-picker>
     </v-dialog>
   </div>
@@ -81,11 +151,12 @@
 
 <script>
 import Helper from './../../helper/Helper'
+import moment from 'moment'
 
 export default {
   computed: {
     amount() {
-      const total = this.checks.reduce((total, check) => {
+      const total = this.selectedChecks.reduce((total, check) => {
         return total + parseFloat(check.amount)
       }, 0)
 
@@ -97,7 +168,7 @@ export default {
     claiming() {
       return this.$store.getters['check/claiming']
     },
-    checks() {
+    appChecks() {
       return this.$store.getters['check/selectedChecks']
     },
     error() {
@@ -110,13 +181,27 @@ export default {
       set(arg) {
         this.$store.commit('check/showClaim', arg)
       }
+    },
+    transactToday() {
+      return this.today <= this.date
     }
   },
   data: () => ({
+    checks: [],
     date: null,
     date2: null,
+    headers: [
+      { text: 'Check #', align: 'left', value: 'number' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id' },
+      { text: 'Amount', align: 'left', value: 'amount' },
+      { text: 'Details', align: 'left', value: 'details' }
+    ],
+    pagination: {},
     remarks: '',
-    showCalendar: false
+    selectChecks: false,
+    selectedChecks: [],
+    showCalendar: false,
+    today: moment().format('Y-MM-DD')
   }),
   methods: {
     claim() {
@@ -124,12 +209,13 @@ export default {
       this.$store.dispatch('check/claim', {
         date: this.date,
         remarks: this.remarks,
-        checks: this.checks.map(check => check.id)
+        checks: this.selectedChecks.map(check => check.id)
       })
     },
     formatDate(date) {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
+      this.remarks = this.transactToday ? 'Claimed' : ''
     }
   },
   watch: {
@@ -137,8 +223,18 @@ export default {
       if (arg) {
         this.formatDate(Date())
         this.error.reset()
-        this.remarks = ''
+        this.remarks = 'Claimed'
+        this.pagination = { page: 1 }
+        this.checks = this.appChecks
+        this.selectedChecks = this.appChecks
+        this.selectChecks = false
       }
+    },
+    selectChecks() {
+      this.selectedChecks = this.checks
+    },
+    selectedChecks() {
+      this.$store.commit('check/selectedChecks', this.selectedChecks)
     },
     date(arg) {
       this.formatDate(arg)

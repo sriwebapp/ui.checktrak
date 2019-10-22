@@ -5,7 +5,6 @@
         @submit.prevent="deleteCheck"
         @keydown="error.clear($event.target.name)"
       >
-        <v-card-title class="title">Delete Check</v-card-title>
         <v-card-text>
           <v-layout row wrap class="px-5">
             <v-flex xs12>

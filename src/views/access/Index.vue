@@ -8,7 +8,7 @@
         :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
-        <template v-slot:body="{ items }">
+        <template v-slot:body="{ items }" v-if="access.length">
           <tbody>
             <tr v-for="item in items" :key="item.id">
               <td>{{ item.name }}</td>

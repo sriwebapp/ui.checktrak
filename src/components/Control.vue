@@ -3,13 +3,14 @@
     <v-row>
       <v-col class="my-n2" v-for="(control, index) in controls" :key="index">
         <v-btn
-          x-small
+          small
           block
           :color="control.color"
           @click="control.action"
           :disabled="control.access || loading"
         >
           {{ control.label }}
+          <v-icon small>{{ control.icon }}</v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -22,25 +23,18 @@ export default {
     controls() {
       return [
         {
+          label: 'Select',
+          color: 'purple',
+          icon: 'mdi-hand-pointing-up',
+          action: this.toogleSelection,
+          access: false
+        },
+        {
           label: 'Create',
           color: 'indigo',
           icon: 'mdi-plus',
           action: this.showCreateForm,
           access: !this.creatable
-        },
-        {
-          label: 'Edit',
-          color: 'orange',
-          icon: 'mdi-update',
-          action: this.showEditForm,
-          access: !this.editable
-        },
-        {
-          label: 'Delete',
-          color: 'red',
-          icon: 'mdi-trash-can-outline',
-          action: this.showDeleteForm,
-          access: !this.deletable
         },
         {
           label: 'Transmit',
@@ -133,28 +127,8 @@ export default {
     creatable() {
       return this.actions.includes('crt')
     },
-    editable() {
-      return (
-        this.selectedChecks.length === 1 &&
-        this.selectedChecks[0].status_id !== 6 /* cleared */ &&
-        this.actions.includes('edt')
-      )
-    },
-    deletable() {
-      return (
-        this.selectedChecks.length === 1 &&
-        this.selectedChecks[0].status_id === 1 /* created */ &&
-        this.actions.includes('dlt')
-      )
-    },
     receivable() {
-      return (
-        this.selectedChecks.length > 0 &&
-        this.selectedChecks.every(check => {
-          return !check.received && check.branch_id === this.user.branch_id
-        }) &&
-        this.actions.includes('rcv')
-      )
+      return this.actions.includes('rcv')
     },
     returnable() {
       return this.actions.includes('rtn')
@@ -193,7 +167,14 @@ export default {
     }
   },
   methods: {
+    toogleSelection() {
+      this.$store.commit(
+        'check/selecting',
+        !this.$store.getters['check/selecting']
+      )
+    },
     refresh() {
+      this.$store.commit('check/selectedChecks', [])
       this.$store.commit('check/pagination', {
         groupBy: [],
         groupDesc: [],
@@ -205,11 +186,12 @@ export default {
         sortDesc: []
       })
     },
-    showCheck() {
+    async showCheck() {
+      this.loading = true
       if (this.selectedChecks.length === 1) {
+        await this.$store.dispatch('tools/getStatus')
         this.$store.dispatch('check/showCheck', this.selectedChecks[0].id)
       } else if (this.selectedChecks.length > 1) {
-        this.loading = true
         setTimeout(() => {
           this.loading = false
           this.$store.commit('check/showSelected', true)
@@ -232,6 +214,7 @@ export default {
     },
     async showClearForm() {
       this.loading = true
+      await this.$store.dispatch('tools/getAccounts')
       if (
         this.selectedChecks.length === 1 &&
         this.selectedChecks[0].status_id === 3 &&
@@ -266,39 +249,25 @@ export default {
         this.loading = false
       }
     },
-    async showEditForm() {
+    async showReceiveForm() {
       this.loading = true
       try {
-        await this.$store.dispatch('check/getCheck', this.selectedChecks[0].id)
-        this.$store.commit('check/showEdit', true)
-      } catch (error) {
-        return
-      } finally {
-        this.loading = false
-      }
-    },
-    async showDeleteForm() {
-      this.loading = true
-      try {
-        await this.$store.dispatch('check/getCheck', this.selectedChecks[0].id)
-        this.$store.commit('check/showDelete', true)
-      } catch (error) {
-        return
-      } finally {
-        this.loading = false
-      }
-    },
-    showReceiveForm() {
-      this.loading = true
-      setTimeout(() => {
+        if (this.user.access.id < 4) {
+          await this.$store.dispatch('tools/getReturnedTransmittals')
+        } else {
+          await this.$store.dispatch('tools/getSentTransmittals')
+        }
         this.$store.commit('check/showReceive', true)
+      } catch (error) {
+        return
+      } finally {
         this.loading = false
-      }, 500)
+      }
     },
     async showReturnForm() {
       this.loading = true
       try {
-        await this.$store.dispatch('check/getReceivedTransmittals')
+        await this.$store.dispatch('tools/getReceivedTransmittals')
         this.$store.commit('check/showReturn', true)
       } catch (error) {
         return

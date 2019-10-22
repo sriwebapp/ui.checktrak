@@ -11,11 +11,14 @@ export default {
   checks(state, payload) {
     state.checks = payload
   },
+  checkState(state, payload) {
+    state.checkState = payload
+  },
   filter(state, payload) {
     state.filter = payload
   },
-  transmittals(state, payload) {
-    state.transmittals = payload
+  filterContent(state, payload) {
+    state.filterContent = payload
   },
   selectedChecks(state, payload) {
     state.selectedChecks = payload
@@ -50,8 +53,14 @@ export default {
   returning(state, payload) {
     state.returning = payload
   },
+  selecting(state, payload) {
+    state.selecting = payload
+  },
   transmitting(state, payload) {
     state.transmitting = payload
+  },
+  undoing(state, payload) {
+    state.undoing = payload
   },
   waiting(state, payload) {
     state.waiting = payload
@@ -89,8 +98,14 @@ export default {
   showSelected(state, payload) {
     state.showSelected = payload
   },
+  showState(state, payload) {
+    state.showState = payload
+  },
   showTransmit(state, payload) {
     state.showTransmit = payload
+  },
+  showUndo(state, payload) {
+    state.showUndo = payload
   },
   import(state, payload) {
     state.import = payload

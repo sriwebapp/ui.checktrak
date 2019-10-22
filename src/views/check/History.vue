@@ -24,6 +24,11 @@
               {{ item.action.name }}
             </v-chip>
           </template>
+          <template v-slot:item.view="{ item }">
+            <v-btn icon color="indigo" small @click="showState(item)">
+              <v-icon>mdi-eye</v-icon>
+            </v-btn>
+          </template>
         </v-data-table>
       </div>
     </v-card>
@@ -49,10 +54,11 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Action', align: 'center', value: 'action_id' },
+      { text: 'Date', align: 'left', value: 'date' },
+      { text: 'Action', align: 'left', value: 'action_id' },
       { text: 'User', align: 'left', value: 'user_id' },
       { text: 'Remarks', align: 'left', value: 'remarks' },
-      { text: 'Transaction Date', align: 'center', value: 'date' }
+      { text: 'View', align: 'right', value: 'view' }
     ]
   }),
   methods: {
@@ -60,6 +66,10 @@ export default {
       if (Date.parse(arg)) {
         return moment(new Date(arg)).format('MM/DD/Y')
       }
+    },
+    showState(item) {
+      this.$store.commit('check/checkState', JSON.parse(item.state))
+      this.$store.commit('check/showState', true)
     }
   }
 }

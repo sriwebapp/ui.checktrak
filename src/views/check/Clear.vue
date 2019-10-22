@@ -28,6 +28,7 @@
                   name="amount"
                   label="Amount Cleared"
                   prepend-icon="mdi-currency-php"
+                  @blur="formatAmount"
                 ></v-text-field>
               </v-flex>
 
@@ -97,10 +98,15 @@
         <v-card-title>Check amount does not matched</v-card-title>
         <v-card-text>Do you want to continue? </v-card-text>
         <v-card-actions>
-          <v-btn outlined color="indigo" @click="clear">
+          <v-btn outlined small color="indigo" @click="clear">
             Continue
           </v-btn>
-          <v-btn color="deep-orange" outlined @click="showConfirm = false">
+          <v-btn
+            color="deep-orange"
+            small
+            outlined
+            @click="showConfirm = false"
+          >
             Close
           </v-btn>
         </v-card-actions>
@@ -151,6 +157,7 @@ export default {
       }
     },
     clear() {
+      this.formatAmount()
       this.showConfirm = false
       this.formatDate(this.date2)
       this.$store.dispatch('check/clear', {
@@ -166,6 +173,9 @@ export default {
     showImport() {
       this.show = false
       this.$store.commit('check/showImportClear', true)
+    },
+    formatAmount() {
+      this.amount = Helper.formatCurrency(this.amount)
     }
   },
   watch: {

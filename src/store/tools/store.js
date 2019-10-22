@@ -6,6 +6,7 @@ export default {
     access: [],
     accounts: [],
     actions: [],
+    allTransmittals: [],
     branches: [],
     company: {},
     companies: [],
@@ -13,6 +14,8 @@ export default {
     modules: [],
     payees: [],
     payeeGroup: [],
+    status: [],
+    transmittals: [],
     users: []
   },
   mutations: {
@@ -24,6 +27,9 @@ export default {
     },
     actions(state, payload) {
       state.actions = payload
+    },
+    allTransmittals(state, payload) {
+      state.allTransmittals = payload
     },
     branches(state, payload) {
       state.branches = payload
@@ -45,6 +51,12 @@ export default {
     },
     payeeGroup(state, payload) {
       state.payeeGroup = payload
+    },
+    status(state, payload) {
+      state.status = payload
+    },
+    transmittals(state, payload) {
+      state.transmittals = payload
     },
     users(state, payload) {
       state.users = payload
@@ -126,6 +138,14 @@ export default {
         throw error
       }
     },
+    async getStatus(context) {
+      try {
+        const res = await Axios.get('/tools/status')
+        context.commit('status', res.data)
+      } catch (error) {
+        throw error
+      }
+    },
     async getPayees(context, option) {
       try {
         const url = '/tools/payees/' + context.rootGetters['tools/company'].code
@@ -179,6 +199,49 @@ export default {
       } catch (error) {
         return
       }
+    },
+    async getTransmittals(context, option) {
+      try {
+        const url =
+          '/tools/transmittals/' + context.rootGetters['tools/company'].code
+        const res = await Axios.post(url, option)
+        context.commit('allTransmittals', res.data)
+      } catch (e) {
+        return
+      }
+    },
+    async getReceivedTransmittals(context) {
+      try {
+        const url =
+          '/tools/transmittals/received/' +
+          context.rootGetters['tools/company'].code
+        const res = await Axios.get(url)
+        context.commit('transmittals', res.data)
+      } catch (e) {
+        return
+      }
+    },
+    async getSentTransmittals(context) {
+      try {
+        const url =
+          '/tools/transmittals/sent/' +
+          context.rootGetters['tools/company'].code
+        const res = await Axios.get(url)
+        context.commit('transmittals', res.data)
+      } catch (e) {
+        return
+      }
+    },
+    async getReturnedTransmittals(context) {
+      try {
+        const url =
+          '/tools/transmittals/returned/' +
+          context.rootGetters['tools/company'].code
+        const res = await Axios.get(url)
+        context.commit('transmittals', res.data)
+      } catch (e) {
+        return
+      }
     }
   },
   getters: {
@@ -190,6 +253,9 @@ export default {
     },
     actions(state) {
       return state.actions
+    },
+    allTransmittals(state) {
+      return state.allTransmittals
     },
     branches(state) {
       return state.branches
@@ -211,6 +277,12 @@ export default {
     },
     payeeGroup(state) {
       return state.payeeGroup
+    },
+    status(state) {
+      return state.status
+    },
+    transmittals(state) {
+      return state.transmittals
     },
     users(state) {
       return state.users

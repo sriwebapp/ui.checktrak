@@ -60,18 +60,18 @@
           <v-list-item two-line class="my-n4">
             <v-list-item-content class="text-right">
               <v-list-item-title>
-                {{ transmittal.checks ? transmittal.checks.length : '0' }} pc/s
+                {{ transmittal.user ? transmittal.user.name : '' }}
               </v-list-item-title>
-              <v-list-item-subtitle>No. of Checks</v-list-item-subtitle>
+              <v-list-item-subtitle>Prepared by</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
 
           <v-list-item two-line class="my-n4">
             <v-list-item-content class="text-right">
               <v-list-item-title>
-                {{ transmittal.user ? transmittal.user.name : '' }}
+                {{ transmittal.checks ? transmittal.checks.length : '0' }} pc/s
               </v-list-item-title>
-              <v-list-item-subtitle>Prepared by</v-list-item-subtitle>
+              <v-list-item-subtitle>No. of Checks</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
 
@@ -91,22 +91,28 @@
         :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10] }"
       >
-        <template v-slot:item.date="{ item }">
-          {{ formatDate(item.date, 'MM/DD/Y') }}
-        </template>
-        <template v-slot:item.payee_id="{ item }">
-          {{ item.payee.name }}
-        </template>
-        <template v-slot:item.amount="{ item }">
-          {{
-            Number(item.amount).toLocaleString('en', {
-              style: 'currency',
-              currency: 'Php'
-            })
-          }}
-        </template>
-        <template v-slot:item.history="{ item }">
-          {{ showClaimedDate(item.history) }}
+        <template v-if="transmittal.checks.length" v-slot:body="{ items }">
+          <tbody>
+            <tr
+              v-for="item in items"
+              :key="item.id"
+              :class="item.status.color + ' lighten-5'"
+            >
+              <td>{{ formatDate(item.date, 'MM/DD/Y') }}</td>
+              <td>{{ item.number }}</td>
+              <td>{{ item.payee.name }}</td>
+              <td>{{ item.details }}</td>
+              <td>
+                {{
+                  Number(item.amount).toLocaleString('en', {
+                    style: 'currency',
+                    currency: 'Php'
+                  })
+                }}
+              </td>
+              <td>{{ showClaimedDate(item.history) }}</td>
+            </tr>
+          </tbody>
         </template>
       </v-data-table>
     </v-card-text>
@@ -136,11 +142,10 @@
       <v-btn
         class="deep-orange white--text"
         small
-        router
-        :to="{ name: 'transmittals' }"
+        @click="$router.go(-1)"
         :disabled="loading"
       >
-        Return
+        Go Back
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -202,7 +207,7 @@ export default {
       }
     },
     showClaimedDate(history) {
-      let claimed = history.find(h => h.action_id === 4)
+      let claimed = history.find(h => h.action_id === 4 && h.active === 1)
       if (!claimed) return
       return moment(new Date(claimed.date)).format('MM/DD/Y')
     }

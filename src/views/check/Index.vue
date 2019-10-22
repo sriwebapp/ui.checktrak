@@ -1,17 +1,22 @@
 <template>
   <v-card>
-    <v-card-title>
-      <span class="title">
-        Check Masterlist
-      </span>
-      <v-chip v-if="filter" small class="ml-2" color="success">
-        {{ filter }}
-      </v-chip>
-      <v-spacer></v-spacer>
-      <v-btn icon @click="showFilter" small>
-        <v-icon color="indigo">mdi-filter-variant</v-icon>
-      </v-btn>
-    </v-card-title>
+    <v-btn
+      fab
+      color="indigo "
+      small
+      top
+      dark
+      right
+      fixed
+      style="margin-top: 58px"
+      @click="showFilter"
+    >
+      <v-icon>mdi-arrow-left-bold-box-outline</v-icon>
+    </v-btn>
+
+    <filter-menu></filter-menu>
+    <v-divider v-if="filterType"></v-divider>
+
     <v-card-text>
       <v-data-table
         v-model="selected"
@@ -19,9 +24,9 @@
         :items="checks"
         :loading="loading"
         :options.sync="pagination"
-        :footer-props="{ itemsPerPageOptions: [10, 50, 100] }"
+        :footer-props="{ itemsPerPageOptions: [10, 100, 500] }"
         :server-items-length="totalItems"
-        show-select
+        :show-select="selecting"
       >
         <template v-slot:item.account_id="{ item }">
           {{ item.account.code }}
@@ -53,6 +58,45 @@
         <template v-slot:item.updated_at="{ item }">
           {{ formatUpdate(item.updated_at) }}
         </template>
+
+        <template
+          v-if="checks && checks.length && !selecting"
+          v-slot:body="{ items }"
+        >
+          <tbody>
+            <tr
+              v-for="item in items"
+              :key="item.id"
+              :class="item.status.color + ' lighten-' + (item.received ? 5 : 4)"
+              @click="showCheck(item.id)"
+              style="cursor: pointer;"
+            >
+              <td>{{ item.account.code }}</td>
+              <td>{{ formatDate(item.date) }}</td>
+              <td>{{ item.number }}</td>
+              <td>{{ item.payee.name }}</td>
+              <td>
+                {{
+                  Number(item.amount).toLocaleString('en', {
+                    style: 'currency',
+                    currency: 'Php'
+                  })
+                }}
+              </td>
+              <td>{{ item.details }}</td>
+              <td class="text-center">
+                <v-chip
+                  x-small
+                  :text-color="item.received ? 'white' : 'black'"
+                  :outlined="!item.received"
+                  :class="item.status.color"
+                >
+                  {{ item.status.name }}
+                </v-chip>
+              </td>
+            </tr>
+          </tbody>
+        </template>
       </v-data-table>
     </v-card-text>
   </v-card>
@@ -61,15 +105,24 @@
 <script>
 import moment from 'moment'
 export default {
+  components: {
+    filterMenu: () => import('./Filter.vue')
+  },
   computed: {
     checks() {
       return this.$store.getters['check/checks'].data
     },
-    filter() {
+    filterType() {
       return this.$store.getters['check/filter']
+    },
+    filterContent() {
+      return this.$store.getters['check/filterContent']
     },
     loading() {
       return this.$store.getters['check/loading']
+    },
+    selecting() {
+      return this.$store.getters['check/selecting']
     },
     selected: {
       get() {
@@ -102,7 +155,18 @@ export default {
       { text: 'Status', align: 'center', value: 'status_id' }
     ]
   }),
+  created() {
+    this.debouncedGetChecks = this._.debounce(this.getChecks, 500)
+  },
   methods: {
+    getChecks() {
+      const options = Object.assign(this.pagination, {
+        filterType: this.filterType,
+        filterContent: this.filterContent
+      })
+
+      this.$store.dispatch('check/getChecks', options)
+    },
     formatUpdate(arg) {
       if (Date.parse(arg)) {
         const date = moment(new Date(arg))
@@ -127,6 +191,13 @@ export default {
         return str
       }
       return str.slice(0, num - 3) + '...'
+    },
+    async showCheck(id) {
+      if (this.loading) return
+
+      this.$store.commit('check/loading', true)
+      await this.$store.dispatch('tools/getStatus')
+      this.$store.dispatch('check/showCheck', id)
     }
   },
   mounted() {
@@ -142,11 +213,20 @@ export default {
     }
   },
   watch: {
+    filterContent: {
+      deep: true,
+      handler() {
+        this.debouncedGetChecks()
+      }
+    },
     pagination: {
       deep: true,
-      handler(arg) {
-        this.$store.dispatch('check/getChecks', arg)
+      handler() {
+        this.debouncedGetChecks()
       }
+    },
+    selecting() {
+      this.selected = []
     }
   }
 }

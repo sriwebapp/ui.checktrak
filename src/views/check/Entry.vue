@@ -8,6 +8,7 @@
     <claim-form />
     <clear-form />
     <create-form />
+    <undo-form />
     <delete-form />
     <edit-form />
     <receive-form />
@@ -20,7 +21,8 @@
     <success-clear />
     <show-history />
     <show-selected />
-    <filter-menu />
+    <show-state />
+    <select-filter />
   </v-container>
 </template>
 
@@ -35,6 +37,7 @@ export default {
     claimForm: () => import('./Claim.vue'),
     clearForm: () => import('./Clear.vue'),
     createForm: () => import('./Create.vue'),
+    undoForm: () => import('./Undo.vue'),
     deleteForm: () => import('./Delete.vue'),
     editForm: () => import('./Edit.vue'),
     receiveForm: () => import('./Receive.vue'),
@@ -47,7 +50,8 @@ export default {
     successClear: () => import('./SuccessClear.vue'),
     showHistory: () => import('./History.vue'),
     showSelected: () => import('./Selected.vue'),
-    filterMenu: () => import('./Filter.vue')
+    showState: () => import('./State.vue'),
+    selectFilter: () => import('./SelectFilter.vue')
   },
   computed: {
     waiting() {
@@ -61,6 +65,9 @@ export default {
     setTimeout(() => {
       this.$store.commit('loader', false)
       this.$store.commit('check/waiting', false)
+      this.$store.commit('check/selectedChecks', [])
+      this.$store.commit('check/selecting', false)
+      this.$store.commit('check/filter', 0)
       this.$store.commit('footer', true)
     }, 500)
   },
