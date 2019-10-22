@@ -207,7 +207,7 @@ export default {
       }
     },
     showClaimedDate(history) {
-      let claimed = history.find(h => h.action_id === 4)
+      let claimed = history.find(h => h.action_id === 4 && h.active === 1)
       if (!claimed) return
       return moment(new Date(claimed.date)).format('MM/DD/Y')
     }

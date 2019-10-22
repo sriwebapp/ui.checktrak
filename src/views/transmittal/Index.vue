@@ -102,7 +102,7 @@ export default {
     },
     claimedChecks(checks) {
       return checks.filter(check => {
-        return check.history.find(h => h.action_id === 4)
+        return check.history.find(h => h.action_id === 4 && h.active === 1)
       }).length
     },
     overDue(transmittal) {
