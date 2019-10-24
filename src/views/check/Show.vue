@@ -162,6 +162,7 @@ export default {
       return (
         this.check.history.filter(h => h.action_id !== 3).length >= 2 &&
         this.check.history[0].action_id !== 11 &&
+        this.check.history[0].action_id !== 12 &&
         this.user.actionAccess.includes('und')
       )
     }
@@ -178,7 +179,10 @@ export default {
     },
     showUndoForm() {
       let history = this.check.history
-      let lastAction = history[0].action_id === 3 ? history[2] : history[1]
+
+      let lastAction = JSON.parse(history[1].state).received
+        ? history[1]
+        : history[2]
 
       this.$store.commit('check/checkState', JSON.parse(lastAction.state))
       this.$store.commit('check/showUndo', true)

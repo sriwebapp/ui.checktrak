@@ -105,9 +105,7 @@
                   <tr
                     v-for="item in items"
                     :key="item.id"
-                    :class="
-                      item.status.color + ' lighten-' + (item.received ? 5 : 3)
-                    "
+                    :class="item.status.color + ' lighten-5'"
                   >
                     <td>{{ showDate(item.date) }}</td>
                     <td>{{ item.number }}</td>
