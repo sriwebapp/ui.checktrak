@@ -56,6 +56,9 @@ export default {
   selecting(state, payload) {
     state.selecting = payload
   },
+  staling(state, payload) {
+    state.staling = payload
+  },
   transmitting(state, payload) {
     state.transmitting = payload
   },
@@ -97,6 +100,9 @@ export default {
   },
   showSelected(state, payload) {
     state.showSelected = payload
+  },
+  showStale(state, payload) {
+    state.showStale = payload
   },
   showState(state, payload) {
     state.showState = payload

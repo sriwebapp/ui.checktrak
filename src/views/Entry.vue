@@ -8,6 +8,7 @@
       <router-view></router-view>
     </v-content>
     <control v-if="!loading" />
+    <staled-notification v-if="!loading" />
   </v-app>
 </template>
 
@@ -18,7 +19,8 @@ export default {
     drawer: () => import('./../components/Drawer.vue'),
     loader: () => import('./../components/Loader.vue'),
     navbar: () => import('./../components/Navbar.vue'),
-    control: () => import('./../components/Control.vue')
+    control: () => import('./../components/Control.vue'),
+    staledNotification: () => import('./../components/StaledNotification.vue')
   },
   computed: {
     loading() {

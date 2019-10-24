@@ -40,7 +40,8 @@ export default new Vuex.Store({
     footer: false,
     loader: true,
     loading: true,
-    showAlert: false
+    showAlert: false,
+    staledNotification: false
   },
   mutations: {
     alert(state, payload) {
@@ -65,6 +66,9 @@ export default new Vuex.Store({
     },
     showAlert(state, payload) {
       state.showAlert = payload
+    },
+    staledNotification(state, payload) {
+      state.staledNotification = payload
     }
   },
   actions: {
@@ -76,6 +80,10 @@ export default new Vuex.Store({
           'tools/getCompany',
           localStorage.getItem('company_id')
         )
+
+        if (context.getters['auth/user'].actionAccess.includes('stl')) {
+          await context.dispatch('tools/getStaledChecks')
+        }
         context.commit('loading', false)
       } catch (error) {
         return
@@ -106,6 +114,9 @@ export default new Vuex.Store({
     },
     showAlert(state) {
       return state.showAlert
+    },
+    staledNotification(state) {
+      return state.staledNotification
     }
   }
 })

@@ -1,57 +1,14 @@
 <template>
   <div>
-    <v-dialog v-model="show" persistent max-width="1200">
+    <v-dialog v-model="show" persistent max-width="1000">
       <v-card>
         <form
-          @submit.prevent="transmit"
+          @submit.prevent="stale"
           @keydown="error.clear($event.target.name)"
         >
           <v-card-text>
             <v-layout row wrap class="px-5">
-              <v-flex xs3 pr-2>
-                <v-select
-                  v-model="branch_id"
-                  :error-messages="error.get('branch_id')"
-                  name="branch_id"
-                  label="Branch"
-                  prepend-icon="mdi-source-branch"
-                  :loading="gettingGroup"
-                  :items="branches"
-                  item-text="name"
-                  item-value="id"
-                ></v-select>
-              </v-flex>
-
-              <v-flex xs3 px-2>
-                <v-select
-                  v-model="group_id"
-                  :error-messages="error.get('group_id')"
-                  name="group_id"
-                  label="Group"
-                  prepend-icon="mdi-account-group"
-                  :disabled="gettingGroup"
-                  :loading="gettingIncharge"
-                  :items="groups"
-                  item-text="name"
-                  item-value="id"
-                ></v-select>
-              </v-flex>
-
-              <v-flex xs3 px-2>
-                <v-select
-                  v-model="incharge"
-                  :error-messages="error.get('incharge')"
-                  name="incharge"
-                  label="Incharge"
-                  prepend-icon="mdi-account"
-                  :disabled="gettingIncharge"
-                  :items="users"
-                  item-text="name"
-                  item-value="id"
-                ></v-select>
-              </v-flex>
-
-              <v-flex xs3 pl-2>
+              <v-flex xs6 pr-2>
                 <v-text-field
                   v-model="date2"
                   :error-messages="error.get('date')"
@@ -64,7 +21,17 @@
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs3 pr-2>
+              <v-flex xs6 pl-2>
+                <v-text-field
+                  v-model="remarks"
+                  :error-messages="error.get('remarks')"
+                  name="remarks"
+                  label="Remarks"
+                  prepend-icon="mdi-clipboard-list-outline"
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs4 pr-2>
                 <v-switch
                   inset
                   color="indigo"
@@ -76,18 +43,7 @@
                 </v-switch>
               </v-flex>
 
-              <v-flex xs3 px-2>
-                <v-text-field
-                  :value="ref"
-                  :error-messages="error.get('ref')"
-                  name="ref"
-                  label="Transmittal Reference"
-                  prepend-icon="mdi-barcode-scan"
-                  readonly
-                ></v-text-field>
-              </v-flex>
-
-              <v-flex xs3 px-2>
+              <v-flex xs4 px-2>
                 <v-text-field
                   :value="selectedChecks.length"
                   label="No of Checks"
@@ -96,7 +52,7 @@
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs3 pl-2>
+              <v-flex xs4 pl-2>
                 <v-text-field
                   :value="amount"
                   label="Total Amount"
@@ -109,13 +65,16 @@
             <v-data-table
               :headers="headers"
               :items="checks"
-              :loading="transmitting"
+              :loading="staling"
               :footer-props="{ itemsPerPageOptions: [10] }"
               :show-select="selectChecks"
               v-model="selectedChecks"
               :options.sync="pagination"
               dense
             >
+              <template v-slot:item.date="{ item }">
+                {{ showDate(item.date) }}
+              </template>
               <template v-slot:item.payee_id="{ item }">
                 {{ item.payee.name }}
               </template>
@@ -126,6 +85,16 @@
                     currency: 'Php'
                   })
                 }}
+              </template>
+              <template v-slot:item.status_id="{ item }">
+                <v-chip
+                  x-small
+                  :text-color="item.received ? 'white' : 'black'"
+                  :outlined="!item.received"
+                  :class="item.status.color"
+                >
+                  {{ item.status.name }}
+                </v-chip>
               </template>
 
               <template
@@ -140,6 +109,7 @@
                       item.status.color + ' lighten-' + (item.received ? 5 : 3)
                     "
                   >
+                    <td>{{ showDate(item.date) }}</td>
                     <td>{{ item.number }}</td>
                     <td>{{ item.payee.name }}</td>
                     <td>
@@ -150,38 +120,50 @@
                         })
                       }}
                     </td>
-                    <td>{{ item.details }}</td>
+                    <td class="text-center">
+                      <v-chip
+                        x-small
+                        :text-color="item.received ? 'white' : 'black'"
+                        :outlined="!item.received"
+                        :class="item.status.color"
+                      >
+                        {{ item.status.name }}
+                      </v-chip>
+                    </td>
                   </tr>
                 </tbody>
               </template>
             </v-data-table>
           </v-card-text>
-
           <v-card-actions>
             <v-btn
               type="submit"
               small
-              color="blue white--text"
-              :loading="transmitting"
-              :disabled="gettingGroup || gettingIncharge"
+              color="orange white--text"
+              :loading="staling"
             >
-              Transmit
+              Stale
             </v-btn>
             <v-btn
               color="deep-orange"
               small
               outlined
               @click="show = false"
-              :disabled="transmitting || gettingGroup || gettingIncharge"
+              :disabled="staling"
             >
-              Return
+              Close
             </v-btn>
           </v-card-actions>
         </form>
       </v-card>
     </v-dialog>
     <v-dialog v-model="showCalendar" width="290px">
-      <v-date-picker no-title v-model="date" @change="showCalendar = false">
+      <v-date-picker
+        no-title
+        v-model="date"
+        :max="today"
+        @change="showCalendar = false"
+      >
       </v-date-picker>
     </v-dialog>
   </div>
@@ -189,6 +171,7 @@
 
 <script>
 import Helper from './../../helper/Helper'
+import moment from 'moment'
 
 export default {
   computed: {
@@ -202,120 +185,73 @@ export default {
         currency: 'Php'
       })
     },
-    branches() {
-      return this.$store.getters['tools/branches']
+    checks() {
+      return this.$store.getters['tools/staledChecks']
     },
     error() {
       return this.$store.getters.error
     },
     show: {
       get() {
-        return this.$store.getters['check/showTransmit']
+        return this.$store.getters['check/showStale']
       },
       set(arg) {
-        this.$store.commit('check/showTransmit', arg)
+        this.$store.commit('check/showStale', arg)
       }
     },
-    appChecks() {
-      return this.$store.getters['check/selectedChecks']
-    },
-    transmitting() {
-      return this.$store.getters['check/transmitting']
+    staling() {
+      return this.$store.getters['check/staling']
     }
   },
   data: () => ({
-    branch_id: 0,
-    checks: [],
     date: null,
     date2: null,
     headers: [
+      { text: 'Date', align: 'left', value: 'date' },
       { text: 'Check #', align: 'left', value: 'number' },
       { text: 'Payee Name', align: 'left', value: 'payee_id' },
       { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Details', align: 'left', value: 'details' }
+      { text: 'Status', align: 'left', value: 'status_id', align: 'center' }
     ],
-    group_id: 0,
-    groups: [],
-    incharge: 0,
-    gettingRef: false,
-    gettingGroup: false,
-    gettingIncharge: false,
     pagination: {},
-    ref: '',
-    series: '',
+    remarks: '',
     selectChecks: false,
     selectedChecks: [],
     showCalendar: false,
-    users: []
+    today: moment().format('Y-MM-DD')
   }),
   methods: {
-    transmit() {
+    stale() {
       this.formatDate(this.date2)
-      this.$store.dispatch('check/transmit', {
-        group_id: this.group_id,
+      this.$store.dispatch('check/stale', {
         date: this.date,
-        ref: this.ref,
-        series: this.series,
-        incharge: this.incharge,
+        remarks: this.remarks,
         checks: this.selectedChecks.map(check => check.id)
       })
     },
     formatDate(date) {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
+      this.remarks = this.transactToday ? 'Claimed' : ''
+    },
+    showDate(arg) {
+      if (Date.parse(arg)) {
+        return moment(new Date(arg)).format('MM/DD/Y')
+      }
     }
   },
   watch: {
-    branch_id(arg) {
-      if (arg) {
-        this.gettingRef = true
-        this.gettingGroup = true
-        this.group_id = 0
-        this.incharge = 0
-        this.groups = []
-        this.$store
-          .dispatch('tools/getTransmittalRef', this.branch_id)
-          .then(res => {
-            this.series = res.data.series
-            this.ref = res.data.ref
-            this.groups = res.data.groups
-          })
-          .finally(() => {
-            this.gettingRef = false
-            this.gettingGroup = false
-          })
-      }
-    },
-    group_id(arg) {
-      if (arg) {
-        this.gettingIncharge = true
-        this.incharge = 0
-        this.users = []
-        this.$store
-          .dispatch('tools/getGroupIncharge', arg)
-          .then(res => (this.users = res.data))
-          .finally(() => (this.gettingIncharge = false))
-      }
-    },
     show(arg) {
       if (arg) {
         this.formatDate(Date())
         this.error.reset()
-        this.branch_id = 0
-        this.group_id = 0
-        this.incharge = 0
         this.pagination = { page: 1 }
-        this.ref = ''
-        this.checks = this.appChecks
-        this.selectedChecks = this.appChecks
         this.selectChecks = false
+        this.selectedChecks = this.checks
       }
     },
     selectChecks() {
       this.selectedChecks = this.checks
-    },
-    selectedChecks() {
-      this.$store.commit('check/selectedChecks', this.selectedChecks)
     },
     date(arg) {
       this.formatDate(arg)
