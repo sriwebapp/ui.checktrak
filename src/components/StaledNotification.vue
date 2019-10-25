@@ -5,10 +5,22 @@
         <v-card-title>Some checks exceeded 80 days period</v-card-title>
         <v-card-text>Do you want to view checks? </v-card-text>
         <v-card-actions>
-          <v-btn outlined small color="indigo" @click="showStale">
+          <v-btn
+            outlined
+            small
+            color="indigo"
+            :loading="loading"
+            @click="showStale"
+          >
             View
           </v-btn>
-          <v-btn color="deep-orange" small outlined @click="show = false">
+          <v-btn
+            color="deep-orange"
+            small
+            outlined
+            :disabled="loading"
+            @click="show = false"
+          >
             Close
           </v-btn>
         </v-card-actions>
@@ -29,8 +41,14 @@ export default {
       }
     }
   },
+  data: () => ({
+    loading: false
+  }),
   methods: {
-    showStale() {
+    async showStale() {
+      this.loading = true
+      await this.$store.dispatch('tools/getStaledChecks')
+      this.loading = false
       if (this.$route.name !== 'checks') this.$router.push({ name: 'checks' })
       this.show = false
       this.$store.commit('check/showStale', true)

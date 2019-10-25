@@ -209,7 +209,7 @@ export default {
       { text: 'Check #', align: 'left', value: 'number' },
       { text: 'Payee Name', align: 'left', value: 'payee_id' },
       { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Status', align: 'left', value: 'status_id', align: 'center' }
+      { text: 'Status', align: 'center', value: 'status_id' }
     ],
     pagination: {},
     remarks: '',
@@ -237,6 +237,13 @@ export default {
         return moment(new Date(arg)).format('MM/DD/Y')
       }
     }
+  },
+  mounted() {
+    this.formatDate(Date())
+    this.error.reset()
+    this.pagination = { page: 1 }
+    this.selectChecks = false
+    this.selectedChecks = this.checks
   },
   watch: {
     show(arg) {

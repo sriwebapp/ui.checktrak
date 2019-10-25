@@ -71,9 +71,14 @@
             </v-radio-group>
           </v-flex>
 
-          <v-row no-gutters class="mt-n5 mb-5">
+          <v-row
+            no-gutters
+            class="mt-n5 mb-5"
+            v-for="branch in groups"
+            :key="branch.id"
+          >
             <v-col
-              v-for="group in groups"
+              v-for="group in branch.groups"
               :key="group.id"
               cols="12"
               sm="4"
@@ -212,7 +217,15 @@ export default {
     },
     setGroups(arg) {
       if (arg === 2) {
-        this.selectedGroups = this.groups.map(group => group.id)
+        let groups = []
+
+        this.groups.forEach(group => {
+          group.groups.forEach(g => {
+            groups.push(g.id)
+          })
+        })
+
+        this.selectedGroups = groups
       } else if (arg === 1) {
         this.selectedGroups = this.access.groups.map(group => group.id)
       } else {
