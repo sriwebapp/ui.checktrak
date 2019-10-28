@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="title">
+    <v-card-title style="font-size: 17.5px">
       Manage Account
     </v-card-title>
     <v-card-text>

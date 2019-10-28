@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="title">Edit Company</v-card-title>
+    <v-card-title style="font-size: 17.5px">Edit Company</v-card-title>
     <form @submit.prevent="edit" @keydown="error.clear($event.target.name)">
       <v-card-text>
         <v-layout row wrap>

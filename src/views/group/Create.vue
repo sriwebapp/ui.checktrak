@@ -2,7 +2,7 @@
   <v-row justify="center">
     <v-card width="600">
       <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
-        <v-card-title class="title">Create Group</v-card-title>
+        <v-card-title style="font-size: 17.5px">Create Group</v-card-title>
         <v-card-text>
           <v-layout row wrap class="px-5">
             <v-flex xs12>

@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="title">Update Accessibility</v-card-title>
+    <v-card-title style="font-size: 17.5px">Update Accessibility</v-card-title>
     <form @submit.prevent="edit">
       <v-card-text>
         <v-container class="mt-n5">

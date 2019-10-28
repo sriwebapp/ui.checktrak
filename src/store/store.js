@@ -34,7 +34,7 @@ export default new Vuex.Store({
   },
   state: {
     alert: {},
-    drawer: true,
+    drawer: 2,
     error: new Error(),
     filter: false,
     footer: false,
@@ -49,6 +49,7 @@ export default new Vuex.Store({
       state.showAlert = true
     },
     drawer(state, payload) {
+      localStorage.setItem('drawer', payload)
       state.drawer = payload
     },
     filter(state, payload) {

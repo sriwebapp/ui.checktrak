@@ -2,13 +2,13 @@
   <v-container fluid class="pb-0" style="padding-right: 70px">
     <v-layout v-if="filter === 0" class="mb-5">
       <v-flex xs6 md8>
-        <span class="title"> {{ title }} </span>
+        <span style="font-size: 17.5px"> {{ title }} </span>
       </v-flex>
     </v-layout>
 
     <v-layout justify-end v-if="filter === 1" class="mb-n4">
       <v-flex xs6 md8>
-        <span class="title"> {{ title }} </span>
+        <span style="font-size: 17.5px"> {{ title }} </span>
       </v-flex>
 
       <v-flex xs6 md4>
@@ -29,7 +29,7 @@
 
     <v-layout justify-end v-if="filter === 2" class="mb-n4">
       <v-flex xs6>
-        <span class="title"> {{ title }} </span>
+        <span style="font-size: 17.5px"> {{ title }} </span>
       </v-flex>
 
       <v-flex xs2>
@@ -67,7 +67,7 @@
 
     <v-layout justify-end v-if="filter === 3" class="mb-n4">
       <v-flex xs6 md8>
-        <span class="title"> {{ title }} </span>
+        <span style="font-size: 17.5px"> {{ title }} </span>
       </v-flex>
 
       <v-flex xs6 md4>
@@ -89,7 +89,7 @@
 
     <v-layout justify-end v-if="filter === 4" class="mb-n4">
       <v-flex xs6 md8>
-        <span class="title"> {{ title }} </span>
+        <span style="font-size: 17.5px"> {{ title }} </span>
       </v-flex>
 
       <v-flex xs3 md2>
@@ -119,7 +119,7 @@
 
     <v-layout justify-end v-if="filter === 5" class="mb-n4">
       <v-flex xs6 md8>
-        <span class="title"> {{ title }} </span>
+        <span style="font-size: 17.5px"> {{ title }} </span>
       </v-flex>
 
       <v-flex xs3 md2>
@@ -146,7 +146,7 @@
 
     <v-layout justify-end v-if="filter === 6" class="mb-n4">
       <v-flex xs6 md8>
-        <span class="title"> {{ title }} </span>
+        <span style="font-size: 17.5px"> {{ title }} </span>
       </v-flex>
 
       <v-flex xs6 md4>
@@ -163,7 +163,7 @@
 
     <v-layout justify-end class=" mb-5 mt-n3" v-if="filter === 7">
       <v-flex xs4 class="mt-3">
-        <span class="title"> {{ title }} </span>
+        <span style="font-size: 17.5px"> {{ title }} </span>
       </v-flex>
 
       <v-flex xs1 v-for="stat in status" :key="stat.id">
@@ -174,7 +174,7 @@
           hide-details
         >
           <template v-slot:label>
-            <span class="body-2 ml-n1">{{ stat.name }}</span>
+            <span class="ml-n2" style="font-size: 11px">{{ stat.name }}</span>
           </template>
         </v-checkbox>
       </v-flex>
@@ -182,7 +182,7 @@
       <v-flex xs1>
         <v-switch color="red" hide-details v-model="received">
           <template v-slot:label>
-            <span class="body-2 ml-n1">Received</span>
+            <span class="ml-n1" style="font-size: 11px">Received</span>
           </template>
         </v-switch>
       </v-flex>

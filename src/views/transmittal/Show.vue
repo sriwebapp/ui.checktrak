@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="title">Transmittal Report</v-card-title>
+    <v-card-title  style="font-size: 17.5px">Transmittal Report</v-card-title>
     <v-divider></v-divider>
     <v-card-text>
       <v-layout row wrap class="mb-5">

@@ -3,7 +3,7 @@
     <v-card>
       <div>
         <v-card-title>
-          <span class="title">
+          <span  style="font-size: 17.5px">
             Failed Checks
           </span>
           <v-spacer></v-spacer>

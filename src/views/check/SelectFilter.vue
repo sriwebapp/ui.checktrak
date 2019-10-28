@@ -8,7 +8,7 @@
   >
     <v-list dense shaped color="transparent">
       <v-list-item>
-        <v-list-item-content class="headline mb-n4">
+        <v-list-item-content class="mb-n4" style="font-size: 21px">
           <p class="text-center">
             Select Filter
           </p>

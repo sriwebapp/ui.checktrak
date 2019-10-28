@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center">
     <v-card width="600">
-      <v-card-title class="title">Create User </v-card-title>
+      <v-card-title style="font-size: 17.5px">Create User </v-card-title>
       <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
         <v-card-text>
           <v-layout row wrap class="px-5">

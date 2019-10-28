@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="title">Check Transmittal</v-card-title>
+    <v-card-title  style="font-size: 17.5px">Check Transmittal</v-card-title>
     <v-card-text>
       <v-data-table
         :headers="headers"

@@ -1,6 +1,8 @@
 <template>
   <v-card>
-    <v-card-title class="title">Accessibility Management</v-card-title>
+    <v-card-title style="font-size: 17.5px">
+      Accessibility Management
+    </v-card-title>
     <v-card-text>
       <v-data-table
         :headers="headers"

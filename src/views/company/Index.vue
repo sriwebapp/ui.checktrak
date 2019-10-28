@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="title">
+      <span style="font-size: 17.5px">
         Company Management
       </span>
       <v-spacer></v-spacer>

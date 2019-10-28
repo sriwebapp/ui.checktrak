@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="show" max-width="800">
     <v-card>
-      <v-card-title class="title">
+      <v-card-title style="font-size: 17.5px">
         Imported Payees
       </v-card-title>
       <v-card-text>

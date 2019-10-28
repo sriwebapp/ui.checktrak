@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="title">Create Account</v-card-title>
+    <v-card-title style="font-size: 17.5px">Create Account</v-card-title>
     <form @submit.prevent="create" @keydown="error.clear($event.target.name)">
       <v-card-text>
         <v-layout row wrap>
