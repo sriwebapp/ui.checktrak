@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card outlined :loading="loading">
     <v-card-title>
       <span style="font-size: 17.5px">
         User Management
@@ -19,7 +19,6 @@
       <v-data-table
         :headers="headers"
         :items="users"
-        :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
         <template v-slot:body="{ items }" v-if="users.length">

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog v-model="show" persistent max-width="1000">
-      <v-card>
+      <v-card :loading="receiving">
         <form
           @submit.prevent="receiveChecks"
           @keydown="error.clear($event.target.name)"

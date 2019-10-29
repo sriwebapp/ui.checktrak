@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card outlined :loading="loading">
     <v-card-title style="font-size: 17.5px">Manage Company</v-card-title>
     <v-card-text>
       <v-container>

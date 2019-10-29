@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card outlined :loading="loading">
     <v-card-title>
       <span style="font-size: 17.5px">
         Group Management
@@ -18,7 +18,6 @@
       <v-data-table
         :headers="headers"
         :items="groups"
-        :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
         <template v-slot:item.branch_id="{ item }">

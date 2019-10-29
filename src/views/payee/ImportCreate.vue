@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="show" persistent max-width="400">
-    <v-card>
+    <v-card :loading="loading">
       <form @submit.prevent="importPayees">
         <v-card-title>
           <span style="font-size: 17.5px">
@@ -25,8 +25,6 @@
                 label="Select File to be Imported"
                 show-size
                 :error-messages="error.get('payees_file')"
-                :disabled="loading"
-                :loading="loading"
                 @change="error.reset()"
                 prepend-icon="mdi-file-upload-outline"
                 accept=".csv"

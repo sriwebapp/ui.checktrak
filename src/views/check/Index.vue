@@ -1,19 +1,5 @@
 <template>
-  <v-card>
-    <v-btn
-      fab
-      color="indigo "
-      small
-      top
-      dark
-      right
-      fixed
-      style="margin-top: 58px"
-      @click="showFilter"
-    >
-      <v-icon>mdi-arrow-left-bold-box-outline</v-icon>
-    </v-btn>
-
+  <v-card outlined>
     <filter-menu></filter-menu>
     <v-divider v-if="filterType"></v-divider>
 
@@ -99,6 +85,21 @@
         </template>
       </v-data-table>
     </v-card-text>
+
+    <v-btn
+      color="indigo darken-4"
+      dark
+      large
+      class="filter-toggle"
+      rounded
+      elevation="24"
+      @click="showFilter"
+    >
+      <v-icon color="deep-orange lighten-4" large>
+        mdi-arrow-left-bold-box-outline
+      </v-icon>
+      <v-spacer></v-spacer>
+    </v-btn>
   </v-card>
 </template>
 
@@ -232,4 +233,15 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.filter-toggle {
+  width: 100px;
+  position: fixed;
+  right: -48px;
+  top: 126px;
+  transition: all 0.3s ease;
+}
+.filter-toggle:hover {
+  right: -33px;
+}
+</style>

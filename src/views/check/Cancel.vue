@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog v-model="show" persistent max-width="1000">
-      <v-card>
+      <v-card :loading="cancelling">
         <form
           @submit.prevent="cancel"
           @keydown="error.clear($event.target.name)"
@@ -66,7 +66,6 @@
             <v-data-table
               :headers="headers"
               :items="checks"
-              :loading="cancelling"
               :footer-props="{ itemsPerPageOptions: [10] }"
               :show-select="selectChecks"
               v-model="selectedChecks"

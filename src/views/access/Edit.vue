@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card outlined :loading="loading">
     <v-card-title style="font-size: 17.5px">Update Accessibility</v-card-title>
     <form @submit.prevent="edit">
       <v-card-text>
@@ -10,7 +10,6 @@
               label="Access Name"
               prepend-icon="mdi-tag-text-outline"
               readonly
-              :loading="loading"
             ></v-text-field>
           </v-flex>
 

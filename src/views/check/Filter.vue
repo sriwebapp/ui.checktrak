@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pb-0" style="padding-right: 70px">
+  <v-container fluid class="pb-0">
     <v-layout v-if="filter === 0" class="mb-5">
       <v-flex xs6 md8>
         <span style="font-size: 17.5px"> {{ title }} </span>

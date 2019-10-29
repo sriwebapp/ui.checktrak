@@ -2,7 +2,7 @@
   <v-dialog v-model="show" max-width="1000">
     <v-card>
       <div>
-        <v-card-title  style="font-size: 17.5px">
+        <v-card-title style="font-size: 17.5px">
           Imported Checks
         </v-card-title>
         <v-card-text>

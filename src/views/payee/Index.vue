@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card outlined>
     <v-card-title>
       <span style="font-size: 17.5px">
         Payee Management

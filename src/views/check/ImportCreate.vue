@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="show" persistent max-width="400">
-    <v-card>
+    <v-card :loading="importing">
       <form @submit.prevent="importChecks">
         <v-card-title>
-          <span  style="font-size: 17.5px">
+          <span style="font-size: 17.5px">
             Import Checks
           </span>
           <v-spacer></v-spacer>
@@ -26,7 +26,6 @@
                 show-size
                 :error-messages="error.get('checks_file')"
                 :disabled="importing"
-                :loading="importing"
                 @change="error.reset()"
                 prepend-icon="mdi-file-upload-outline"
                 accept=".csv"

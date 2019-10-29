@@ -1,11 +1,10 @@
 <template>
   <v-dialog v-model="show" max-width="1000">
-    <v-card>
+    <v-card :loading="loading">
       <v-data-table
         :headers="headers"
         :items="checks"
         :footer-props="{ itemsPerPageOptions: [10] }"
-        :loading="loading"
         :options.sync="pagination"
       >
         <template v-slot:item.payee_id="{ item }">
@@ -30,13 +29,7 @@
           </v-chip>
         </template>
         <template v-slot:item.action="{ item }">
-          <v-btn
-            icon
-            small
-            color="indigo"
-            :disabled="loading"
-            @click="showCheck(item.id)"
-          >
+          <v-btn icon small color="indigo" @click="showCheck(item.id)">
             <v-icon>mdi-open-in-app</v-icon>
           </v-btn>
         </template>

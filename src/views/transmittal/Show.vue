@@ -1,6 +1,6 @@
 <template>
-  <v-card>
-    <v-card-title  style="font-size: 17.5px">Transmittal Report</v-card-title>
+  <v-card outlined :loading="loading">
+    <v-card-title style="font-size: 17.5px">Transmittal Report</v-card-title>
     <v-divider></v-divider>
     <v-card-text>
       <v-layout row wrap class="mb-5">
@@ -88,7 +88,6 @@
       <v-data-table
         :headers="headers"
         :items="transmittal.checks"
-        :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10] }"
       >
         <template v-if="transmittal.checks.length" v-slot:body="{ items }">

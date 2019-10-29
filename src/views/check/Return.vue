@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog v-model="show" persistent max-width="1000">
-      <v-card>
+      <v-card :loading="returning">
         <form
           @submit.prevent="returnChecks"
           @keydown="error.clear($event.target.name)"

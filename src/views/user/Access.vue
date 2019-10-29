@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card outlined :loading="loading">
     <v-card-title style="font-size: 17.5px">Update User Access</v-card-title>
     <form @submit.prevent="editAccess">
       <v-card-text>

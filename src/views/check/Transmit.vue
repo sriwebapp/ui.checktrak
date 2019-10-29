@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog v-model="show" persistent max-width="1200">
-      <v-card>
+      <v-card :loading="transmitting">
         <form
           @submit.prevent="transmit"
           @keydown="error.clear($event.target.name)"
@@ -109,7 +109,6 @@
             <v-data-table
               :headers="headers"
               :items="checks"
-              :loading="transmitting"
               :footer-props="{ itemsPerPageOptions: [10] }"
               :show-select="selectChecks"
               v-model="selectedChecks"
