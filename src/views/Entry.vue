@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <alert />
+    <avatar />
     <drawer />
     <navbar />
     <loader />
@@ -16,6 +17,7 @@
 export default {
   components: {
     alert: () => import('./../components/Alert.vue'),
+    avatar: () => import('./Avatar.vue'),
     drawer: () => import('./../components/Drawer.vue'),
     loader: () => import('./../components/Loader.vue'),
     navbar: () => import('./../components/Navbar.vue'),

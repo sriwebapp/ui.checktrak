@@ -117,6 +117,8 @@ export default {
     show(arg) {
       if (arg) {
         this.account_id = null
+        this.error.reset()
+        this.file = null
       }
     }
   }

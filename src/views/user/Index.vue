@@ -40,6 +40,11 @@
                 >
               </td>
               <td class="text-center">
+                <v-avatar size="30" class="mx-1">
+                  <v-img :src="avatar(item)"></v-img>
+                </v-avatar>
+              </td>
+              <td class="text-center">
                 <v-btn
                   x-small
                   class="info mr-2"
@@ -75,9 +80,15 @@ export default {
       { text: 'Branch', align: 'left', value: 'branch_id' },
       { text: 'Access', align: 'left', value: 'access_id' },
       { text: 'Active', align: 'center', value: 'active' },
+      { text: 'Avatar', align: 'center', value: 'avatar', sortable: false },
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ]
   }),
+  methods: {
+    avatar(user) {
+      return process.env.VUE_APP_API + '/images/avatar/' + user.avatar
+    }
+  },
   mounted() {
     this.$store.dispatch('user/getUsers')
   }

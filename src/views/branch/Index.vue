@@ -21,22 +21,13 @@
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
         <template v-slot:item.users="{ item }">
-          <v-tooltip top>
+          <v-tooltip top v-for="u in item.users" :key="u.id">
             <template v-slot:activator="{ on }">
-              <v-chip
-                :class="item.users.length ? 'primary' : ''"
-                v-on="on"
-                x-small
-                outlined
-              >
-                {{ item.users.length }}
-              </v-chip>
+              <v-avatar size="30" class="mr-1" v-on="on">
+                <v-img :src="avatar(u)"></v-img>
+              </v-avatar>
             </template>
-            <span>
-              {{
-                '[ ' + item.users.map(user => user.username).join(', ') + ' ]'
-              }}
-            </span>
+            <span> {{ u.name }} </span>
           </v-tooltip>
         </template>
         <template v-slot:item.groups="{ item }">
@@ -93,6 +84,11 @@ export default {
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ]
   }),
+  methods: {
+    avatar(user) {
+      return process.env.VUE_APP_API + '/images/avatar/' + user.avatar
+    }
+  },
   mounted() {
     this.$store.dispatch('branch/getBranches')
   }

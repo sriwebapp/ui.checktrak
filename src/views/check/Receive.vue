@@ -108,7 +108,7 @@
                     v-for="item in items"
                     :key="item.id"
                     :class="
-                      item.status.color + ' lighten-' + (item.received ? 5 : 3)
+                      item.status.color + ' lighten-' + (item.received ? 5 : 4)
                     "
                   >
                     <td>{{ item.number }}</td>

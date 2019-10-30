@@ -32,20 +32,13 @@
         </template>
 
         <template v-slot:item.incharge="{ item }">
-          <v-tooltip top>
+          <v-tooltip top v-for="i in item.incharge" :key="i.id">
             <template v-slot:activator="{ on }">
-              <v-chip
-                :class="item.incharge.length ? 'primary' : ''"
-                v-on="on"
-                x-small
-                outlined
-              >
-                {{ item.incharge.length }}
-              </v-chip>
+              <v-avatar size="30" class="mr-1" v-on="on">
+                <v-img :src="avatar(i)"></v-img>
+              </v-avatar>
             </template>
-            <span>
-              {{ '[ ' + item.incharge.map(i => i.username).join(', ') + ' ]' }}
-            </span>
+            <span> {{ i.name }} </span>
           </v-tooltip>
         </template>
         <template v-slot:item.action="{ item }">
@@ -83,6 +76,11 @@ export default {
       { text: 'Actions', align: 'center', value: 'action', sortable: false }
     ]
   }),
+  methods: {
+    avatar(incharge) {
+      return process.env.VUE_APP_API + '/images/avatar/' + incharge.avatar
+    }
+  },
   mounted() {
     this.$store.dispatch('group/getGroups')
   }

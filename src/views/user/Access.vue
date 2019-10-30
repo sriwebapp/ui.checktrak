@@ -34,6 +34,7 @@
                 v-model="selectedActions"
                 :value="action.code"
                 :disabled="disable('action')"
+                :color="action.color"
                 hide-details
               >
                 <template v-slot:label>

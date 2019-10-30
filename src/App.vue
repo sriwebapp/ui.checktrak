@@ -19,3 +19,10 @@ export default {
   }
 }
 </script>
+
+<style>
+table tbody td {
+  font-size: 13px !important;
+  color: #676464;
+}
+</style>

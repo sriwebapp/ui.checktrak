@@ -90,7 +90,8 @@ export default {
   watch: {
     show(arg) {
       if (arg) {
-        // this.$refs.fileinput.reset()
+        this.error.reset()
+        this.file = null
       }
     }
   }

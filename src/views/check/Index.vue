@@ -70,6 +70,7 @@
                 }}
               </td>
               <td>{{ item.details }}</td>
+              <td class="text-center">{{ formatUpdate(item.updated_at) }}</td>
               <td class="text-center">
                 <v-chip
                   x-small
@@ -153,6 +154,7 @@ export default {
       { text: 'Payee Name', align: 'left', value: 'payee_id' },
       { text: 'Amount', align: 'left', value: 'amount' },
       { text: 'Details', align: 'left', value: 'details' },
+      { text: 'Last Update', align: 'center', value: 'updated_at' },
       { text: 'Status', align: 'center', value: 'status_id' }
     ]
   }),
@@ -172,8 +174,8 @@ export default {
       if (Date.parse(arg)) {
         const date = moment(new Date(arg))
 
-        if (moment().diff(date, 'hours') > 6) {
-          return date.calendar()
+        if (moment().diff(date, 'years') > 1) {
+          return date.format('MM/DD/Y')
         } else {
           return date.fromNow()
         }

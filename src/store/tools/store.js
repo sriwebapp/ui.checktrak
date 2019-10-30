@@ -260,6 +260,15 @@ export default {
       } catch (e) {
         return
       }
+    },
+    async uploadAvatar(context, file) {
+      try {
+        let data = new FormData()
+        data.append('avatar', file)
+        await Axios.post('/auth/avatar', data)
+      } catch (error) {
+        return
+      }
     }
   },
   getters: {

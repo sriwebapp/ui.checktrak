@@ -11,7 +11,11 @@
     width="240"
   >
     <template v-slot:prepend>
-      <v-list-item class="my-3">
+      <v-list-item class="my-3" @click="uploadAvatar">
+        <v-list-item-avatar size="35">
+          <v-img :src="avatar"></v-img>
+        </v-list-item-avatar>
+
         <v-list-item-content>
           <v-list-item-title style="font-size: 17.5px;">
             {{ user.name }}
@@ -103,6 +107,9 @@ export default {
         return []
       }
     },
+    avatar() {
+      return process.env.VUE_APP_API + '/images/avatar/' + this.user.avatar
+    },
     loading() {
       return this.$store.getters.loading
     },
@@ -148,6 +155,9 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('auth/logout')
+    },
+    uploadAvatar() {
+      this.$store.commit('showAvatar', true)
     }
   }
 }

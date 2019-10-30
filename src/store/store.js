@@ -41,6 +41,7 @@ export default new Vuex.Store({
     loader: true,
     loading: true,
     showAlert: false,
+    showAvatar: false,
     staledNotification: false
   },
   mutations: {
@@ -67,6 +68,9 @@ export default new Vuex.Store({
     },
     showAlert(state, payload) {
       state.showAlert = payload
+    },
+    showAvatar(state, payload) {
+      state.showAvatar = payload
     },
     staledNotification(state, payload) {
       state.staledNotification = payload
@@ -115,6 +119,9 @@ export default new Vuex.Store({
     },
     showAlert(state) {
       return state.showAlert
+    },
+    showAvatar(state) {
+      return state.showAvatar
     },
     staledNotification(state) {
       return state.staledNotification
