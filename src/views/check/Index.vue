@@ -61,7 +61,7 @@
               <td>{{ formatDate(item.date) }}</td>
               <td>{{ item.number }}</td>
               <td>{{ item.payee.name }}</td>
-              <td>
+              <td class="text-right">
                 {{
                   Number(item.amount).toLocaleString('en', {
                     style: 'currency',
@@ -152,7 +152,7 @@ export default {
       { text: 'Posted', align: 'left', value: 'date' },
       { text: 'Check #', align: 'left', value: 'number' },
       { text: 'Payee Name', align: 'left', value: 'payee_id' },
-      { text: 'Amount', align: 'left', value: 'amount' },
+      { text: 'Amount', align: 'right', value: 'amount' },
       { text: 'Details', align: 'left', value: 'details' },
       { text: 'Last Update', align: 'center', value: 'updated_at' },
       { text: 'Status', align: 'center', value: 'status_id' }
@@ -177,7 +177,7 @@ export default {
         if (moment().diff(date, 'years') > 1) {
           return date.format('MM/DD/Y')
         } else {
-          return date.fromNow()
+          return date.format('MM/DD/Y h:mm A')
         }
       }
     },

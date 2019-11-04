@@ -22,7 +22,10 @@ export default {
 
 <style>
 table tbody td {
-  font-size: 13px !important;
+  font-size: 12px !important;
   color: #676464;
+}
+table thead th {
+  font-size: 11px !important;
 }
 </style>

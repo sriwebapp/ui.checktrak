@@ -34,7 +34,7 @@ export default new Vuex.Store({
   },
   state: {
     alert: {},
-    drawer: 2,
+    drawer: 1,
     error: new Error(),
     filter: false,
     footer: false,
