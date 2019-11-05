@@ -75,13 +75,25 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Name', align: 'left', value: 'name' },
-      { text: 'Username', align: 'left', value: 'username' },
-      { text: 'Branch', align: 'left', value: 'branch_id' },
-      { text: 'Access', align: 'left', value: 'access_id' },
-      { text: 'Active', align: 'center', value: 'active' },
-      { text: 'Avatar', align: 'center', value: 'avatar', sortable: false },
-      { text: 'Actions', align: 'center', value: 'action', sortable: false }
+      { text: 'Name', align: 'left', value: 'name', width: '25%' },
+      { text: 'Username', align: 'left', value: 'username', width: '15%' },
+      { text: 'Branch', align: 'left', value: 'branch_id', width: '15%' },
+      { text: 'Access', align: 'left', value: 'access_id', width: '15%' },
+      { text: 'Active', align: 'center', value: 'active', width: '9%' },
+      {
+        text: 'Avatar',
+        align: 'center',
+        value: 'avatar',
+        sortable: false,
+        width: '9%'
+      },
+      {
+        text: 'Actions',
+        align: 'center',
+        value: 'action',
+        sortable: false,
+        width: '12%'
+      }
     ]
   }),
   methods: {

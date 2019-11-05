@@ -2,7 +2,7 @@
   <v-dialog v-model="show" persistent max-width="500">
     <v-card>
       <div>
-        <v-card-title>Some checks exceeded 80 days period</v-card-title>
+        <v-card-title>Some checks exceeded 180 days period</v-card-title>
         <v-card-text>Do you want to view checks? </v-card-text>
         <v-card-actions>
           <v-btn

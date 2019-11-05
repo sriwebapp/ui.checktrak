@@ -115,7 +115,7 @@
                   >
                     <td>{{ item.number }}</td>
                     <td>{{ item.payee.name }}</td>
-                    <td>
+                    <td class="text-right">
                       {{
                         Number(item.amount).toLocaleString('en', {
                           style: 'currency',
@@ -206,10 +206,10 @@ export default {
     date: null,
     date2: null,
     headers: [
-      { text: 'Check #', align: 'left', value: 'number' },
-      { text: 'Payee Name', align: 'left', value: 'payee_id' },
-      { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Claimed', align: 'left', value: 'status_id' }
+      { text: 'Check #', align: 'left', value: 'number', width: '20%' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id', width: '40%' },
+      { text: 'Amount', align: 'right', value: 'amount', width: '20%' },
+      { text: 'Claimed', align: 'left', value: 'status_id', width: '20%' }
     ],
     loading: false,
     remarks: '',
@@ -233,7 +233,6 @@ export default {
     formatDate(date) {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
-      this.remarks = !this.transactLate ? 'Claimed' : ''
     },
     showClaimedDate(history) {
       let claimed = history.find(h => h.action_id === 4 && h.active === 1)

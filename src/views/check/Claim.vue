@@ -100,7 +100,7 @@
                   >
                     <td>{{ item.number }}</td>
                     <td>{{ item.payee.name }}</td>
-                    <td>
+                    <td class="text-right">
                       {{
                         Number(item.amount).toLocaleString('en', {
                           style: 'currency',
@@ -190,10 +190,10 @@ export default {
     date: null,
     date2: null,
     headers: [
-      { text: 'Check #', align: 'left', value: 'number' },
-      { text: 'Payee Name', align: 'left', value: 'payee_id' },
-      { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Details', align: 'left', value: 'details' }
+      { text: 'Check #', align: 'left', value: 'number', width: '15%' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id', width: '25%' },
+      { text: 'Amount', align: 'right', value: 'amount', width: '15%' },
+      { text: 'Details', align: 'left', value: 'details', width: '25%' }
     ],
     pagination: {},
     remarks: '',

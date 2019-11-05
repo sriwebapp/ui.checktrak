@@ -77,11 +77,34 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Code', align: 'left', value: 'code' },
-      { text: 'Name', align: 'left', value: 'name' },
-      { text: 'Users', align: 'center', value: 'users', sortable: false },
-      { text: 'Groups', align: 'center', value: 'groups', sortable: false },
-      { text: 'Actions', align: 'center', value: 'action', sortable: false }
+      {
+        text: 'Code',
+        align: 'left',
+        value: 'code',
+        width: '10%'
+      },
+      { text: 'Name', align: 'left', value: 'name', width: '30%' },
+      {
+        text: 'Users',
+        align: 'center',
+        value: 'users',
+        sortable: false,
+        width: '30%'
+      },
+      {
+        text: 'Groups',
+        align: 'center',
+        value: 'groups',
+        sortable: false,
+        width: '10%'
+      },
+      {
+        text: 'Actions',
+        align: 'center',
+        value: 'action',
+        sortable: false,
+        width: '20%'
+      }
     ]
   }),
   methods: {

@@ -148,14 +148,19 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Account', align: 'left', value: 'account_id' },
-      { text: 'Posted', align: 'left', value: 'date' },
-      { text: 'Check #', align: 'left', value: 'number' },
-      { text: 'Payee Name', align: 'left', value: 'payee_id' },
-      { text: 'Amount', align: 'right', value: 'amount' },
-      { text: 'Details', align: 'left', value: 'details' },
-      { text: 'Last Update', align: 'center', value: 'updated_at' },
-      { text: 'Status', align: 'center', value: 'status_id' }
+      { text: 'Account', align: 'left', value: 'account_id', width: '10%' },
+      { text: 'Posted', align: 'left', value: 'date', width: '10%' },
+      { text: 'Check #', align: 'left', value: 'number', width: '10%' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id', width: '16%' },
+      { text: 'Amount', align: 'right', value: 'amount', width: '12%' },
+      { text: 'Details', align: 'left', value: 'details', width: '18%' },
+      {
+        text: 'Last Update',
+        align: 'center',
+        value: 'updated_at',
+        width: '12%'
+      },
+      { text: 'Status', align: 'center', value: 'status_id', width: '12%' }
     ]
   }),
   created() {
@@ -177,7 +182,7 @@ export default {
         if (moment().diff(date, 'years') > 1) {
           return date.format('MM/DD/Y')
         } else {
-          return date.format('MM/DD/Y h:mm A')
+          return date.format('MM/DD h:mm A')
         }
       }
     },

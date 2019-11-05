@@ -69,11 +69,23 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Branch', align: 'left', value: 'branch_id' },
-      { text: 'Name', align: 'left', value: 'name' },
-      { text: 'Active', align: 'center', value: 'active' },
-      { text: 'Incharge', align: 'center', value: 'incharge', sortable: false },
-      { text: 'Actions', align: 'center', value: 'action', sortable: false }
+      { text: 'Branch', align: 'left', value: 'branch_id', width: '25%' },
+      { text: 'Name', align: 'left', value: 'name', width: '25%' },
+      { text: 'Active', align: 'center', value: 'active', width: '10%' },
+      {
+        text: 'Incharge',
+        align: 'center',
+        value: 'incharge',
+        sortable: false,
+        width: '25%'
+      },
+      {
+        text: 'Actions',
+        align: 'center',
+        value: 'action',
+        sortable: false,
+        width: '15%'
+      }
     ]
   }),
   methods: {

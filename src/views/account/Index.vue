@@ -56,11 +56,17 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Code', align: 'left', value: 'code' },
-      { text: 'Number', align: 'left', value: 'number' },
-      { text: 'Purpose', align: 'left', value: 'purpose' },
-      { text: 'Active', align: 'center', value: 'active' },
-      { text: 'Actions', align: 'center', value: 'action', sortable: false }
+      { text: 'Code', align: 'left', value: 'code', width: '20%' },
+      { text: 'Number', align: 'left', value: 'number', width: '20%' },
+      { text: 'Purpose', align: 'left', value: 'purpose', width: '30%' },
+      { text: 'Active', align: 'center', value: 'active', width: '15%' },
+      {
+        text: 'Actions',
+        align: 'center',
+        value: 'action',
+        sortable: false,
+        width: '15%'
+      }
     ],
     search: ''
   }),

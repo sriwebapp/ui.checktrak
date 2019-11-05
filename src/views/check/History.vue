@@ -54,11 +54,11 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Date', align: 'left', value: 'date' },
-      { text: 'Action', align: 'left', value: 'action_id' },
-      { text: 'User', align: 'left', value: 'user_id' },
-      { text: 'Remarks', align: 'left', value: 'remarks' },
-      { text: 'View', align: 'right', value: 'view' }
+      { text: 'Date', align: 'left', value: 'date', width: '15%' },
+      { text: 'Action', align: 'left', value: 'action_id', width: '15%' },
+      { text: 'User', align: 'left', value: 'user_id', width: '30%' },
+      { text: 'Remarks', align: 'left', value: 'remarks', width: '30%' },
+      { text: 'View', align: 'right', value: 'view', width: '10%' }
     ]
   }),
   methods: {

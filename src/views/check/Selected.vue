@@ -58,11 +58,17 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Number', align: 'left', value: 'number' },
-      { text: 'Payee', align: 'left', value: 'payee_id' },
-      { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Status', align: 'center', value: 'status_id' },
-      { text: 'Details', align: 'center', value: 'action', sortable: false }
+      { text: 'Number', align: 'left', value: 'number', width: '18%' },
+      { text: 'Payee', align: 'left', value: 'payee_id', width: '28%' },
+      { text: 'Amount', align: 'right', value: 'amount', width: '18%' },
+      { text: 'Status', align: 'center', value: 'status_id', width: '18%' },
+      {
+        text: 'Details',
+        align: 'center',
+        value: 'action',
+        sortable: false,
+        width: '18%'
+      }
     ],
     pagination: {}
   }),

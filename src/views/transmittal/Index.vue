@@ -66,31 +66,40 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Reference No.', align: 'left', value: 'ref' },
-      { text: 'Branch', align: 'left', value: 'branch_id' },
-      { text: 'Group', align: 'left', value: 'group_id' },
-      { text: 'Date', align: 'left', value: 'date' },
-      { text: 'Due', align: 'left', value: 'due' },
-      { text: 'Returned', align: 'left', value: 'returned' },
+      { text: 'Reference No.', align: 'left', value: 'ref', width: '18%' },
+      { text: 'Branch', align: 'left', value: 'branch_id', width: '12%' },
+      { text: 'Group', align: 'left', value: 'group_id', width: '12%' },
+      { text: 'Date', align: 'left', value: 'date', width: '10%' },
+      { text: 'Due', align: 'left', value: 'due', width: '10%' },
+      { text: 'Returned', align: 'left', value: 'returned', width: '10%' },
       {
         text: 'Checks',
         align: 'center',
         value: 'checks',
-        sortable: false
+        sortable: false,
+        width: '7%'
       },
       {
         text: 'Claimed',
         align: 'center',
         value: 'claimed',
-        sortable: false
+        sortable: false,
+        width: '7%'
       },
       {
-        text: 'Not Yet Received',
+        text: 'N Y R',
         align: 'center',
         value: 'nyr',
-        sortable: false
+        sortable: false,
+        width: '7%'
       },
-      { text: 'View', align: 'center', value: 'view', sortable: false }
+      {
+        text: 'View',
+        align: 'center',
+        value: 'view',
+        sortable: false,
+        width: '7%'
+      }
     ],
     pagination: {}
   }),

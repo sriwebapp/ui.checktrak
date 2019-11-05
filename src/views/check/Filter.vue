@@ -214,9 +214,19 @@
 import moment from 'moment'
 export default {
   computed: {
+    amount() {
+      const total = this.selectedChecks.reduce((total, check) => {
+        return total + parseFloat(check.amount)
+      }, 0)
+
+      return Number(total).toLocaleString('en', {
+        style: 'currency',
+        currency: 'Php'
+      })
+    },
     title() {
       return this.selecting
-        ? 'Selected Checks: ' + this.selectedChecks.length
+        ? 'Checks: ' + this.selectedChecks.length + ', ' + this.amount
         : 'Check Masterlist '
     },
     selecting() {

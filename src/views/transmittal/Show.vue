@@ -101,7 +101,7 @@
               <td>{{ item.number }}</td>
               <td>{{ item.payee.name }}</td>
               <td>{{ item.details }}</td>
-              <td>
+              <td class="text-right">
                 {{
                   Number(item.amount).toLocaleString('en', {
                     style: 'currency',
@@ -109,7 +109,7 @@
                   })
                 }}
               </td>
-              <td>{{ showClaimedDate(item.history) }}</td>
+              <td class="text-center">{{ showClaimedDate(item.history) }}</td>
             </tr>
           </tbody>
         </template>
@@ -191,12 +191,18 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Posted', align: 'left', value: 'date' },
-      { text: 'Check #', align: 'left', value: 'number' },
-      { text: 'Payee Name', align: 'left', value: 'payee_id' },
-      { text: 'Details', align: 'left', value: 'details' },
-      { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Claimed', align: 'left', value: 'history', sortable: false }
+      { text: 'Posted', align: 'left', value: 'date', width: '12%' },
+      { text: 'Check #', align: 'left', value: 'number', width: '12%' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id', width: '23%' },
+      { text: 'Details', align: 'left', value: 'details', width: '23%' },
+      { text: 'Amount', align: 'right', value: 'amount', width: '12%' },
+      {
+        text: 'Claimed',
+        align: 'center',
+        value: 'history',
+        sortable: false,
+        width: '12%'
+      }
     ]
   }),
   methods: {
