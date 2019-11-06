@@ -43,7 +43,6 @@ export default {
       }
     },
     async getCheckbook(context, id) {
-      console.log(id)
       context.commit('checkbook', {})
       context.commit('loading', true)
       try {

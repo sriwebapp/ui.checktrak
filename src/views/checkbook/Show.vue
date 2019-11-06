@@ -77,8 +77,8 @@
               :class="(item.date ? 'green' : 'red') + ' lighten-5'"
             >
               <td>{{ item.number }}</td>
-              <td>{{ item.date ? formatDate(item.date) : '' }}</td>
-              <td>{{ item.payee_id ? item.payee.name : '' }}</td>
+              <td>{{ item.date ? formatDate(item.date) : 'N / A' }}</td>
+              <td>{{ item.payee_id ? item.payee.name : 'N / A' }}</td>
               <td class="text-right">
                 {{
                   item.amount
@@ -86,7 +86,7 @@
                         style: 'currency',
                         currency: 'Php'
                       })
-                    : ''
+                    : 'N / A'
                 }}
               </td>
             </tr>

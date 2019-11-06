@@ -94,7 +94,7 @@ export default {
           },
           {
             title: 'Check Books',
-            icon: 'mdi-book-open-outline',
+            icon: 'mdi-book-open-page-variant',
             route: '/check-book',
             code: 'cbk'
           },

@@ -66,32 +66,32 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Account', align: 'left', value: 'account_id', width: '1%' },
+      { text: 'Account', align: 'left', value: 'account_id', width: '19%' },
       {
         text: 'Series Start',
         align: 'left',
         value: 'start_series',
-        width: '1%'
+        width: '15%'
       },
       {
         text: 'Series End',
         align: 'left',
         value: 'end_series',
-        width: '1%'
+        width: '15%'
       },
-      { text: 'Checks', align: 'center', value: 'totalChecks', width: '1%' },
-      { text: 'Posted', align: 'center', value: 'postedChecks', width: '1%' },
+      { text: 'Checks', align: 'center', value: 'totalChecks', width: '12%' },
+      { text: 'Posted', align: 'center', value: 'postedChecks', width: '12%' },
       {
         text: 'Available',
         align: 'center',
         value: 'availableChecks',
-        width: '1%'
+        width: '12%'
       },
       {
         text: 'View',
         align: 'center',
         value: 'action',
-        width: '1%',
+        width: '15%',
         sortable: false
       }
     ]

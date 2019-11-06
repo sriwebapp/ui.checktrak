@@ -101,18 +101,14 @@ export default {
   },
   watch: {
     start_series(arg) {
-      if (!parseInt(arg)) return
-
-      if (arg.length >= 4) {
-        let prefix = arg.substring(0, arg.length - 4)
-        let suffix = arg.substring(arg.length - 4, arg.length)
-
-        suffix = ('00' + (parseInt(suffix) + 99)).slice(-1 * suffix.length)
-
-        this.end_series = prefix + suffix
-      } else {
+      if (!arg.match(/^[0-9]*$/gm) || arg.length < 4) {
         this.end_series = ''
+        return
       }
+
+      this.end_series = ('000000000' + (parseInt(arg) + 99)).slice(
+        -1 * arg.length
+      )
     }
   }
 }
