@@ -9,6 +9,7 @@ import branch from './routes/branch'
 import group from './routes/group'
 import access from './routes/access'
 import account from './routes/account'
+import checkbook from './routes/checkbook'
 import payee from './routes/payee'
 import check from './routes/check'
 import transmittal from './routes/transmittal'
@@ -31,6 +32,7 @@ const router = new Router({
         branch,
         group,
         account,
+        checkbook,
         payee,
         check,
         transmittal,

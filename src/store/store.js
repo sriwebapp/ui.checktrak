@@ -10,6 +10,7 @@ import branch from './branch/store'
 import group from './group/store'
 import tools from './tools/store'
 import account from './account/store'
+import checkbook from './checkbook/store'
 import payee from './payee/store'
 import check from './check/store'
 import transmittal from './transmittal/store'
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     group,
     tools,
     account,
+    checkbook,
     payee,
     check,
     transmittal,

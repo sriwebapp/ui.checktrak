@@ -93,6 +93,12 @@ export default {
             code: 'acc'
           },
           {
+            title: 'Check Books',
+            icon: 'mdi-book-open-outline',
+            route: '/check-book',
+            code: 'cbk'
+          },
+          {
             title: 'Payees',
             icon: 'mdi-account-cash-outline',
             route: '/payee',

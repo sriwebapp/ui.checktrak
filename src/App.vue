@@ -23,7 +23,7 @@ export default {
 <style>
 table tbody td {
   font-size: 12px !important;
-  color: #676464;
+  color: #444141;
 }
 table thead th {
   font-size: 11px !important;

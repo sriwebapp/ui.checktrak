@@ -19,9 +19,9 @@
               <td>{{ item.ref }}</td>
               <td>{{ item.branch.name }}</td>
               <td>{{ item.group.name }}</td>
-              <td>{{ formatDate(item.date) }}</td>
-              <td>{{ formatDate(item.due) }}</td>
-              <td>{{ formatDate(item.returned) }}</td>
+              <td class="text-center">{{ formatDate(item.date) }}</td>
+              <td class="text-center">{{ formatDate(item.due) }}</td>
+              <td class="text-center">{{ formatDate(item.returned) }}</td>
               <td class="text-center">{{ item.checks.length }}</td>
               <td class="text-center">{{ claimedChecks(item.checks) }}</td>
               <td class="text-center">
@@ -69,9 +69,9 @@ export default {
       { text: 'Reference No.', align: 'left', value: 'ref', width: '18%' },
       { text: 'Branch', align: 'left', value: 'branch_id', width: '12%' },
       { text: 'Group', align: 'left', value: 'group_id', width: '12%' },
-      { text: 'Date', align: 'left', value: 'date', width: '10%' },
-      { text: 'Due', align: 'left', value: 'due', width: '10%' },
-      { text: 'Returned', align: 'left', value: 'returned', width: '10%' },
+      { text: 'Date', align: 'center', value: 'date', width: '10%' },
+      { text: 'Due', align: 'center', value: 'due', width: '10%' },
+      { text: 'Returned', align: 'center', value: 'returned', width: '10%' },
       {
         text: 'Checks',
         align: 'center',

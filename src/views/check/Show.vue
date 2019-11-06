@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="show" max-width="600">
     <v-card>
-      <v-list-item two-line>
+      <v-list-item two-line class="mb-n1">
         <v-list-item-avatar size="20">
           <v-icon color="indigo">mdi-bank</v-icon>
         </v-list-item-avatar>
@@ -14,7 +14,7 @@
       </v-list-item>
 
       <v-divider></v-divider>
-      <v-list-item two-line>
+      <v-list-item two-line class="my-n1">
         <v-list-item-avatar size="20">
           <v-icon color="indigo">mdi-calendar</v-icon>
         </v-list-item-avatar>
@@ -25,7 +25,7 @@
       </v-list-item>
 
       <v-divider></v-divider>
-      <v-list-item two-line>
+      <v-list-item two-line class="my-n1">
         <v-list-item-avatar size="20">
           <v-icon color="indigo">mdi-tag-text-outline</v-icon>
         </v-list-item-avatar>
@@ -36,7 +36,7 @@
       </v-list-item>
 
       <v-divider></v-divider>
-      <v-list-item two-line>
+      <v-list-item two-line class="my-n1">
         <v-list-item-avatar size="20">
           <v-icon color="indigo">mdi-account-cash-outline</v-icon>
         </v-list-item-avatar>
@@ -49,7 +49,7 @@
       </v-list-item>
 
       <v-divider></v-divider>
-      <v-list-item two-line>
+      <v-list-item two-line class="my-n1">
         <v-list-item-avatar size="20">
           <v-icon color="indigo">mdi-clipboard-list-outline</v-icon>
         </v-list-item-avatar>
@@ -60,7 +60,7 @@
       </v-list-item>
 
       <v-divider></v-divider>
-      <v-list-item two-line>
+      <v-list-item two-line class="my-n1">
         <v-list-item-avatar size="20">
           <v-icon color="indigo">mdi-currency-php</v-icon>
         </v-list-item-avatar>
@@ -76,7 +76,7 @@
       </v-list-item>
 
       <v-divider></v-divider>
-      <v-list-item two-line>
+      <v-list-item two-line class="my-n1">
         <v-list-item-avatar size="20">
           <v-icon color="indigo">mdi-tag-text-outline</v-icon>
         </v-list-item-avatar>
@@ -89,7 +89,20 @@
       </v-list-item>
 
       <v-divider></v-divider>
-      <v-list-item two-line>
+      <v-list-item two-line class="my-n1">
+        <v-list-item-avatar size="20">
+          <v-icon color="indigo">mdi-bank-transfer-out</v-icon>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title>{{
+            check.transmittal ? check.transmittal.ref : ''
+          }}</v-list-item-title>
+          <v-list-item-subtitle>Transmittal Reference</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+      <v-list-item two-line class="my-n1">
         <v-list-item-avatar size="20">
           <v-icon color="indigo">mdi-map-marker</v-icon>
         </v-list-item-avatar>
@@ -100,6 +113,7 @@
           <v-list-item-subtitle>Branch</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
+      <v-divider></v-divider>
 
       <v-card-actions>
         <v-btn outlined color="indigo" small @click="showHistory">

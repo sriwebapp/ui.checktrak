@@ -191,9 +191,9 @@ export default {
     date2: null,
     headers: [
       { text: 'Check #', align: 'left', value: 'number', width: '15%' },
-      { text: 'Payee Name', align: 'left', value: 'payee_id', width: '25%' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id', width: '35%' },
       { text: 'Amount', align: 'right', value: 'amount', width: '15%' },
-      { text: 'Details', align: 'left', value: 'details', width: '25%' }
+      { text: 'Details', align: 'left', value: 'details', width: '35%' }
     ],
     pagination: {},
     remarks: '',
