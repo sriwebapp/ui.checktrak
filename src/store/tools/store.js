@@ -267,7 +267,7 @@ export default {
         data.append('avatar', file)
         await Axios.post('/auth/avatar', data)
       } catch (error) {
-        return
+        throw error
       }
     }
   },

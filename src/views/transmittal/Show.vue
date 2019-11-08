@@ -117,6 +117,10 @@
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
+      <v-btn icon small :href="exportLink" :disabled="loading" class="mr-n1">
+        <v-icon color="indigo">mdi-file-export</v-icon>
+      </v-btn>
+
       <v-btn
         small
         class="indigo white--text"
@@ -160,14 +164,6 @@ export default {
     transmittal() {
       return this.$store.getters['transmittal/transmittal']
     },
-    returnReport() {
-      return (
-        process.env.VUE_APP_API +
-        '/pdf/transmittal/' +
-        this.transmittal.ref +
-        '-1.pdf'
-      )
-    },
     totalAmount() {
       let total = this.transmittal.checks
         ? this.transmittal.checks.reduce((total, check) => {
@@ -179,6 +175,22 @@ export default {
         style: 'currency',
         currency: 'Php'
       })
+    },
+    exportLink() {
+      return (
+        process.env.VUE_APP_API +
+        '/transmittal/' +
+        this.transmittal.id +
+        '/export'
+      )
+    },
+    returnReport() {
+      return (
+        process.env.VUE_APP_API +
+        '/pdf/transmittal/' +
+        this.transmittal.ref +
+        '-1.pdf'
+      )
     },
     transmittalReport() {
       return (
