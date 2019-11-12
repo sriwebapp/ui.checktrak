@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="show" max-width="500" persistent>
-    <v-card v-if="state">
+    <v-card v-if="state" :loading="undoing">
       <form @submit.prevent="undo" @keydown="error.clear($event.target.name)">
         <v-card-text>
           <v-layout row wrap class="px-5">

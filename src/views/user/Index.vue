@@ -1,7 +1,7 @@
 <template>
-  <v-card>
+  <v-card outlined :loading="loading">
     <v-card-title>
-      <span class="title">
+      <span style="font-size: 17.5px">
         User Management
       </span>
       <div class="flex-grow-1"></div>
@@ -19,7 +19,6 @@
       <v-data-table
         :headers="headers"
         :items="users"
-        :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
         <template v-slot:body="{ items }" v-if="users.length">
@@ -39,6 +38,11 @@
                       : 'mdi-close-circle-outline'
                   }}</v-icon
                 >
+              </td>
+              <td class="text-center">
+                <v-avatar size="30" class="mx-1">
+                  <v-img :src="avatar(item)"></v-img>
+                </v-avatar>
               </td>
               <td class="text-center">
                 <v-btn
@@ -71,14 +75,32 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Name', align: 'left', value: 'name' },
-      { text: 'Username', align: 'left', value: 'username' },
-      { text: 'Branch', align: 'left', value: 'branch_id' },
-      { text: 'Access', align: 'left', value: 'access_id' },
-      { text: 'Active', align: 'center', value: 'active' },
-      { text: 'Actions', align: 'center', value: 'action', sortable: false }
+      { text: 'Name', align: 'left', value: 'name', width: '25%' },
+      { text: 'Username', align: 'left', value: 'username', width: '15%' },
+      { text: 'Branch', align: 'left', value: 'branch_id', width: '15%' },
+      { text: 'Access', align: 'left', value: 'access_id', width: '15%' },
+      { text: 'Active', align: 'center', value: 'active', width: '9%' },
+      {
+        text: 'Avatar',
+        align: 'center',
+        value: 'avatar',
+        sortable: false,
+        width: '9%'
+      },
+      {
+        text: 'Actions',
+        align: 'center',
+        value: 'action',
+        sortable: false,
+        width: '12%'
+      }
     ]
   }),
+  methods: {
+    avatar(user) {
+      return process.env.VUE_APP_API + '/images/avatar/' + user.avatar
+    }
+  },
   mounted() {
     this.$store.dispatch('user/getUsers')
   }

@@ -1,6 +1,6 @@
 <template>
   <v-dialog persistent v-model="show" width="400px">
-    <v-card>
+    <v-card :loading="loading">
       <v-card-title>You are going to delete this payee</v-card-title>
       <v-card-text>Do you want to continue? </v-card-text>
       <v-card-actions>

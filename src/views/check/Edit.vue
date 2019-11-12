@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="show" persistent max-width="500">
-    <v-card>
+    <v-card :loading="editing">
       <form @submit.prevent="edit" @keydown="error.clear($event.target.name)">
         <v-card-text>
           <v-layout row wrap class="px-5">

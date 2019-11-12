@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     drawer() {
-      this.$store.commit('drawer', !this.$store.getters.drawer)
+      this.$store.commit('drawer', (this.$store.getters.drawer + 1) % 3)
     },
     logout() {
       this.$store.dispatch('auth/logout')

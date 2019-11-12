@@ -1,11 +1,12 @@
 <template>
-  <v-card>
-    <v-card-title class="title">Accessibility Management</v-card-title>
+  <v-card outlined :loading="loading">
+    <v-card-title style="font-size: 17.5px">
+      Accessibility Management
+    </v-card-title>
     <v-card-text>
       <v-data-table
         :headers="headers"
         :items="access"
-        :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
         <template v-slot:body="{ items }" v-if="access.length">

@@ -1,20 +1,11 @@
 <template>
   <v-dialog v-model="show" persistent max-width="400">
     <v-card :loading="loading">
-      <form @submit.prevent="importPayees">
+      <form @submit.prevent="upload">
         <v-card-title>
           <span style="font-size: 17.5px">
-            Import Payees
+            Change Avatar
           </span>
-          <v-spacer></v-spacer>
-          <v-btn
-            small
-            icon
-            href="https://sriwebapp.github.io/ui.checktrak/"
-            target="_blank"
-          >
-            <v-icon color="green">mdi-help-circle-outline</v-icon>
-          </v-btn>
         </v-card-title>
         <v-card-text>
           <v-layout row wrap class="px-5">
@@ -22,12 +13,12 @@
               <v-file-input
                 ref="fileinput"
                 v-model="file"
-                label="Select File to be Imported"
+                label="Select Image"
                 show-size
-                :error-messages="error.get('payees_file')"
+                :error-messages="error.get('avatar')"
                 @change="error.reset()"
-                prepend-icon="mdi-file-upload-outline"
-                accept=".csv"
+                prepend-icon="mdi-file-image-outline"
+                accept="image/*"
               ></v-file-input>
             </v-flex>
           </v-layout>
@@ -40,10 +31,7 @@
             :loading="loading"
             :disabled="!file || loading"
           >
-            Start Importing
-            <template v-slot:loader>
-              <span>Importing...</span>
-            </template>
+            Upload
           </v-btn>
           <v-btn
             color="deep-orange"
@@ -66,24 +54,31 @@ export default {
     error() {
       return this.$store.getters.error
     },
-    loading() {
-      return this.$store.getters['payee/loading']
-    },
     show: {
       get() {
-        return this.$store.getters['payee/showImportCreate']
+        return this.$store.getters.showAvatar
       },
       set(arg) {
-        this.$store.commit('payee/showImportCreate', arg)
+        this.$store.commit('showAvatar', arg)
       }
     }
   },
   data: () => ({
+    loading: false,
     file: null
   }),
   methods: {
-    importPayees() {
-      this.$store.dispatch('payee/importCreatePayees', this.file)
+    async upload() {
+      this.loading = true
+      try {
+        await this.$store.dispatch('tools/uploadAvatar', this.file)
+        await this.$store.dispatch('auth/getUser')
+        this.show = false
+      } catch (error) {
+        return
+      } finally {
+        this.loading = false
+      }
     }
   },
   watch: {

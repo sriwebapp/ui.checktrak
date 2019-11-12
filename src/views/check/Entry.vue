@@ -6,6 +6,7 @@
     <import-clear />
     <cancel-form />
     <claim-form />
+    <stale-form />
     <clear-form />
     <create-form />
     <undo-form />
@@ -35,6 +36,7 @@ export default {
     importClear: () => import('./ImportClear.vue'),
     cancelForm: () => import('./Cancel.vue'),
     claimForm: () => import('./Claim.vue'),
+    staleForm: () => import('./Stale.vue'),
     clearForm: () => import('./Clear.vue'),
     createForm: () => import('./Create.vue'),
     undoForm: () => import('./Undo.vue'),

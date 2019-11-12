@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog v-model="show" persistent max-width="1200">
-      <v-card>
+      <v-card :loading="transmitting">
         <form
           @submit.prevent="transmit"
           @keydown="error.clear($event.target.name)"
@@ -109,7 +109,6 @@
             <v-data-table
               :headers="headers"
               :items="checks"
-              :loading="transmitting"
               :footer-props="{ itemsPerPageOptions: [10] }"
               :show-select="selectChecks"
               v-model="selectedChecks"
@@ -137,12 +136,12 @@
                     v-for="item in items"
                     :key="item.id"
                     :class="
-                      item.status.color + ' lighten-' + (item.received ? 5 : 3)
+                      item.status.color + ' lighten-' + (item.received ? 5 : 4)
                     "
                   >
                     <td>{{ item.number }}</td>
                     <td>{{ item.payee.name }}</td>
-                    <td>
+                    <td class="text-right">
                       {{
                         Number(item.amount).toLocaleString('en', {
                           style: 'currency',
@@ -229,10 +228,10 @@ export default {
     date: null,
     date2: null,
     headers: [
-      { text: 'Check #', align: 'left', value: 'number' },
-      { text: 'Payee Name', align: 'left', value: 'payee_id' },
-      { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Details', align: 'left', value: 'details' }
+      { text: 'Check #', align: 'left', value: 'number', width: '15%' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id', width: '35%' },
+      { text: 'Amount', align: 'right', value: 'amount', width: '15%' },
+      { text: 'Details', align: 'left', value: 'details', width: '35%' }
     ],
     group_id: 0,
     groups: [],
@@ -302,8 +301,9 @@ export default {
         this.formatDate(Date())
         this.error.reset()
         this.branch_id = 0
-        this.pagination = { page: 1 }
+        this.group_id = 0
         this.incharge = 0
+        this.pagination = { page: 1 }
         this.ref = ''
         this.checks = this.appChecks
         this.selectedChecks = this.appChecks

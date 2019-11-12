@@ -8,7 +8,7 @@ export default {
       component: () => import('./../views/auth/Login.vue')
     },
     {
-      path: '/forgot-password',
+      path: '/reset-password',
       name: 'forgotPassword',
       component: () => import('./../views/auth/ForgotPassword.vue')
     },

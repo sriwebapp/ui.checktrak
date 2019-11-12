@@ -1,19 +1,5 @@
 <template>
-  <v-card>
-    <v-btn
-      fab
-      color="indigo "
-      small
-      top
-      dark
-      right
-      fixed
-      style="margin-top: 58px"
-      @click="showFilter"
-    >
-      <v-icon>mdi-arrow-left-bold-box-outline</v-icon>
-    </v-btn>
-
+  <v-card outlined>
     <filter-menu></filter-menu>
     <v-divider v-if="filterType"></v-divider>
 
@@ -75,7 +61,7 @@
               <td>{{ formatDate(item.date) }}</td>
               <td>{{ item.number }}</td>
               <td>{{ item.payee.name }}</td>
-              <td>
+              <td class="text-right">
                 {{
                   Number(item.amount).toLocaleString('en', {
                     style: 'currency',
@@ -84,6 +70,7 @@
                 }}
               </td>
               <td>{{ item.details }}</td>
+              <td class="text-center">{{ formatUpdate(item.updated_at) }}</td>
               <td class="text-center">
                 <v-chip
                   x-small
@@ -99,6 +86,21 @@
         </template>
       </v-data-table>
     </v-card-text>
+
+    <v-btn
+      color="indigo darken-4"
+      dark
+      large
+      class="filter-toggle"
+      rounded
+      elevation="24"
+      @click="showFilter"
+    >
+      <v-icon color="deep-orange lighten-4" large>
+        mdi-arrow-left-bold-box-outline
+      </v-icon>
+      <v-spacer></v-spacer>
+    </v-btn>
   </v-card>
 </template>
 
@@ -146,13 +148,19 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Account', align: 'left', value: 'account_id' },
-      { text: 'Posted', align: 'left', value: 'date' },
-      { text: 'Check #', align: 'left', value: 'number' },
-      { text: 'Payee Name', align: 'left', value: 'payee_id' },
-      { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Details', align: 'left', value: 'details' },
-      { text: 'Status', align: 'center', value: 'status_id' }
+      { text: 'Account', align: 'left', value: 'account_id', width: '10%' },
+      { text: 'Posted', align: 'left', value: 'date', width: '10%' },
+      { text: 'Check #', align: 'left', value: 'number', width: '10%' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id', width: '16%' },
+      { text: 'Amount', align: 'right', value: 'amount', width: '12%' },
+      { text: 'Details', align: 'left', value: 'details', width: '18%' },
+      {
+        text: 'Last Update',
+        align: 'center',
+        value: 'updated_at',
+        width: '12%'
+      },
+      { text: 'Status', align: 'center', value: 'status_id', width: '12%' }
     ]
   }),
   created() {
@@ -171,10 +179,10 @@ export default {
       if (Date.parse(arg)) {
         const date = moment(new Date(arg))
 
-        if (moment().diff(date, 'hours') > 6) {
-          return date.calendar()
+        if (moment().diff(date, 'years') > 1) {
+          return date.format('MM/DD/Y')
         } else {
-          return date.fromNow()
+          return date.format('MM/DD HH:mm')
         }
       }
     },
@@ -232,4 +240,15 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.filter-toggle {
+  width: 100px;
+  position: fixed;
+  right: -48px;
+  top: 126px;
+  transition: all 0.3s ease;
+}
+.filter-toggle:hover {
+  right: -33px;
+}
+</style>

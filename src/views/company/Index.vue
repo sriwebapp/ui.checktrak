@@ -1,7 +1,7 @@
 <template>
-  <v-card>
+  <v-card outlined :loading="loading">
     <v-card-title>
-      <span class="title">
+      <span style="font-size: 17.5px">
         Company Management
       </span>
       <v-spacer></v-spacer>
@@ -18,7 +18,6 @@
       <v-data-table
         :headers="headers"
         :items="companies"
-        :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
         <template v-slot:item.action="{ item }">

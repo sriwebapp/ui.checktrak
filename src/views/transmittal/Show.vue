@@ -1,6 +1,6 @@
 <template>
-  <v-card>
-    <v-card-title class="title">Transmittal Report</v-card-title>
+  <v-card outlined :loading="loading">
+    <v-card-title style="font-size: 17.5px">Transmittal Report</v-card-title>
     <v-divider></v-divider>
     <v-card-text>
       <v-layout row wrap class="mb-5">
@@ -88,7 +88,6 @@
       <v-data-table
         :headers="headers"
         :items="transmittal.checks"
-        :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10] }"
       >
         <template v-if="transmittal.checks.length" v-slot:body="{ items }">
@@ -102,7 +101,7 @@
               <td>{{ item.number }}</td>
               <td>{{ item.payee.name }}</td>
               <td>{{ item.details }}</td>
-              <td>
+              <td class="text-right">
                 {{
                   Number(item.amount).toLocaleString('en', {
                     style: 'currency',
@@ -110,7 +109,7 @@
                   })
                 }}
               </td>
-              <td>{{ showClaimedDate(item.history) }}</td>
+              <td class="text-center">{{ showClaimedDate(item.history) }}</td>
             </tr>
           </tbody>
         </template>
@@ -118,6 +117,10 @@
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
+      <v-btn icon small :href="exportLink" :disabled="loading" class="mr-n1">
+        <v-icon color="indigo">mdi-file-export</v-icon>
+      </v-btn>
+
       <v-btn
         small
         class="indigo white--text"
@@ -161,14 +164,6 @@ export default {
     transmittal() {
       return this.$store.getters['transmittal/transmittal']
     },
-    returnReport() {
-      return (
-        process.env.VUE_APP_API +
-        '/pdf/transmittal/' +
-        this.transmittal.ref +
-        '-1.pdf'
-      )
-    },
     totalAmount() {
       let total = this.transmittal.checks
         ? this.transmittal.checks.reduce((total, check) => {
@@ -181,6 +176,22 @@ export default {
         currency: 'Php'
       })
     },
+    exportLink() {
+      return (
+        process.env.VUE_APP_API +
+        '/transmittal/' +
+        this.transmittal.id +
+        '/export'
+      )
+    },
+    returnReport() {
+      return (
+        process.env.VUE_APP_API +
+        '/pdf/transmittal/' +
+        this.transmittal.ref +
+        '-1.pdf'
+      )
+    },
     transmittalReport() {
       return (
         process.env.VUE_APP_API +
@@ -192,12 +203,18 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Posted', align: 'left', value: 'date' },
-      { text: 'Check #', align: 'left', value: 'number' },
-      { text: 'Payee Name', align: 'left', value: 'payee_id' },
-      { text: 'Details', align: 'left', value: 'details' },
-      { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Claimed', align: 'left', value: 'history', sortable: false }
+      { text: 'Posted', align: 'left', value: 'date', width: '12%' },
+      { text: 'Check #', align: 'left', value: 'number', width: '12%' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id', width: '23%' },
+      { text: 'Details', align: 'left', value: 'details', width: '23%' },
+      { text: 'Amount', align: 'right', value: 'amount', width: '12%' },
+      {
+        text: 'Claimed',
+        align: 'center',
+        value: 'history',
+        sortable: false,
+        width: '12%'
+      }
     ]
   }),
   methods: {

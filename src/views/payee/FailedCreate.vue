@@ -2,7 +2,7 @@
   <v-dialog v-model="show" persistent max-width="1000">
     <v-card>
       <v-card-title>
-        <span class="title">
+        <span style="font-size: 17.5px">
           Failed Payees
         </span>
         <v-spacer></v-spacer>

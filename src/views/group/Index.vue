@@ -1,7 +1,7 @@
 <template>
-  <v-card>
+  <v-card outlined :loading="loading">
     <v-card-title>
-      <span class="title">
+      <span style="font-size: 17.5px">
         Group Management
       </span>
       <v-spacer></v-spacer>
@@ -18,7 +18,6 @@
       <v-data-table
         :headers="headers"
         :items="groups"
-        :loading="loading"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
         <template v-slot:item.branch_id="{ item }">
@@ -33,20 +32,13 @@
         </template>
 
         <template v-slot:item.incharge="{ item }">
-          <v-tooltip top>
+          <v-tooltip top v-for="i in item.incharge" :key="i.id">
             <template v-slot:activator="{ on }">
-              <v-chip
-                :class="item.incharge.length ? 'primary' : ''"
-                v-on="on"
-                x-small
-                outlined
-              >
-                {{ item.incharge.length }}
-              </v-chip>
+              <v-avatar size="30" class="mr-1" v-on="on">
+                <v-img :src="avatar(i)"></v-img>
+              </v-avatar>
             </template>
-            <span>
-              {{ '[ ' + item.incharge.map(i => i.username).join(', ') + ' ]' }}
-            </span>
+            <span> {{ i.name }} </span>
           </v-tooltip>
         </template>
         <template v-slot:item.action="{ item }">
@@ -77,13 +69,30 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Branch', align: 'left', value: 'branch_id' },
-      { text: 'Name', align: 'left', value: 'name' },
-      { text: 'Active', align: 'center', value: 'active' },
-      { text: 'Incharge', align: 'center', value: 'incharge', sortable: false },
-      { text: 'Actions', align: 'center', value: 'action', sortable: false }
+      { text: 'Branch', align: 'left', value: 'branch_id', width: '25%' },
+      { text: 'Name', align: 'left', value: 'name', width: '25%' },
+      { text: 'Active', align: 'center', value: 'active', width: '10%' },
+      {
+        text: 'Incharge',
+        align: 'center',
+        value: 'incharge',
+        sortable: false,
+        width: '25%'
+      },
+      {
+        text: 'Actions',
+        align: 'center',
+        value: 'action',
+        sortable: false,
+        width: '15%'
+      }
     ]
   }),
+  methods: {
+    avatar(incharge) {
+      return process.env.VUE_APP_API + '/images/avatar/' + incharge.avatar
+    }
+  },
   mounted() {
     this.$store.dispatch('group/getGroups')
   }

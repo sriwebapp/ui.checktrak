@@ -81,6 +81,21 @@ export default {
       context.commit('clearing', false)
     }
   },
+  async stale(context, data) {
+    context.commit('staling', true)
+    try {
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/check/stale'
+      await Axios.post(url, data)
+      context.commit('showStale', false)
+      context.commit('selectedChecks', [])
+      context.dispatch('getChecks', context.getters.pagination)
+    } catch (e) {
+      return
+    } finally {
+      context.commit('staling', false)
+    }
+  },
   async create(context, check) {
     context.commit('creating', true)
     try {

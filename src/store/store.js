@@ -10,6 +10,7 @@ import branch from './branch/store'
 import group from './group/store'
 import tools from './tools/store'
 import account from './account/store'
+import checkbook from './checkbook/store'
 import payee from './payee/store'
 import check from './check/store'
 import transmittal from './transmittal/store'
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     group,
     tools,
     account,
+    checkbook,
     payee,
     check,
     transmittal,
@@ -34,13 +36,15 @@ export default new Vuex.Store({
   },
   state: {
     alert: {},
-    drawer: true,
+    drawer: 1,
     error: new Error(),
     filter: false,
     footer: false,
     loader: true,
     loading: true,
-    showAlert: false
+    showAlert: false,
+    showAvatar: false,
+    staledNotification: false
   },
   mutations: {
     alert(state, payload) {
@@ -48,6 +52,7 @@ export default new Vuex.Store({
       state.showAlert = true
     },
     drawer(state, payload) {
+      localStorage.setItem('drawer', payload)
       state.drawer = payload
     },
     filter(state, payload) {
@@ -65,6 +70,12 @@ export default new Vuex.Store({
     },
     showAlert(state, payload) {
       state.showAlert = payload
+    },
+    showAvatar(state, payload) {
+      state.showAvatar = payload
+    },
+    staledNotification(state, payload) {
+      state.staledNotification = payload
     }
   },
   actions: {
@@ -76,6 +87,10 @@ export default new Vuex.Store({
           'tools/getCompany',
           localStorage.getItem('company_id')
         )
+
+        if (context.getters['auth/user'].actionAccess.includes('stl')) {
+          await context.dispatch('tools/getStaledChecks')
+        }
         context.commit('loading', false)
       } catch (error) {
         return
@@ -106,6 +121,12 @@ export default new Vuex.Store({
     },
     showAlert(state) {
       return state.showAlert
+    },
+    showAvatar(state) {
+      return state.showAvatar
+    },
+    staledNotification(state) {
+      return state.staledNotification
     }
   }
 })

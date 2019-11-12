@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog v-model="show" persistent max-width="1000">
-      <v-card>
+      <v-card :loading="receiving">
         <form
           @submit.prevent="receiveChecks"
           @keydown="error.clear($event.target.name)"
@@ -108,12 +108,12 @@
                     v-for="item in items"
                     :key="item.id"
                     :class="
-                      item.status.color + ' lighten-' + (item.received ? 5 : 3)
+                      item.status.color + ' lighten-' + (item.received ? 5 : 4)
                     "
                   >
                     <td>{{ item.number }}</td>
                     <td>{{ item.payee.name }}</td>
-                    <td>
+                    <td class="text-right">
                       {{
                         Number(item.amount).toLocaleString('en', {
                           style: 'currency',
@@ -199,10 +199,10 @@ export default {
     date: null,
     date2: null,
     headers: [
-      { text: 'Check #', align: 'left', value: 'number' },
-      { text: 'Payee Name', align: 'left', value: 'payee_id' },
-      { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Claimed', align: 'left', value: 'status_id' }
+      { text: 'Check #', align: 'left', value: 'number', width: '20%' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id', width: '40%' },
+      { text: 'Amount', align: 'right', value: 'amount', width: '20%' },
+      { text: 'Claimed', align: 'left', value: 'status_id', width: '20%' }
     ],
     loading: false,
     remarks: '',
