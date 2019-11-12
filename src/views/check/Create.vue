@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog v-model="show" persistent max-width="550">
-      <v-card>
+      <v-card :loading="creating">
         <form
           @submit.prevent="create"
           @keydown="error.clear($event.target.name)"

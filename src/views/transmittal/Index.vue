@@ -1,6 +1,6 @@
 <template>
-  <v-card>
-    <v-card-title class="title">Check Transmittal</v-card-title>
+  <v-card outlined>
+    <v-card-title style="font-size: 17.5px">Check Transmittal</v-card-title>
     <v-card-text>
       <v-data-table
         :headers="headers"
@@ -19,9 +19,9 @@
               <td>{{ item.ref }}</td>
               <td>{{ item.branch.name }}</td>
               <td>{{ item.group.name }}</td>
-              <td>{{ formatDate(item.date) }}</td>
-              <td>{{ formatDate(item.due) }}</td>
-              <td>{{ formatDate(item.returned) }}</td>
+              <td class="text-center">{{ formatDate(item.date) }}</td>
+              <td class="text-center">{{ formatDate(item.due) }}</td>
+              <td class="text-center">{{ formatDate(item.returned) }}</td>
               <td class="text-center">{{ item.checks.length }}</td>
               <td class="text-center">{{ claimedChecks(item.checks) }}</td>
               <td class="text-center">
@@ -66,31 +66,40 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Reference No.', align: 'left', value: 'ref' },
-      { text: 'Branch', align: 'left', value: 'branch_id' },
-      { text: 'Group', align: 'left', value: 'group_id' },
-      { text: 'Date', align: 'left', value: 'date' },
-      { text: 'Due', align: 'left', value: 'due' },
-      { text: 'Returned', align: 'left', value: 'returned' },
+      { text: 'Reference No.', align: 'left', value: 'ref', width: '18%' },
+      { text: 'Branch', align: 'left', value: 'branch_id', width: '12%' },
+      { text: 'Group', align: 'left', value: 'group_id', width: '12%' },
+      { text: 'Date', align: 'center', value: 'date', width: '10%' },
+      { text: 'Due', align: 'center', value: 'due', width: '10%' },
+      { text: 'Returned', align: 'center', value: 'returned', width: '10%' },
       {
         text: 'Checks',
         align: 'center',
         value: 'checks',
-        sortable: false
+        sortable: false,
+        width: '7%'
       },
       {
         text: 'Claimed',
         align: 'center',
         value: 'claimed',
-        sortable: false
+        sortable: false,
+        width: '7%'
       },
       {
-        text: 'Not Yet Received',
+        text: 'N Y R',
         align: 'center',
         value: 'nyr',
-        sortable: false
+        sortable: false,
+        width: '7%'
       },
-      { text: 'View', align: 'center', value: 'view', sortable: false }
+      {
+        text: 'View',
+        align: 'center',
+        value: 'view',
+        sortable: false,
+        width: '7%'
+      }
     ],
     pagination: {}
   }),

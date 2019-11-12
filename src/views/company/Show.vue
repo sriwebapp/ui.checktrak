@@ -1,6 +1,6 @@
 <template>
-  <v-card>
-    <v-card-title class="title">Manage Company</v-card-title>
+  <v-card outlined :loading="loading">
+    <v-card-title style="font-size: 17.5px">Manage Company</v-card-title>
     <v-card-text>
       <v-container>
         <v-divider></v-divider>

@@ -59,7 +59,7 @@ export default {
         },
         {
           label: 'Return',
-          color: 'blue-grey',
+          color: 'deep-orange',
           icon: 'mdi-keyboard-return',
           action: this.showReturnForm,
           access: !this.returnable

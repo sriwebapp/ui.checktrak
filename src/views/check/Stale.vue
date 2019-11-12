@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-dialog v-model="show" persistent max-width="1000">
-      <v-card :loading="cancelling">
+      <v-card>
         <form
-          @submit.prevent="cancel"
+          @submit.prevent="stale"
           @keydown="error.clear($event.target.name)"
         >
           <v-card-text>
@@ -28,7 +28,6 @@
                   name="remarks"
                   label="Remarks"
                   prepend-icon="mdi-clipboard-list-outline"
-                  required
                 ></v-text-field>
               </v-flex>
 
@@ -66,12 +65,16 @@
             <v-data-table
               :headers="headers"
               :items="checks"
+              :loading="staling"
               :footer-props="{ itemsPerPageOptions: [10] }"
               :show-select="selectChecks"
               v-model="selectedChecks"
               :options.sync="pagination"
               dense
             >
+              <template v-slot:item.date="{ item }">
+                {{ showDate(item.date) }}
+              </template>
               <template v-slot:item.payee_id="{ item }">
                 {{ item.payee.name }}
               </template>
@@ -83,6 +86,16 @@
                   })
                 }}
               </template>
+              <template v-slot:item.status_id="{ item }">
+                <v-chip
+                  x-small
+                  :text-color="item.received ? 'white' : 'black'"
+                  :outlined="!item.received"
+                  :class="item.status.color"
+                >
+                  {{ item.status.name }}
+                </v-chip>
+              </template>
 
               <template
                 v-if="checks.length && !selectChecks"
@@ -92,13 +105,12 @@
                   <tr
                     v-for="item in items"
                     :key="item.id"
-                    :class="
-                      item.status.color + ' lighten-' + (item.received ? 5 : 4)
-                    "
+                    :class="item.status.color + ' lighten-5'"
                   >
+                    <td>{{ showDate(item.date) }}</td>
                     <td>{{ item.number }}</td>
                     <td>{{ item.payee.name }}</td>
-                    <td class="text-right">
+                    <td>
                       {{
                         Number(item.amount).toLocaleString('en', {
                           style: 'currency',
@@ -106,7 +118,16 @@
                         })
                       }}
                     </td>
-                    <td>{{ item.details }}</td>
+                    <td class="text-center">
+                      <v-chip
+                        x-small
+                        :text-color="item.received ? 'white' : 'black'"
+                        :outlined="!item.received"
+                        :class="item.status.color"
+                      >
+                        {{ item.status.name }}
+                      </v-chip>
+                    </td>
                   </tr>
                 </tbody>
               </template>
@@ -116,17 +137,17 @@
             <v-btn
               type="submit"
               small
-              color="red white--text"
-              :loading="cancelling"
+              color="orange white--text"
+              :loading="staling"
             >
-              Cancel
+              Stale
             </v-btn>
             <v-btn
               color="deep-orange"
               small
               outlined
               @click="show = false"
-              :disabled="cancelling"
+              :disabled="staling"
             >
               Close
             </v-btn>
@@ -135,7 +156,12 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="showCalendar" width="290px">
-      <v-date-picker no-title v-model="date" @change="showCalendar = false">
+      <v-date-picker
+        no-title
+        v-model="date"
+        :max="today"
+        @change="showCalendar = false"
+      >
       </v-date-picker>
     </v-dialog>
   </div>
@@ -143,6 +169,7 @@
 
 <script>
 import Helper from './../../helper/Helper'
+import moment from 'moment'
 
 export default {
   computed: {
@@ -156,44 +183,45 @@ export default {
         currency: 'Php'
       })
     },
-    cancelling() {
-      return this.$store.getters['check/cancelling']
-    },
-    appChecks() {
-      return this.$store.getters['check/selectedChecks']
+    checks() {
+      return this.$store.getters['tools/staledChecks']
     },
     error() {
       return this.$store.getters.error
     },
     show: {
       get() {
-        return this.$store.getters['check/showCancel']
+        return this.$store.getters['check/showStale']
       },
       set(arg) {
-        this.$store.commit('check/showCancel', arg)
+        this.$store.commit('check/showStale', arg)
       }
+    },
+    staling() {
+      return this.$store.getters['check/staling']
     }
   },
   data: () => ({
-    checks: [],
     date: null,
     date2: null,
     headers: [
-      { text: 'Check #', align: 'left', value: 'number', width: '15%' },
-      { text: 'Payee Name', align: 'left', value: 'payee_id', width: '35%' },
-      { text: 'Amount', align: 'right', value: 'amount', width: '15%' },
-      { text: 'Details', align: 'left', value: 'details', width: '35%' }
+      { text: 'Date', align: 'left', value: 'date' },
+      { text: 'Check #', align: 'left', value: 'number' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id' },
+      { text: 'Amount', align: 'left', value: 'amount' },
+      { text: 'Status', align: 'center', value: 'status_id' }
     ],
     pagination: {},
     remarks: '',
     selectChecks: false,
     selectedChecks: [],
-    showCalendar: false
+    showCalendar: false,
+    today: moment().format('Y-MM-DD')
   }),
   methods: {
-    cancel() {
+    stale() {
       this.formatDate(this.date2)
-      this.$store.dispatch('check/cancel', {
+      this.$store.dispatch('check/stale', {
         date: this.date,
         remarks: this.remarks,
         checks: this.selectedChecks.map(check => check.id)
@@ -202,25 +230,33 @@ export default {
     formatDate(date) {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
+      this.remarks = this.transactToday ? 'Claimed' : ''
+    },
+    showDate(arg) {
+      if (Date.parse(arg)) {
+        return moment(new Date(arg)).format('MM/DD/Y')
+      }
     }
+  },
+  mounted() {
+    this.formatDate(Date())
+    this.error.reset()
+    this.pagination = { page: 1 }
+    this.selectChecks = false
+    this.selectedChecks = this.checks
   },
   watch: {
     show(arg) {
       if (arg) {
         this.formatDate(Date())
         this.error.reset()
-        this.remarks = ''
         this.pagination = { page: 1 }
-        this.checks = this.appChecks
-        this.selectedChecks = this.appChecks
         this.selectChecks = false
+        this.selectedChecks = this.checks
       }
     },
     selectChecks() {
       this.selectedChecks = this.checks
-    },
-    selectedChecks() {
-      this.$store.commit('check/selectedChecks', this.selectedChecks)
     },
     date(arg) {
       this.formatDate(arg)

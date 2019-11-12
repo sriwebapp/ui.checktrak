@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog v-model="show" persistent max-width="1000">
-      <v-card>
+      <v-card :loading="claiming">
         <form
           @submit.prevent="claim"
           @keydown="error.clear($event.target.name)"
@@ -68,7 +68,6 @@
             <v-data-table
               :headers="headers"
               :items="checks"
-              :loading="claiming"
               :footer-props="{ itemsPerPageOptions: [10] }"
               :show-select="selectChecks"
               v-model="selectedChecks"
@@ -96,12 +95,12 @@
                     v-for="item in items"
                     :key="item.id"
                     :class="
-                      item.status.color + ' lighten-' + (item.received ? 5 : 3)
+                      item.status.color + ' lighten-' + (item.received ? 5 : 4)
                     "
                   >
                     <td>{{ item.number }}</td>
                     <td>{{ item.payee.name }}</td>
-                    <td>
+                    <td class="text-right">
                       {{
                         Number(item.amount).toLocaleString('en', {
                           style: 'currency',
@@ -191,10 +190,10 @@ export default {
     date: null,
     date2: null,
     headers: [
-      { text: 'Check #', align: 'left', value: 'number' },
-      { text: 'Payee Name', align: 'left', value: 'payee_id' },
-      { text: 'Amount', align: 'left', value: 'amount' },
-      { text: 'Details', align: 'left', value: 'details' }
+      { text: 'Check #', align: 'left', value: 'number', width: '15%' },
+      { text: 'Payee Name', align: 'left', value: 'payee_id', width: '35%' },
+      { text: 'Amount', align: 'right', value: 'amount', width: '15%' },
+      { text: 'Details', align: 'left', value: 'details', width: '35%' }
     ],
     pagination: {},
     remarks: '',

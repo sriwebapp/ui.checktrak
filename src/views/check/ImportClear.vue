@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="show" persistent max-width="400">
-    <v-card>
+    <v-card :loading="importing">
       <form @submit.prevent="importChecks">
         <v-card-title>
-          <span class="title">
+          <span style="font-size: 17.5px">
             Import Cleared Checks
           </span>
           <v-spacer></v-spacer>
@@ -40,7 +40,6 @@
                 show-size
                 :error-messages="error.get('clear_checks_file')"
                 :disabled="importing"
-                :loading="importing"
                 @change="error.reset()"
                 prepend-icon="mdi-file-upload-outline"
                 accept=".csv"
@@ -118,6 +117,8 @@ export default {
     show(arg) {
       if (arg) {
         this.account_id = null
+        this.error.reset()
+        this.file = null
       }
     }
   }

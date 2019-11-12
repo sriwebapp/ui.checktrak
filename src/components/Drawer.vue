@@ -6,13 +6,18 @@
     app
     v-model="visible"
     v-if="!loading"
-    expand-on-hover
     :mini-variant-width="60"
+    :mini-variant="visible === 2"
+    width="240"
   >
     <template v-slot:prepend>
-      <v-list-item class="my-3">
+      <v-list-item class="my-3" @click="uploadAvatar">
+        <v-list-item-avatar size="35">
+          <v-img :src="avatar"></v-img>
+        </v-list-item-avatar>
+
         <v-list-item-content>
-          <v-list-item-title class="title">
+          <v-list-item-title style="font-size: 17.5px;">
             {{ user.name }}
           </v-list-item-title>
 
@@ -27,28 +32,8 @@
 
     <v-list dense nav color="transparent">
       <v-list-item
-        active-class="indigo darken-2"
+        active-class="deep-orange darken-4"
         v-for="item in admin"
-        :key="item.title"
-        link
-        :to="item.route"
-      >
-        <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-
-    <v-divider v-if="admin.length"></v-divider>
-
-    <v-list dense nav color="transparent">
-      <v-list-item
-        active-class="indigo darken-2"
-        v-for="item in check"
         :key="item.title"
         link
         :to="item.route"
@@ -108,17 +93,28 @@ export default {
             code: 'acc'
           },
           {
+            title: 'Check Books',
+            icon: 'mdi-book-open-page-variant',
+            route: '/check-book',
+            code: 'cbk'
+          },
+          {
             title: 'Payees',
             icon: 'mdi-account-cash-outline',
             route: '/payee',
             code: 'pye'
           }
-        ].filter(item => {
-          return this.modules.includes(item.code)
-        })
+        ]
+          .filter(item => {
+            return this.modules.includes(item.code)
+          })
+          .concat(this.check)
       } else {
         return []
       }
+    },
+    avatar() {
+      return process.env.VUE_APP_API + '/images/avatar/' + this.user.avatar
     },
     loading() {
       return this.$store.getters.loading
@@ -165,6 +161,9 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('auth/logout')
+    },
+    uploadAvatar() {
+      this.$store.commit('showAvatar', true)
     }
   }
 }

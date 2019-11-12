@@ -1,7 +1,7 @@
 <template>
-  <v-card>
+  <v-card outlined>
     <v-card-title>
-      <span class="title">
+      <span style="font-size: 17.5px">
         Payee Management
       </span>
       <v-spacer></v-spacer>
@@ -76,11 +76,17 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Code', align: 'left', value: 'code' },
-      { text: 'Name', align: 'left', value: 'name' },
-      { text: 'Group', align: 'left', value: 'payee_group_id' },
-      { text: 'Active', align: 'center', value: 'active' },
-      { text: 'Actions', align: 'center', value: 'action', sortable: false }
+      { text: 'Code', align: 'left', value: 'code', width: '15%' },
+      { text: 'Name', align: 'left', value: 'name', width: '40%' },
+      { text: 'Group', align: 'left', value: 'payee_group_id', width: '15%' },
+      { text: 'Active', align: 'center', value: 'active', width: '15%' },
+      {
+        text: 'Actions',
+        align: 'center',
+        value: 'action',
+        sortable: false,
+        width: '15%'
+      }
     ],
     pagination: {},
     search: ''

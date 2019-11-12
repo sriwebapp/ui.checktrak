@@ -1,9 +1,9 @@
 <template>
-  <v-card>
-    <v-card-title class="title">Update User Access</v-card-title>
+  <v-card outlined :loading="loading">
+    <v-card-title style="font-size: 17.5px">Update User Access</v-card-title>
     <form @submit.prevent="editAccess">
       <v-card-text>
-        <v-layout row wrap class="px-5 mt-n4">
+        <v-container class="mt-n5">
           <v-flex xs12>
             <v-select
               v-model="access"
@@ -34,6 +34,7 @@
                 v-model="selectedActions"
                 :value="action.code"
                 :disabled="disable('action')"
+                :color="action.color"
                 hide-details
               >
                 <template v-slot:label>
@@ -49,9 +50,14 @@
             </p>
           </v-flex>
 
-          <v-row no-gutters class="mt-n5 mb-5">
+          <v-row
+            no-gutters
+            class="mt-n5 mb-5"
+            v-for="branch in groups"
+            :key="branch.id"
+          >
             <v-col
-              v-for="group in groups"
+              v-for="group in branch.groups"
               :key="group.id"
               cols="12"
               sm="4"
@@ -96,7 +102,7 @@
               </v-checkbox>
             </v-col>
           </v-row>
-        </v-layout>
+        </v-container>
       </v-card-text>
 
       <v-card-actions>
@@ -183,7 +189,15 @@ export default {
     },
     setGroups() {
       if (this.selectedAccess.group === 2) {
-        this.selectedGroups = this.groups.map(group => group.id)
+        let groups = []
+
+        this.groups.forEach(group => {
+          group.groups.forEach(g => {
+            groups.push(g.id)
+          })
+        })
+
+        this.selectedGroups = groups
       } else if (this.selectedAccess.group === 1) {
         this.selectedGroups = this.selectedAccess.groups.map(group => group.id)
       } else {

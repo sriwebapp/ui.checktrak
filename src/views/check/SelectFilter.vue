@@ -1,29 +1,29 @@
 <template>
   <v-navigation-drawer
     v-model="visible"
-    color="indigo lighten-4"
+    color="deep-orange lighten-5"
     right
     temporary
     fixed
   >
     <v-list dense shaped color="transparent">
       <v-list-item>
-        <v-list-item-content class="headline mb-n4">
+        <v-list-item-content class="mb-n2" style="font-size: 21px">
           <p class="text-center">
             Select Filter
           </p>
         </v-list-item-content>
       </v-list-item>
 
-      <v-divider class="mb-3"></v-divider>
+      <v-divider></v-divider>
 
       <v-list-item
+        class="my-2"
         :class="filter === item.value ? 'indigo darken-2' : ''"
         v-for="item in filters"
         :key="item.value"
         :dark="filter === item.value"
         @click="selectFilter(item.value)"
-        loading
       >
         <v-list-item-content>
           <v-list-item-title>{{ item.text }}</v-list-item-title>

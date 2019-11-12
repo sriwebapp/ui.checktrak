@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="show" persistent max-width="500">
-    <v-card>
+    <v-card :loading="deleting">
       <form
         @submit.prevent="deleteCheck"
         @keydown="error.clear($event.target.name)"

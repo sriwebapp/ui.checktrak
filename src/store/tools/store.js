@@ -14,6 +14,7 @@ export default {
     modules: [],
     payees: [],
     payeeGroup: [],
+    staledChecks: [],
     status: [],
     transmittals: [],
     users: []
@@ -54,6 +55,9 @@ export default {
     },
     status(state, payload) {
       state.status = payload
+    },
+    staledChecks(state, payload) {
+      state.staledChecks = payload
     },
     transmittals(state, payload) {
       state.transmittals = payload
@@ -101,6 +105,20 @@ export default {
       try {
         const res = await Axios.get('/tools/checks/' + transmittal_id)
         return res
+      } catch (error) {
+        return
+      }
+    },
+    async getStaledChecks(context) {
+      try {
+        const url =
+          '/tools/staled-checks/' + context.rootGetters['tools/company'].code
+        const res = await Axios.get(url)
+
+        if (res.data.length) {
+          context.commit('staledChecks', res.data)
+          context.commit('staledNotification', true, { root: true })
+        }
       } catch (error) {
         return
       }
@@ -242,6 +260,15 @@ export default {
       } catch (e) {
         return
       }
+    },
+    async uploadAvatar(context, file) {
+      try {
+        let data = new FormData()
+        data.append('avatar', file)
+        await Axios.post('/auth/avatar', data)
+      } catch (error) {
+        throw error
+      }
     }
   },
   getters: {
@@ -277,6 +304,9 @@ export default {
     },
     payeeGroup(state) {
       return state.payeeGroup
+    },
+    staledChecks(state) {
+      return state.staledChecks
     },
     status(state) {
       return state.status

@@ -3,10 +3,10 @@
     <v-card v-if="state">
       <v-list-item two-line>
         <v-list-item-avatar size="20">
-          <v-icon color="indigo">mdi-tag-text-outline</v-icon>
+          <v-icon :color="status.color">mdi-tag-text-outline</v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title>{{ status }}</v-list-item-title>
+          <v-list-item-title>{{ status.name }}</v-list-item-title>
           <v-list-item-subtitle>Status</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -66,7 +66,7 @@ export default {
       return this.$store.getters['check/checkState']
     },
     status() {
-      return this.statuses.find(i => i.id === this.state.status_id).name
+      return this.statuses.find(i => i.id === this.state.status_id)
     },
     received() {
       return this.state.received ? 'Yes' : 'No'
