@@ -13,20 +13,14 @@
           <tbody>
             <tr v-for="item in items" :key="item.id">
               <td>{{ item.name }}</td>
-              <td class="text-center">
-                <v-chip x-small outlined :class="decrypt(item.action).color">
-                  {{ decrypt(item.action).text }}
-                </v-chip>
+              <td class="text-center" :class="'ct-status-'+decrypt(item.action).color">
+                {{ decrypt(item.action).text }}
               </td>
-              <td class="text-center">
-                <v-chip x-small outlined :class="decrypt(item.group).color">
-                  {{ decrypt(item.group).text }}
-                </v-chip>
+              <td class="text-center" :class="'ct-status-'+decrypt(item.group).color">
+                {{ decrypt(item.group).text }}
               </td>
-              <td class="text-center">
-                <v-chip x-small outlined :class="decrypt(item.module).color">
-                  {{ decrypt(item.module).text }}
-                </v-chip>
+              <td class="text-center" :class="'ct-status-'+decrypt(item.module).color">
+                {{ decrypt(item.module).text }}
               </td>
               <td class="text-center">
                 <v-btn

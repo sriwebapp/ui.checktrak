@@ -1,5 +1,5 @@
 /* access */
-.access-index_manage span{
+/* .access-index_manage span{
 padding-top:2px;
 }
 .access-index_chips span{
@@ -23,4 +23,23 @@ font-size:20px;
 .access-edit_final-buttons button,
 .access-edit_final-buttons a{
 padding-top:2px !important;
+} */
+
+
+.ct-status-primary{
+  color:#5dafff;
+  background-color:transparent !important;
+}
+.ct-status-success{
+  color:#81de85;
+  background-color:transparent !important;
+}
+.ct-status-warning{
+  color:#ffb962;
+  background-color:transparent !important;
+}
+[role='columnheader'] span{
+  color: #aaa;
+  font-weight: normal;
+  font-size: 12px;
 }
