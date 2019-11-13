@@ -182,7 +182,8 @@ export default {
         if (moment().diff(date, 'years') > 1) {
           return date.format('MM/DD/Y')
         } else {
-          return date.format('MM/DD HH:mm')
+          // return date.format('MM/DD HH:mm')
+          return date.fromNow()
         }
       }
     },
