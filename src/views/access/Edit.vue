@@ -10,6 +10,7 @@
               label="Access Name"
               prepend-icon="mdi-tag-text-outline"
               readonly
+              class="subtitle-1"
             ></v-text-field>
           </v-flex>
 
