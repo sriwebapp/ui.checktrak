@@ -31,6 +31,7 @@
               <td class="text-center">
                 <v-btn
                   x-small
+                  class="info"
                   :disabled="loading"
                   router
                   :to="{ name: 'edit-access', params: { id: item.id } }"
