@@ -31,7 +31,7 @@
           </v-tooltip>
         </template>
         <template v-slot:item.groups="{ item }">
-          <v-tooltip top>
+          <v-tooltip top class="ct-chips">
             <template v-slot:activator="{ on }">
               <v-chip
                 :class="item.groups.length ? 'primary' : ''"

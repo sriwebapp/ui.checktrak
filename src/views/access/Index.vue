@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined :loading="loading" class="access-index">
+  <v-card outlined :loading="loading">
     <v-card-title style="font-size: 17.5px">
       Accessibility Management
     </v-card-title>
@@ -10,7 +10,7 @@
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
         <template v-slot:body="{ items }" v-if="access.length">
-          <tbody class="access-index_chips">
+          <tbody>
             <tr v-for="item in items" :key="item.id">
               <td>{{ item.name }}</td>
               <td class="text-center">
@@ -31,7 +31,6 @@
               <td class="text-center">
                 <v-btn
                   x-small
-                  class="info access-index_manage"
                   :disabled="loading"
                   router
                   :to="{ name: 'edit-access', params: { id: item.id } }"

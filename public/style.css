@@ -1,0 +1,26 @@
+/* access */
+.access-index_manage span{
+padding-top:2px;
+}
+.access-index_chips span{
+border:none !important;
+}
+.access-index_chips span.primary{
+color:#1976d2 !important;
+}
+.access-index_chips span.success{
+color:#4caf50 !important;
+}
+.access-index_chips span.warning{
+color:#fb8c00 !important;
+}
+.access-edit_access-name input{
+font-size:14px;
+}
+.access-edit_access-name .mdi-tag-text-outline::before{
+font-size:20px;
+}
+.access-edit_final-buttons button,
+.access-edit_final-buttons a{
+padding-top:2px !important;
+}
