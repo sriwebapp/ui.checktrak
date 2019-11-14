@@ -7,8 +7,7 @@ export default {
     try {
       const url = '/' + context.rootGetters['tools/company'].code + '/check'
       const res = await Axios.post(url, options)
-      // context.commit('checks', res.data)
-      console.log(res.data)
+      context.commit('checks', res.data)
       // context.commit('selectedChecks', [])
     } catch (e) {
       return
