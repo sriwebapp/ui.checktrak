@@ -53,7 +53,7 @@
             <tr
               v-for="item in items"
               :key="item.id"
-              :class="item.status.color + ' lighten-' + (item.received ? 5 : 4)"
+              :class="item.status.color + ' lighten-5'"
               @click="showCheck(item.id)"
               style="cursor: pointer;"
             >
@@ -69,7 +69,7 @@
                   })
                 }}
               </td>
-              <td>{{ item.details }}</td>
+              <td class="text-center">{{ item.details }}</td>
               <td class="text-center">{{ formatUpdate(item.updated_at) }}</td>
               <td class="text-center">
                 <v-chip
@@ -153,7 +153,7 @@ export default {
       { text: 'Check #', align: 'left', value: 'number', width: '10%' },
       { text: 'Payee Name', align: 'left', value: 'payee_id', width: '16%' },
       { text: 'Amount', align: 'right', value: 'amount', width: '12%' },
-      { text: 'Details', align: 'left', value: 'details', width: '18%' },
+      { text: 'Details', align: 'center', value: 'details', width: '18%' },
       {
         text: 'Last Update',
         align: 'center',
@@ -169,8 +169,7 @@ export default {
   methods: {
     getChecks() {
       const options = Object.assign(this.pagination, {
-        filterType: this.filterType,
-        filterContent: this.filterContent
+        filter: this.filterContent
       })
 
       this.$store.dispatch('check/getChecks', options)

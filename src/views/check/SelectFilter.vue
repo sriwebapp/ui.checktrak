@@ -19,10 +19,10 @@
 
       <v-list-item
         class="my-2"
-        :class="filter === item.value ? 'indigo darken-2' : ''"
+        :class="filter.includes(item.value) ? 'indigo darken-2' : ''"
         v-for="item in filters"
         :key="item.value"
-        :dark="filter === item.value"
+        :dark="filter.includes(item.value)"
         @click="selectFilter(item.value)"
       >
         <v-list-item-content>
@@ -106,7 +106,19 @@ export default {
           this.visible = false
           break
       }
-      this.filter = arg
+
+      if (!arg) {
+        this.filter = []
+        return
+      }
+
+      let filter = Array.from(this.filter)
+
+      !filter.includes(arg)
+        ? filter.push(arg)
+        : filter.splice(filter.indexOf(arg), 1)
+
+      this.filter = filter.sort()
     }
   }
 }
