@@ -1,17 +1,15 @@
 <template>
-  <v-container fluid class="pb-0">
-    <v-layout v-if="!filter.length" class="mb-5">
+  <v-container fluid class="pb-0 ct-check-filter">
+    <v-layout class="mb-5 ct-check-filter-title">
       <v-flex xs6 md8>
-        <span style="font-size: 17.5px"> {{ title }} </span>
+        <span style="font-size: 17.5px">{{ title }}</span>
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter.includes(1)" class="mb-n4">
-      <v-flex xs6 md8>
-        <span style="font-size: 17.5px" v-if="filter[0] === 1">
-          {{ title }}
-        </span>
-      </v-flex>
+    <v-layout v-if="filter.includes(1)" class="mb-n4">
+      <!-- <v-flex xs6 md8>
+        <span style="font-size: 17.5px" v-if="filter[0] === 1">{{ title }}</span>
+      </v-flex>-->
 
       <v-flex xs6 md4>
         <v-select
@@ -29,12 +27,10 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter.includes(2)" class="mb-n4">
-      <v-flex xs6>
-        <span style="font-size: 17.5px" v-if="filter[0] === 2">
-          {{ title }}
-        </span>
-      </v-flex>
+    <v-layout v-if="filter.includes(2)" class="mb-n4">
+      <!-- <v-flex xs6>
+        <span style="font-size: 17.5px" v-if="filter[0] === 2">{{ title }}</span>
+      </v-flex>-->
 
       <v-flex xs2 class="pr-2">
         <v-autocomplete
@@ -69,12 +65,10 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter.includes(3)" class="mb-n4">
-      <v-flex xs6 md8>
-        <span style="font-size: 17.5px" v-if="filter[0] === 3">
-          {{ title }}
-        </span>
-      </v-flex>
+    <v-layout v-if="filter.includes(3)" class="mb-n4">
+      <!-- <v-flex xs6 md8>
+        <span style="font-size: 17.5px" v-if="filter[0] === 3">{{ title }}</span>
+      </v-flex>-->
 
       <v-flex xs6 md4>
         <v-autocomplete
@@ -93,12 +87,10 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter.includes(4)" class="mb-n4">
-      <v-flex xs6 md8>
-        <span style="font-size: 17.5px" v-if="filter[0] === 4">
-          {{ title }}
-        </span>
-      </v-flex>
+    <v-layout v-if="filter.includes(4)" class="mb-n4">
+      <!-- <v-flex xs6 md8>
+        <span style="font-size: 17.5px" v-if="filter[0] === 4">{{ title }}</span>
+      </v-flex>-->
 
       <v-flex xs3 md2>
         <v-text-field
@@ -125,21 +117,13 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter.includes(5)" class="mb-n4">
-      <v-flex xs6 md8>
-        <span style="font-size: 17.5px" v-if="filter[0] === 5">
-          {{ title }}
-        </span>
-      </v-flex>
+    <v-layout v-if="filter.includes(5)" class="mb-n4">
+      <!-- <v-flex xs6 md8>
+        <span style="font-size: 17.5px" v-if="filter[0] === 5">{{ title }}</span>
+      </v-flex>-->
 
       <v-flex xs3 md2>
-        <v-text-field
-          v-model="numberFrom"
-          label="From #"
-          autocomplete="off"
-          outlined
-          dense
-        ></v-text-field>
+        <v-text-field v-model="numberFrom" label="From #" autocomplete="off" outlined dense></v-text-field>
       </v-flex>
 
       <v-flex xs3 md2 class="pl-2">
@@ -154,12 +138,10 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter.includes(6)" class="mb-n4">
-      <v-flex xs6 md8>
-        <span style="font-size: 17.5px" v-if="filter[0] === 6">
-          {{ title }}
-        </span>
-      </v-flex>
+    <v-layout v-if="filter.includes(6)" class="mb-n4">
+      <!-- <v-flex xs6 md8>
+        <span style="font-size: 17.5px" v-if="filter[0] === 6">{{ title }}</span>
+      </v-flex>-->
 
       <v-flex xs6 md4>
         <v-text-field
@@ -173,20 +155,13 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end class="mb-5 mt-n3" v-if="filter.includes(7)">
-      <v-flex xs4 class="mt-3">
-        <span style="font-size: 17.5px" v-if="filter[0] === 7">
-          {{ title }}
-        </span>
-      </v-flex>
+    <v-layout class="mb-5 mt-n3" v-if="filter.includes(7)">
+      <!-- <v-flex xs4 class="mt-3">
+        <span style="font-size: 17.5px" v-if="filter[0] === 7">{{ title }}</span>
+      </v-flex>-->
 
       <v-flex xs1 v-for="stat in status" :key="stat.id">
-        <v-checkbox
-          :value="stat.id"
-          :color="stat.color"
-          v-model="statuses"
-          hide-details
-        >
+        <v-checkbox :value="stat.id" :color="stat.color" v-model="statuses" hide-details>
           <template v-slot:label>
             <span class="ml-n2" style="font-size: 11px">{{ stat.name }}</span>
           </template>
@@ -203,23 +178,11 @@
     </v-layout>
 
     <v-dialog v-model="showCalendarFrom" width="290px" persistent>
-      <v-date-picker
-        no-title
-        v-model="dateFrom"
-        @change="showCalendarFrom = false"
-        :max="dateTo"
-      >
-      </v-date-picker>
+      <v-date-picker no-title v-model="dateFrom" @change="showCalendarFrom = false" :max="dateTo"></v-date-picker>
     </v-dialog>
 
     <v-dialog v-model="showCalendarTo" width="290px" persistent>
-      <v-date-picker
-        no-title
-        v-model="dateTo"
-        @change="showCalendarTo = false"
-        :min="dateFrom"
-      >
-      </v-date-picker>
+      <v-date-picker no-title v-model="dateTo" @change="showCalendarTo = false" :min="dateFrom"></v-date-picker>
     </v-dialog>
   </v-container>
 </template>
@@ -467,4 +430,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped></style>

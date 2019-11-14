@@ -1,17 +1,34 @@
-.ct-status-primary{
-  color:#5dafff;
-  background-color:transparent !important;
+.ct-status-primary {
+  color: #5dafff;
+  background-color: transparent !important;
 }
-.ct-status-success{
-  color:#81de85;
-  background-color:transparent !important;
+.ct-status-success {
+  color: #81de85;
+  background-color: transparent !important;
 }
-.ct-status-warning{
-  color:#ffb962;
-  background-color:transparent !important;
+.ct-status-warning {
+  color: #ffb962;
+  background-color: transparent !important;
 }
-[role='columnheader'] span{
+[role='columnheader'] span {
   color: #aaa;
   font-weight: normal;
   font-size: 12px;
+}
+
+.ct-check-filter label.v-label.theme--light {
+  font-size: 12px;
+  /* background: red; */
+}
+.ct-check-filter > .layout > div {
+  flex: unset;
+  max-width: unset;
+}
+.ct-check-filter > .layout {
+  float: left;
+}
+.ct-check-filter-title {
+  display: block;
+  float: left;
+  width: 100%;
 }
