@@ -1,3 +1,15 @@
+/* 
+#6D4C3C Dark Olive Green
+
+#332319 Dark Olive
+
+#CFBCA4 Tan
+
+#F5E6DB Beige 2
+
+#F2E4CC Beige 
+*/
+
 .ct-status-primary {
   color: #5dafff;
   background-color: transparent !important;
@@ -16,9 +28,131 @@
   font-size: 12px;
 }
 
+.ct-check-index,
+.ct-check-filter {
+  float: left;
+}
+.ct-check-filter .v-input__control {
+  height: 40px;
+}
+.ct-check-filter .v-input--selection-controls {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.ct-check-filter .v-text-field--outlined fieldset {
+  height: 30px;
+}
+.ct-check-filter input,
+.ct-check-filter .v-select__selection.v-select__selection--comma {
+  font-size: 12px;
+}
+.ct-check-filter .v-select__slot {
+  height: 25px;
+  max-height: 25px;
+  min-height: 25px;
+}
+.v-text-field__slot {
+  height: 25px;
+  max-height: 25px;
+  min-height: 25px;
+}
+.v-select__slot {
+  max-width: 290px;
+}
+.ct-check-filter .v-text-field input {
+  width: unset;
+}
+.ct-check-filter .v-input--dense > .v-input__control > .v-input__slot {
+  margin-bottom: 0px;
+  max-height: 25px;
+  min-height: 25px;
+}
+.ct-check-filter .v-input__append-outer,
+.ct-check-filter .v-input__append-outer {
+  margin: 0px !important;
+}
+.ct-check-filter .mdi-bank.mdi:before,
+.mdi-set {
+  font-size: 16px;
+}
+.ct-check-filter .mdi:before,
+.mdi-set {
+  font-size: 20px;
+}
+.ct-check-filter .mdi-menu-down.mdi:before {
+  /* right: -10px;
+  top: 1px;
+  position: relative; */
+}
+.ct-check-filter .mdi-bank.mdi:before {
+  /* top: -6px;
+  left: 10px;
+  position: relative; */
+  top: -6px;
+  left: 8px;
+  font-size: 17px;
+  position: relative;
+}
+.ct-check-filter .mdi-account-cash-outline.mdi:before {
+  position: relative;
+  top: -7px;
+  left: 8px;
+  font-size: 19px;
+}
+.ct-check-filter .mdi-bank-transfer-out.mdi:before {
+  position: relative;
+  top: -7px;
+  left: 11px;
+  font-size: 24px;
+}
+.ct-check-filter .mdi-calendar.mdi:before {
+  position: relative;
+  top: -5px;
+  left: 9px;
+}
+.ct-check-filter .mdi-tag-text-outline.mdi:before {
+  position: relative;
+  top: -6px;
+  left: 10px;
+  font-size: 19px;
+}
+.ct-check-filter .mdi-clipboard-list-outline.mdi:before {
+  position: relative;
+  top: -7px;
+  left: 9px;
+  font-size: 19px;
+}
+
+.ct-check-index .v-card__text {
+  float: left;
+}
+.ct-check-index .layout .flex .v-input:not(.v-input--checkbox) {
+  width: 300px;
+  max-width: 300px;
+  min-width: 300px;
+}
+.ct-check-index .layout .flex > span {
+  margin-left: 5px;
+}
+.ct-check-index .layout .flex {
+  margin-right: 10px;
+}
+.ct-check-index .v-input__append-inner {
+  position: relative;
+  left: 10px;
+  top: 1px;
+}
 .ct-check-filter label.v-label.theme--light {
   font-size: 12px;
-  /* background: red; */
+  position: unset !important;
+}
+.ct-check-filter label.v-label.theme--light.v-label--active {
+  top: 6px;
+  position: absolute !important;
+}
+.ct-check-filter .v-input__append-inner {
+  padding: 0px !important;
+  margin: 0px !important;
 }
 .ct-check-filter > .layout > div {
   flex: unset;

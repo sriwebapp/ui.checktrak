@@ -1,9 +1,9 @@
 <template>
-  <v-card outlined>
+  <v-card outlined class="ct-check-index">
     <filter-menu></filter-menu>
-    <v-divider v-if="filterType"></v-divider>
+    <!-- <v-divider v-if="filterType"></v-divider> -->
 
-    <v-card-text>
+    <v-card-text class="pt-0">
       <v-data-table
         v-model="selected"
         :headers="headers"
