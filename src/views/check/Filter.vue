@@ -1,14 +1,16 @@
 <template>
   <v-container fluid class="pb-0">
-    <v-layout v-if="filter === 0" class="mb-5">
+    <v-layout v-if="!filter.length" class="mb-5">
       <v-flex xs6 md8>
         <span style="font-size: 17.5px"> {{ title }} </span>
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter === 1" class="mb-n4">
+    <v-layout justify-end v-if="filter.includes(1)" class="mb-n4">
       <v-flex xs6 md8>
-        <span style="font-size: 17.5px"> {{ title }} </span>
+        <span style="font-size: 17.5px" v-if="filter[0] === 1">
+          {{ title }}
+        </span>
       </v-flex>
 
       <v-flex xs6 md4>
@@ -27,12 +29,14 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter === 2" class="mb-n4">
+    <v-layout justify-end v-if="filter.includes(2)" class="mb-n4">
       <v-flex xs6>
-        <span style="font-size: 17.5px"> {{ title }} </span>
+        <span style="font-size: 17.5px" v-if="filter[0] === 2">
+          {{ title }}
+        </span>
       </v-flex>
 
-      <v-flex xs2>
+      <v-flex xs2 class="pr-2">
         <v-autocomplete
           label="Payee Code"
           v-model="payee"
@@ -47,7 +51,7 @@
         ></v-autocomplete>
       </v-flex>
 
-      <v-flex xs4 class="pl-2">
+      <v-flex xs4>
         <v-autocomplete
           label="Payee Name"
           v-model="payee"
@@ -65,9 +69,11 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter === 3" class="mb-n4">
+    <v-layout justify-end v-if="filter.includes(3)" class="mb-n4">
       <v-flex xs6 md8>
-        <span style="font-size: 17.5px"> {{ title }} </span>
+        <span style="font-size: 17.5px" v-if="filter[0] === 3">
+          {{ title }}
+        </span>
       </v-flex>
 
       <v-flex xs6 md4>
@@ -87,9 +93,11 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter === 4" class="mb-n4">
+    <v-layout justify-end v-if="filter.includes(4)" class="mb-n4">
       <v-flex xs6 md8>
-        <span style="font-size: 17.5px"> {{ title }} </span>
+        <span style="font-size: 17.5px" v-if="filter[0] === 4">
+          {{ title }}
+        </span>
       </v-flex>
 
       <v-flex xs3 md2>
@@ -117,9 +125,11 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter === 5" class="mb-n4">
+    <v-layout justify-end v-if="filter.includes(5)" class="mb-n4">
       <v-flex xs6 md8>
-        <span style="font-size: 17.5px"> {{ title }} </span>
+        <span style="font-size: 17.5px" v-if="filter[0] === 5">
+          {{ title }}
+        </span>
       </v-flex>
 
       <v-flex xs3 md2>
@@ -144,9 +154,11 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter === 6" class="mb-n4">
+    <v-layout justify-end v-if="filter.includes(6)" class="mb-n4">
       <v-flex xs6 md8>
-        <span style="font-size: 17.5px"> {{ title }} </span>
+        <span style="font-size: 17.5px" v-if="filter[0] === 6">
+          {{ title }}
+        </span>
       </v-flex>
 
       <v-flex xs6 md4>
@@ -161,9 +173,11 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end class=" mb-5 mt-n3" v-if="filter === 7">
+    <v-layout justify-end class="mb-5 mt-n3" v-if="filter.includes(7)">
       <v-flex xs4 class="mt-3">
-        <span style="font-size: 17.5px"> {{ title }} </span>
+        <span style="font-size: 17.5px" v-if="filter[0] === 7">
+          {{ title }}
+        </span>
       </v-flex>
 
       <v-flex xs1 v-for="stat in status" :key="stat.id">
@@ -291,6 +305,9 @@ export default {
 
       return moment(date).format('MMM DD, Y')
     },
+    resetContent() {
+      this.content = Object.assign({}, this.content)
+    },
     async getPayees(search) {
       await this.$store.dispatch('tools/getPayees', { search })
     },
@@ -299,37 +316,81 @@ export default {
     }
   },
   watch: {
-    filter(arg) {
-      switch (arg) {
-        case 1:
-          this.account = null
-          break
-        case 2:
-          this.payee = null
-          break
-        case 3:
-          this.transmittal = null
-          break
-        case 4:
-          this.dateFrom = ''
-          this.dateTo = ''
-          break
-        case 5:
-          this.numberFrom = ''
-          this.numberTo = ''
-          break
-        case 6:
-          this.searchDetail = ''
-          break
-        case 7: {
-          this.statuses = this.status.map(s => s.id)
-          this.received = true
-          break
+    filter(changed, old) {
+      if (!changed.length) this.content = {}
+
+      let added = changed.filter(x => !old.includes(x))
+      let removed = old.filter(x => !changed.includes(x))
+
+      if (removed.length) {
+        switch (removed[0]) {
+          case 1:
+            delete this.content.account_id
+            break
+          case 2:
+            delete this.content.payee_id
+            break
+          case 3:
+            delete this.content.transmittal_id
+            break
+          case 4:
+            delete this.content.date
+            break
+          case 5:
+            delete this.content.number
+            break
+          case 6:
+            delete this.content.detail
+            break
+          case 7: {
+            delete this.content.status
+            break
+          }
+          default:
+            break
         }
-        default:
-          break
       }
-      this.content = null
+
+      if (added.length) {
+        switch (added[0]) {
+          case 1:
+            this.account = null
+            this.content.account_id = null
+            break
+          case 2:
+            this.payee = null
+            this.content.payee_id = null
+            break
+          case 3:
+            this.transmittal = null
+            this.content.transmittal_id = null
+            break
+          case 4:
+            this.dateFrom = ''
+            this.dateTo = ''
+            this.content.date = null
+            break
+          case 5:
+            this.numberFrom = ''
+            this.numberTo = ''
+            this.content.number = null
+            break
+          case 6:
+            this.searchDetail = ''
+            this.content.detail = null
+            break
+          case 7: {
+            this.statuses = this.status.map(s => s.id)
+            this.received = true
+            this.content.status = null
+            break
+          }
+          default:
+            break
+        }
+      }
+
+      this.resetContent()
     },
     searchTransmittalRef(arg) {
       this.searchTransmittals(arg)
@@ -343,46 +404,64 @@ export default {
     account(arg) {
       if (!arg) return
 
-      this.content = { column: 'account_id', id: arg.id }
+      this.content.account_id = arg.id
+
+      this.resetContent()
     },
     payee(arg) {
       if (!arg) return
 
-      this.content = { column: 'payee_id', id: arg.id }
+      this.content.payee_id = arg.id
+
+      this.resetContent()
     },
     transmittal(arg) {
       if (!arg) return
 
-      this.content = { id: arg.id }
+      this.content.transmittal_id = arg.id
+
+      this.resetContent()
     },
     dateFrom(arg) {
       if (!arg || !this.dateTo) return
 
-      this.content = { column: 'date', from: arg, to: this.dateTo }
+      this.content.date = { from: arg, to: this.dateTo }
     },
     dateTo(arg) {
       if (!arg || !this.dateFrom) return
 
-      this.content = { column: 'date', from: this.dateFrom, to: arg }
+      this.content.date = { from: this.dateFrom, to: arg }
+
+      this.resetContent()
     },
     numberFrom(arg) {
       if (!arg || !this.numberTo) return
 
-      this.content = { column: 'number', from: arg, to: this.numberTo }
+      this.content.number = { from: arg, to: this.numberTo }
+
+      this.resetContent()
     },
     numberTo(arg) {
       if (!arg || !this.numberFrom) return
 
-      this.content = { column: 'number', from: this.numberFrom, to: arg }
+      this.content.number = { from: this.numberFrom, to: arg }
+
+      this.resetContent()
     },
     searchDetail(arg) {
-      this.content = { searchDetail: arg }
+      this.content.detail = arg
+
+      this.resetContent()
     },
     statuses(arg) {
-      this.content = { statuses: arg, received: this.received }
+      this.content.status = { statuses: arg, received: this.received }
+
+      this.resetContent()
     },
     received(arg) {
-      this.content = { statuses: this.statuses, received: arg }
+      this.content.status = { statuses: this.statuses, received: arg }
+
+      this.resetContent()
     }
   }
 }

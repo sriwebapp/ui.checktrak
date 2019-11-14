@@ -69,7 +69,8 @@ export default {
       this.$store.commit('check/waiting', false)
       this.$store.commit('check/selectedChecks', [])
       this.$store.commit('check/selecting', false)
-      this.$store.commit('check/filter', 0)
+      this.$store.commit('check/filter', [])
+      this.$store.commit('check/filterContent', {})
       this.$store.commit('footer', true)
     }, 500)
   },
