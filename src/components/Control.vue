@@ -6,6 +6,7 @@
           small
           block
           :color="control.color"
+          class="lighten-1"
           @click="control.action"
           :disabled="control.access || loading"
         >

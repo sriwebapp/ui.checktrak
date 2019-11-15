@@ -1,9 +1,9 @@
 <template>
-  <v-card outlined>
+  <v-card outlined class="ct-check-index">
     <filter-menu></filter-menu>
-    <v-divider v-if="filterType"></v-divider>
+    <!-- <v-divider v-if="filterType"></v-divider> -->
 
-    <v-card-text>
+    <v-card-text class="pt-0">
       <v-data-table
         v-model="selected"
         :headers="headers"
@@ -34,9 +34,8 @@
             :text-color="item.received ? 'white' : 'black'"
             :outlined="!item.received"
             :class="item.status.color"
+            >{{ item.status.name }}</v-chip
           >
-            {{ item.status.name }}
-          </v-chip>
         </template>
         <template v-slot:item.date="{ item }">
           {{ formatDate(item.date) }}
@@ -77,9 +76,8 @@
                   :text-color="item.received ? 'white' : 'black'"
                   :outlined="!item.received"
                   :class="item.status.color"
+                  >{{ item.status.name }}</v-chip
                 >
-                  {{ item.status.name }}
-                </v-chip>
               </td>
             </tr>
           </tbody>
@@ -88,7 +86,7 @@
     </v-card-text>
 
     <v-btn
-      color="indigo darken-4"
+      color="dark darken-4"
       dark
       large
       class="filter-toggle"
@@ -96,8 +94,8 @@
       elevation="24"
       @click="showFilter"
     >
-      <v-icon color="deep-orange lighten-4" large>
-        mdi-arrow-left-bold-box-outline
+      <v-icon color="lighten-4" large>
+        mdi-account-search
       </v-icon>
       <v-spacer></v-spacer>
     </v-btn>
@@ -181,7 +179,8 @@ export default {
         if (moment().diff(date, 'years') > 1) {
           return date.format('MM/DD/Y')
         } else {
-          return date.format('MM/DD HH:mm')
+          // return date.format('MM/DD HH:mm')
+          return date.fromNow()
         }
       }
     },

@@ -4,6 +4,7 @@ import router from './router'
 import store from './store/store'
 import vuetify from './plugins/vuetify'
 import _ from 'lodash'
+require('./assets/css/style.css')
 
 require('./plugins/axios')
 

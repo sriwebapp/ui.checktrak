@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined :loading="loading" class="access-index">
+  <v-card outlined :loading="loading">
     <v-card-title style="font-size: 17.5px">
       Accessibility Management
     </v-card-title>
@@ -10,28 +10,31 @@
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
       >
         <template v-slot:body="{ items }" v-if="access.length">
-          <tbody class="access-index_chips">
+          <tbody>
             <tr v-for="item in items" :key="item.id">
               <td>{{ item.name }}</td>
-              <td class="text-center">
-                <v-chip x-small outlined :class="decrypt(item.action).color">
-                  {{ decrypt(item.action).text }}
-                </v-chip>
+              <td
+                class="text-center"
+                :class="'ct-status-' + decrypt(item.action).color"
+              >
+                {{ decrypt(item.action).text }}
               </td>
-              <td class="text-center">
-                <v-chip x-small outlined :class="decrypt(item.group).color">
-                  {{ decrypt(item.group).text }}
-                </v-chip>
+              <td
+                class="text-center"
+                :class="'ct-status-' + decrypt(item.group).color"
+              >
+                {{ decrypt(item.group).text }}
               </td>
-              <td class="text-center">
-                <v-chip x-small outlined :class="decrypt(item.module).color">
-                  {{ decrypt(item.module).text }}
-                </v-chip>
+              <td
+                class="text-center"
+                :class="'ct-status-' + decrypt(item.module).color"
+              >
+                {{ decrypt(item.module).text }}
               </td>
               <td class="text-center">
                 <v-btn
                   x-small
-                  class="info access-index_manage"
+                  class="info"
                   :disabled="loading"
                   router
                   :to="{ name: 'edit-access', params: { id: item.id } }"
@@ -69,11 +72,11 @@ export default {
   methods: {
     decrypt(code) {
       if (code === 2) {
-        return { text: 'All', color: 'primary' }
+        return { text: 'All', color: 'success' }
       } else if (code === 1) {
-        return { text: 'Selected', color: 'success' }
+        return { text: 'Selected', color: 'warning' }
       } else {
-        return { text: 'Custom', color: 'warning' }
+        return { text: 'Custom', color: 'secondary' }
       }
     }
   },

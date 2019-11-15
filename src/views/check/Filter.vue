@@ -1,18 +1,22 @@
 <template>
-  <v-container fluid class="pb-0">
-    <v-layout v-if="!filter.length" class="mb-5">
+  <v-container fluid class="pb-0 ct-check-filter">
+    <v-layout class="mb-4 ct-check-filter-title">
       <v-flex xs6 md8>
-        <span style="font-size: 17.5px"> {{ title }} </span>
+        <span v-if="!title.forChecks" style="font-size: 17.5px">
+          {{ title.text }}
+        </span>
+        <div
+          v-if="title.forChecks"
+          style="font-size: 17.5px"
+          class="justify-space-between d-flex"
+        >
+          <span> Checks: {{ title.checks }} </span>
+          <span class="right-align"> Amount: {{ title.amount }} </span>
+        </div>
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter.includes(1)" class="mb-n4">
-      <v-flex xs6 md8>
-        <span style="font-size: 17.5px" v-if="filter[0] === 1">
-          {{ title }}
-        </span>
-      </v-flex>
-
+    <v-layout v-if="filter.includes(1)">
       <v-flex xs6 md4>
         <v-select
           v-model="account"
@@ -20,7 +24,7 @@
           :items="accounts"
           item-text="number"
           item-value="id"
-          append-outer-icon="mdi-bank"
+          prepend-icon="mdi-bank"
           autocomplete="off"
           return-object
           dense
@@ -29,14 +33,8 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter.includes(2)" class="mb-n4">
-      <v-flex xs6>
-        <span style="font-size: 17.5px" v-if="filter[0] === 2">
-          {{ title }}
-        </span>
-      </v-flex>
-
-      <v-flex xs2 class="pr-2">
+    <v-layout v-if="filter.includes(2)">
+      <v-flex xs2>
         <v-autocomplete
           label="Payee Code"
           v-model="payee"
@@ -46,12 +44,13 @@
           item-value="id"
           return-object
           autocomplete="off"
+          prepend-icon="mdi-account-cash-outline"
           outlined
           dense
         ></v-autocomplete>
       </v-flex>
 
-      <v-flex xs4>
+      <v-flex xs3>
         <v-autocomplete
           label="Payee Name"
           v-model="payee"
@@ -59,9 +58,9 @@
           :items="payees"
           item-text="name"
           item-value="id"
+          prepend-icon="mdi-account-cash-outline"
           return-object
           clearable
-          append-outer-icon="mdi-account-cash-outline"
           autocomplete="off"
           outlined
           dense
@@ -69,13 +68,7 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter.includes(3)" class="mb-n4">
-      <v-flex xs6 md8>
-        <span style="font-size: 17.5px" v-if="filter[0] === 3">
-          {{ title }}
-        </span>
-      </v-flex>
-
+    <v-layout v-if="filter.includes(3)">
       <v-flex xs6 md4>
         <v-autocomplete
           label="Select Transmittal"
@@ -84,88 +77,73 @@
           :items="transmittals"
           item-text="ref"
           item-value="id"
-          append-outer-icon="mdi-bank-transfer-out"
+          prepend-icon="mdi-bank-transfer-out"
           return-object
           autocomplete="off"
           outlined
+          clearable
           dense
         ></v-autocomplete>
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter.includes(4)" class="mb-n4">
-      <v-flex xs6 md8>
-        <span style="font-size: 17.5px" v-if="filter[0] === 4">
-          {{ title }}
-        </span>
-      </v-flex>
-
+    <v-layout v-if="filter.includes(4)">
       <v-flex xs3 md2>
         <v-text-field
           :value="formatDate(dateFrom)"
           label="From Date"
           autocomplete="off"
           @click="showCalendarFrom = true"
+          prepend-icon="mdi-calendar"
           readonly
           outlined
           dense
         ></v-text-field>
       </v-flex>
 
-      <v-flex xs3 md2 class="pl-2">
+      <v-flex xs3 md2>
         <v-text-field
           :value="formatDate(dateTo)"
           label="To Date"
           autocomplete="off"
           @click="showCalendarTo = true"
-          append-outer-icon="mdi-calendar"
+          prepend-icon="mdi-calendar"
           outlined
           dense
         ></v-text-field>
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter.includes(5)" class="mb-n4">
-      <v-flex xs6 md8>
-        <span style="font-size: 17.5px" v-if="filter[0] === 5">
-          {{ title }}
-        </span>
-      </v-flex>
-
+    <v-layout v-if="filter.includes(5)">
       <v-flex xs3 md2>
         <v-text-field
           v-model="numberFrom"
           label="From #"
+          prepend-icon="mdi-tag-text-outline"
           autocomplete="off"
           outlined
           dense
         ></v-text-field>
       </v-flex>
 
-      <v-flex xs3 md2 class="pl-2">
+      <v-flex xs3 md2>
         <v-text-field
           v-model="numberTo"
+          prepend-icon="mdi-tag-text-outline"
           label="To #"
           autocomplete="off"
-          append-outer-icon="mdi-tag-text-outline"
           outlined
           dense
         ></v-text-field>
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end v-if="filter.includes(6)" class="mb-n4">
-      <v-flex xs6 md8>
-        <span style="font-size: 17.5px" v-if="filter[0] === 6">
-          {{ title }}
-        </span>
-      </v-flex>
-
+    <v-layout v-if="filter.includes(6)">
       <v-flex xs6 md4>
         <v-text-field
           v-model="searchDetail"
           label="Search Details"
-          append-outer-icon="mdi-clipboard-list-outline"
+          prepend-icon="mdi-clipboard-list-outline"
           autocomplete="off"
           outlined
           dense
@@ -173,13 +151,7 @@
       </v-flex>
     </v-layout>
 
-    <v-layout justify-end class="mb-5 mt-n3" v-if="filter.includes(7)">
-      <v-flex xs4 class="mt-3">
-        <span style="font-size: 17.5px" v-if="filter[0] === 7">
-          {{ title }}
-        </span>
-      </v-flex>
-
+    <v-layout class="mb-1 mt-n3" v-if="filter.includes(7)">
       <v-flex xs1 v-for="stat in status" :key="stat.id">
         <v-checkbox
           :value="stat.id"
@@ -208,8 +180,7 @@
         v-model="dateFrom"
         @change="showCalendarFrom = false"
         :max="dateTo"
-      >
-      </v-date-picker>
+      ></v-date-picker>
     </v-dialog>
 
     <v-dialog v-model="showCalendarTo" width="290px" persistent>
@@ -218,8 +189,7 @@
         v-model="dateTo"
         @change="showCalendarTo = false"
         :min="dateFrom"
-      >
-      </v-date-picker>
+      ></v-date-picker>
     </v-dialog>
   </v-container>
 </template>
@@ -240,8 +210,12 @@ export default {
     },
     title() {
       return this.selecting
-        ? 'Checks: ' + this.selectedChecks.length + ', ' + this.amount
-        : 'Check Masterlist '
+        ? {
+            forChecks: 1,
+            checks: this.selectedChecks.length,
+            amount: this.amount
+          }
+        : { forChecks: 0, text: 'Check Masterlist ' }
     },
     selecting() {
       return this.$store.getters['check/selecting']
@@ -467,4 +441,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped></style>

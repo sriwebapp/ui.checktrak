@@ -1,17 +1,9 @@
 <template>
-  <v-navigation-drawer
-    v-model="visible"
-    color="deep-orange lighten-5"
-    right
-    temporary
-    fixed
-  >
+  <v-navigation-drawer v-model="visible" color="" right temporary fixed>
     <v-list dense shaped color="transparent">
       <v-list-item>
         <v-list-item-content class="mb-n2" style="font-size: 21px">
-          <p class="text-center">
-            Select Filter
-          </p>
+          <p class="text-center">Select Filter</p>
         </v-list-item-content>
       </v-list-item>
 
@@ -19,7 +11,7 @@
 
       <v-list-item
         class="my-2"
-        :class="filter.includes(item.value) ? 'indigo darken-2' : ''"
+        :class="filter.includes(item.value) ? 'grey darken-2' : ''"
         v-for="item in filters"
         :key="item.value"
         :dark="filter.includes(item.value)"
