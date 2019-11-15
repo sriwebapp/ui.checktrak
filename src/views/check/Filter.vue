@@ -27,6 +27,7 @@
           prepend-icon="mdi-bank"
           autocomplete="off"
           return-object
+          clearable
           dense
           outlined
         ></v-select>
@@ -376,23 +377,17 @@ export default {
       this.searchPayees(arg)
     },
     account(arg) {
-      if (!arg) return
-
-      this.content.account_id = arg.id
+      this.content.account_id = arg ? arg.id : ''
 
       this.resetContent()
     },
     payee(arg) {
-      if (!arg) return
-
-      this.content.payee_id = arg.id
+      this.content.payee_id = arg ? arg.id : ''
 
       this.resetContent()
     },
     transmittal(arg) {
-      if (!arg) return
-
-      this.content.transmittal_id = arg.id
+      this.content.transmittal_id = arg ? arg.id : ''
 
       this.resetContent()
     },
@@ -400,6 +395,8 @@ export default {
       if (!arg || !this.dateTo) return
 
       this.content.date = { from: arg, to: this.dateTo }
+
+      this.resetContent()
     },
     dateTo(arg) {
       if (!arg || !this.dateFrom) return
