@@ -191,6 +191,12 @@ a > .v-btn__content {
   float: left;
   width: 100%;
 }
+.ct-check-masterlist-filter-icon {
+  font-weight: normal;
+  font-size: 26px;
+  position: relative;
+  left: -4px;
+}
 
 ::-webkit-scrollbar {
   width: 1em;
