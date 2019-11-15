@@ -32,19 +32,16 @@ Axios.interceptors.response.use(
           message: error.response.data.message,
           color: 'red'
         })
-        // router.push({ name: 'home' })
       } else if (error.response.status === 404) {
         router.push('/page-not-found')
       } else {
         store.commit('alert', { message: error.message, color: 'red' })
       }
-      // console.log(error.response)
     } else if (error.request) {
       console.log(error.request)
     } else {
       console.log('Error', error.message)
     }
-    // console.log(error.config)
     return Promise.reject(error)
   }
 )

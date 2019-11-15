@@ -34,6 +34,24 @@
           </v-btn>
         </template>
       </v-data-table>
+
+      <v-card-actions>
+        <v-btn
+          color="deep-orange"
+          outlined
+          small
+          @click="show = false"
+          :disabled="loading"
+        >
+          Return
+        </v-btn>
+
+        <v-spacer></v-spacer>
+
+        <v-btn icon small :disabled="loading" :href="exportLink">
+          <v-icon color="green darken-3">mdi-file-export-outline</v-icon>
+        </v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -54,6 +72,13 @@ export default {
       set(arg) {
         this.$store.commit('check/showSelected', arg)
       }
+    },
+    exportLink() {
+      return (
+        process.env.VUE_APP_API +
+        '/check/export?checks=' +
+        this.checks.map(c => c.id).join(',')
+      )
     }
   },
   data: () => ({

@@ -117,10 +117,6 @@
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
-      <v-btn icon small :href="exportLink" :disabled="loading" class="mr-n1">
-        <v-icon color="indigo">mdi-file-export</v-icon>
-      </v-btn>
-
       <v-btn
         small
         class="indigo white--text"
@@ -149,6 +145,12 @@
         :disabled="loading"
       >
         Go Back
+      </v-btn>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon small :href="exportLink" :disabled="loading">
+        <v-icon color="green darken-3">mdi-file-export-outline</v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>

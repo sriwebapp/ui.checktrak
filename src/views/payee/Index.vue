@@ -7,6 +7,7 @@
       <v-spacer></v-spacer>
       <v-btn
         class="indigo white--text"
+        :disabled="loading"
         small
         router
         :to="{ name: 'create-payee' }"

@@ -22,7 +22,7 @@ export default {
       const res = await Axios.get(url)
       context.commit('check', res.data)
     } catch (e) {
-      return
+      throw e
     }
   },
   async showCheck(context, id) {

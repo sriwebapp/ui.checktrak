@@ -1,10 +1,11 @@
 <template>
-  <v-card outlined :loading="loading">
+  <v-card outlined>
     <v-card-title>
       <span style="font-size: 17.5px">Check Book Management</span>
       <v-spacer></v-spacer>
       <v-btn
         class="indigo white--text"
+        :disabled="loading"
         small
         router
         :to="{ name: 'create-checkbook' }"
@@ -17,9 +18,15 @@
       <v-data-table
         :headers="headers"
         :items="checkbooks"
-        :footer-props="{ itemsPerPageOptions: [10, 50, 100] }"
+        :loading="loading"
+        :options.sync="pagination"
+        :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
+        :server-items-length="totalItems"
       >
-        <template v-if="checkbooks.length" v-slot:body="{ items }">
+        <template
+          v-if="checkbooks && checkbooks.length"
+          v-slot:body="{ items }"
+        >
           <tbody>
             <tr
               v-for="(item, key) in items"
@@ -58,10 +65,13 @@
 export default {
   computed: {
     checkbooks() {
-      return this.$store.getters['checkbook/checkbooks']
+      return this.$store.getters['checkbook/checkbooks'].data
     },
     loading() {
       return this.$store.getters['checkbook/loading']
+    },
+    totalItems() {
+      return this.$store.getters['checkbook/checkbooks'].total
     }
   },
   data: () => ({
@@ -79,13 +89,26 @@ export default {
         value: 'end_series',
         width: '15%'
       },
-      { text: 'Checks', align: 'center', value: 'totalChecks', width: '12%' },
-      { text: 'Posted', align: 'center', value: 'postedChecks', width: '12%' },
+      {
+        text: 'Checks',
+        align: 'center',
+        value: 'totalChecks',
+        width: '12%',
+        sortable: false
+      },
+      {
+        text: 'Posted',
+        align: 'center',
+        value: 'postedChecks',
+        width: '12%',
+        sortable: false
+      },
       {
         text: 'Available',
         align: 'center',
         value: 'availableChecks',
-        width: '12%'
+        width: '12%',
+        sortable: false
       },
       {
         text: 'View',
@@ -94,10 +117,37 @@ export default {
         width: '15%',
         sortable: false
       }
-    ]
+    ],
+    pagination: {}
   }),
+  created() {
+    this.debouncedGetCheckbook = this._.debounce(this.getCheckbooks, 500)
+  },
+  methods: {
+    getCheckbooks() {
+      this.$store.dispatch('checkbook/getCheckbooks', this.pagination)
+    }
+  },
   mounted() {
-    this.$store.dispatch('checkbook/getCheckbooks')
+    this.pagination = {
+      groupBy: [],
+      groupDesc: [],
+      itemsPerPage: 10,
+      multiSort: false,
+      mustSort: false,
+      page: 1,
+      sortBy: [],
+      sortDesc: []
+    }
+  },
+
+  watch: {
+    pagination: {
+      deep: true,
+      handler() {
+        this.debouncedGetCheckbook()
+      }
+    }
   }
 }
 </script>

@@ -1,9 +1,9 @@
 <template>
-  <v-card outlined>
+  <v-card outlined class="ct-check-index">
     <filter-menu></filter-menu>
-    <v-divider v-if="filterType"></v-divider>
+    <!-- <v-divider v-if="filterType"></v-divider> -->
 
-    <v-card-text>
+    <v-card-text class="pt-0">
       <v-data-table
         v-model="selected"
         :headers="headers"
@@ -34,9 +34,8 @@
             :text-color="item.received ? 'white' : 'black'"
             :outlined="!item.received"
             :class="item.status.color"
+            >{{ item.status.name }}</v-chip
           >
-            {{ item.status.name }}
-          </v-chip>
         </template>
         <template v-slot:item.date="{ item }">
           {{ formatDate(item.date) }}
@@ -53,7 +52,7 @@
             <tr
               v-for="item in items"
               :key="item.id"
-              :class="item.status.color + ' lighten-' + (item.received ? 5 : 4)"
+              :class="item.status.color + ' lighten-5'"
               @click="showCheck(item.id)"
               style="cursor: pointer;"
             >
@@ -69,7 +68,7 @@
                   })
                 }}
               </td>
-              <td>{{ item.details }}</td>
+              <td class="text-center">{{ item.details }}</td>
               <td class="text-center">{{ formatUpdate(item.updated_at) }}</td>
               <td class="text-center">
                 <v-chip
@@ -77,9 +76,8 @@
                   :text-color="item.received ? 'white' : 'black'"
                   :outlined="!item.received"
                   :class="item.status.color"
+                  >{{ item.status.name }}</v-chip
                 >
-                  {{ item.status.name }}
-                </v-chip>
               </td>
             </tr>
           </tbody>
@@ -88,7 +86,7 @@
     </v-card-text>
 
     <v-btn
-      color="indigo darken-4"
+      color="dark darken-4"
       dark
       large
       class="filter-toggle"
@@ -96,8 +94,8 @@
       elevation="24"
       @click="showFilter"
     >
-      <v-icon color="deep-orange lighten-4" large>
-        mdi-arrow-left-bold-box-outline
+      <v-icon color="lighten-4 ct-check-masterlist-filter-icon">
+        mdi-table-search
       </v-icon>
       <v-spacer></v-spacer>
     </v-btn>
@@ -153,7 +151,7 @@ export default {
       { text: 'Check #', align: 'left', value: 'number', width: '10%' },
       { text: 'Payee Name', align: 'left', value: 'payee_id', width: '16%' },
       { text: 'Amount', align: 'right', value: 'amount', width: '12%' },
-      { text: 'Details', align: 'left', value: 'details', width: '18%' },
+      { text: 'Details', align: 'center', value: 'details', width: '18%' },
       {
         text: 'Last Update',
         align: 'center',
@@ -169,8 +167,7 @@ export default {
   methods: {
     getChecks() {
       const options = Object.assign(this.pagination, {
-        filterType: this.filterType,
-        filterContent: this.filterContent
+        filter: this.filterContent
       })
 
       this.$store.dispatch('check/getChecks', options)

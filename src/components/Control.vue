@@ -1,11 +1,16 @@
 <template>
   <v-footer app inset dark color="grey darken-2" v-if="show">
     <v-row>
-      <v-col class="my-n2" v-for="(control, index) in controls" :key="index">
+      <v-col
+        class="px-2 my-n2"
+        v-for="(control, index) in controls"
+        :key="index"
+      >
         <v-btn
           small
           block
           :color="control.color"
+          class="lighten-1"
           @click="control.action"
           :disabled="control.access || loading"
         >
