@@ -94,8 +94,8 @@
       elevation="24"
       @click="showFilter"
     >
-      <v-icon color="lighten-4" large>
-        mdi-account-search
+      <v-icon color="lighten-4 ct-check-masterlist-filter-icon">
+        mdi-table-search
       </v-icon>
       <v-spacer></v-spacer>
     </v-btn>
@@ -179,8 +179,7 @@ export default {
         if (moment().diff(date, 'years') > 1) {
           return date.format('MM/DD/Y')
         } else {
-          // return date.format('MM/DD HH:mm')
-          return date.fromNow()
+          return date.format('MM/DD HH:mm')
         }
       }
     },
