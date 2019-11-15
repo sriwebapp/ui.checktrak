@@ -180,7 +180,12 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="showCalendar" width="290px">
-      <v-date-picker no-title v-model="date" @change="showCalendar = false">
+      <v-date-picker
+        no-title
+        v-model="date"
+        :max="today"
+        @change="showCalendar = false"
+      >
       </v-date-picker>
     </v-dialog>
   </div>
@@ -188,6 +193,7 @@
 
 <script>
 import Helper from './../../helper/Helper'
+import moment from 'moment'
 
 export default {
   computed: {
@@ -245,6 +251,7 @@ export default {
     selectChecks: false,
     selectedChecks: [],
     showCalendar: false,
+    today: moment().format('Y-MM-DD'),
     users: []
   }),
   methods: {

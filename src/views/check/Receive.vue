@@ -151,7 +151,12 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="showCalendar" width="290px">
-      <v-date-picker no-title v-model="date" @change="showCalendar = false">
+      <v-date-picker
+        no-title
+        v-model="date"
+        :max="today"
+        @change="showCalendar = false"
+      >
       </v-date-picker>
     </v-dialog>
   </div>
@@ -210,6 +215,7 @@ export default {
     transmittal_id: null,
     selectChecks: false,
     selectedChecks: [],
+    today: moment().format('Y-MM-DD'),
     pagination: {}
   }),
   methods: {
