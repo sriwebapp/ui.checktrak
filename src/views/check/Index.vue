@@ -86,7 +86,7 @@
     </v-card-text>
 
     <v-btn
-      color="indigo darken-4"
+      color="dark darken-4"
       dark
       large
       class="filter-toggle"
@@ -94,8 +94,8 @@
       elevation="24"
       @click="showFilter"
     >
-      <v-icon color="deep-orange lighten-4" large>
-        mdi-arrow-left-bold-box-outline
+      <v-icon color="lighten-4" large>
+        mdi-account-search
       </v-icon>
       <v-spacer></v-spacer>
     </v-btn>

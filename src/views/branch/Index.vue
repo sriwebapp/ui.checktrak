@@ -34,7 +34,12 @@
           <v-tooltip top class="ct-chips">
             <template v-slot:activator="{ on }">
               <v-chip
-                :class="item.groups.length ? 'primary' : ''"
+                class="ct-status--for-branch-chip"
+                :class="
+                  item.groups.length > 0
+                    ? 'ct-status--for-branch-chip-blue'
+                    : ''
+                "
                 v-on="on"
                 x-small
                 outlined

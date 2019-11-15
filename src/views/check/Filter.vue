@@ -2,7 +2,17 @@
   <v-container fluid class="pb-0 ct-check-filter">
     <v-layout class="mb-4 ct-check-filter-title">
       <v-flex xs6 md8>
-        <span style="font-size: 17.5px">{{ title }}</span>
+        <span v-if="!title.forChecks" style="font-size: 17.5px">
+          {{ title.text }}
+        </span>
+        <div
+          v-if="title.forChecks"
+          style="font-size: 17.5px"
+          class="justify-space-between d-flex"
+        >
+          <span> Checks: {{ title.checks }} </span>
+          <span class="right-align"> Amount: {{ title.amount }} </span>
+        </div>
       </v-flex>
     </v-layout>
 
@@ -200,8 +210,12 @@ export default {
     },
     title() {
       return this.selecting
-        ? 'Checks: ' + this.selectedChecks.length + ', ' + this.amount
-        : 'Check Masterlist '
+        ? {
+            forChecks: 1,
+            checks: this.selectedChecks.length,
+            amount: this.amount
+          }
+        : { forChecks: 0, text: 'Check Masterlist ' }
     },
     selecting() {
       return this.$store.getters['check/selecting']

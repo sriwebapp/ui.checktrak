@@ -10,22 +10,50 @@
 #F2E4CC Beige 
 */
 
+table tbody td {
+  font-size: 12px !important;
+  color: #444141;
+}
+table thead th {
+  font-size: 11px !important;
+  color: #999 !important;
+}
+.v-label {
+  font-size: 14px;
+}
+.v-icon.mdi {
+  font-size: 20px;
+}
+.ct-status--for-branch-chip {
+  font-weight: bold;
+  color: #777777 !important;
+  border: none !important;
+}
+.ct-status--for-branch-chip-blue {
+  color: #0165b5 !important;
+  background-color: transparent !important;
+}
 .ct-status-primary {
   color: #5dafff;
   background-color: transparent !important;
 }
+.ct-status-secondary {
+  color: #999;
+  background-color: transparent !important;
+}
 .ct-status-success {
-  color: #81de85;
+  color: #6bcc6f;
   background-color: transparent !important;
 }
 .ct-status-warning {
-  color: #ffb962;
+  color: #eca44a;
   background-color: transparent !important;
 }
-[role='columnheader'] span {
-  color: #aaa;
-  font-weight: normal;
-  font-size: 12px;
+a > .v-btn__content {
+  padding-top: 2px;
+}
+.v-icon.v-data-table-header__icon {
+  position: absolute !important;
 }
 
 .ct-check-index,
@@ -33,7 +61,7 @@
   float: left;
 }
 .ct-check-filter .v-input__control {
-  height: 40px;
+  height: 36px;
 }
 .ct-check-filter .v-input--selection-controls {
   margin-top: 10px;
@@ -56,9 +84,6 @@
   max-height: 25px;
   min-height: 25px;
 }
-.v-select__slot {
-  max-width: 290px;
-}
 .ct-check-filter .v-text-field input {
   width: unset;
 }
@@ -80,14 +105,8 @@
   font-size: 20px;
 }
 .ct-check-filter .mdi-menu-down.mdi:before {
-  /* right: -10px;
-  top: 1px;
-  position: relative; */
 }
 .ct-check-filter .mdi-bank.mdi:before {
-  /* top: -6px;
-  left: 10px;
-  position: relative; */
   top: -6px;
   left: 8px;
   font-size: 17px;
@@ -122,7 +141,13 @@
   left: 9px;
   font-size: 19px;
 }
-
+.v-text-field__slot,
+.v-select__selections {
+  font-size: 14px;
+}
+.ct-check-index {
+  width: 100%;
+}
 .ct-check-index .v-card__text {
   float: left;
 }
@@ -147,7 +172,7 @@
   position: unset !important;
 }
 .ct-check-filter label.v-label.theme--light.v-label--active {
-  top: 6px;
+  top: 8px;
   position: absolute !important;
 }
 .ct-check-filter .v-input__append-inner {

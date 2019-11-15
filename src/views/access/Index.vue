@@ -13,13 +13,22 @@
           <tbody>
             <tr v-for="item in items" :key="item.id">
               <td>{{ item.name }}</td>
-              <td class="text-center" :class="'ct-status-'+decrypt(item.action).color">
+              <td
+                class="text-center"
+                :class="'ct-status-' + decrypt(item.action).color"
+              >
                 {{ decrypt(item.action).text }}
               </td>
-              <td class="text-center" :class="'ct-status-'+decrypt(item.group).color">
+              <td
+                class="text-center"
+                :class="'ct-status-' + decrypt(item.group).color"
+              >
                 {{ decrypt(item.group).text }}
               </td>
-              <td class="text-center" :class="'ct-status-'+decrypt(item.module).color">
+              <td
+                class="text-center"
+                :class="'ct-status-' + decrypt(item.module).color"
+              >
                 {{ decrypt(item.module).text }}
               </td>
               <td class="text-center">
@@ -63,11 +72,11 @@ export default {
   methods: {
     decrypt(code) {
       if (code === 2) {
-        return { text: 'All', color: 'primary' }
+        return { text: 'All', color: 'success' }
       } else if (code === 1) {
-        return { text: 'Selected', color: 'success' }
+        return { text: 'Selected', color: 'warning' }
       } else {
-        return { text: 'Custom', color: 'warning' }
+        return { text: 'Custom', color: 'secondary' }
       }
     }
   },
