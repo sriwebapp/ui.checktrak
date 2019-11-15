@@ -5,7 +5,7 @@ export default {
   namespaced: true,
   state: {
     checkbook: {},
-    checkbooks: [],
+    checkbooks: {},
     loading: false,
     showDelete: false,
     waiting: false
@@ -28,12 +28,12 @@ export default {
     }
   },
   actions: {
-    async getCheckbooks(context) {
+    async getCheckbooks(context, options) {
       context.commit('loading', true)
       try {
         const url =
           '/' + context.rootGetters['tools/company'].code + '/check-book'
-        const res = await Axios.get(url)
+        const res = await Axios.post(url, options)
 
         context.commit('checkbooks', res.data)
       } catch (e) {
@@ -61,7 +61,7 @@ export default {
       context.commit('loading', true)
       try {
         const url =
-          '/' + context.rootGetters['tools/company'].code + '/check-book'
+          '/' + context.rootGetters['tools/company'].code + '/check-book/create'
         await Axios.post(url, checkbook)
         router.push({ name: 'checkbooks' })
       } catch (e) {
