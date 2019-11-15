@@ -14,14 +14,18 @@
         :server-items-length="totalItems"
         :show-select="selecting"
       >
-        <template v-slot:item.account_id="{ item }">{{ item.account.code }}</template>
-        <template v-slot:item.payee_id="{ item }">{{ item.payee.name }}</template>
+        <template v-slot:item.account_id="{ item }">
+          {{ item.account.code }}
+        </template>
+        <template v-slot:item.payee_id="{ item }">
+          {{ item.payee.name }}
+        </template>
         <template v-slot:item.amount="{ item }">
           {{
-          Number(item.amount).toLocaleString('en', {
-          style: 'currency',
-          currency: 'Php'
-          })
+            Number(item.amount).toLocaleString('en', {
+              style: 'currency',
+              currency: 'Php'
+            })
           }}
         </template>
         <template v-slot:item.status_id="{ item }">
@@ -30,12 +34,20 @@
             :text-color="item.received ? 'white' : 'black'"
             :outlined="!item.received"
             :class="item.status.color"
-          >{{ item.status.name }}</v-chip>
+            >{{ item.status.name }}</v-chip
+          >
         </template>
-        <template v-slot:item.date="{ item }">{{ formatDate(item.date) }}</template>
-        <template v-slot:item.updated_at="{ item }">{{ formatUpdate(item.updated_at) }}</template>
+        <template v-slot:item.date="{ item }">
+          {{ formatDate(item.date) }}
+        </template>
+        <template v-slot:item.updated_at="{ item }">
+          {{ formatUpdate(item.updated_at) }}
+        </template>
 
-        <template v-if="checks && checks.length && !selecting" v-slot:body="{ items }">
+        <template
+          v-if="checks && checks.length && !selecting"
+          v-slot:body="{ items }"
+        >
           <tbody>
             <tr
               v-for="item in items"
@@ -50,10 +62,10 @@
               <td>{{ item.payee.name }}</td>
               <td class="text-right">
                 {{
-                Number(item.amount).toLocaleString('en', {
-                style: 'currency',
-                currency: 'Php'
-                })
+                  Number(item.amount).toLocaleString('en', {
+                    style: 'currency',
+                    currency: 'Php'
+                  })
                 }}
               </td>
               <td class="text-center">{{ item.details }}</td>
@@ -64,7 +76,8 @@
                   :text-color="item.received ? 'white' : 'black'"
                   :outlined="!item.received"
                   :class="item.status.color"
-                >{{ item.status.name }}</v-chip>
+                  >{{ item.status.name }}</v-chip
+                >
               </td>
             </tr>
           </tbody>
@@ -81,7 +94,9 @@
       elevation="24"
       @click="showFilter"
     >
-      <v-icon color="deep-orange lighten-4" large>mdi-arrow-left-bold-box-outline</v-icon>
+      <v-icon color="deep-orange lighten-4" large>
+        mdi-arrow-left-bold-box-outline
+      </v-icon>
       <v-spacer></v-spacer>
     </v-btn>
   </v-card>

@@ -1,5 +1,11 @@
 <template>
-  <v-navigation-drawer v-model="visible" color="deep-orange lighten-5" right temporary fixed>
+  <v-navigation-drawer
+    v-model="visible"
+    color="deep-orange lighten-5"
+    right
+    temporary
+    fixed
+  >
     <v-list dense shaped color="transparent">
       <v-list-item>
         <v-list-item-content class="mb-n2" style="font-size: 21px">
