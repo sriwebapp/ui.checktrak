@@ -10,7 +10,7 @@
           style="font-size: 17.5px"
           class="justify-space-between d-flex"
         >
-          <span> Checks: {{ title.checks }} </span>
+          <span> Checks: {{ title.checks }}, &nbsp;</span>
           <span class="right-align"> Amount: {{ title.amount }} </span>
         </div>
       </v-flex>
