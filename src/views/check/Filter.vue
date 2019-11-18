@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="pb-0 ct-check-filter">
     <v-layout class="mb-4 ct-check-filter-title">
-      <v-flex xs6 md8>
+      <v-flex class="col-sm-12">
         <span v-if="!title.forChecks" style="font-size: 17.5px">
           {{ title.text }}
         </span>
