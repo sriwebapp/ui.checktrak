@@ -9,10 +9,22 @@
           :footer-props="{ itemsPerPageOptions: [10] }"
         >
           <template v-slot:item.user_id="{ item }">
-            {{ item.user.name }}
+            <v-tooltip top>
+              <template v-slot:activator="{ on }">
+                <v-avatar size="30" v-on="on">
+                  <v-img :src="avatar(item.user)"></v-img>
+                </v-avatar>
+              </template>
+              <span> {{ item.user.name }} </span>
+            </v-tooltip>
           </template>
           <template v-slot:item.date="{ item }">
             {{ formatDate(item.date) }}
+          </template>
+          <template v-slot:item.created_at="{ item }">
+            <span class="overline grey--text">
+              {{ timestamp(item.created_at) }}
+            </span>
           </template>
           <template v-slot:item.action_id="{ item }">
             <v-chip
@@ -54,17 +66,26 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Date', align: 'left', value: 'date', width: '15%' },
-      { text: 'Action', align: 'left', value: 'action_id', width: '15%' },
-      { text: 'User', align: 'left', value: 'user_id', width: '30%' },
-      { text: 'Remarks', align: 'left', value: 'remarks', width: '30%' },
-      { text: 'View', align: 'right', value: 'view', width: '10%' }
+      { text: 'Timestamp', align: 'center', value: 'created_at', width: '14%' },
+      { text: 'Action Date', align: 'center', value: 'date', width: '12%' },
+      { text: 'Action', align: 'center', value: 'action_id', width: '12%' },
+      { text: 'User', align: 'center', value: 'user_id', width: '10%' },
+      { text: 'Remarks', align: 'left', value: 'remarks', width: '40%' },
+      { text: 'View', align: 'center', value: 'view', width: '12%' }
     ]
   }),
   methods: {
+    avatar(incharge) {
+      return process.env.VUE_APP_API + '/images/avatar/' + incharge.avatar
+    },
     formatDate(arg) {
       if (Date.parse(arg)) {
         return moment(new Date(arg)).format('MM/DD/Y')
+      }
+    },
+    timestamp(arg) {
+      if (Date.parse(arg)) {
+        return moment(new Date(arg)).format('MM/DD/Y HH:mm:ss')
       }
     },
     showState(item) {
