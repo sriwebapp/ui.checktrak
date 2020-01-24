@@ -86,11 +86,11 @@ export default {
       try {
         await this.$store.dispatch('check/updateHistory', this.history)
         await this.$store.dispatch('check/getCheck', this.history.check_id)
+        this.show = false
       } catch (error) {
         return
       } finally {
         this.loading = false
-        this.show = false
       }
     }
   },

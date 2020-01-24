@@ -1,5 +1,5 @@
 <template>
-  <v-card class="elevation-25" :loading="loading">
+  <v-card class="elevation-25">
     <v-toolbar dark flat color="black" height="50">
       <v-toolbar-title>Login</v-toolbar-title>
     </v-toolbar>
@@ -14,6 +14,7 @@
               prepend-icon="mdi-account-card-details-outline"
               :error-messages="error.get('username')"
               v-model="username"
+              :readonly="loading"
               autofocus
               required
             ></v-text-field>
@@ -27,6 +28,7 @@
               :error-messages="error.get('password')"
               prepend-icon="mdi-lock-open-outline"
               v-model="password"
+              :readonly="loading"
               required
             ></v-text-field>
           </v-flex>
@@ -41,6 +43,7 @@
               :items="companies"
               item-text="name"
               item-value="id"
+              :disabled="loading"
             >
             </v-select>
           </v-flex>
