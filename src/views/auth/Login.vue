@@ -1,5 +1,5 @@
 <template>
-  <v-card class="elevation-25">
+  <v-card class="elevation-25" :loading="loading">
     <v-toolbar dark flat color="black" height="50">
       <v-toolbar-title>Login</v-toolbar-title>
     </v-toolbar>
