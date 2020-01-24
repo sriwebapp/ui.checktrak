@@ -19,6 +19,16 @@
             </v-tooltip>
           </template>
           <template v-slot:item.date="{ item }">
+            <v-btn
+              icon
+              color="orange darken-2"
+              x-small
+              @click="update(item)"
+              v-if="editable"
+            >
+              <v-icon>mdi-calendar-edit</v-icon>
+            </v-btn>
+
             {{ formatDate(item.date) }}
           </template>
           <template v-slot:item.created_at="{ item }">
@@ -62,16 +72,19 @@ export default {
       set(arg) {
         this.$store.commit('check/showHistory', arg)
       }
+    },
+    editable() {
+      return this.$store.getters['auth/user'].actionAccess.includes('und')
     }
   },
   data: () => ({
     headers: [
       { text: 'Timestamp', align: 'center', value: 'created_at', width: '14%' },
-      { text: 'Action Date', align: 'center', value: 'date', width: '12%' },
+      { text: 'Action Date', align: 'center', value: 'date', width: '22%' },
       { text: 'Action', align: 'center', value: 'action_id', width: '12%' },
       { text: 'User', align: 'center', value: 'user_id', width: '10%' },
-      { text: 'Remarks', align: 'left', value: 'remarks', width: '40%' },
-      { text: 'View', align: 'center', value: 'view', width: '12%' }
+      { text: 'Remarks', align: 'left', value: 'remarks', width: '30%' },
+      { text: 'Actions', align: 'center', value: 'view', width: '12%' }
     ]
   }),
   methods: {
@@ -91,6 +104,10 @@ export default {
     showState(item) {
       this.$store.commit('check/checkState', JSON.parse(item.state))
       this.$store.commit('check/showState', true)
+    },
+    update(item) {
+      this.$store.commit('check/history', item)
+      this.$store.commit('check/showHistoryUpdate', true)
     }
   }
 }

@@ -21,6 +21,7 @@
     <failed-clear />
     <success-clear />
     <show-history />
+    <show-history-update />
     <show-selected />
     <show-state />
     <select-filter />
@@ -51,6 +52,7 @@ export default {
     failedClear: () => import('./FailedClear.vue'),
     successClear: () => import('./SuccessClear.vue'),
     showHistory: () => import('./History.vue'),
+    showHistoryUpdate: () => import('./HistoryUpdate.vue'),
     showSelected: () => import('./Selected.vue'),
     showState: () => import('./State.vue'),
     selectFilter: () => import('./SelectFilter.vue')
