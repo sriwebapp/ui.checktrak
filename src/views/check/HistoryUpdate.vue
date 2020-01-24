@@ -6,7 +6,7 @@
           <v-layout row wrap>
             <v-flex xs-12 class="my-n3">
               <v-date-picker
-                v-model="history.date"
+                v-model="date"
                 full-width
                 no-title
                 class="elevation-0"
@@ -52,8 +52,18 @@
 </template>
 
 <script>
+import Helper from './../../helper/Helper'
+
 export default {
   computed: {
+    date: {
+      get() {
+        return Helper.formatDate(this.history.date, 'Y-MM-DD')
+      },
+      set(arg) {
+        this.history.date = arg
+      }
+    },
     error() {
       return this.$store.getters.error
     },
