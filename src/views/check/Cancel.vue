@@ -17,6 +17,7 @@
                   prepend-icon="mdi-calendar"
                   @blur="formatDate(date2)"
                   @dblclick="showCalendar = true"
+                  placeholder="mm/dd/yyyy"
                   required
                 ></v-text-field>
               </v-flex>
@@ -206,7 +207,7 @@ export default {
         checks: this.selectedChecks.map(check => check.id)
       })
     },
-    formatDate(date) {
+    formatDate(date = null) {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
     }
@@ -214,7 +215,7 @@ export default {
   watch: {
     show(arg) {
       if (arg) {
-        this.formatDate(Date())
+        this.formatDate()
         this.error.reset()
         this.remarks = ''
         this.pagination = { page: 1 }

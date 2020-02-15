@@ -51,12 +51,13 @@
                 ></v-select>
               </v-flex>
 
-              <v-flex xs3 pl-2>
+              <v-flex xs3 pl-2 class="align-self-end">
                 <v-text-field
                   v-model="date2"
                   :error-messages="error.get('date')"
                   name="date"
                   label="Date"
+                  placeholder="mm/dd/yyyy"
                   prepend-icon="mdi-calendar"
                   @blur="formatDate(date2)"
                   @dblclick="showCalendar = true"
@@ -266,7 +267,7 @@ export default {
         checks: this.selectedChecks.map(check => check.id)
       })
     },
-    formatDate(date) {
+    formatDate(date = null) {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
     }
@@ -305,7 +306,7 @@ export default {
     },
     show(arg) {
       if (arg) {
-        this.formatDate(Date())
+        this.formatDate()
         this.error.reset()
         this.branch_id = 0
         this.group_id = 0

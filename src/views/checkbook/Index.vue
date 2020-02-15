@@ -35,12 +35,12 @@
                 item.totalChecks === item.postedChecks ? 'green lighten-5' : ''
               "
             >
-              <td>{{ item.account.code }}</td>
+              <td>{{ item.account }}</td>
               <td>{{ item.start_series }}</td>
               <td>{{ item.end_series }}</td>
-              <td class="text-center">{{ item.totalChecks }}</td>
-              <td class="text-center">{{ item.postedChecks }}</td>
-              <td class="text-center">{{ item.availableChecks }}</td>
+              <td class="text-center">{{ item.total_checks }}</td>
+              <td class="text-center">{{ item.posted_checks }}</td>
+              <td class="text-center">{{ item.available_checks }}</td>
               <td class="text-center">
                 <v-btn
                   icon
@@ -92,21 +92,21 @@ export default {
       {
         text: 'Checks',
         align: 'center',
-        value: 'totalChecks',
+        value: 'total_checks',
         width: '12%',
         sortable: false
       },
       {
         text: 'Posted',
         align: 'center',
-        value: 'postedChecks',
+        value: 'posted_checks',
         width: '12%',
         sortable: false
       },
       {
         text: 'Available',
         align: 'center',
-        value: 'availableChecks',
+        value: 'available_checks',
         width: '12%',
         sortable: false
       },
