@@ -32,7 +32,9 @@
               v-for="(item, key) in items"
               :key="key"
               :class="
-                item.totalChecks === item.postedChecks ? 'green lighten-5' : ''
+                item.total_checks === item.posted_checks
+                  ? 'green lighten-5'
+                  : ''
               "
             >
               <td>{{ item.account }}</td>
