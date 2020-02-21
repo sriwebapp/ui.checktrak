@@ -1,7 +1,6 @@
 <template>
   <v-card outlined class="ct-check-index">
     <filter-menu></filter-menu>
-    <!-- <v-divider v-if="filterType"></v-divider> -->
 
     <v-card-text class="pt-0">
       <v-data-table

@@ -1,6 +1,6 @@
 <template>
   <v-card outlined>
-    <v-card-title> Check Transmittal</v-card-title>
+    <v-card-title style="font-size: 17.5px">Check Transmittal</v-card-title>
     <v-card-text>
       <v-layout class="mb-5 mt-n4" justify-end>
         <v-flex xs4>
