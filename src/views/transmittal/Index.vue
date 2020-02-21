@@ -1,7 +1,20 @@
 <template>
   <v-card outlined>
-    <v-card-title style="font-size: 17.5px">Check Transmittal</v-card-title>
+    <v-card-title> Check Transmittal</v-card-title>
     <v-card-text>
+      <v-layout class="mb-5 mt-n4" justify-end>
+        <v-flex xs4>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-file-document-box-search-outline"
+            label="Search"
+            single-line
+            hide-details
+            autofocus
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+
       <v-data-table
         :headers="headers"
         :items="transmittals"
@@ -66,8 +79,8 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Reference No.', align: 'left', value: 'ref', width: '18%' },
-      { text: 'Branch', align: 'left', value: 'branch_id', width: '12%' },
+      { text: 'Reference No.', align: 'left', value: 'ref', width: '14%' },
+      { text: 'Branch', align: 'left', value: 'branch_id', width: '16%' },
       { text: 'Group', align: 'left', value: 'group_id', width: '12%' },
       { text: 'Date', align: 'center', value: 'date', width: '10%' },
       { text: 'Due', align: 'center', value: 'due', width: '10%' },
@@ -101,7 +114,8 @@ export default {
         width: '7%'
       }
     ],
-    pagination: {}
+    pagination: {},
+    search: ''
   }),
   methods: {
     formatDate(arg) {
@@ -123,7 +137,9 @@ export default {
       return
     },
     getTransmittals() {
-      this.$store.dispatch('transmittal/getTransmittals', this.pagination)
+      let options = Object.assign({}, this.pagination)
+      options.search = this.search
+      this.$store.dispatch('transmittal/getTransmittals', options)
     }
   },
   mounted() {
@@ -144,6 +160,9 @@ export default {
       handler() {
         this.debounceGetTransmittals()
       }
+    },
+    search() {
+      this.debounceGetTransmittals()
     }
   }
 }

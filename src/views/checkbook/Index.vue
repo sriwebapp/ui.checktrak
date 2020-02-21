@@ -15,6 +15,19 @@
     </v-card-title>
 
     <v-card-text>
+      <v-layout class="mb-5 mt-n4" justify-end>
+        <v-flex xs4>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-file-document-box-search-outline"
+            label="Search"
+            single-line
+            hide-details
+            autofocus
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+
       <v-data-table
         :headers="headers"
         :items="checkbooks"
@@ -120,14 +133,17 @@ export default {
         sortable: false
       }
     ],
-    pagination: {}
+    pagination: {},
+    search: ''
   }),
   created() {
     this.debouncedGetCheckbook = this._.debounce(this.getCheckbooks, 500)
   },
   methods: {
     getCheckbooks() {
-      this.$store.dispatch('checkbook/getCheckbooks', this.pagination)
+      let options = Object.assign({}, this.pagination)
+      options.search = this.search
+      this.$store.dispatch('checkbook/getCheckbooks', options)
     }
   },
   mounted() {
@@ -149,6 +165,9 @@ export default {
       handler() {
         this.debouncedGetCheckbook()
       }
+    },
+    search() {
+      this.debouncedGetCheckbook()
     }
   }
 }

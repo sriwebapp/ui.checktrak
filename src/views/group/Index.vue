@@ -15,10 +15,24 @@
       </v-btn>
     </v-card-title>
     <v-card-text>
+      <v-layout class="mb-5 mt-n4" justify-end>
+        <v-flex xs4>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-file-document-box-search-outline"
+            label="Search"
+            single-line
+            hide-details
+            autofocus
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+
       <v-data-table
         :headers="headers"
         :items="groups"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
+        :search="search"
       >
         <template v-slot:item.branch_id="{ item }">
           {{ item.branch.name }}
@@ -86,7 +100,8 @@ export default {
         sortable: false,
         width: '15%'
       }
-    ]
+    ],
+    search: ''
   }),
   methods: {
     avatar(incharge) {

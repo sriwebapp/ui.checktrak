@@ -16,10 +16,24 @@
       </v-btn>
     </v-card-title>
     <v-card-text>
+      <v-layout class="mb-5 mt-n4" justify-end>
+        <v-flex xs4>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-account-search-outline"
+            label="Search"
+            single-line
+            hide-details
+            autofocus
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+
       <v-data-table
         :headers="headers"
         :items="users"
         :footer-props="{ itemsPerPageOptions: [10, 20, 50] }"
+        :search="search"
       >
         <template v-slot:body="{ items }" v-if="users.length">
           <tbody>
@@ -94,7 +108,8 @@ export default {
         sortable: false,
         width: '12%'
       }
-    ]
+    ],
+    search: ''
   }),
   methods: {
     avatar(user) {
