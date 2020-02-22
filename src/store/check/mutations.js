@@ -20,6 +20,9 @@ export default {
   filterContent(state, payload) {
     state.filterContent = payload
   },
+  history(state, payload) {
+    state.history = payload
+  },
   selectedChecks(state, payload) {
     state.selectedChecks = payload
   },
@@ -91,6 +94,9 @@ export default {
   },
   showHistory(state, payload) {
     state.showHistory = payload
+  },
+  showHistoryUpdate(state, payload) {
+    state.showHistoryUpdate = payload
   },
   showReceive(state, payload) {
     state.showReceive = payload

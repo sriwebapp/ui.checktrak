@@ -9,10 +9,32 @@
           :footer-props="{ itemsPerPageOptions: [10] }"
         >
           <template v-slot:item.user_id="{ item }">
-            {{ item.user.name }}
+            <v-tooltip top>
+              <template v-slot:activator="{ on }">
+                <v-avatar size="30" v-on="on">
+                  <v-img :src="avatar(item.user)"></v-img>
+                </v-avatar>
+              </template>
+              <span> {{ item.user.name }} </span>
+            </v-tooltip>
           </template>
           <template v-slot:item.date="{ item }">
+            <v-btn
+              icon
+              color="orange darken-2"
+              x-small
+              @click="update(item)"
+              v-if="editable"
+            >
+              <v-icon>mdi-calendar-edit</v-icon>
+            </v-btn>
+
             {{ formatDate(item.date) }}
+          </template>
+          <template v-slot:item.created_at="{ item }">
+            <span class="overline grey--text">
+              {{ timestamp(item.created_at) }}
+            </span>
           </template>
           <template v-slot:item.action_id="{ item }">
             <v-chip
@@ -50,26 +72,42 @@ export default {
       set(arg) {
         this.$store.commit('check/showHistory', arg)
       }
+    },
+    editable() {
+      return this.$store.getters['auth/user'].actionAccess.includes('und')
     }
   },
   data: () => ({
     headers: [
-      { text: 'Date', align: 'left', value: 'date', width: '15%' },
-      { text: 'Action', align: 'left', value: 'action_id', width: '15%' },
-      { text: 'User', align: 'left', value: 'user_id', width: '30%' },
+      { text: 'Timestamp', align: 'center', value: 'created_at', width: '14%' },
+      { text: 'Action Date', align: 'center', value: 'date', width: '22%' },
+      { text: 'Action', align: 'center', value: 'action_id', width: '12%' },
+      { text: 'User', align: 'center', value: 'user_id', width: '10%' },
       { text: 'Remarks', align: 'left', value: 'remarks', width: '30%' },
-      { text: 'View', align: 'right', value: 'view', width: '10%' }
+      { text: 'Actions', align: 'center', value: 'view', width: '12%' }
     ]
   }),
   methods: {
+    avatar(incharge) {
+      return process.env.VUE_APP_API + '/images/avatar/' + incharge.avatar
+    },
     formatDate(arg) {
       if (Date.parse(arg)) {
         return moment(new Date(arg)).format('MM/DD/Y')
       }
     },
+    timestamp(arg) {
+      if (Date.parse(arg)) {
+        return moment(new Date(arg)).format('MM/DD/Y HH:mm:ss')
+      }
+    },
     showState(item) {
       this.$store.commit('check/checkState', JSON.parse(item.state))
       this.$store.commit('check/showState', true)
+    },
+    update(item) {
+      this.$store.commit('check/history', item)
+      this.$store.commit('check/showHistoryUpdate', true)
     }
   }
 }

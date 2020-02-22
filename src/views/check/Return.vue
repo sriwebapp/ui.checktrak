@@ -22,7 +22,7 @@
                 ></v-select>
               </v-flex>
 
-              <v-flex xs4>
+              <v-flex xs4 class="align-self-end">
                 <v-text-field
                   v-model="date2"
                   :error-messages="error.get('date')"
@@ -31,11 +31,12 @@
                   prepend-icon="mdi-calendar"
                   @blur="formatDate(date2)"
                   @dblclick="showCalendar = true"
+                  placeholder="mm/dd/yyyy"
                   required
                 ></v-text-field>
               </v-flex>
 
-              <v-flex xs4 class="px-5">
+              <v-flex xs4 class="px-5 align-self-end">
                 <v-text-field
                   v-model="remarks"
                   :error-messages="error.get('remarks')"
@@ -236,7 +237,7 @@ export default {
         selectedChecks: this.selectedChecks.map(i => i.id)
       })
     },
-    formatDate(date) {
+    formatDate(date = null) {
       this.date = Helper.formatDate(date, 'Y-MM-DD')
       this.date2 = Helper.formatDate(date, 'MM/DD/Y')
     },
@@ -254,7 +255,7 @@ export default {
         this.remarks = ''
         this.selectChecks = false
         this.checks = []
-        this.formatDate(Date())
+        this.formatDate()
         this.remarks = 'Returned'
       }
     },

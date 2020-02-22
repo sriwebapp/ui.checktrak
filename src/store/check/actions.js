@@ -265,5 +265,15 @@ export default {
     } finally {
       context.commit('transmitting', false)
     }
+  },
+  async updateHistory(context, data) {
+    try {
+      const url =
+        '/' + context.rootGetters['tools/company'].code + '/history/' + data.id
+
+      await Axios.patch(url, data)
+    } catch (e) {
+      throw e
+    }
   }
 }

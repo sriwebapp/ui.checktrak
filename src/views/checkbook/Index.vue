@@ -15,6 +15,19 @@
     </v-card-title>
 
     <v-card-text>
+      <v-layout class="mb-5 mt-n4" justify-end>
+        <v-flex xs4>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-file-document-box-search-outline"
+            label="Search"
+            single-line
+            hide-details
+            autofocus
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+
       <v-data-table
         :headers="headers"
         :items="checkbooks"
@@ -32,15 +45,17 @@
               v-for="(item, key) in items"
               :key="key"
               :class="
-                item.totalChecks === item.postedChecks ? 'green lighten-5' : ''
+                item.total_checks === item.posted_checks
+                  ? 'green lighten-5'
+                  : ''
               "
             >
-              <td>{{ item.account.code }}</td>
+              <td>{{ item.account }}</td>
               <td>{{ item.start_series }}</td>
               <td>{{ item.end_series }}</td>
-              <td class="text-center">{{ item.totalChecks }}</td>
-              <td class="text-center">{{ item.postedChecks }}</td>
-              <td class="text-center">{{ item.availableChecks }}</td>
+              <td class="text-center">{{ item.total_checks }}</td>
+              <td class="text-center">{{ item.posted_checks }}</td>
+              <td class="text-center">{{ item.available_checks }}</td>
               <td class="text-center">
                 <v-btn
                   icon
@@ -92,21 +107,21 @@ export default {
       {
         text: 'Checks',
         align: 'center',
-        value: 'totalChecks',
+        value: 'total_checks',
         width: '12%',
         sortable: false
       },
       {
         text: 'Posted',
         align: 'center',
-        value: 'postedChecks',
+        value: 'posted_checks',
         width: '12%',
         sortable: false
       },
       {
         text: 'Available',
         align: 'center',
-        value: 'availableChecks',
+        value: 'available_checks',
         width: '12%',
         sortable: false
       },
@@ -118,14 +133,17 @@ export default {
         sortable: false
       }
     ],
-    pagination: {}
+    pagination: {},
+    search: ''
   }),
   created() {
     this.debouncedGetCheckbook = this._.debounce(this.getCheckbooks, 500)
   },
   methods: {
     getCheckbooks() {
-      this.$store.dispatch('checkbook/getCheckbooks', this.pagination)
+      let options = Object.assign({}, this.pagination)
+      options.search = this.search
+      this.$store.dispatch('checkbook/getCheckbooks', options)
     }
   },
   mounted() {
@@ -147,6 +165,9 @@ export default {
       handler() {
         this.debouncedGetCheckbook()
       }
+    },
+    search() {
+      this.debouncedGetCheckbook()
     }
   }
 }
