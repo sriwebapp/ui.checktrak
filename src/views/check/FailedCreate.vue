@@ -37,10 +37,10 @@ export default {
     },
     show: {
       get() {
-        return this.$store.getters['check/showFailedCreate']
+        return this.$store.getters['check/showFailedCreateCheck']
       },
       set(arg) {
-        this.$store.commit('check/showFailedCreate', arg)
+        this.$store.commit('check/showFailedCreateCheck', arg)
       }
     }
   },

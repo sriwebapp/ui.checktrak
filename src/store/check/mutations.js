@@ -148,16 +148,16 @@ export default {
   successChecks(state, payload) {
     state.successChecks = payload
   },
-  showFailedClear(state, payload) {
-    state.showFailedClear = payload
+  showFailedClearCheck(state, payload) {
+    state.showFailedClearCheck = payload
   },
-  showSuccessClear(state, payload) {
-    state.showSuccessClear = payload
+  showSuccessClearCheck(state, payload) {
+    state.showSuccessClearCheck = payload
   },
-  showFailedCreate(state, payload) {
-    state.showFailedCreate = payload
+  showFailedCreateCheck(state, payload) {
+    state.showFailedCreateCheck = payload
   },
-  showSuccessCreate(state, payload) {
-    state.showSuccessCreate = payload
+  showSuccessCreateCheck(state, payload) {
+    state.showSuccessCreateCheck = payload
   }
 }

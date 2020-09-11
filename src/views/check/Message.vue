@@ -71,6 +71,7 @@ export default {
       this.$store.commit('check/failedChecks', this.import.failedChecks)
       this.$store.commit('check/showFailed' + this.import.subject, true)
       this.showFailed = false
+      console.log('reached')
     }
   }
 }
