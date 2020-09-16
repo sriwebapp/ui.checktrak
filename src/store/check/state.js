@@ -48,8 +48,8 @@ export default {
   failedMessage: null,
   failedChecks: [],
   successChecks: [],
-  showFailedClear: false,
-  showSuccessClear: false,
-  showFailedCreate: false,
-  showSuccessCreate: false
+  showFailedClearCheck: false,
+  showSuccessClearCheck: false,
+  showFailedCreateCheck: false,
+  showSuccessCreateCheck: false
 }

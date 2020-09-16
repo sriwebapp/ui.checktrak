@@ -69,10 +69,10 @@ export default {
     },
     show: {
       get() {
-        return this.$store.getters['check/showSuccessClear']
+        return this.$store.getters['check/showSuccessClearCheck']
       },
       set(arg) {
-        this.$store.commit('check/showSuccessClear', arg)
+        this.$store.commit('check/showSuccessClearCheck', arg)
       }
     }
   },

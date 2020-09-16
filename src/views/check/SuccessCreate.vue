@@ -54,10 +54,10 @@ export default {
     },
     show: {
       get() {
-        return this.$store.getters['check/showSuccessCreate']
+        return this.$store.getters['check/showSuccessCreateCheck']
       },
       set(arg) {
-        this.$store.commit('check/showSuccessCreate', arg)
+        this.$store.commit('check/showSuccessCreateCheck', arg)
       }
     }
   },
