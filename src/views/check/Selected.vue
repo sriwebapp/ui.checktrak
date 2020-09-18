@@ -48,9 +48,13 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn icon small :disabled="loading" :href="exportLink">
-          <v-icon color="green darken-3">mdi-file-export-outline</v-icon>
-        </v-btn>
+        <form :action="exportLink" method="post">
+          <input type="hidden" name="checks" :value="checkIds" />
+
+          <v-btn type="submit" icon small :disabled="loading">
+            <v-icon color="green darken-3">mdi-file-export-outline</v-icon>
+          </v-btn>
+        </form>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -74,11 +78,10 @@ export default {
       }
     },
     exportLink() {
-      return (
-        process.env.VUE_APP_API +
-        '/check/export?checks=' +
-        this.checks.map(c => c.id).join(',')
-      )
+      return process.env.VUE_APP_API + '/export/check'
+    },
+    checkIds() {
+      return JSON.stringify(this.checks.map(c => c.id))
     }
   },
   data: () => ({
