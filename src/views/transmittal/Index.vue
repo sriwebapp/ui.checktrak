@@ -32,6 +32,16 @@
               <td>{{ item.ref }}</td>
               <td>{{ item.branch.name }}</td>
               <td>{{ item.group.name }}</td>
+              <td class="text-center">
+                <v-tooltip top>
+                  <template v-slot:activator="{ on }">
+                    <v-avatar size="30" class="mx-1" v-on="on">
+                      <v-img :src="avatar(item.incharge_user)"></v-img>
+                    </v-avatar>
+                  </template>
+                  <span> {{ item.incharge_user.name }} </span>
+                </v-tooltip>
+              </td>
               <td class="text-center">{{ formatDate(item.date) }}</td>
               <td class="text-center">{{ formatDate(item.due) }}</td>
               <td class="text-center">{{ formatDate(item.returned) }}</td>
@@ -80,44 +90,54 @@ export default {
   data: () => ({
     headers: [
       { text: 'Reference No.', align: 'left', value: 'ref', width: '14%' },
-      { text: 'Branch', align: 'left', value: 'branch_id', width: '16%' },
+      { text: 'Branch', align: 'left', value: 'branch_id', width: '15%' },
       { text: 'Group', align: 'left', value: 'group_id', width: '12%' },
-      { text: 'Date', align: 'center', value: 'date', width: '10%' },
-      { text: 'Due', align: 'center', value: 'due', width: '10%' },
-      { text: 'Returned', align: 'center', value: 'returned', width: '10%' },
+      {
+        text: 'In Charge',
+        align: 'center',
+        value: 'incharge',
+        sortable: false,
+        width: '8%'
+      },
+      { text: 'Transmitted', align: 'center', value: 'date', width: '9%' },
+      { text: 'Due', align: 'center', value: 'due', width: '9%' },
+      { text: 'Returned', align: 'center', value: 'returned', width: '9%' },
       {
         text: 'Checks',
         align: 'center',
         value: 'checks',
         sortable: false,
-        width: '7%'
+        width: '6%'
       },
       {
         text: 'Claimed',
         align: 'center',
         value: 'claimed',
         sortable: false,
-        width: '7%'
+        width: '6%'
       },
       {
-        text: 'N Y R',
+        text: 'NYR',
         align: 'center',
         value: 'nyr',
         sortable: false,
-        width: '7%'
+        width: '6%'
       },
       {
         text: 'View',
         align: 'center',
         value: 'view',
         sortable: false,
-        width: '7%'
+        width: '6%'
       }
     ],
     pagination: {},
     search: ''
   }),
   methods: {
+    avatar(user) {
+      return process.env.VUE_APP_API + '/images/avatar/' + user.avatar
+    },
     formatDate(arg) {
       if (Date.parse(arg)) {
         return moment(new Date(arg)).format('MM/DD/Y')
