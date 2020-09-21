@@ -149,9 +149,13 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon small :href="exportLink" :disabled="loading">
-        <v-icon color="green darken-3">mdi-file-export-outline</v-icon>
-      </v-btn>
+      <form :action="exportLink" method="post">
+        <input type="hidden" name="id" :value="transmittal.id" />
+
+        <v-btn type="submit" icon small :disabled="loading">
+          <v-icon color="green darken-3">mdi-file-export-outline</v-icon>
+        </v-btn>
+      </form>
     </v-card-actions>
   </v-card>
 </template>
@@ -179,12 +183,7 @@ export default {
       })
     },
     exportLink() {
-      return (
-        process.env.VUE_APP_API +
-        '/transmittal/' +
-        this.transmittal.id +
-        '/export'
-      )
+      return process.env.VUE_APP_API + '/export/transmittal'
     },
     returnReport() {
       return (
