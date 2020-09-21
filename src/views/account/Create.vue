@@ -57,9 +57,7 @@
                 prepend-icon="mdi-account-badge-horizontal"
               ></v-text-field>
             </v-flex>
-          </v-flex>
 
-          <v-flex xs12 md6 class="px-5">
             <v-flex xs12>
               <v-text-field
                 v-model="account.tel"
@@ -69,7 +67,9 @@
                 prepend-icon="mdi-phone"
               ></v-text-field>
             </v-flex>
+          </v-flex>
 
+          <v-flex xs12 md6 class="px-5">
             <v-flex xs12>
               <v-text-field
                 v-model="account.email"
@@ -107,6 +107,16 @@
                 name="fax"
                 label="Fax"
                 prepend-icon="mdi-fax"
+              ></v-text-field>
+            </v-flex>
+
+            <v-flex xs12>
+              <v-text-field
+                v-model="account.reorder_point"
+                :error-messages="error.get('reorder_point')"
+                name="reorder_point"
+                label="Reorder_point"
+                prepend-icon="mdi-bell-ring-outline"
               ></v-text-field>
             </v-flex>
           </v-flex>
@@ -155,7 +165,7 @@ export default {
     }
   },
   data: () => ({
-    account: {}
+    account: { reorder_point: 0 }
   }),
   methods: {
     create() {

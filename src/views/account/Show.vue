@@ -127,6 +127,19 @@
         </v-list-item>
 
         <v-divider></v-divider>
+        <v-list-item two-line>
+          <v-list-item-avatar size="20">
+            <v-icon color="indigo">mdi-bell-ring-outline</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>
+              {{ account.reorder_point }}
+            </v-list-item-title>
+            <v-list-item-subtitle>Reorder Point</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-divider></v-divider>
       </v-container>
     </v-card-text>
     <v-card-actions>
