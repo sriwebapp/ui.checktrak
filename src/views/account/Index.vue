@@ -73,10 +73,10 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Code', align: 'left', value: 'code', width: '12%' },
-      { text: 'Number', align: 'left', value: 'number', width: '12%' },
+      { text: 'Code', align: 'left', value: 'code', width: '9%' },
+      { text: 'Number', align: 'left', value: 'number', width: '15%' },
       {
-        text: 'Checkbooks',
+        text: 'Available Checkbooks',
         align: 'center',
         value: 'available_checkbook',
         width: '8%'
