@@ -50,12 +50,12 @@
                   : ''
               "
             >
-              <td>{{ item.account }}</td>
+              <td>{{ item.account.code }}</td>
               <td>{{ item.start_series }}</td>
               <td>{{ item.end_series }}</td>
-              <td class="text-center">{{ item.total_checks }}</td>
-              <td class="text-center">{{ item.posted_checks }}</td>
-              <td class="text-center">{{ item.available_checks }}</td>
+              <td class="text-center">{{ item.total }}</td>
+              <td class="text-center">{{ item.posted }}</td>
+              <td class="text-center">{{ item.available }}</td>
               <td class="text-center">
                 <v-btn
                   icon
@@ -107,23 +107,20 @@ export default {
       {
         text: 'Checks',
         align: 'center',
-        value: 'total_checks',
-        width: '12%',
-        sortable: false
+        value: 'total',
+        width: '12%'
       },
       {
         text: 'Posted',
         align: 'center',
-        value: 'posted_checks',
-        width: '12%',
-        sortable: false
+        value: 'posted',
+        width: '12%'
       },
       {
         text: 'Available',
         align: 'center',
-        value: 'available_checks',
-        width: '12%',
-        sortable: false
+        value: 'available',
+        width: '12%'
       },
       {
         text: 'View',
