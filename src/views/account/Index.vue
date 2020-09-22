@@ -26,14 +26,12 @@
         </template>
 
         <template v-slot:item.need_reorder="{ item }">
-          <v-icon
-            small
-            :class="item.need_reorder ? 'green--text' : 'red--text'"
-            >{{
-              item.need_reorder
-                ? 'mdi-check-circle-outline'
-                : 'mdi-close-circle-outline'
-            }}</v-icon
+          <v-chip
+            x-small
+            :text-color="item.need_reorder ? 'red' : 'green'"
+            outlined
+            :class="item.need_reorder ? 'red' : 'green'"
+            >{{ item.need_reorder ? 'YES' : 'NO' }}</v-chip
           >
         </template>
 

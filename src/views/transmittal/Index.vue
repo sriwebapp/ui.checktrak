@@ -32,16 +32,7 @@
               <td>{{ item.ref }}</td>
               <td>{{ item.branch.name }}</td>
               <td>{{ item.group.name }}</td>
-              <td class="text-center">
-                <v-tooltip top>
-                  <template v-slot:activator="{ on }">
-                    <v-avatar size="30" class="mx-1" v-on="on">
-                      <v-img :src="avatar(item.incharge_user)"></v-img>
-                    </v-avatar>
-                  </template>
-                  <span> {{ item.incharge_user.name }} </span>
-                </v-tooltip>
-              </td>
+              <td class="text-center">{{ item.incharge_user.name }}</td>
               <td class="text-center">{{ formatDate(item.date) }}</td>
               <td class="text-center">{{ formatDate(item.due) }}</td>
               <td class="text-center">{{ formatDate(item.returned) }}</td>
@@ -89,46 +80,46 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Reference No.', align: 'left', value: 'ref', width: '14%' },
-      { text: 'Branch', align: 'left', value: 'branch_id', width: '15%' },
+      { text: 'Reference No.', align: 'left', value: 'ref', width: '17%' },
+      { text: 'Branch', align: 'left', value: 'branch_id', width: '13%' },
       { text: 'Group', align: 'left', value: 'group_id', width: '12%' },
       {
         text: 'In Charge',
         align: 'center',
         value: 'incharge',
         sortable: false,
-        width: '8%'
+        width: '14%'
       },
-      { text: 'Transmitted', align: 'center', value: 'date', width: '9%' },
-      { text: 'Due', align: 'center', value: 'due', width: '9%' },
-      { text: 'Returned', align: 'center', value: 'returned', width: '9%' },
+      { text: 'Transmitted', align: 'center', value: 'date', width: '7%' },
+      { text: 'Due', align: 'center', value: 'due', width: '7%' },
+      { text: 'Returned', align: 'center', value: 'returned', width: '7%' },
       {
         text: 'Checks',
         align: 'center',
         value: 'checks',
         sortable: false,
-        width: '6%'
+        width: '5%'
       },
       {
         text: 'Claimed',
         align: 'center',
         value: 'claimed',
         sortable: false,
-        width: '6%'
+        width: '5%'
       },
       {
         text: 'NYR',
         align: 'center',
         value: 'nyr',
         sortable: false,
-        width: '6%'
+        width: '5%'
       },
       {
         text: 'View',
         align: 'center',
         value: 'view',
         sortable: false,
-        width: '6%'
+        width: '5%'
       }
     ],
     pagination: {},
