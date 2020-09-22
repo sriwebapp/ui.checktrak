@@ -35,7 +35,7 @@
           <v-list-item two-line class="my-n4">
             <v-list-item-content class="text-right">
               <v-list-item-title>
-                {{ checkbook.totalChecks }} pc/s
+                {{ checkbook.total }} pc/s
               </v-list-item-title>
               <v-list-item-subtitle>Total Checks</v-list-item-subtitle>
             </v-list-item-content>
@@ -44,7 +44,7 @@
           <v-list-item two-line class="my-n4">
             <v-list-item-content class="text-right">
               <v-list-item-title>
-                {{ checkbook.postedChecks }} pc/s
+                {{ checkbook.posted }} pc/s
               </v-list-item-title>
               <v-list-item-subtitle>Posted Checks</v-list-item-subtitle>
             </v-list-item-content>
@@ -53,7 +53,7 @@
           <v-list-item two-line class="my-n4">
             <v-list-item-content class="text-right">
               <v-list-item-title>
-                {{ checkbook.availableChecks }} pc/s
+                {{ checkbook.available }} pc/s
               </v-list-item-title>
               <v-list-item-subtitle>Available Checks</v-list-item-subtitle>
             </v-list-item-content>

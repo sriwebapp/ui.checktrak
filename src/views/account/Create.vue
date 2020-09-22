@@ -115,7 +115,7 @@
                 v-model="account.reorder_point"
                 :error-messages="error.get('reorder_point')"
                 name="reorder_point"
-                label="Reorder_point"
+                label="Reorder Point"
                 prepend-icon="mdi-bell-ring-outline"
               ></v-text-field>
             </v-flex>
