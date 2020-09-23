@@ -80,19 +80,19 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Reference No.', align: 'left', value: 'ref', width: '17%' },
+      { text: 'Reference No.', align: 'left', value: 'ref', width: '19%' },
       { text: 'Branch', align: 'left', value: 'branch_id', width: '13%' },
-      { text: 'Group', align: 'left', value: 'group_id', width: '12%' },
+      { text: 'Group', align: 'left', value: 'group_id', width: '11%' },
       {
         text: 'In Charge',
         align: 'center',
         value: 'incharge',
         sortable: false,
-        width: '14%'
+        width: '13%'
       },
-      { text: 'Transmitted', align: 'center', value: 'date', width: '7%' },
-      { text: 'Due', align: 'center', value: 'due', width: '7%' },
-      { text: 'Returned', align: 'center', value: 'returned', width: '7%' },
+      { text: 'Transmitted', align: 'center', value: 'date', width: '8%' },
+      { text: 'Due', align: 'center', value: 'due', width: '8%' },
+      { text: 'Returned', align: 'center', value: 'returned', width: '8%' },
       {
         text: 'Checks',
         align: 'center',
