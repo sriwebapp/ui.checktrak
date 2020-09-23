@@ -31,6 +31,12 @@
               >
                 {{ decrypt(item.module).text }}
               </td>
+              <td
+                class="text-center"
+                :class="'ct-status-' + decrypt(item.report).color"
+              >
+                {{ decrypt(item.report).text }}
+              </td>
               <td class="text-center">
                 <v-btn
                   x-small
@@ -66,6 +72,7 @@ export default {
       { text: 'Actions', align: 'center', value: 'action', sortable: false },
       { text: 'Group', align: 'center', value: 'group', sortable: false },
       { text: 'Module', align: 'center', value: 'module', sortable: false },
+      { text: 'Report', align: 'center', value: 'report', sortable: false },
       { text: 'Manage', align: 'center', value: 'manage', sortable: false }
     ]
   }),
