@@ -19,6 +19,7 @@ export default {
       await this.$store.dispatch('tools/getActions')
       await this.$store.dispatch('tools/getGroups')
       await this.$store.dispatch('tools/getModules')
+      await this.$store.dispatch('tools/getReports')
       this.$store.commit('loader', false)
       this.$store.commit('access/waiting', false)
     } catch (error) {

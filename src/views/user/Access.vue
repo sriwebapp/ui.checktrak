@@ -82,7 +82,7 @@
             </p>
           </v-flex>
 
-          <v-row no-gutters class="mt-n5 ">
+          <v-row no-gutters class="mt-n5 mb-5">
             <v-col
               v-for="module in modules"
               :key="module.id"
@@ -98,6 +98,33 @@
               >
                 <template v-slot:label>
                   <span class="body-2">{{ module.name }}</span>
+                </template>
+              </v-checkbox>
+            </v-col>
+          </v-row>
+
+          <v-flex xs12>
+            <p :class="{ 'subtitle-1': true, 'grey--text': disable('report') }">
+              Select Reports:
+            </p>
+          </v-flex>
+
+          <v-row no-gutters class="mt-n5 mb-5">
+            <v-col
+              v-for="report in reports"
+              :key="report.id"
+              cols="12"
+              sm="4"
+              md="2"
+            >
+              <v-checkbox
+                v-model="selectedReports"
+                :value="report.code"
+                :disabled="disable('report')"
+                hide-details
+              >
+                <template v-slot:label>
+                  <span class="body-2">{{ report.name }}</span>
                 </template>
               </v-checkbox>
             </v-col>
@@ -141,6 +168,9 @@ export default {
     modules() {
       return this.$store.getters['tools/modules']
     },
+    reports() {
+      return this.$store.getters['tools/reports']
+    },
     access: {
       get() {
         return this.$store.getters['user/access']
@@ -159,7 +189,8 @@ export default {
   data: () => ({
     selectedActions: [],
     selectedGroups: [],
-    selectedModules: []
+    selectedModules: [],
+    selectedReports: []
   }),
   methods: {
     editAccess() {
@@ -168,7 +199,8 @@ export default {
         access_id: this.access,
         actions: this.selectedActions,
         groups: this.selectedGroups,
-        modules: this.selectedModules
+        modules: this.selectedModules,
+        reports: this.selectedReports
       })
     },
     disable(obj) {
@@ -214,6 +246,17 @@ export default {
       } else {
         this.selectedModules = this.user.modules.map(module => module.code)
       }
+    },
+    setReports() {
+      if (this.selectedAccess.report === 2) {
+        this.selectedReports = this.reports.map(report => report.code)
+      } else if (this.selectedAccess.report === 1) {
+        this.selectedReports = this.selectedAccess.reports.map(
+          report => report.code
+        )
+      } else {
+        this.selectedReports = this.user.reports.map(report => report.code)
+      }
     }
   },
   mounted() {
@@ -225,6 +268,7 @@ export default {
         this.setActions()
         this.setGroups()
         this.setModules()
+        this.setReports()
       }
     }
   }

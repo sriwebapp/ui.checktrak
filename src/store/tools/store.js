@@ -14,6 +14,7 @@ export default {
     modules: [],
     payees: [],
     payeeGroup: [],
+    reports: [],
     staledChecks: [],
     status: [],
     transmittals: [],
@@ -52,6 +53,9 @@ export default {
     },
     payeeGroup(state, payload) {
       state.payeeGroup = payload
+    },
+    reports(state, payload) {
+      state.reports = payload
     },
     status(state, payload) {
       state.status = payload
@@ -152,6 +156,14 @@ export default {
       try {
         const res = await Axios.get('/tools/modules')
         context.commit('modules', res.data)
+      } catch (error) {
+        throw error
+      }
+    },
+    async getReports(context) {
+      try {
+        const res = await Axios.get('/tools/reports')
+        context.commit('reports', res.data)
       } catch (error) {
         throw error
       }
@@ -304,6 +316,9 @@ export default {
     },
     payeeGroup(state) {
       return state.payeeGroup
+    },
+    reports(state) {
+      return state.reports
     },
     staledChecks(state) {
       return state.staledChecks

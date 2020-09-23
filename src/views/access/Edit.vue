@@ -116,7 +116,7 @@
             </v-radio-group>
           </v-flex>
 
-          <v-row no-gutters class="mt-n5">
+          <v-row no-gutters class="mt-n5 mb-5">
             <v-col
               v-for="module in modules"
               :key="module.id"
@@ -134,6 +134,45 @@
                   <span class="body-2">{{ module.name }}</span>
                 </template></v-checkbox
               >
+            </v-col>
+          </v-row>
+
+          <v-flex xs12>
+            <p class="subtitle-1">Select Reports:</p>
+          </v-flex>
+
+          <v-flex>
+            <v-radio-group v-model="report" row :disabled="loading">
+              <v-radio
+                v-for="(option, index) in options"
+                :key="index"
+                :value="index"
+              >
+                <template v-slot:label>
+                  <span class="body-1">{{ option }}</span>
+                </template>
+              </v-radio>
+            </v-radio-group>
+          </v-flex>
+
+          <v-row no-gutters class="mt-n5">
+            <v-col
+              v-for="report in reports"
+              :key="report.id"
+              cols="12"
+              sm="4"
+              md="2"
+            >
+              <v-checkbox
+                v-model="selectedReports"
+                :value="report.code"
+                :disabled="disable('report')"
+                hide-details
+              >
+                <template v-slot:label>
+                  <span class="body-2">{{ report.name }}</span>
+                </template>
+              </v-checkbox>
             </v-col>
           </v-row>
         </v-container>
@@ -179,16 +218,21 @@ export default {
     },
     modules() {
       return this.$store.getters['tools/modules']
+    },
+    reports() {
+      return this.$store.getters['tools/reports']
     }
   },
   data: () => ({
     action: null,
     group: null,
     module: null,
+    report: null,
     options: ['Custom', 'Selection', 'All'],
     selectedActions: [],
     selectedGroups: [],
-    selectedModules: []
+    selectedModules: [],
+    selectedReports: []
   }),
   methods: {
     disable(obj) {
@@ -202,9 +246,11 @@ export default {
         action: this.access.action,
         group: this.access.group,
         module: this.access.module,
+        report: this.access.report,
         actions: this.selectedActions,
         groups: this.selectedGroups,
-        modules: this.selectedModules
+        modules: this.selectedModules,
+        reports: this.selectedReports
       })
     },
     setActions(arg) {
@@ -241,6 +287,15 @@ export default {
       } else {
         this.selectedModules = []
       }
+    },
+    setReports(arg) {
+      if (arg === 2) {
+        this.selectedReports = this.reports.map(report => report.code)
+      } else if (arg === 1) {
+        this.selectedReports = this.access.reports.map(report => report.code)
+      } else {
+        this.selectedReports = []
+      }
     }
   },
   mounted() {
@@ -250,6 +305,7 @@ export default {
         this.action = res.data.action
         this.group = res.data.group
         this.module = res.data.module
+        this.report = res.data.report
       })
   },
   watch: {
@@ -264,6 +320,10 @@ export default {
     module(arg) {
       this.access.module = arg
       this.setModules(arg)
+    },
+    report(arg) {
+      this.access.report = arg
+      this.setReports(arg)
     }
   }
 }
