@@ -10,6 +10,7 @@
         <v-btn
           class="deep-orange white--text"
           small
+          :loading="loading"
           router
           :to="{ name: 'reports' }"
         >
@@ -190,18 +191,20 @@
 
       <v-divider></v-divider>
 
-      <v-card-actions>
+      <v-card-actions class="px-4">
+        <v-btn class="orange white--text" :loading="loading" @click="inquire">
+          Inquire
+        </v-btn>
+
         <v-spacer></v-spacer>
-        <form :action="exportLink" method="post">
+
+        <form v-for="n in batch" :key="n" :action="exportLink" method="post">
           <input type="hidden" name="filter" :value="filters" />
           <input type="hidden" name="user" :value="user.id" />
+          <input type="hidden" name="batch" :value="n" />
 
-          <v-btn
-            type="submit"
-            class="indigo white--text mr-2"
-            :loading="loading"
-          >
-            Generate Report
+          <v-btn class="purple lighten-1 white--text ml-1" type="submit">
+            {{ makeLabel(n) }}
           </v-btn>
         </form>
       </v-card-actions>
@@ -277,7 +280,10 @@ export default {
     numberFrom: '',
     numberTo: '',
     statuses: [],
-    filters: '{}'
+    filters: '{}',
+    checks: 0,
+    limit: 0,
+    batch: 0
   }),
   methods: {
     formatDate(date) {
@@ -293,11 +299,33 @@ export default {
     },
     resetContent() {
       this.content = Object.assign({}, this.content)
-
-      this.filters = JSON.stringify(this.content)
     },
-    test() {
-      console.log(this.filters)
+    async inquire() {
+      this.loading = true
+      this.batch = 0
+      try {
+        const res = await this.$store.dispatch('report/countMasterlist', {
+          filter: this.content
+        })
+
+        this.filters = JSON.stringify(this.content)
+
+        this.checks = res.checks
+        this.limit = res.limit
+
+        this.batch = Math.ceil(res.checks / res.limit)
+      } catch {
+        return
+      } finally {
+        this.loading = false
+      }
+    },
+    makeLabel(batch) {
+      let start = (batch - 1) * this.limit + 1
+      let last =
+        batch * this.limit < this.checks ? batch * this.limit : this.checks
+
+      return `${start} - ${last}`
     }
   },
   created() {

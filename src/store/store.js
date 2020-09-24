@@ -15,6 +15,7 @@ import payee from './payee/store'
 import check from './check/store'
 import transmittal from './transmittal/store'
 import imports from './imports/store'
+import report from './report/store'
 
 Vue.use(Vuex)
 
@@ -32,7 +33,8 @@ export default new Vuex.Store({
     payee,
     check,
     transmittal,
-    imports
+    imports,
+    report
   },
   state: {
     alert: {},
