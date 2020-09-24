@@ -109,6 +109,7 @@ export default {
             return this.modules.includes(item.code)
           })
           .concat(this.check)
+          .concat(this.misc)
       } else {
         return []
       }
@@ -136,10 +137,10 @@ export default {
     misc() {
       return [
         {
-          title: 'Data Imports',
-          icon: 'mdi-file-upload-outline',
-          route: '/import',
-          condition: this.user.actionAccess.includes('imt')
+          title: 'Reports',
+          icon: 'mdi-file-download-outline',
+          route: '/report',
+          condition: this.user.reportAccess.length
         }
       ].filter(item => item.condition)
     }

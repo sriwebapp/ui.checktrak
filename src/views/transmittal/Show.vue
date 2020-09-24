@@ -167,6 +167,9 @@ export default {
     loading() {
       return this.$store.getters['transmittal/loading']
     },
+    company() {
+      return this.$store.getters['tools/company']
+    },
     transmittal() {
       return this.$store.getters['transmittal/transmittal']
     },
@@ -183,7 +186,12 @@ export default {
       })
     },
     exportLink() {
-      return process.env.VUE_APP_API + '/export/transmittal'
+      return (
+        process.env.VUE_APP_API +
+        '/' +
+        this.company.code +
+        '/export/transmittal'
+      )
     },
     returnReport() {
       return (
