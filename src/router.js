@@ -13,6 +13,7 @@ import checkbook from './routes/checkbook'
 import payee from './routes/payee'
 import check from './routes/check'
 import transmittal from './routes/transmittal'
+import report from './routes/report'
 
 Vue.use(Router)
 
@@ -36,6 +37,7 @@ const router = new Router({
         payee,
         check,
         transmittal,
+        report,
         {
           path: '*',
           name: '404',

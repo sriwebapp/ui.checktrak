@@ -109,6 +109,7 @@
           autocomplete="off"
           @click="showCalendarTo = true"
           prepend-icon="mdi-calendar"
+          readonly
           outlined
           dense
         ></v-text-field>

@@ -66,6 +66,9 @@ export default {
     checks() {
       return this.$store.getters['check/selectedChecks']
     },
+    company() {
+      return this.$store.getters['tools/company']
+    },
     loading() {
       return this.$store.getters['check/loading']
     },
@@ -78,7 +81,7 @@ export default {
       }
     },
     exportLink() {
-      return process.env.VUE_APP_API + '/export/check'
+      return process.env.VUE_APP_API + '/' + this.company.code + '/export/check'
     },
     checkIds() {
       return JSON.stringify(this.checks.map(c => c.id))
