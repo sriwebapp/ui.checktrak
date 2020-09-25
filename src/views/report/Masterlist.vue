@@ -254,22 +254,40 @@
 
       <v-divider></v-divider>
 
-      <v-card-actions class="px-4">
-        <v-btn class="orange white--text" :loading="loading" @click="inquire">
-          Inquire
-        </v-btn>
+      <v-card-actions>
+        <v-row class="my-n3" v-if="!batch">
+          <v-col cols="12" sm="6" md="4">
+            <v-btn
+              block
+              class="orange white--text"
+              :loading="loading"
+              @click="inquire"
+            >
+              Inquire
+            </v-btn>
+          </v-col>
+        </v-row>
 
-        <v-spacer></v-spacer>
-
-        <form v-for="n in batch" :key="n" :action="exportLink" method="post">
-          <input type="hidden" name="filter" :value="filters" />
-          <input type="hidden" name="user" :value="user.id" />
-          <input type="hidden" name="batch" :value="n" />
-
-          <v-btn class="purple lighten-1 white--text ml-1" type="submit">
-            {{ makeLabel(n) }}
-          </v-btn>
-        </form>
+        <v-row v-if="batch" no-gutters>
+          <v-col v-for="n in batch" :key="n" xs="6" sm="4" md="3" class="pa-1">
+            <form :action="exportLink" method="post">
+              <input type="hidden" name="filter" :value="filters" />
+              <input type="hidden" name="user" :value="user.id" />
+              <input type="hidden" name="batch" :value="n" />
+              <v-btn
+                block
+                :class="success.includes(n) ? '' : 'white--text'"
+                color="purple"
+                type="submit"
+                @click="download(n)"
+                :loading="loadings.includes(n)"
+                :outlined="success.includes(n)"
+              >
+                {{ makeLabel(n) }}
+              </v-btn>
+            </form>
+          </v-col>
+        </v-row>
       </v-card-actions>
     </v-card>
 
@@ -358,7 +376,9 @@ export default {
     filters: '{}',
     checks: 0,
     limit: 0,
-    batch: 0
+    batch: 0,
+    loadings: [],
+    success: []
   }),
   methods: {
     formatDate(date) {
@@ -376,10 +396,11 @@ export default {
       this.content = Object.assign({}, this.content)
 
       this.batch = 0
+      this.loadings = []
+      this.success = []
     },
     async inquire() {
       this.loading = true
-      this.batch = 0
       try {
         const res = await this.$store.dispatch('report/countMasterlist', {
           filter: this.content
@@ -403,6 +424,14 @@ export default {
         batch * this.limit < this.checks ? batch * this.limit : this.checks
 
       return `${start} - ${last}`
+    },
+    download(batch) {
+      this.loadings.push(batch)
+      this.success.push(batch)
+
+      setTimeout(() => {
+        this.loadings = this.loadings.filter(n => n !== batch)
+      }, 10000)
     }
   },
   created() {
