@@ -291,6 +291,10 @@ export default {
 
         const res = await Axios.get(url)
 
+        context.commit('accounts', res.data.accounts)
+        context.commit('payees', res.data.payees)
+        context.commit('transmittals', res.data.transmittals)
+        context.commit('status', res.data.status)
         context.commit('branches', res.data.branches)
         context.commit('groups', res.data.groups)
         context.commit('users', res.data.users)
