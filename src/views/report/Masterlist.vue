@@ -8,11 +8,10 @@
 
         <v-spacer></v-spacer>
         <v-btn
-          color="deep-orange white--text"
+          class="deep-orange white--text"
           small
           :loading="loading"
           router
-          outlined
           :to="{ name: 'reports' }"
         >
           Return
@@ -397,7 +396,7 @@ export default {
       this.content = Object.assign({}, this.content)
 
       this.batch = 0
-      this.loading = []
+      this.loadings = []
       this.success = []
     },
     async inquire() {
@@ -432,7 +431,7 @@ export default {
 
       setTimeout(() => {
         this.loadings = this.loadings.filter(n => n !== batch)
-      }, 5000)
+      }, 10000)
     }
   },
   created() {
