@@ -10,6 +10,7 @@
         <v-btn
           class="deep-orange white--text"
           small
+          :loading="loading"
           router
           :to="{ name: 'reports' }"
         >
@@ -36,6 +37,147 @@
                   clearable
                   dense
                 ></v-select>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+        <v-card outlined class="mb-1">
+          <v-card-text>
+            <v-row class="mt-n2 mb-n6">
+              <v-col cols="12" sm="6" xs="12">
+                <v-text-field
+                  v-model="numberFrom"
+                  label="From #"
+                  prepend-icon="mdi-tag-text-outline"
+                  autocomplete="off"
+                  dense
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="12" sm="6" xs="12">
+                <v-text-field
+                  v-model="numberTo"
+                  prepend-icon="mdi-tag-text-outline"
+                  label="To #"
+                  autocomplete="off"
+                  dense
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+        <v-card outlined class="mb-1">
+          <v-card-text>
+            <v-row class="mt-n2 mb-n6">
+              <v-col cols="12" sm="6" xs="12">
+                <v-text-field
+                  :value="formatDate(dateFrom)"
+                  label="From Date"
+                  autocomplete="off"
+                  @click="showCalendarFrom = true"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  dense
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="12" sm="6" xs="12">
+                <v-text-field
+                  :value="formatDate(dateTo)"
+                  label="To Date"
+                  autocomplete="off"
+                  @click="showCalendarTo = true"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  dense
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+        <v-card outlined class="mb-1">
+          <v-card-text>
+            <v-row class="mt-n2 mb-n6">
+              <v-col cols="12" xs="12">
+                <v-select
+                  v-model="branch"
+                  label="Select Branch"
+                  :items="branches"
+                  item-text="name"
+                  item-value="id"
+                  prepend-icon="mdi-bank"
+                  autocomplete="off"
+                  return-object
+                  clearable
+                  dense
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+        <v-card outlined class="mb-1">
+          <v-card-text>
+            <v-row class="mt-n2 mb-n6">
+              <v-col cols="12" xs="12">
+                <v-select
+                  v-model="group"
+                  label="Select Group"
+                  :items="groups"
+                  item-text="name"
+                  item-value="id"
+                  prepend-icon="mdi-bank"
+                  autocomplete="off"
+                  return-object
+                  clearable
+                  dense
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+        <v-card outlined class="mb-1">
+          <v-card-text>
+            <v-row class="mt-n2 mb-n6">
+              <v-col cols="12" xs="12">
+                <v-select
+                  v-model="incharge"
+                  label="Select Incharge"
+                  :items="users"
+                  item-text="name"
+                  item-value="id"
+                  prepend-icon="mdi-bank"
+                  autocomplete="off"
+                  return-object
+                  clearable
+                  dense
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+        <v-card outlined class="mb-1">
+          <v-card-text>
+            <v-row class="mt-n2 mb-n6">
+              <v-col cols="12" xs="12">
+                <v-autocomplete
+                  label="Select Transmittal"
+                  v-model="transmittal"
+                  :search-input.sync="searchTransmittalRef"
+                  :items="transmittals"
+                  item-text="ref"
+                  item-value="id"
+                  prepend-icon="mdi-bank-transfer-out"
+                  return-object
+                  autocomplete="off"
+                  clearable
+                  dense
+                ></v-autocomplete>
               </v-col>
             </v-row>
           </v-card-text>
@@ -78,84 +220,6 @@
           </v-card-text>
         </v-card>
 
-        <v-card outlined class="mb-1">
-          <v-card-text>
-            <v-row class="mt-n2 mb-n6">
-              <v-col cols="12" xs="12">
-                <v-autocomplete
-                  label="Select Transmittal"
-                  v-model="transmittal"
-                  :search-input.sync="searchTransmittalRef"
-                  :items="transmittals"
-                  item-text="ref"
-                  item-value="id"
-                  prepend-icon="mdi-bank-transfer-out"
-                  return-object
-                  autocomplete="off"
-                  clearable
-                  dense
-                ></v-autocomplete>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-
-        <v-card outlined class="mb-1">
-          <v-card-text>
-            <v-row class="mt-n2 mb-n6">
-              <v-col cols="12" sm="6" xs="12">
-                <v-text-field
-                  :value="formatDate(dateFrom)"
-                  label="From Date"
-                  autocomplete="off"
-                  @click="showCalendarFrom = true"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  dense
-                ></v-text-field>
-              </v-col>
-
-              <v-col cols="12" sm="6" xs="12">
-                <v-text-field
-                  :value="formatDate(dateTo)"
-                  label="To Date"
-                  autocomplete="off"
-                  @click="showCalendarTo = true"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  dense
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-
-        <v-card outlined class="mb-1">
-          <v-card-text>
-            <v-row class="mt-n2 mb-n6">
-              <v-col cols="12" sm="6" xs="12">
-                <v-text-field
-                  v-model="numberFrom"
-                  label="From #"
-                  prepend-icon="mdi-tag-text-outline"
-                  autocomplete="off"
-                  dense
-                ></v-text-field>
-              </v-col>
-
-              <v-col cols="12" sm="6" xs="12">
-                <v-text-field
-                  v-model="numberTo"
-                  prepend-icon="mdi-tag-text-outline"
-                  label="To #"
-                  autocomplete="off"
-                  dense
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-
         <v-card outlined class="mb-n3">
           <v-card-text>
             <v-layout class="mb-1 mt-n3" wrap v-if="status.length">
@@ -190,18 +254,20 @@
 
       <v-divider></v-divider>
 
-      <v-card-actions>
+      <v-card-actions class="px-4">
+        <v-btn class="orange white--text" :loading="loading" @click="inquire">
+          Inquire
+        </v-btn>
+
         <v-spacer></v-spacer>
-        <form :action="exportLink" method="post">
+
+        <form v-for="n in batch" :key="n" :action="exportLink" method="post">
           <input type="hidden" name="filter" :value="filters" />
           <input type="hidden" name="user" :value="user.id" />
+          <input type="hidden" name="batch" :value="n" />
 
-          <v-btn
-            type="submit"
-            class="indigo white--text mr-2"
-            :loading="loading"
-          >
-            Generate Report
+          <v-btn class="purple lighten-1 white--text ml-1" type="submit">
+            {{ makeLabel(n) }}
           </v-btn>
         </form>
       </v-card-actions>
@@ -259,12 +325,24 @@ export default {
     },
     status() {
       return this.$store.getters['tools/status']
+    },
+    branches() {
+      return this.$store.getters['tools/branches']
+    },
+    groups() {
+      return this.$store.getters['tools/groups']
+    },
+    users() {
+      return this.$store.getters['tools/users']
     }
   },
   data: () => ({
     loading: false,
     content: {},
     account: null,
+    branch: null,
+    group: null,
+    incharge: null,
     payee: null,
     transmittal: null,
     dateFrom: '',
@@ -277,7 +355,10 @@ export default {
     numberFrom: '',
     numberTo: '',
     statuses: [],
-    filters: '{}'
+    filters: '{}',
+    checks: 0,
+    limit: 0,
+    batch: 0
   }),
   methods: {
     formatDate(date) {
@@ -293,11 +374,33 @@ export default {
     },
     resetContent() {
       this.content = Object.assign({}, this.content)
-
-      this.filters = JSON.stringify(this.content)
     },
-    test() {
-      console.log(this.filters)
+    async inquire() {
+      this.loading = true
+      this.batch = 0
+      try {
+        const res = await this.$store.dispatch('report/countMasterlist', {
+          filter: this.content
+        })
+
+        this.filters = JSON.stringify(this.content)
+
+        this.checks = res.checks
+        this.limit = res.limit
+
+        this.batch = Math.ceil(res.checks / res.limit)
+      } catch {
+        return
+      } finally {
+        this.loading = false
+      }
+    },
+    makeLabel(batch) {
+      let start = (batch - 1) * this.limit + 1
+      let last =
+        batch * this.limit < this.checks ? batch * this.limit : this.checks
+
+      return `${start} - ${last}`
     }
   },
   created() {
@@ -311,6 +414,7 @@ export default {
       await this.$store.dispatch('tools/getPayees')
       await this.$store.dispatch('tools/getTransmittals')
       await this.$store.dispatch('tools/getStatus')
+      await this.$store.dispatch('tools/getMasterlistReportTools')
       this.loading = false
       this.statuses = this.status.map(s => s.id)
     } catch {
@@ -335,6 +439,16 @@ export default {
     },
     account(arg) {
       this.content.account_id = arg ? arg.id : ''
+
+      this.resetContent()
+    },
+    group(arg) {
+      this.content.group_id = arg ? arg.id : ''
+
+      this.resetContent()
+    },
+    incharge(arg) {
+      this.content.incharge_id = arg ? arg.id : ''
 
       this.resetContent()
     },

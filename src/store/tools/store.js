@@ -281,6 +281,22 @@ export default {
       } catch (error) {
         throw error
       }
+    },
+    async getMasterlistReportTools(context) {
+      try {
+        const url =
+          '/tools/' +
+          context.rootGetters['tools/company'].code +
+          '/report/masterlist'
+
+        const res = await Axios.get(url)
+
+        context.commit('branches', res.data.branches)
+        context.commit('groups', res.data.groups)
+        context.commit('users', res.data.users)
+      } catch (e) {
+        return
+      }
     }
   },
   getters: {
