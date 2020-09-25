@@ -46,56 +46,23 @@
           <v-card-text>
             <v-row class="mt-n2 mb-n6">
               <v-col cols="12" sm="6" xs="12">
-                <v-autocomplete
-                  label="Payee Code"
-                  v-model="payee"
-                  :search-input.sync="searchPayeeCode"
-                  :items="payees"
-                  item-text="code"
-                  item-value="id"
-                  return-object
+                <v-text-field
+                  v-model="numberFrom"
+                  label="From #"
+                  prepend-icon="mdi-tag-text-outline"
                   autocomplete="off"
-                  prepend-icon="mdi-account-cash-outline"
                   dense
-                ></v-autocomplete>
+                ></v-text-field>
               </v-col>
 
               <v-col cols="12" sm="6" xs="12">
-                <v-autocomplete
-                  label="Payee Name"
-                  v-model="payee"
-                  :search-input.sync="searchPayeeName"
-                  :items="payees"
-                  item-text="name"
-                  item-value="id"
-                  prepend-icon="mdi-account-cash-outline"
-                  return-object
-                  clearable
+                <v-text-field
+                  v-model="numberTo"
+                  prepend-icon="mdi-tag-text-outline"
+                  label="To #"
                   autocomplete="off"
                   dense
-                ></v-autocomplete>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-
-        <v-card outlined class="mb-1">
-          <v-card-text>
-            <v-row class="mt-n2 mb-n6">
-              <v-col cols="12" xs="12">
-                <v-autocomplete
-                  label="Select Transmittal"
-                  v-model="transmittal"
-                  :search-input.sync="searchTransmittalRef"
-                  :items="transmittals"
-                  item-text="ref"
-                  item-value="id"
-                  prepend-icon="mdi-bank-transfer-out"
-                  return-object
-                  autocomplete="off"
-                  clearable
-                  dense
-                ></v-autocomplete>
+                ></v-text-field>
               </v-col>
             </v-row>
           </v-card-text>
@@ -134,24 +101,120 @@
         <v-card outlined class="mb-1">
           <v-card-text>
             <v-row class="mt-n2 mb-n6">
-              <v-col cols="12" sm="6" xs="12">
-                <v-text-field
-                  v-model="numberFrom"
-                  label="From #"
-                  prepend-icon="mdi-tag-text-outline"
+              <v-col cols="12" xs="12">
+                <v-select
+                  v-model="branch"
+                  label="Select Branch"
+                  :items="branches"
+                  item-text="name"
+                  item-value="id"
+                  prepend-icon="mdi-bank"
                   autocomplete="off"
+                  return-object
+                  clearable
                   dense
-                ></v-text-field>
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+        <v-card outlined class="mb-1">
+          <v-card-text>
+            <v-row class="mt-n2 mb-n6">
+              <v-col cols="12" xs="12">
+                <v-select
+                  v-model="group"
+                  label="Select Group"
+                  :items="groups"
+                  item-text="name"
+                  item-value="id"
+                  prepend-icon="mdi-bank"
+                  autocomplete="off"
+                  return-object
+                  clearable
+                  dense
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+        <v-card outlined class="mb-1">
+          <v-card-text>
+            <v-row class="mt-n2 mb-n6">
+              <v-col cols="12" xs="12">
+                <v-select
+                  v-model="incharge"
+                  label="Select Incharge"
+                  :items="users"
+                  item-text="name"
+                  item-value="id"
+                  prepend-icon="mdi-bank"
+                  autocomplete="off"
+                  return-object
+                  clearable
+                  dense
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+        <v-card outlined class="mb-1">
+          <v-card-text>
+            <v-row class="mt-n2 mb-n6">
+              <v-col cols="12" xs="12">
+                <v-autocomplete
+                  label="Select Transmittal"
+                  v-model="transmittal"
+                  :search-input.sync="searchTransmittalRef"
+                  :items="transmittals"
+                  item-text="ref"
+                  item-value="id"
+                  prepend-icon="mdi-bank-transfer-out"
+                  return-object
+                  autocomplete="off"
+                  clearable
+                  dense
+                ></v-autocomplete>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+        <v-card outlined class="mb-1">
+          <v-card-text>
+            <v-row class="mt-n2 mb-n6">
+              <v-col cols="12" sm="6" xs="12">
+                <v-autocomplete
+                  label="Payee Code"
+                  v-model="payee"
+                  :search-input.sync="searchPayeeCode"
+                  :items="payees"
+                  item-text="code"
+                  item-value="id"
+                  return-object
+                  autocomplete="off"
+                  prepend-icon="mdi-account-cash-outline"
+                  dense
+                ></v-autocomplete>
               </v-col>
 
               <v-col cols="12" sm="6" xs="12">
-                <v-text-field
-                  v-model="numberTo"
-                  prepend-icon="mdi-tag-text-outline"
-                  label="To #"
+                <v-autocomplete
+                  label="Payee Name"
+                  v-model="payee"
+                  :search-input.sync="searchPayeeName"
+                  :items="payees"
+                  item-text="name"
+                  item-value="id"
+                  prepend-icon="mdi-account-cash-outline"
+                  return-object
+                  clearable
                   autocomplete="off"
                   dense
-                ></v-text-field>
+                ></v-autocomplete>
               </v-col>
             </v-row>
           </v-card-text>
@@ -262,12 +325,24 @@ export default {
     },
     status() {
       return this.$store.getters['tools/status']
+    },
+    branches() {
+      return this.$store.getters['tools/branches']
+    },
+    groups() {
+      return this.$store.getters['tools/groups']
+    },
+    users() {
+      return this.$store.getters['tools/users']
     }
   },
   data: () => ({
     loading: false,
     content: {},
     account: null,
+    branch: null,
+    group: null,
+    incharge: null,
     payee: null,
     transmittal: null,
     dateFrom: '',
@@ -339,6 +414,7 @@ export default {
       await this.$store.dispatch('tools/getPayees')
       await this.$store.dispatch('tools/getTransmittals')
       await this.$store.dispatch('tools/getStatus')
+      await this.$store.dispatch('tools/getMasterlistReportTools')
       this.loading = false
       this.statuses = this.status.map(s => s.id)
     } catch {
@@ -363,6 +439,16 @@ export default {
     },
     account(arg) {
       this.content.account_id = arg ? arg.id : ''
+
+      this.resetContent()
+    },
+    group(arg) {
+      this.content.group_id = arg ? arg.id : ''
+
+      this.resetContent()
+    },
+    incharge(arg) {
+      this.content.incharge_id = arg ? arg.id : ''
 
       this.resetContent()
     },
