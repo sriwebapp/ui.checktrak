@@ -123,7 +123,7 @@
           <v-card-text>
             <v-row class="mt-n2 mb-n6">
               <v-col cols="12" xs="12">
-                <v-select
+                <v-autocomplete
                   v-model="group"
                   label="Select Group"
                   :items="groups"
@@ -134,7 +134,7 @@
                   return-object
                   clearable
                   dense
-                ></v-select>
+                ></v-autocomplete>
               </v-col>
             </v-row>
           </v-card-text>
@@ -144,7 +144,7 @@
           <v-card-text>
             <v-row class="mt-n2 mb-n6">
               <v-col cols="12" xs="12">
-                <v-select
+                <v-autocomplete
                   v-model="incharge"
                   label="Select Incharge"
                   :items="users"
@@ -155,7 +155,7 @@
                   return-object
                   clearable
                   dense
-                ></v-select>
+                ></v-autocomplete>
               </v-col>
             </v-row>
           </v-card-text>
@@ -374,6 +374,8 @@ export default {
     },
     resetContent() {
       this.content = Object.assign({}, this.content)
+
+      this.batch = 0
     },
     async inquire() {
       this.loading = true
@@ -410,10 +412,6 @@ export default {
   async mounted() {
     this.loading = true
     try {
-      await this.$store.dispatch('tools/getAccounts')
-      await this.$store.dispatch('tools/getPayees')
-      await this.$store.dispatch('tools/getTransmittals')
-      await this.$store.dispatch('tools/getStatus')
       await this.$store.dispatch('tools/getMasterlistReportTools')
       this.loading = false
       this.statuses = this.status.map(s => s.id)
@@ -439,6 +437,11 @@ export default {
     },
     account(arg) {
       this.content.account_id = arg ? arg.id : ''
+
+      this.resetContent()
+    },
+    branch(arg) {
+      this.content.branch_id = arg ? arg.id : ''
 
       this.resetContent()
     },
